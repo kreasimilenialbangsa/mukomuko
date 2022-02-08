@@ -1,0 +1,79 @@
+/* ================ BASE CSS FOR APPLICATION  =============== */
+
+html {
+	box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+	scrollbar-color: #45BF7C #8e8e8e;
+	scrollbar-width: thin;
+	-ms-overflow-style: none;
+}
+
+html:-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track{
+  background: #8e8e8e;
+}
+
+html::-webkit-scrollbar-thumb{
+  background: #45BF7C;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+	background-color: #f7f7f7;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #333435;
+}
+
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3,
+strong {
+	font-weight: 700;
+}
+
+h4,
+h5,
+h6,
+b,
+.h4,
+.h5,
+.h6 {
+	font-weight: 600;
+}
+
+a {
+	cursor: pointer;
+	outline: none;
+	text-decoration: inherit;
+}
+
+a:hover {
+  text-decoration: inherit;
+}
+
+
+/* Input Forms Global */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+.main-content {
+  padding-top: 120px;
+}

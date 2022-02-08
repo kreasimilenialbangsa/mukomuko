@@ -1,0 +1,90 @@
+.main-header .logo-header{
+  object-fit: contain;
+  width: 320px;
+  height: 50px;
+}
+
+.main-header {
+  padding: 10px 50px;
+  background: #FFFFFF;
+  box-shadow: 0px 3px 6px rgb(0 0 0 / 15%);
+}
+
+.main-header .navbar-nav .nav-item {
+  padding-right: 0.9rem;
+  padding-left: 0.9rem;
+}
+
+.main-header .navbar-nav .nav-link{
+  color: #65696F;
+  padding: 0;
+  font-weight: 500;
+  transition: .3s all linear;
+  display: inline-block;
+}
+
+.main-header .navbar-nav .nav-link:hover{
+  color: #45BF7C;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid #45BF7C;
+}
+
+.main-header .btn-hamburger span {
+  background-color: #000000;
+  width: 24px;
+  height: 3px;
+  display: block;
+  border-radius: 18px;
+  position: relative;
+  transition: transform .3s linear;
+}
+
+.main-header .btn-hamburger span:not(:first-child){
+  margin-top: 4px;
+}
+
+.main-header .hamburger{
+  border: 1px solid #45BF7C;
+  box-sizing: border-box;
+  border-radius: 4px;
+  height: 35px;
+  width: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.main-header .btn-hamburger[aria-expanded="true"] span.line-1{
+  transform: rotate(45deg);
+  top: 3px;
+}
+
+.main-header .btn-hamburger[aria-expanded="true"] span.line-2{
+  display: none;
+}
+
+.main-header .btn-hamburger[aria-expanded="true"] span.line-3{
+  transform: rotate(-45deg);
+  top: -4px;
+}
+
+@media only screen and (max-width: 1199px){
+  .main-header .logo-header{
+    width: 210px;
+    height: 35px;
+  }
+}
+
+@media only screen and (max-width: 991px){
+  .main-header {
+    padding: 8px 15px;
+  }
+  .main-header .navbar-nav .nav-item {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .main-header .navbar-nav{
+    text-align: center;
+  }
+}

@@ -1,36 +1,51 @@
-<form class="form-inline mr-auto">
-    <ul class="navbar-nav mr-3">
-      <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-      <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
-    </ul>
-    <div class="search-element">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-      <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-    </div>
-  </form>
-  <ul class="navbar-nav navbar-right">
-    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-      <img alt="image" src="{{ asset('web/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
-      <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
-      <div class="dropdown-menu dropdown-menu-right">
-        <div class="dropdown-title">Logged in 5 min ago</div>
-        <a href="features-profile.html" class="dropdown-item has-icon">
-          <i class="far fa-user"></i> Profile
-        </a>
-        <a href="features-activities.html" class="dropdown-item has-icon">
-          <i class="fas fa-bolt"></i> Activities
-        </a>
-        <a href="features-settings.html" class="dropdown-item has-icon">
-          <i class="fas fa-cog"></i> Settings
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item has-icon text-danger" 
-        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-          </form>
+<header class="main-header fixed-top">
+  <nav class="navbar p-0 navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+      <img class="logo-header" src="{{ asset('img/logo-nu.png') }}" alt="">
+    </a>
+    <button 
+      type="button" 
+      class="btn btn-hamburger p-0 d-lg-none d-block"
+      data-toggle="collapse" 
+      data-target="#navbarNav" 
+      aria-controls="navbarNav" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation">
+      <div class="hamburger">
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
       </div>
-    </li>
-  </ul>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto pt-lg-0 pt-3">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Ziswaf</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Tentang</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Program</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Berita</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Galery</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Layanan</a>
+        </li>
+        <li class="nav-actions py-3 d-lg-none d-block">
+          <button class="btn btn-outline-green mr-2">Masuk</button>
+          <button class="btn btn-green">Daftar</button>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-actions d-lg-block d-none">
+      <button class="btn btn-outline-green mr-2">Masuk</button>
+      <button class="btn btn-green">Daftar</button>
+    </div>
+  </nav>
+</header>
