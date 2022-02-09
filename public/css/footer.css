@@ -33,7 +33,6 @@
 }
 
 .main-footer .ic-ion.ic-sosmed:hover{
-  font-size: 20px;
   color: #45BF7C;
 }
 
@@ -41,17 +40,16 @@
   color: #65696F;
   display: inline-block;
   font-weight: 500;
+  padding-left: 0;
 }
 
 .main-footer .nav-link:hover{
   color: #45BF7C;
 }
 
-
 @media only screen and (max-width: 1199px){
   .main-footer .wrapper-footer{
-    padding: 10px 15px;
-    margin: 0;
+    padding: 30px 25px;
   }
   .main-footer .logo-footer{
     width: 210px;
@@ -63,22 +61,23 @@
   .main-footer{
     box-shadow: none;
     text-align: center;
+    margin-bottom: 60px;
   }
   .main-footer .wrapper-footer{
-    padding: 10px 15px;
-    margin: 0;
+    padding: 15px;
   }
   .main-footer .nav-link{
     font-size: 12px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0.3rem;
+    border-right: 1px solid #E3E3E3;
   }
   .main-footer .nav-wrap{
     justify-content: center;
     border-top: 1px solid #E3E3E3;
     border-bottom: 1px solid #E3E3E3;
     padding: 10px 0px;
-  }
-  .main-footer .nav-wrap .col-lg-6:not(:last-child) .nav-link{
-    border-right: 1px solid #E3E3E3;
   }
   .main-footer .wrap-sosmed{
     border-bottom: 1px solid #E3E3E3;

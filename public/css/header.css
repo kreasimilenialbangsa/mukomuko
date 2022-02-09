@@ -70,6 +70,9 @@
 }
 
 @media only screen and (max-width: 1199px){
+  .main-header {
+    padding: 10px 25px;
+  }
   .main-header .logo-header{
     width: 210px;
     height: 35px;

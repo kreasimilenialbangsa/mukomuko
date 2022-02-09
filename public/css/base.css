@@ -75,5 +75,6 @@ input[type='number'] {
 }
 
 .main-content {
-  padding-top: 120px;
+  padding-top: 80px;
+  min-height: 95vh;
 }

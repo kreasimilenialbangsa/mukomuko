@@ -1,36 +1,36 @@
 <footer class="main-footer">
   <div class="row wrapper-footer">
-    <div class="col-md-4 pr-lg-4">
+    <div class="col-lg-4 pl-0 pr-xl-5 pr-lg-4">
       <img class="logo-footer" src="{{ asset('img/logo-nu.png') }}" alt="">
       <p class="mt-3 d-lg-block d-none">NU CARE-LAZISNU adalah situs resmi Lembaga Amil Zakat, Infaq dan Shadaqah Nahdlatul Ulama yang dikelola oleh PC NU Care-LAZISNU Kabupaten Trenggalek</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <h6 class="d-lg-block d-none">Pelajari Lebih Lanjut</h6>
-      <div class="row nav-wrap mt-3">
-        <div class="col-lg-6 col-4 px-0">
+      <div class="row nav-wrap m-0 mt-3">
+        <div class="col-lg-6 col-3 px-0">
           <a class="nav-link" href="#">Tentang</a>
         </div>
-        <div class="col-lg-6 col-4 px-0">
+        <div class="col-lg-6 col-5 px-0">
           <a class="nav-link" href="#">Daftar Rekening</a>
         </div>
-        <div class="col-lg-6 col-4 px-0">
-          <a class="nav-link" href="#">Sekilas NU</a>
+        <div class="col-lg-6 col-3 px-0">
+          <a class="nav-link" href="#" style="border-right: none">Sekilas NU</a>
         </div>
-        <div class="col-lg-6 col-4 px-0">
+        <div class="col-lg-6 col-3 px-0">
           <a class="nav-link" href="#">GO-Ziswaf</a>
         </div>
-        <div class="col-lg-6 col-4 px-0">
+        <div class="col-lg-6 col-3 px-0">
           <a class="nav-link" href="#">Visi & Misi</a>
         </div>
-        <div class="col-lg-6 col-4 px-0">
+        <div class="col-lg-6 col-3 px-0">
           <a class="nav-link" href="#">Layanan</a>
         </div>
-        <div class="col-lg-6 col-4 px-0">
-          <a class="nav-link" href="#">Pengurus</a>
+        <div class="col-lg-6 col-3 px-0">
+          <a class="nav-link" href="#" style="border-right: none">Pengurus</a>
         </div>
       </div>
     </div>
-    <div class="col-md-4 d-lg-block d-none pr-5">
+    <div class="col-lg-4 d-lg-block d-none pr-xl-5 pr-lg-4">
       <h6>NU Care Lazisnu Kabupaten Trenggalek</h6>
       <div class="d-flex mt-4">
         <ion-icon class="ic-ion" name="location-sharp"></ion-icon>
@@ -40,9 +40,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-1 pl-0">
+    <div class="col-lg-1 px-0">
       <h6 class="clr-green d-lg-block d-none">Ikuti Kami</h6>
-      <div class="d-flex justify-content-center wrap-sosmed mt-lg-4">
+      <div class="d-flex justify-content-lg-start justify-content-center wrap-sosmed mt-lg-4">
         <a href="" class="mr-2">
           <ion-icon class="ic-ion ic-sosmed" name="logo-facebook"></ion-icon>
         </a>
