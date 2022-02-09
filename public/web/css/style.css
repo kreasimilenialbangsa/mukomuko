@@ -2349,8 +2349,8 @@ pre {
 .section {
   position: relative;
   z-index: 1; }
-  .section > *:first-child {
-    margin-top: -7px; }
+  /* .section > *:first-child {
+    margin-top: -7px; } */
   .section .section-header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);

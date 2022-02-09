@@ -1,12 +1,14 @@
-@extends('layouts.auth_app')
+@extends('admin.layouts.auth_app')
 @section('title')
     Admin Login
 @endsection
 @section('content')
-    <div class="p-4 m-3">
-        <img src="{{ asset('web/img/stisla-fill.svg') }}" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
-        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span></h4>
-        <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
+    <div class="p-4 m-3 w-100">
+        <div class="text-center">
+            <img src="{{ asset('img/logo-nu.png') }}" alt="logo" class="mb-5 mt-2">
+        </div>
+        {{-- <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span></h4>
+        <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p> --}}
         <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
             @csrf
             @if ($errors->any())
@@ -52,18 +54,18 @@
             </button>
         </div>
 
-        <div class="mt-5 text-center">
+        {{-- <div class="mt-5 text-center">
             Don't have an account? <a href="auth-register.html">Create new one</a>
-        </div>
+        </div> --}}
         </form>
 
         <div class="text-center mt-5 text-small">
         Copyright &copy; Your Company. Made with 💙 by Stisla
-        <div class="mt-2">
+        {{-- <div class="mt-2">
             <a href="#">Privacy Policy</a>
             <div class="bullet"></div>
             <a href="#">Terms of Service</a>
-        </div>
+        </div> --}}
         </div>
     </div>
 @endsection
