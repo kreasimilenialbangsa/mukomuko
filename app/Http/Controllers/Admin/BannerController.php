@@ -7,8 +7,12 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateBannerRequest;
 use App\Http\Requests\Admin\UpdateBannerRequest;
 use App\Repositories\Admin\BannerRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Str;
+use File;
+use Flash;
 use Response;
 
 class BannerController extends AppBaseController
@@ -52,7 +56,25 @@ class BannerController extends AppBaseController
      */
     public function store(CreateBannerRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'link_url' => $request->link_url,
+            'is_active' => 1
+        ];
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'mimes:jpeg,png|max:1014',
+            ]);
+
+            $file = $request->file('image');
+            $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::put('public/banner/'.$fileName, File::get($file));
+
+            $input['image'] = '/banner/'.$fileName;
+        }
 
         $banner = $this->bannerRepository->create($input);
 
@@ -119,7 +141,27 @@ class BannerController extends AppBaseController
             return redirect(route('admin.banners.index'));
         }
 
-        $banner = $this->bannerRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'link_url' => $request->link_url,
+            'is_active' => 1
+        ];
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'mimes:jpeg,png|max:1014',
+            ]);
+
+            $file = $request->file('image');
+            $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::put('public/banner/'.$fileName, File::get($file));
+
+            $input['image'] = '/banner/'.$fileName;
+        }
+
+        $banner = $this->bannerRepository->update($input, $id);
 
         Flash::success('Banner updated successfully.');
 

@@ -6,7 +6,7 @@
     <section class="section">
             <div class="section-header">
                 <h3 class="page__heading m-0">Edit Program Category</h3>
-                <div class="filter-container section-header-breadcrumb row justify-content-md-end">
+                <div class="section-header-breadcrumb">
                     <a href="{{ route('admin.programCategories.index') }}"  class="btn btn-primary">Back</a>
                 </div>
             </div>

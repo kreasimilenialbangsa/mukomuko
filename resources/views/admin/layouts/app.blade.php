@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <!-- CSS Libraries -->
+  <link href="{{ asset('vendor/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" type="text/css"/>
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
@@ -48,10 +49,54 @@
   <script src="{{ asset('web/js/stisla.js') }}"></script>
 
   <!-- JS Libraies -->
+  <script src="{{ asset('vendor/dropify/dist/js/dropify.min.js') }}"></script>
+  <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.11/tinymce.min.js" integrity="sha512-3tlegnpoIDTv9JHc9yJO8wnkrIkq7WO7QJLi5YfaeTmZHvfrb1twMwqT4C0K8BLBbaiR6MOo77pLXO1/PztcLg=="></script>
 
   <!-- Template JS File -->
   <script src="{{ asset('web/js/scripts.js') }}"></script>
   <script src="{{ asset('web/js/custom.js') }}"></script>
+
+  <script>
+    $('.dropify').dropify({
+        messages: {
+            default: 'Drag and drop file here or click',
+            replace: 'Drag and drop file here or click to Replace',
+            remove:  'Remove',
+            error:   'Sorry, the file is too large'
+        }
+    });
+  </script>
+
+  <script>
+    var editor_config = {
+        path_absolute : "/",
+        selector: 'textarea.my-editor',
+        height : "400",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+        relative_urls: false,
+        file_browser_callback : function(field_name, url, type, win) {
+            var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+            var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+            var cmsURL = editor_config.path_absolute + 'filemanager?field_name=' + field_name;
+                cmsURL = cmsURL + "&type=Files";
+            tinyMCE.activeEditor.windowManager.open({
+                file : cmsURL,
+                title : 'Filemanager',
+                width : x * 0.8,
+                height : y * 0.8,
+                resizable : "yes",
+                close_previous : "no"
+            });
+        }
+    }
+    tinymce.init(editor_config);
+  </script>
 
   <!-- Page Specific JS File -->
   @stack('script')

@@ -7,8 +7,12 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateNewsRequest;
 use App\Http\Requests\Admin\UpdateNewsRequest;
 use App\Repositories\Admin\NewsRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Str;
+use File;
+use Flash;
 use Response;
 
 class NewsController extends AppBaseController
@@ -52,9 +56,40 @@ class NewsController extends AppBaseController
      */
     public function store(CreateNewsRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'category_id' => $request->category_id,
+            'is_active' => $request->is_active,
+            'is_highlight' => $request->is_highlight
+        ];
 
         $news = $this->newsRepository->create($input);
+
+        if(@$request->images) {
+            foreach($request->images as $key => $images) {
+                if ($request->hasFile('images.'.$key.'.file')) {
+                    $request->validate([
+                        '*.images.*.file' => 'mimes:jpg,jpeg,png|max:3014',
+                        // '*.variant.*.color' => 'required',
+                    ]);
+                    
+                    $file = $request->file('images.'.$key.'.file');
+                    $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+                    Storage::put('public/news/'.$fileName, File::get($file));
+                    $imageFile = '/news/'.$fileName;
+
+                    $dataImage = [
+                        'file' => $imageFile,
+                        'news_id' => $news->id
+                    ];
+
+                    NewsImage::create($dataImage);
+                }
+            }
+        }
 
         Flash::success('News saved successfully.');
 

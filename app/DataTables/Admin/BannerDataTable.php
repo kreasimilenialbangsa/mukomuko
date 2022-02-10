@@ -18,7 +18,10 @@ class BannerDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.banners.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.pages.banners.datatables_actions')
+            ->editColumn('image', '<img src="{{ $image ? asset("storage".$image) : asset("img/no_image.jpg") }}" height="120px"/>')
+            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+            ->rawColumns(['image','action']);
     }
 
     /**
@@ -64,11 +67,9 @@ class BannerDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
-            'title',
             'image',
-            'description',
-            'link_url',
+            'title',
+            'created_at',
             'is_active'
         ];
     }

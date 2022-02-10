@@ -6,7 +6,7 @@
     <section class="section">
             <div class="section-header">
                 <h3 class="page__heading m-0">Edit Banner</h3>
-                <div class="filter-container section-header-breadcrumb row justify-content-md-end">
+                <div class="section-header-breadcrumb">
                     <a href="{{ route('admin.banners.index') }}"  class="btn btn-primary">Back</a>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-body ">
-                                    {!! Form::model($banner, ['route' => ['admin.banners.update', $banner->id], 'method' => 'patch']) !!}
+                                    {!! Form::model($banner, ['route' => ['admin.banners.update', $banner->id], 'method' => 'patch', 'files' => true]) !!}
                                         <div class="row">
                                             @include('admin.pages.banners.fields')
                                         </div>

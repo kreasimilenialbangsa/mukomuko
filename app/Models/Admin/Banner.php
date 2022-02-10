@@ -61,7 +61,6 @@ class Banner extends Model
      */
     public static $rules = [
         'title' => 'required',
-        'image' => 'required',
         'description' => 'required'
     ];
 

@@ -11,8 +11,9 @@
             </div>
         </div>
     <div class="section-body">
-       <div class="card">
-            <div class="card-body">
+            @include('flash::message')
+           <div class="card">
+                <div class="card-body">
                 @include('admin.pages.services.table')
             </div>
        </div>
