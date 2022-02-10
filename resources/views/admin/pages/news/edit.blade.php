@@ -17,7 +17,7 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-body ">
-                                    {!! Form::model($news, ['route' => ['admin.news.update', $news->id], 'method' => 'patch']) !!}
+                                    {!! Form::model($news, ['route' => ['admin.news.update', $news->id], 'method' => 'patch', 'files' => true]) !!}
                                         <div class="row">
                                             @include('admin.pages.news.fields')
                                         </div>

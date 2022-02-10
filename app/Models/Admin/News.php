@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $user_id
  * @property string $title
+ * @property string $slug
  * @property string $content
  * @property integer $category_id
  * @property integer $is_active
@@ -34,6 +35,7 @@ class News extends Model
     public $fillable = [
         'user_id',
         'title',
+        'slug',
         'content',
         'category_id',
         'is_active',
@@ -48,6 +50,7 @@ class News extends Model
     protected $casts = [
         'user_id' => 'integer',
         'title' => 'string',
+        'slug' => 'string',
         'content' => 'string',
         'category_id' => 'integer',
         'is_active' => 'integer',
@@ -65,5 +68,14 @@ class News extends Model
         'category_id' => 'required'
     ];
 
+    public function images()
+    {
+        return $this->hasMany(\App\Models\Admin\NewsImage::class, 'news_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->hasOne(\App\Models\Admin\NewsCategory::class, 'id', 'category_id');
+    }
     
 }

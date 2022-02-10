@@ -17,7 +17,7 @@ class CreateZiswafCategoriesTable extends Migration
         Schema::create('ziswaf_categories', function (Blueprint $table) {
             $table->id('id');
             $table->integer('user_id');
-            $table->string('title');
+            $table->string('name');
             $table->text('slug');
             $table->timestamps();
             $table->softDeletes();

@@ -1,14 +1,14 @@
 <div class="col-md-12">
-    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+    <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab" aria-controls="home" aria-selected="true">FORM</a>
+            <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">Form</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile" aria-selected="false">IMAGES</a>
+            <a class="nav-link" id="images-tab2" data-toggle="tab" href="#images2" role="tab" aria-controls="images" aria-selected="false">Image</a>
         </li>
     </ul>
     <div class="tab-content tab-bordered" id="myTab3Content">
-        <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+        <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
             <!-- Title Field -->
             <div class="form-group">
                 {!! Form::label('title', 'Title:') !!}
@@ -40,41 +40,87 @@
             </div>
             
         </div>
-        <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
-            <div class="row">
+        <div class="tab-pane fade" id="images2" role="tabpanel" aria-labelledby="images-tab2">
+            <div class="row-data row">
+                @if(@$news->images)
+                    @foreach ($news->images as $key => $row)
+                    <div class="form col-md-6">
+                        @if($key > 0)
+                            <span class="far fa-times-circle remove position-absolute text-danger" data-id="{{ $row->id }}" style="right: 15px; cursor: pointer; font-size: 20px;"></span>
+                        @endif
+                        <!-- Image Field -->
+                        <div class="form-group">
+                            {!! Form::label('image', 'Image:') !!}
+                            {!! Form::file('images['.$key.'][file]', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-show-remove' => 'false', 'data-height' => '300', 'data-default-file' => @$row->file ? asset('storage/'.$row->file) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
+                        </div>
+                        {!! Form::hidden('images['.$key.'][id]', null, ['class' => 'form-control']) !!}
+                    </div>
+                    @endforeach
+                @else
                 <div class="col-md-6">
                     <!-- Image Field -->
                     <div class="form-group">
                         {!! Form::label('image', 'Image:') !!}
-                        {!! Form::file('image', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-height' => '300', 'data-default-file' => @$banner->image ? asset('storage/'.$banner->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
+                        {!! Form::file('images[]', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-show-remove' => 'false', 'data-height' => '300', 'data-default-file' => @$banner->image ? asset('storage/'.$banner->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <!-- Image Field -->
-                    <div class="form-group">
-                        {!! Form::label('image', 'Image:') !!}
-                        {!! Form::file('image', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-height' => '300', 'data-default-file' => @$banner->image ? asset('storage/'.$banner->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
-                    </div>
-                </div>
+                @endif
             </div>
-        </div>
-        <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
-            Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor. Nam malesuada orci non ornare vulputate. Ut ut sollicitudin magna. Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum bibendum augue ut luctus.
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary btn-block" id="add-data"><i class="fa fa-plus"></i> Add Image</button>
+            </div>
         </div>
     </div>
 </div>
 
-
-<div class="col-md-5">
-    
-</div>
-
-<div class="col">
-    
-</div>
-
 <!-- Submit Field -->
-<div class="form-group col-sm-12">
+<div class="form-group col-sm-12 mt-3">
+    {!! Form::hidden('del', null, ['class' => 'form-control']) !!}
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('admin.news.index') }}" class="btn btn-light">Cancel</a>
 </div>
+
+@push('script')
+<script>
+     $(document).on('click', '#add-data', function (){
+        var key = $('.row-data > .form').length;
+        var no = key+1;
+        $('.row-data').append(`
+            <div class="form col-md-6">
+                <!-- Delete Button -->
+                <span class="far fa-times-circle remove position-absolute text-danger" style="right: 15px; cursor: pointer; font-size: 20px;"></span>
+                <!-- Image Field -->
+                <div class="form-group">
+                    {!! Form::label('images', 'Image:') !!}
+                    <input type="file" class="dropify" name="images[${key}][file]" data-height="300" data-allowed-file-extensions="jpeg png jpg" "data-show-remove"="false", accept=".png, .jpg, .jpeg" data-max-file-size="2M">
+                </div>
+            </div>
+        `);
+        
+        $('.dropify').dropify({
+            messages: {
+                default: 'Drag and drop file here or click',
+                replace: 'Drag and drop file here or click to Replace',
+                remove:  'Remove',
+                error:   'Sorry, the file is too large'
+            }
+        });
+     });
+
+        // Delete data
+        var del = [];
+        $(document).on('click', '.remove', function (){
+            var x = confirm("Are you sure you want to delete?");
+            
+            if(x) {
+                var id = $(this).data('id');
+                del.push(id);
+                
+                $(this).parents('.form').remove();
+                $('input[name=del]').val(del);
+            } else {
+                return false;
+            }
+        });
+</script>
+@endpush

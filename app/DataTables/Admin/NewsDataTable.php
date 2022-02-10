@@ -18,7 +18,10 @@ class NewsDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.news.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.pages.news.datatables_actions')
+            ->editColumn('image', '<img src="{{ $images ? asset("storage".$images[0]["file"]) : asset("img/no_image.jpg") }}" height="120px"/>')
+            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+            ->rawColumns(['image','action']);
     }
 
     /**
@@ -29,7 +32,8 @@ class NewsDataTable extends DataTable
      */
     public function query(News $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->with(['images', 'category']);
     }
 
     /**
@@ -64,10 +68,10 @@ class NewsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
             'title',
-            'content',
-            'category_id',
+            'image' => ['searchable' => false, 'orderable' => false],
+            'created_at',
+            'category_id' => ['data' => 'category.name', 'title' => 'Category'],
             'is_active',
             'is_highlight'
         ];

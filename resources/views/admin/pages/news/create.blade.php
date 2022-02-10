@@ -17,7 +17,7 @@
                    <div class="col-lg-12">
                        <div class="card">
                            <div class="card-body ">
-                                {!! Form::open(['route' => 'admin.news.store']) !!}
+                                {!! Form::open(['route' => 'admin.news.store', 'files' => true]) !!}
                                     <div class="row">
                                         @include('admin.pages.news.fields')
                                     </div>

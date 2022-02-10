@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\CreateNewsRequest;
 use App\Http\Requests\Admin\UpdateNewsRequest;
 use App\Repositories\Admin\NewsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\NewsImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Str;
@@ -68,15 +69,10 @@ class NewsController extends AppBaseController
 
         $news = $this->newsRepository->create($input);
 
-        if(@$request->images) {
+        if($request->images) {
             foreach($request->images as $key => $images) {
-                if ($request->hasFile('images.'.$key.'.file')) {
-                    $request->validate([
-                        '*.images.*.file' => 'mimes:jpg,jpeg,png|max:3014',
-                        // '*.variant.*.color' => 'required',
-                    ]);
-                    
-                    $file = $request->file('images.'.$key.'.file');
+                if ($request->hasFile('images.'.$key.'file')) {
+                    $file = $request->file('images.'.$key.'file');
                     $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
                     Storage::put('public/news/'.$fileName, File::get($file));
                     $imageFile = '/news/'.$fileName;
@@ -154,7 +150,50 @@ class NewsController extends AppBaseController
             return redirect(route('admin.news.index'));
         }
 
-        $news = $this->newsRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'category_id' => $request->category_id,
+            'is_active' => $request->is_active,
+            'is_highlight' => $request->is_highlight
+        ];
+
+        $news = $this->newsRepository->update($input, $id);
+
+        if($request->images) {
+            foreach($request->images as $key => $images) {
+                if (isset($images['file'])) {
+                    $file = $images['file'];
+                    $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+                    Storage::put('public/news/'.$fileName, File::get($file));
+                    $imageFile = '/news/'.$fileName;
+
+                    $dataImage = [
+                        'file' => $imageFile,
+                        'news_id' => $news->id
+                    ];
+
+                    if(isset($images['id'])) {
+                        // Update images
+                        NewsImage::whereId($images['id'])->update($dataImage);
+                    } else {
+                        // Save images
+                        NewsImage::create($dataImage);
+                    }
+                }
+                
+                // Delete images
+                if (isset($request->del)) {
+                    $del = explode(",", $request->del);
+                    
+                    foreach ($del as $key => $id) {
+                        NewsImage::whereId($id)->delete();
+                    }
+                }
+            }
+        }
 
         Flash::success('News updated successfully.');
 
