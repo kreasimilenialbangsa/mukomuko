@@ -1,6 +1,6 @@
 <header class="main-header fixed-top">
   <nav class="navbar p-0 navbar-expand-lg">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand mr-0" href="#">
       <img class="logo-header" src="{{ asset('img/logo-nu.png') }}" alt="">
     </a>
     <button 

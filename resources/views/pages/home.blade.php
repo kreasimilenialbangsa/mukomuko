@@ -258,7 +258,7 @@
               </div>
             </div>
           </div>
-          <div class="text-center mt-4">
+          <div class="text-center mt-3">
             <a href="" class="btn btn-green px-3">
               <div class="d-center">
                 Lihat Semua
@@ -366,7 +366,7 @@
               </div>
             </a>
           </div>
-          <div class="text-center mt-4">
+          <div class="text-center mt-3">
             <a href="" class="btn btn-green py-2 px-3">
               <div class="d-center">
                 Lihat Semua
