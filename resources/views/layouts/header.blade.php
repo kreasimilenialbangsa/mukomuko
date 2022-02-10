@@ -38,14 +38,14 @@
           <a class="nav-link">Layanan</a>
         </li>
         <li class="nav-actions py-3 d-lg-none d-block">
-          <button class="btn btn-outline-green mr-2">Masuk</button>
-          <button class="btn btn-green">Daftar</button>
+          <button class="btn px-3 btn-outline-green mr-2">Masuk</button>
+          <button class="btn px-3 btn-green">Daftar</button>
         </li>
       </ul>
     </div>
     <div class="nav-actions d-lg-block d-none">
-      <button class="btn btn-outline-green mr-2">Masuk</button>
-      <button class="btn btn-green">Daftar</button>
+      <button class="btn px-3 btn-outline-green mr-2">Masuk</button>
+      <button class="btn px-3 btn-green">Daftar</button>
     </div>
   </nav>
 </header>

@@ -30,12 +30,15 @@
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/fancybox.css') }}">
   <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ asset('css/base.css') }}">
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
   <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+
+  @yield('css')
 </head>
 <body>
   <!-- Contents -->
@@ -47,6 +50,9 @@
       <div class="main-content">
         @yield('content')
       </div>
+      <a href="#" class="wa-sosmed">
+        <img height="64" width="64" src="{{ asset('img/wa-contact.svg') }}" alt="">
+      </a>
       <!-- Main Footer -->
       @include('layouts.footer')
     </div>
@@ -62,5 +68,6 @@
   <script src="{{ asset('js/popper.min.js') }}"></script>
   <script src="{{ asset('js/fancybox.js') }}"></script>
   <script src="{{ asset('js/slick.min.js') }}"></script>
+  @yield('scripts')
 </body>
 </html>

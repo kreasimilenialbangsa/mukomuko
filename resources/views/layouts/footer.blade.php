@@ -2,7 +2,7 @@
   <div class="row wrapper-footer">
     <div class="col-lg-4 pl-0 pr-xl-5 pr-lg-4">
       <img class="logo-footer" src="{{ asset('img/logo-nu.png') }}" alt="">
-      <p class="mt-3 d-lg-block d-none">NU CARE-LAZISNU adalah situs resmi Lembaga Amil Zakat, Infaq dan Shadaqah Nahdlatul Ulama yang dikelola oleh PC NU Care-LAZISNU Kabupaten Trenggalek</p>
+      <p class="mt-4 d-lg-block d-none">NU CARE-LAZISNU adalah situs resmi Lembaga Amil Zakat, Infaq dan Shadaqah Nahdlatul Ulama yang dikelola oleh PC NU Care-LAZISNU Kabupaten Trenggalek</p>
     </div>
     <div class="col-lg-3">
       <h6 class="d-lg-block d-none">Pelajari Lebih Lanjut</h6>
