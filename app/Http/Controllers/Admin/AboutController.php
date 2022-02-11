@@ -7,8 +7,10 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateAboutRequest;
 use App\Http\Requests\Admin\UpdateAboutRequest;
 use App\Repositories\Admin\AboutRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Str;
+use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class AboutController extends AppBaseController
@@ -52,7 +54,13 @@ class AboutController extends AppBaseController
      */
     public function store(CreateAboutRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'description' => $request->description,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
 
         $about = $this->aboutRepository->create($input);
 
@@ -119,7 +127,15 @@ class AboutController extends AppBaseController
             return redirect(route('admin.abouts.index'));
         }
 
-        $about = $this->aboutRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'description' => $request->description,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
+
+        $about = $this->aboutRepository->update($input, $id);
 
         Flash::success('About updated successfully.');
 

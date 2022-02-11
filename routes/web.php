@@ -24,6 +24,10 @@ Route::get('/view/home', function () {
 
 Auth::routes();
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
 /** Admin Area Start*/
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // Dashboard

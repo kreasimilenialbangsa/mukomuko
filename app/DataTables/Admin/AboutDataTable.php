@@ -18,7 +18,9 @@ class AboutDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.abouts.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.pages.abouts.datatables_actions')
+            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->rawColumns(['is_active', 'action']);
     }
 
     /**
@@ -64,9 +66,7 @@ class AboutDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
             'title',
-            'description',
             'is_active'
         ];
     }

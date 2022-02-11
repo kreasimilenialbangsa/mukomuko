@@ -15,28 +15,38 @@
                 {!! Form::text('title', null, ['class' => 'form-control']) !!}
             </div>
 
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Category Id Field -->
+                    <div class="form-group">
+                        {!! Form::label('category_id', 'Category Id:') !!}
+                        {!! Form::number('category_id', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-around">
+                    <div class="form-group">
+                        <div class="control-label">Is Highlight:</div>
+                        <label class="custom-switch mt-2 pl-0">
+                            <input type="checkbox" name="is_highlight" value="1" class="custom-switch-input">
+                            <span class="custom-switch-indicator"></span>
+                        </label>
+                    </div>
+                                     
+                    <div class="form-group">
+                        <div class="control-label">Is Active:</div>
+                        <label class="custom-switch mt-2 pl-0">
+                            <input type="checkbox" name="is_active" value="1" class="custom-switch-input" checked>
+                            <span class="custom-switch-indicator"></span>
+                        </label>
+                    </div>
+        
+                </div>
+            </div>
+
             <!-- Content Field -->
             <div class="form-group">
                 {!! Form::label('content', 'Content:') !!}
                 {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
-            </div>
-
-            <!-- Category Id Field -->
-            <div class="form-group">
-                {!! Form::label('category_id', 'Category Id:') !!}
-                {!! Form::number('category_id', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Is Active Field -->
-            <div class="form-group">
-                {!! Form::label('is_active', 'Is Active:') !!}
-                {!! Form::number('is_active', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Is Highlight Field -->
-            <div class="form-group">
-                {!! Form::label('is_highlight', 'Is Highlight:') !!}
-                {!! Form::number('is_highlight', null, ['class' => 'form-control']) !!}
             </div>
             
         </div>

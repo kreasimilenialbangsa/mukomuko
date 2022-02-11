@@ -17,7 +17,7 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-body ">
-                                    {!! Form::model($gallery, ['route' => ['admin.galleries.update', $gallery->id], 'method' => 'patch']) !!}
+                                    {!! Form::model($gallery, ['route' => ['admin.galleries.update', $gallery->id], 'method' => 'patch', 'files' => true]) !!}
                                         <div class="row">
                                             @include('admin.pages.galleries.fields')
                                         </div>

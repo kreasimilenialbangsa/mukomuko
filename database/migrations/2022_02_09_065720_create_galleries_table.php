@@ -20,8 +20,8 @@ class CreateGalleriesTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->text('link_url');
-            $table->text('image');
-            $table->text('video');
+            $table->enum('type', ['image', 'video']);
+            $table->text('content');
             $table->integer('is_active');
             $table->timestamps();
             $table->softDeletes();
