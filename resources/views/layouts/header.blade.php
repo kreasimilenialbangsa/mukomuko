@@ -23,19 +23,16 @@
           <a class="nav-link" href="/view/ziswaf">Ziswaf</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Program</a>
+          <a class="nav-link" href="/view/program">Program</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Berita</a>
+          <a class="nav-link" href="/view/berita">Berita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Donatur</a>
+          <a class="nav-link" href="/view/donatur">Donatur</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Galeri</a>
-        </li>
-           <li class="nav-item">
-          <a class="nav-link" href="#">Galeri</a>
+          <a class="nav-link" href="/view/galeri">Galeri</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/view/layanan/daftar-rekening" role="button" data-toggle="dropdown" aria-expanded="false">

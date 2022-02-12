@@ -227,7 +227,7 @@
                       <h6 class="text-sm">32</h6>
                     </div>
                   </div>
-                  <a href="" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
+                  <a href="/view/program" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
                 </div>
               </div>
             </div>
@@ -367,7 +367,7 @@
             </a>
           </div>
           <div class="text-center mt-3">
-            <a href="" class="btn btn-green py-2 px-3">
+            <a href="/view/berita" class="btn btn-green py-2 px-3">
               <div class="d-center">
                 Lihat Semua
                 <ion-icon class="ml-2" name="chevron-down-outline"></ion-icon>

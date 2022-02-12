@@ -45,6 +45,14 @@ Route::get('/view/layanan/go-ziswaf', function () {
     return view('pages.go-ziswaf');
 });
 
+Route::get('/view/berita', function () {
+    return view('pages.news');
+});
+
+Route::get('/view/program', function () {
+    return view('pages.program');
+});
+
 Auth::routes();
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth']], function () {
