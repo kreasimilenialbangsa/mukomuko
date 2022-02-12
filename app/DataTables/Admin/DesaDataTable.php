@@ -1,12 +1,12 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Admin;
 
-use App\Models\User;
+use App\Models\Admin\Desa;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class UserDataTable extends DataTable
+class DesaDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,24 +18,23 @@ class UserDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.users.datatables_actions')
-            ->addIndexColumn()
+        return $dataTable->addColumn('action', 'admin.pages.desas.datatables_actions')
             ->editColumn('is_active', 'admin.layouts.toggle')
-            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
             ->rawColumns(['is_active', 'action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\User $model
+     * @param \App\Models\Desa $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Desa $model)
     {
         return $model->newQuery()
-            ->with('role_user.role')
-            ->select('users.*');
+            ->select('locations.*', 'loc.name as parent')
+            ->join('locations as loc', 'locations.parent_id', 'loc.id')
+            ->where('locations.parent_id', '<>', 0);
     }
 
     /**
@@ -54,7 +53,6 @@ class UserDataTable extends DataTable
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
-                    
                     ['extend' => 'export', 'className' => 'btn btn-primary no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-primary no-corner',],
                     ['extend' => 'reload', 'className' => 'btn btn-primary no-corner',],
@@ -70,10 +68,8 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name',
-            'email',
-            'role_user.role.name' => ['title' => 'Role', 'name'=> 'role_user.role.name', 'className' => 'text-center'],
-            'created_at' => ['className' => 'text-center'],
+            'loc.name' => ['title' => 'Kecamatan', 'className' => 'text-center', 'data' => 'parent', 'name' => "loc.name"],
+            'name' => ['title' => 'Desa', 'className' => 'text-center'],
             'is_active' => ['className' => 'text-center']
         ];
     }
@@ -85,6 +81,6 @@ class UserDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'users_datatable_' . time();
+        return 'desas_datatable_' . time();
     }
 }

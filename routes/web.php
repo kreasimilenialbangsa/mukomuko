@@ -73,6 +73,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:SuperAdmin|Kab
         Route::resource('program', App\Http\Controllers\Admin\ProgramCategoryController::class, ["as" => 'admin.category']);
         Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafCategoryController::class, ["as" => 'admin.category']);
     });
+    
+    // Location
+    Route::group(['prefix' => 'location'], function () {
+        Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class, ["as" => 'admin.location']);
+        Route::resource('desa', App\Http\Controllers\Admin\DesaController::class, ["as" => 'admin.location']);
+    });    
 
     Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
 });

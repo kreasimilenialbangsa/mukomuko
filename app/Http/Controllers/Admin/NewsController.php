@@ -63,27 +63,25 @@ class NewsController extends AppBaseController
             'slug' => Str::slug($request->title),
             'content' => $request->content,
             'category_id' => $request->category_id,
-            'is_active' => $request->is_active,
-            'is_highlight' => $request->is_highlight
+            'is_active' => isset($request->is_active) ? $request->is_active : 0,
+            'is_highlight' => isset($request->is_highlight) ? $request->is_highlight : 0
         ];
 
         $news = $this->newsRepository->create($input);
 
         if($request->images) {
             foreach($request->images as $key => $images) {
-                if ($request->hasFile('images.'.$key.'file')) {
-                    $file = $request->file('images.'.$key.'file');
-                    $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
-                    Storage::put('public/news/'.$fileName, File::get($file));
-                    $imageFile = '/news/'.$fileName;
+                $file = $images['file'];
+                $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+                Storage::put('public/news/'.$fileName, File::get($file));
+                $imageFile = '/news/'.$fileName;
 
-                    $dataImage = [
-                        'file' => $imageFile,
-                        'news_id' => $news->id
-                    ];
+                $dataImage = [
+                    'file' => $imageFile,
+                    'news_id' => $news->id
+                ];
 
-                    NewsImage::create($dataImage);
-                }
+                NewsImage::create($dataImage);
             }
         }
 
@@ -156,8 +154,8 @@ class NewsController extends AppBaseController
             'slug' => Str::slug($request->title),
             'content' => $request->content,
             'category_id' => $request->category_id,
-            'is_active' => $request->is_active,
-            'is_highlight' => $request->is_highlight
+            'is_active' => isset($request->is_active) ? $request->is_active : 0,
+            'is_highlight' => isset($request->is_highlight) ? $request->is_highlight : 0
         ];
 
         $news = $this->newsRepository->update($input, $id);

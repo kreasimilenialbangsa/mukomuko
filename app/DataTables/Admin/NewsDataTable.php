@@ -71,7 +71,7 @@ class NewsDataTable extends DataTable
             'title',
             'image' => ['searchable' => false, 'orderable' => false],
             'created_at',
-            'category_id' => ['data' => 'category.name', 'title' => 'Category'],
+            'category_id' => ['data' => 'category.name', 'name' => 'category_id', 'title' => 'Category'],
             'is_active',
             'is_highlight'
         ];

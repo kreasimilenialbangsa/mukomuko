@@ -61,7 +61,7 @@ class BannerController extends AppBaseController
             'title' => $request->title,
             'description' => $request->description,
             'link_url' => $request->link_url,
-            'is_active' => 1
+            'is_active' => isset($request->is_active) ? $request->is_active : 0,
         ];
 
         if ($request->hasFile('image')) {
@@ -146,7 +146,7 @@ class BannerController extends AppBaseController
             'title' => $request->title,
             'description' => $request->description,
             'link_url' => $request->link_url,
-            'is_active' => 1
+            'is_active' => isset($request->is_active) ? $request->is_active : 0,
         ];
 
         if ($request->hasFile('image')) {
