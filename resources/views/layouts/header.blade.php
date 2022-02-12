@@ -1,6 +1,6 @@
 <header class="main-header fixed-top">
   <nav class="navbar p-0 navbar-expand-lg">
-    <a class="navbar-brand mr-0" href="#">
+    <a class="navbar-brand mr-0" href="/view/home">
       <img class="logo-header" src="{{ asset('img/logo-nu.png') }}" alt="">
     </a>
     <button 
@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto pt-lg-0 pt-3">
         <li class="nav-item active">
-          <a class="nav-link" href="/view/ziwaf">Ziswaf</a>
+          <a class="nav-link" href="/view/ziswaf">Ziswaf</a>
         </li>
         <li class="nav-item">
           <a class="nav-link">Program</a>
