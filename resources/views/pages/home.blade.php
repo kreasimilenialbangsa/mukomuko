@@ -30,25 +30,25 @@
     </section>
     <div class="container">
       <div class="row">
-        <section class="col-lg-10 col-md-11 mx-auto sec-handout">
+        <section class="col-lg-10 col-md-11 mx-auto sec-ziswaf">
           <div class="wrapper-summary">
             <div class="row text-center">
-              <div class="col-md-3">
+              <div class="col-md-3 col-6">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/manfaat.svg') }}" alt="">
                 <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
                 <span class="clr-grey font-medium">Penerima Manfaat</span>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3 col-6">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/himpunan.svg') }}" alt="">
                 <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
                 <span class="clr-grey font-medium">Penerima Manfaat</span>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3 col-6 mt-md-0 mt-4">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/penyaluran.svg') }}" alt="">
                 <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
                 <span class="clr-grey font-medium">Penerima Manfaat</span>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3 col-6 mt-md-0 mt-4">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/donatur.png') }}" alt="">
                 <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
                 <span class="clr-grey font-medium">Donatur</span>
@@ -150,42 +150,42 @@
         <section class="col-12 sec-todonation">
           <h4 class="text-center">Donasi Hari Ini</h4>
           <div class="row mt-4">
-            <a href="" class="col-lg-3 col-md-4 col-6 p-2 block">
+            <a href="" class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
                 <h6 class="clr-green text-sm">Anonim</h6>
                 <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
                 <span class="text-xxs">7 menit yang lalu</span>
               </div>
             </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 block">
+            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
                 <h6 class="clr-green text-sm">Anonim</h6>
                 <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
                 <span class="text-xxs">7 menit yang lalu</span>
               </div>
             </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 block">
+            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
                 <h6 class="clr-green text-sm">Anonim</h6>
                 <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
                 <span class="text-xxs">7 menit yang lalu</span>
               </div>
             </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 block">
+            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
                 <h6 class="clr-green text-sm">Anonim</h6>
                 <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
                 <span class="text-xxs">7 menit yang lalu</span>
               </div>
             </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 block">
+            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
                 <h6 class="clr-green text-sm">Anonim</h6>
                 <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
                 <span class="text-xxs">7 menit yang lalu</span>
               </div>
             </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 block">
+            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
                 <h6 class="clr-green text-sm">Anonim</h6>
                 <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
@@ -502,7 +502,21 @@
       prevArrow: $('#prev-slider'),
       nextArrow: $('#next-slider'),
       slidesToShow: 3,
-      slidesToScroll: 3
+      slidesToScroll: 3,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
     });
     $('.slider-mitra').slick({
       infinite: true,
@@ -512,8 +526,21 @@
       prevArrow: $('#prev-slider2'),
       nextArrow: $('#next-slider2'),
       slidesToShow: 6,
-      slidesToScroll: 6
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 4
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2
+          }
+        }
+      ]
     });
-    console.log('haha')
   </script>
 @endsection

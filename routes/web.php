@@ -21,6 +21,29 @@ Route::get('/view/home', function () {
     return view('pages.home');
 });
 
+Route::get('/view/ziswaf', function () {
+    return view('pages.ziswaf');
+});
+
+Route::get('/view/tentang/sekilas-nu', function () {
+    return view('pages.about');
+});
+
+Route::get('/view/tentang/visi-misi', function () {
+    return view('pages.visi-misi');
+});
+
+Route::get('/view/tentang/pengurus', function () {
+    return view('pages.management');
+});
+
+Route::get('/view/layanan/daftar-rekening', function () {
+    return view('pages.list-rek');
+});
+
+Route::get('/view/layanan/go-ziswaf', function () {
+    return view('pages.go-ziswaf');
+});
 
 Auth::routes();
 

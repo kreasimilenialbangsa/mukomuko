@@ -20,22 +20,41 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto pt-lg-0 pt-3">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Ziswaf</a>
+          <a class="nav-link" href="/view/ziwaf">Ziswaf</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Tentang</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Program</a>
+          <a class="nav-link">Program</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Berita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Galery</a>
+          <a class="nav-link" href="#">Donatur</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Layanan</a>
+          <a class="nav-link" href="#">Galeri</a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link" href="#">Galeri</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/view/layanan/daftar-rekening" role="button" data-toggle="dropdown" aria-expanded="false">
+            Layanan
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/view/layanan/daftar-rekening">Daftar Rekening</a>
+            <a class="dropdown-item" href="/view/layanan/go-ziswaf">Go-Ziswaf</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/view/tentang/sekilas-nu" role="button" data-toggle="dropdown" aria-expanded="false">
+            Tentang
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/view/tentang/sekilas-nu">Sekilas NU</a>
+            <a class="dropdown-item" href="/view/tentang/visi-misi">Visi & Misi</a>
+            <a class="dropdown-item" href="/view/tentang/pengurus">Pengurus</a>
+          </div>
         </li>
         <li class="nav-actions py-3 d-lg-none d-block">
           <button class="btn px-3 btn-outline-green mr-2">Masuk</button>
