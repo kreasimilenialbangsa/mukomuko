@@ -7,8 +7,10 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateNewsCategoryRequest;
 use App\Http\Requests\Admin\UpdateNewsCategoryRequest;
 use App\Repositories\Admin\NewsCategoryRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Str;
+use Flash;
 use Response;
 
 class NewsCategoryController extends AppBaseController
@@ -52,13 +54,17 @@ class NewsCategoryController extends AppBaseController
      */
     public function store(CreateNewsCategoryRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ];
 
         $newsCategory = $this->newsCategoryRepository->create($input);
 
         Flash::success('News Category saved successfully.');
 
-        return redirect(route('admin.newsCategories.index'));
+        return redirect(route('admin.category.news.index'));
     }
 
     /**
@@ -75,7 +81,7 @@ class NewsCategoryController extends AppBaseController
         if (empty($newsCategory)) {
             Flash::error('News Category not found');
 
-            return redirect(route('admin.newsCategories.index'));
+            return redirect(route('admin.category.news.index'));
         }
 
         return view('admin.pages.news_categories.show')->with('newsCategory', $newsCategory);
@@ -95,7 +101,7 @@ class NewsCategoryController extends AppBaseController
         if (empty($newsCategory)) {
             Flash::error('News Category not found');
 
-            return redirect(route('admin.newsCategories.index'));
+            return redirect(route('admin.category.news.index'));
         }
 
         return view('admin.pages.news_categories.edit')->with('newsCategory', $newsCategory);
@@ -116,14 +122,20 @@ class NewsCategoryController extends AppBaseController
         if (empty($newsCategory)) {
             Flash::error('News Category not found');
 
-            return redirect(route('admin.newsCategories.index'));
+            return redirect(route('admin.category.news.index'));
         }
 
-        $newsCategory = $this->newsCategoryRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ];
+
+        $newsCategory = $this->newsCategoryRepository->update($input, $id);
 
         Flash::success('News Category updated successfully.');
 
-        return redirect(route('admin.newsCategories.index'));
+        return redirect(route('admin.category.news.index'));
     }
 
     /**
@@ -140,13 +152,13 @@ class NewsCategoryController extends AppBaseController
         if (empty($newsCategory)) {
             Flash::error('News Category not found');
 
-            return redirect(route('admin.newsCategories.index'));
+            return redirect(route('admin.category.news.index'));
         }
 
         $this->newsCategoryRepository->delete($id);
 
         Flash::success('News Category deleted successfully.');
 
-        return redirect(route('admin.newsCategories.index'));
+        return redirect(route('admin.category.news.index'));
     }
 }

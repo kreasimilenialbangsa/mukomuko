@@ -1,26 +1,31 @@
-<!-- User Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Title Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('title', 'Title:') !!}
-    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Title Field -->
+            <div class="form-group">
+                {!! Form::label('title', 'Title:') !!}
+                {!! Form::text('title', null, ['class' => 'form-control']) !!}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Is Active Field -->
+            <div class="form-group">
+                <div class="control-label">Is Active:</div>
+                <label class="custom-switch mt-2 pl-0">
+                    <input type="checkbox" name="is_active" value="1" class="custom-switch-input" {{ @$about->is_active == 1 ? 'checked' : '' }}>
+                    <span class="custom-switch-indicator"></span>
+                </label>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Description Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('description', 'Description:') !!}
-    {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+    {!! Form::textarea('description', null, ['class' => 'form-control my-editor']) !!}
 </div>
 
-<!-- Is Active Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('is_active', 'Is Active:') !!}
-    {!! Form::number('is_active', null, ['class' => 'form-control']) !!}
-</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

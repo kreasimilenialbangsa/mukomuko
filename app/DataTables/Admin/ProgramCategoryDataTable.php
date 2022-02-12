@@ -64,8 +64,7 @@ class ProgramCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
-            'title',
+            'name',
             'slug'
         ];
     }

@@ -168,6 +168,8 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -236,6 +238,7 @@ return [
         'Html'  => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'Datatables' => Yajra\DataTables\Facades\DataTables::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

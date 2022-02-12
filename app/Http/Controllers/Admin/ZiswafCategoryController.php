@@ -7,8 +7,10 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateZiswafCategoryRequest;
 use App\Http\Requests\Admin\UpdateZiswafCategoryRequest;
 use App\Repositories\Admin\ZiswafCategoryRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Str;
+use Flash;
 use Response;
 
 class ZiswafCategoryController extends AppBaseController
@@ -52,13 +54,17 @@ class ZiswafCategoryController extends AppBaseController
      */
     public function store(CreateZiswafCategoryRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ];
 
         $ziswafCategory = $this->ziswafCategoryRepository->create($input);
 
         Flash::success('Ziswaf Category saved successfully.');
 
-        return redirect(route('admin.ziswafCategories.index'));
+        return redirect(route('admin.category.ziswaf.index'));
     }
 
     /**
@@ -75,7 +81,7 @@ class ZiswafCategoryController extends AppBaseController
         if (empty($ziswafCategory)) {
             Flash::error('Ziswaf Category not found');
 
-            return redirect(route('admin.ziswafCategories.index'));
+            return redirect(route('admin.category.ziswaf.index'));
         }
 
         return view('admin.pages.ziswaf_categories.show')->with('ziswafCategory', $ziswafCategory);
@@ -95,7 +101,7 @@ class ZiswafCategoryController extends AppBaseController
         if (empty($ziswafCategory)) {
             Flash::error('Ziswaf Category not found');
 
-            return redirect(route('admin.ziswafCategories.index'));
+            return redirect(route('admin.category.ziswaf.index'));
         }
 
         return view('admin.pages.ziswaf_categories.edit')->with('ziswafCategory', $ziswafCategory);
@@ -116,14 +122,20 @@ class ZiswafCategoryController extends AppBaseController
         if (empty($ziswafCategory)) {
             Flash::error('Ziswaf Category not found');
 
-            return redirect(route('admin.ziswafCategories.index'));
+            return redirect(route('admin.category.ziswaf.index'));
         }
 
-        $ziswafCategory = $this->ziswafCategoryRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ];
+
+        $ziswafCategory = $this->ziswafCategoryRepository->update($input, $id);
 
         Flash::success('Ziswaf Category updated successfully.');
 
-        return redirect(route('admin.ziswafCategories.index'));
+        return redirect(route('admin.category.ziswaf.index'));
     }
 
     /**
@@ -140,13 +152,13 @@ class ZiswafCategoryController extends AppBaseController
         if (empty($ziswafCategory)) {
             Flash::error('Ziswaf Category not found');
 
-            return redirect(route('admin.ziswafCategories.index'));
+            return redirect(route('admin.category.ziswaf.index'));
         }
 
         $this->ziswafCategoryRepository->delete($id);
 
         Flash::success('Ziswaf Category deleted successfully.');
 
-        return redirect(route('admin.ziswafCategories.index'));
+        return redirect(route('admin.category.ziswaf.index'));
     }
 }

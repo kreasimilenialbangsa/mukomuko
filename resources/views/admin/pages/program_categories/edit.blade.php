@@ -7,7 +7,7 @@
             <div class="section-header">
                 <h3 class="page__heading m-0">Edit Program Category</h3>
                 <div class="section-header-breadcrumb">
-                    <a href="{{ route('admin.programCategories.index') }}"  class="btn btn-primary">Back</a>
+                    <a href="{{ route('admin.category.program.index') }}"  class="btn btn-primary">Back</a>
                 </div>
             </div>
   <div class="content">
@@ -17,7 +17,7 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-body ">
-                                    {!! Form::model($programCategory, ['route' => ['admin.programCategories.update', $programCategory->id], 'method' => 'patch']) !!}
+                                    {!! Form::model($programCategory, ['route' => ['admin.category.program.update', $programCategory->id], 'method' => 'patch']) !!}
                                         <div class="row">
                                             @include('admin.pages.program_categories.fields')
                                         </div>

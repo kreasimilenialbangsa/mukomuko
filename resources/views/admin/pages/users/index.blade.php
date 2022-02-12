@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Users
+    Users 
 @endsection
 @section('content')
     <section class="section">
@@ -10,13 +10,15 @@
                 <a href="{{ route('admin.users.create')}}" class="btn btn-primary form-btn">User <i class="fas fa-plus"></i></a>
             </div>
         </div>
-        <div class="section-body">
+    <div class="section-body">
             @include('flash::message')
            <div class="card">
                 <div class="card-body">
-                    @include('admin.pages.users.table')
-                </div>
-           </div>
-        /div>
+                @include('admin.pages.users.table')
+            </div>
+       </div>
+   </div>
+    
     </section>
 @endsection
+

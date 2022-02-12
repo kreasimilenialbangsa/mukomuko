@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
+use App\DataTables\UserDataTable;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -28,11 +31,9 @@ class UserController extends AppBaseController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(UserDataTable $userDataTable)
     {
-        $users = $this->userRepository->all();
-
-        return view('admin.pages.users.index')->with('users', $users);
+        return $userDataTable->render('admin.pages.users.index');
     }
 
     /**
@@ -42,7 +43,9 @@ class UserController extends AppBaseController
      */
     public function create()
     {
-        return view('admin.pages.users.create');
+        $role = Role::where('id', '<>', 1)->orderBy('id', 'asc')->pluck('name', 'id');
+        return view('admin.pages.users.create')
+            ->with('role', $role);
     }
 
     /**
@@ -54,13 +57,31 @@ class UserController extends AppBaseController
      */
     public function store(CreateUserRequest $request)
     {
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        $input = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_active' => 1
+        ];
+
+        $role = null;
+        if(!empty($request->role)) {
+            $role = $request->role;
+            unset($request->role);
+        }
+
         $user = $this->userRepository->create($input);
+
+        if($user) {
+            $user = User::find($user->id);
+            if($role) {
+                $user->syncRoles($role);
+            }
+        }
 
         Flash::success('User saved successfully.');
 
-        return redirect(route('admin.pages.users.index'));
+        return redirect(route('admin.users.index'));
     }
 
     /**
@@ -77,7 +98,7 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.pages.users.index'));
+            return redirect(route('admin.users.index'));
         }
 
         return view('admin.pages.users.show')->with('user', $user);
@@ -97,10 +118,12 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.pages.users.index'));
+            return redirect(route('admin.users.index'));
         }
 
-        return view('admin.pages.users.edit')->with('user', $user);
+        $role = Role::where('id', '<>', 1)->orderBy('id', 'asc')->pluck('name', 'id');
+        return view('admin.pages.users.edit')->with('user', $user)
+            ->with('role', $role);
     }
 
     /**
@@ -118,19 +141,39 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.pages.users.index'));
+            return redirect(route('admin.users.index'));
         }
-        $input =  $request->all();
-        if (!empty($input['password'])) {
-            $input['password'] = Hash::make($input['password']);
+
+        $input = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
+
+        $role = null;
+        if(!empty($request->role)) {
+            $role = $request->role;
+            unset($request->role);
+        }
+
+        if (!empty($request->password)) {
+            $input['password'] = Hash::make($request->password);
         } else {
-            unset($input['password']);
+            unset($request->password);
         }
+
         $user = $this->userRepository->update($input, $id);
+
+        if($user) {
+            $user = User::find($user->id);
+            if($role) {
+                $user->syncRoles($role);
+            }
+        }
 
         Flash::success('User updated successfully.');
 
-        return redirect(route('admin.pages.users.index'));
+        return redirect(route('admin.users.index'));
     }
 
     /**
@@ -149,13 +192,13 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.pages.users.index'));
+            return redirect(route('admin.users.index'));
         }
 
         $this->userRepository->delete($id);
 
         Flash::success('User deleted successfully.');
 
-        return redirect(route('admin.pages.users.index'));
+        return redirect(route('admin.users.index'));
     }
 }

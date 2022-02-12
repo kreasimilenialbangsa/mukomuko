@@ -18,7 +18,11 @@ class GalleryDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.galleries.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.pages.galleries.datatables_actions')
+            ->editColumn('content', 'admin.pages.galleries.type')
+            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->rawColumns(['content', 'is_active', 'action']);
     }
 
     /**
@@ -64,12 +68,10 @@ class GalleryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
             'title',
-            'description',
+            'content',
             'link_url',
-            'image',
-            'video',
+            'created_at',
             'is_active'
         ];
     }

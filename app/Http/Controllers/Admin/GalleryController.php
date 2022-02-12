@@ -7,8 +7,12 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateGalleryRequest;
 use App\Http\Requests\Admin\UpdateGalleryRequest;
 use App\Repositories\Admin\GalleryRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Str;
+use File;
+use Flash;
 use Response;
 
 class GalleryController extends AppBaseController
@@ -52,7 +56,29 @@ class GalleryController extends AppBaseController
      */
     public function store(CreateGalleryRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'link_url' => $request->link_url,
+            'description' => $request->description,
+            'type' => $request->type,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
+
+        if($request->hasFile('content') && $request->type == 'image') {
+            $request->validate([
+                'image' => 'mimes:jpeg,png|max:1014',
+            ]);
+
+            $file = $request->file('content');
+            $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::put('public/gallery/'.$fileName, File::get($file));
+
+            $input['content'] = '/gallery/'.$fileName;
+
+        } else {
+            $input['content'] = $request->content;
+        }
 
         $gallery = $this->galleryRepository->create($input);
 
@@ -119,7 +145,32 @@ class GalleryController extends AppBaseController
             return redirect(route('admin.galleries.index'));
         }
 
-        $gallery = $this->galleryRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'link_url' => $request->link_url,
+            'description' => $request->description,
+            'type' => $request->type,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
+
+        if($request->hasFile('content') && $request->type == 'image') {
+            $request->validate([
+                'image' => 'mimes:jpeg,png|max:1014',
+            ]);
+
+            $file = $request->file('content');
+            $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::put('public/gallery/'.$fileName, File::get($file));
+
+            $input['content'] = '/gallery/'.$fileName;
+
+        } else {
+            $input['content'] = $request->content;
+        }
+
+
+        $gallery = $this->galleryRepository->update($input, $id);
 
         Flash::success('Gallery updated successfully.');
 

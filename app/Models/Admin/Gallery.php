@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $title
  * @property string $description
  * @property string $link_url
- * @property string $image
- * @property string $video
+ * @property string $type
+ * @property string $content
  * @property integer $is_active
  */
 class Gallery extends Model
@@ -37,8 +37,8 @@ class Gallery extends Model
         'title',
         'description',
         'link_url',
-        'image',
-        'video',
+        'type',
+        'content',
         'is_active'
     ];
 
@@ -52,8 +52,8 @@ class Gallery extends Model
         'title' => 'string',
         'description' => 'string',
         'link_url' => 'string',
-        'image' => 'string',
-        'video' => 'string',
+        'type' => 'string',
+        'content' => 'string',
         'is_active' => 'integer'
     ];
 
@@ -65,8 +65,7 @@ class Gallery extends Model
     public static $rules = [
         'title' => 'required',
         'description' => 'required',
-        'image' => 'required',
-        'video' => 'required'
+        'content' => 'required'
     ];
 
     
