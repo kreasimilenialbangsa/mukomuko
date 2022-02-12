@@ -1,7 +1,7 @@
 /* button */
 .btn {
   border-radius: 4px;
-  font-size: 14px;
+  font-size: .875rem;
   font-weight: 600;
 }
 
@@ -248,6 +248,43 @@
 .wrapper-boxtext .box-detail ol {
   padding-left: 1rem;
   margin-bottom: 1.5rem;
+}
+
+.dropdown-menu {
+  background: #FFFFFF;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.dropdown-item {
+  padding: 0.3rem 1rem;
+  color: #292A2A;
+}
+
+.dropdown-item:focus, 
+.dropdown-item:hover{
+  background: #F6FBF7;
+  color: #45BF7C;
+}
+
+.page-link:focus {
+  box-shadow: none;
+}
+
+.page-link{
+  padding: 0.7rem 1.1rem;
+  color: #45BF7C;
+  border: 1px solid #E3E3E3;
+}
+
+.page-item.active .page-link,
+.page-link:hover{
+  background: #45BF7C;
+  border: 1px solid #45BF7C;
+  color: white;
 }
 
 /* enter , tab visible */
