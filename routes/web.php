@@ -29,7 +29,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth']], func
 });
 
 /** Admin Area Start*/
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:SuperAdmin|Kabupaten']], function () {
     // Dashboard
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
     
@@ -51,6 +51,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafCategoryController::class, ["as" => 'admin.category']);
     });
 
-    Route::resource('users', App\Http\Controllers\Admin\UserController::class, ["as" => 'admin']);
+    Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
 });
 /** Admin Area End*/

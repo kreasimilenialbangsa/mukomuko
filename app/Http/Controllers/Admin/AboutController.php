@@ -8,9 +8,9 @@ use App\Http\Requests\Admin\CreateAboutRequest;
 use App\Http\Requests\Admin\UpdateAboutRequest;
 use App\Repositories\Admin\AboutRepository;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
 use Str;
 use Flash;
-use Illuminate\Support\Facades\Auth;
 use Response;
 
 class AboutController extends AppBaseController

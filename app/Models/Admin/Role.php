@@ -3,35 +3,25 @@
 namespace App\Models\Admin;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * Class ProgramCategory
+ * Class About
  * @package App\Models\Admin
- * @version February 9, 2022, 5:36 pm UTC
+ * @version February 9, 2022, 7:23 am UTC
  *
- * @property integer $user_id
  * @property string $name
- * @property string $slug
+ * @property string $guard_name
  */
-class ProgramCategory extends Model
+class Role extends Model
 {
-    use SoftDeletes;
-
     use HasFactory;
 
-    public $table = 'program_categories';
-    
-
-    protected $dates = ['deleted_at'];
-
-
+    public $table = 'roles';
 
     public $fillable = [
-        'user_id',
         'name',
-        'slug'
+        'guard_name',
     ];
 
     /**
@@ -40,9 +30,8 @@ class ProgramCategory extends Model
      * @var array
      */
     protected $casts = [
-        'user_id' => 'integer',
         'name' => 'string',
-        'slug' => 'string'
+        'guard_name' => 'string'
     ];
 
     /**

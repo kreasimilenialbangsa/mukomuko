@@ -7,8 +7,10 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateProgramCategoryRequest;
 use App\Http\Requests\Admin\UpdateProgramCategoryRequest;
 use App\Repositories\Admin\ProgramCategoryRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Str;
+use Flash;
 use Response;
 
 class ProgramCategoryController extends AppBaseController
@@ -52,13 +54,17 @@ class ProgramCategoryController extends AppBaseController
      */
     public function store(CreateProgramCategoryRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ];
 
         $programCategory = $this->programCategoryRepository->create($input);
 
         Flash::success('Program Category saved successfully.');
 
-        return redirect(route('admin.programCategories.index'));
+        return redirect(route('admin.category.program.index'));
     }
 
     /**
@@ -75,7 +81,7 @@ class ProgramCategoryController extends AppBaseController
         if (empty($programCategory)) {
             Flash::error('Program Category not found');
 
-            return redirect(route('admin.programCategories.index'));
+            return redirect(route('admin.category.program.index'));
         }
 
         return view('admin.pages.program_categories.show')->with('programCategory', $programCategory);
@@ -95,7 +101,7 @@ class ProgramCategoryController extends AppBaseController
         if (empty($programCategory)) {
             Flash::error('Program Category not found');
 
-            return redirect(route('admin.programCategories.index'));
+            return redirect(route('admin.category.program.index'));
         }
 
         return view('admin.pages.program_categories.edit')->with('programCategory', $programCategory);
@@ -116,14 +122,20 @@ class ProgramCategoryController extends AppBaseController
         if (empty($programCategory)) {
             Flash::error('Program Category not found');
 
-            return redirect(route('admin.programCategories.index'));
+            return redirect(route('admin.category.program.index'));
         }
 
-        $programCategory = $this->programCategoryRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ];
+
+        $programCategory = $this->programCategoryRepository->update($input, $id);
 
         Flash::success('Program Category updated successfully.');
 
-        return redirect(route('admin.programCategories.index'));
+        return redirect(route('admin.category.program.index'));
     }
 
     /**
@@ -140,13 +152,13 @@ class ProgramCategoryController extends AppBaseController
         if (empty($programCategory)) {
             Flash::error('Program Category not found');
 
-            return redirect(route('admin.programCategories.index'));
+            return redirect(route('admin.category.program.index'));
         }
 
         $this->programCategoryRepository->delete($id);
 
         Flash::success('Program Category deleted successfully.');
 
-        return redirect(route('admin.programCategories.index'));
+        return redirect(route('admin.category.program.index'));
     }
 }

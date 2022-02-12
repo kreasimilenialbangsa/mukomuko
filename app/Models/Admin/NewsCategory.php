@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @version February 9, 2022, 5:35 pm UTC
  *
  * @property integer $user_id
- * @property string $title
+ * @property string $name
  * @property string $slug
  */
 class NewsCategory extends Model
@@ -30,7 +30,7 @@ class NewsCategory extends Model
 
     public $fillable = [
         'user_id',
-        'title',
+        'name',
         'slug'
     ];
 
@@ -41,7 +41,7 @@ class NewsCategory extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
-        'title' => 'string',
+        'name' => 'string',
         'slug' => 'string'
     ];
 
@@ -51,7 +51,7 @@ class NewsCategory extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required'
+        'name' => 'required'
     ];
 
     

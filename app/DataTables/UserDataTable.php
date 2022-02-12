@@ -1,12 +1,12 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables;
 
-use App\Models\Admin\NewsCategory;
+use App\Models\User;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class NewsCategoryDataTable extends DataTable
+class UserDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,18 +18,24 @@ class NewsCategoryDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.news_categories.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.pages.users.datatables_actions')
+            ->addIndexColumn()
+            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+            ->rawColumns(['is_active', 'action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\NewsCategory $model
+     * @param \App\Models\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(NewsCategory $model)
+    public function query(User $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->with('role_user.role')
+            ->select('users.*');
     }
 
     /**
@@ -65,7 +71,10 @@ class NewsCategoryDataTable extends DataTable
     {
         return [
             'name',
-            'slug'
+            'email',
+            'role_user.role.name' => ['title' => 'Role', 'className' => 'text-center'],
+            'created_at' => ['className' => 'text-center'],
+            'is_active' => ['className' => 'text-center']
         ];
     }
 
@@ -76,6 +85,6 @@ class NewsCategoryDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'news_categories_datatable_' . time();
+        return 'users_datatable_' . time();
     }
 }

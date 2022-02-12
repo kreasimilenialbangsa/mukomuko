@@ -64,8 +64,7 @@ class ZiswafCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
-            'title',
+            'name',
             'slug'
         ];
     }
