@@ -68,6 +68,12 @@
   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('js/fancybox.js') }}"></script>
   <script src="{{ asset('js/slick.min.js') }}"></script>
+  <script>
+      $('.slider-header').slick({
+        dots: true,
+        arrows: false
+      });
+  </script>
   @yield('scripts')
 </body>
 </html>

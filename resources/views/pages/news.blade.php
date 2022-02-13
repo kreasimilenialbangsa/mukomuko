@@ -33,7 +33,7 @@
                 <button class="btn dropdown-toggle" type="button" id="dropdowncat" data-toggle="dropdown" aria-expanded="false">
                   Semua Kategori Berita
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdowncat">
+                <div class="dropdown-menu w-100" aria-labelledby="dropdowncat">
                   <a class="dropdown-item" href="#">Action</a>
                   <a class="dropdown-item" href="#">Another action</a>
                   <a class="dropdown-item" href="#">Something else here</a>
@@ -48,8 +48,6 @@
             </button>
           </div>
         </section>
-      </div>
-      <div class="row">
         <section class="col-12 pt-4 sec-listnews">
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">

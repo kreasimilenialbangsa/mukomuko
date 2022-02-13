@@ -7,9 +7,6 @@
 @section('content')
   <div class="ziswaf-page">
     <div class="container">
-      <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span class="current">Ziswaf</span>
-      </div>
       <div class="row">
         <section class="col-12">
           <div class="wrapper-handout">

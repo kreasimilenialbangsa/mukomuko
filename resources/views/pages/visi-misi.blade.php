@@ -6,9 +6,6 @@
 @section('content')
   <div class="visimisi-page">
     <div class="container">
-      <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span>Tentang</span> / <span class="current">Visi Misi</span>
-      </div>
       <div class="row">
         <section class="col-12">
           <div class="wrapper-boxtext">

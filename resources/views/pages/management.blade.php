@@ -6,9 +6,9 @@
 @section('content')
   <div class="management-page">
     <div class="container">
-      <div class="cus-breadcrumb">
+      <!-- <div class="cus-breadcrumb">
         <span>Beranda</span> / <span>Tentang</span> / <span class="current">Pengurus</span>
-      </div>
+      </div> -->
       <div class="row">
         <section class="col-12">
           <div class="wrapper-boxtext">

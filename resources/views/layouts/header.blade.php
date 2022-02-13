@@ -1,4 +1,33 @@
-<header class="main-header fixed-top">
+<div class="slider-header">
+  <div>
+    <div class="bg-green">
+      <span class="mb-2">
+        <span class="headline">KABAR TERBARU!</span>
+        Donasi bantu korban bencana alam Desa A
+        <a href="" class="view-more">Lihat disini</a>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div class="bg-green">
+      <span class="mb-2">
+        <span class="headline">KABAR TERBARU!</span>
+        Donasi bantu korban bencana alam Desa A
+        <a href="" class="view-more">Lihat disini</a>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div class="bg-green">
+      <span class="mb-2">
+        <span class="headline">KABAR TERBARU!</span>
+        Donasi bantu korban bencana alam Desa A
+        <a href="" class="view-more">Lihat disini</a>
+      </span>
+    </div>
+  </div>
+</div>
+<header class="main-header">
   <nav class="navbar p-0 navbar-expand-lg">
     <a class="navbar-brand mr-0" href="{{ route('home') }}">
       <img class="logo-header" src="{{ asset('img/logo-nu.png') }}" alt="">
