@@ -7,9 +7,6 @@
     <div class="col-lg-3">
       <h6 class="d-lg-block d-none">Pelajari Lebih Lanjut</h6>
       <div class="row nav-wrap m-0 mt-3">
-        <div class="col-lg-6 col-3 px-0">
-          <a class="nav-link" href="#">Tentang</a>
-        </div>
         <div class="col-lg-6 col-5 px-0">
           <a class="nav-link" href="#">Daftar Rekening</a>
         </div>

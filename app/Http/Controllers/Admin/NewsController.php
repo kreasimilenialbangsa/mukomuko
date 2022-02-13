@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\CreateNewsRequest;
 use App\Http\Requests\Admin\UpdateNewsRequest;
 use App\Repositories\Admin\NewsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\NewsCategory;
 use App\Models\Admin\NewsImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -45,7 +46,9 @@ class NewsController extends AppBaseController
      */
     public function create()
     {
-        return view('admin.pages.news.create');
+        $category = NewsCategory::pluck('name', 'id');
+        return view('admin.pages.news.create')
+            ->with('category', $category);
     }
 
     /**
@@ -127,7 +130,11 @@ class NewsController extends AppBaseController
             return redirect(route('admin.news.index'));
         }
 
-        return view('admin.pages.news.edit')->with('news', $news);
+        $category = NewsCategory::pluck('name', 'id');
+
+        return view('admin.pages.news.edit')
+        ->with('category', $category)
+            ->with('news', $news);
     }
 
     /**

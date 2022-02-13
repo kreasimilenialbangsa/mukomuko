@@ -20,7 +20,7 @@ class CreateBannersTable extends Migration
             $table->text('title');
             $table->text('image');
             $table->text('description');
-            $table->text('link_url');
+            $table->text('link_url')->nullable();
             $table->integer('is_active');
             $table->timestamps();
             $table->softDeletes();

@@ -1,4 +1,3 @@
-{{ $id }}
 {!! Form::open(['route' => ['admin.news.destroy', $id], 'method' => 'delete']) !!}
 <div class='text-center'>
     {{-- <a href="{{ route('admin.news.show', $id) }}" class='btn btn-primary btn-xs'>

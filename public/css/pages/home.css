@@ -17,14 +17,14 @@
 .home-page .slider-donate .slider-detail {
   position: absolute;
   top: 50%;
-  max-width: 550px;
+  max-width: 450px;
   color: white;
   right: 100px;
   transform: translateY(-50%);
 }
 
 .home-page .slider-donate .slide-title{
-  width: 60%;
+  width: 70%;
   font-weight: 600;
   font-size: 2rem;
 }
