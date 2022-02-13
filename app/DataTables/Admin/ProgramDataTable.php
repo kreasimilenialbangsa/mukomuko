@@ -64,14 +64,11 @@ class ProgramDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
             'title',
             'location',
             'target_dana',
             'end_date',
             'category_id',
-            'description',
-            'image',
             'is_active'
         ];
     }

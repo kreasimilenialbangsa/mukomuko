@@ -7,8 +7,10 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateServiceRequest;
 use App\Http\Requests\Admin\UpdateServiceRequest;
 use App\Repositories\Admin\ServiceRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Str;
+use Flash;
 use Response;
 
 class ServiceController extends AppBaseController
@@ -52,7 +54,13 @@ class ServiceController extends AppBaseController
      */
     public function store(CreateServiceRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'description' => $request->description,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
 
         $service = $this->serviceRepository->create($input);
 
@@ -119,7 +127,15 @@ class ServiceController extends AppBaseController
             return redirect(route('admin.services.index'));
         }
 
-        $service = $this->serviceRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'description' => $request->description,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
+
+        $service = $this->serviceRepository->update($input, $id);
 
         Flash::success('Service updated successfully.');
 

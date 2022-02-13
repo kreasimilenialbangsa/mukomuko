@@ -7,8 +7,14 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateProgramRequest;
 use App\Http\Requests\Admin\UpdateProgramRequest;
 use App\Repositories\Admin\ProgramRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\ProgramCategory;
+use App\Models\Admin\Kecamatan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Str;
+use File;
+use Flash;
 use Response;
 
 class ProgramController extends AppBaseController
@@ -40,7 +46,12 @@ class ProgramController extends AppBaseController
      */
     public function create()
     {
-        return view('admin.pages.programs.create');
+        $category = ProgramCategory::pluck('name', 'id');
+        $location = Kecamatan::pluck('name', 'id');
+
+        return view('admin.pages.programs.create')
+            ->with('category', $category)
+            ->with('location', $location);
     }
 
     /**
@@ -52,7 +63,30 @@ class ProgramController extends AppBaseController
      */
     public function store(CreateProgramRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'slug' => Str::slug($request->title),
+            'location' => $request->location,
+            'target_dana' => $request->target_dana,
+            'end_date' => $request->end_date,
+            'category_id' => $request->category_id,
+            'is_urgent' => isset($request->is_urgent) ? $request->is_urgent : 0,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'mimes:jpeg,png|max:1014',
+            ]);
+
+            $file = $request->file('image');
+            $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::put('public/program/'.$fileName, File::get($file));
+
+            $input['image'] = '/program/'.$fileName;
+        }
 
         $program = $this->programRepository->create($input);
 
@@ -98,7 +132,13 @@ class ProgramController extends AppBaseController
             return redirect(route('admin.programs.index'));
         }
 
-        return view('admin.pages.programs.edit')->with('program', $program);
+        $category = ProgramCategory::pluck('name', 'id');
+        $location = Kecamatan::pluck('name', 'id');
+
+        return view('admin.pages.programs.edit')
+            ->with('program', $program)
+            ->with('category', $category)
+            ->with('location', $location);
     }
 
     /**
@@ -119,7 +159,32 @@ class ProgramController extends AppBaseController
             return redirect(route('admin.programs.index'));
         }
 
-        $program = $this->programRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'slug' => Str::slug($request->title),
+            'location' => $request->location,
+            'target_dana' => $request->target_dana,
+            'end_date' => $request->end_date,
+            'category_id' => $request->category_id,
+            'is_urgent' => isset($request->is_urgent) ? $request->is_urgent : 0,
+            'is_active' => isset($request->is_active) ? $request->is_active : 0
+        ];
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'mimes:jpeg,png|max:1014',
+            ]);
+
+            $file = $request->file('image');
+            $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::put('public/program/'.$fileName, File::get($file));
+
+            $input['image'] = '/program/'.$fileName;
+        }
+
+        $program = $this->programRepository->update($input, $id);
 
         Flash::success('Program updated successfully.');
 

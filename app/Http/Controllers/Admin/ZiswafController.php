@@ -9,6 +9,8 @@ use App\Http\Requests\Admin\UpdateZiswafRequest;
 use App\Repositories\Admin\ZiswafRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\ZiswafCategory;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class ZiswafController extends AppBaseController
@@ -40,7 +42,9 @@ class ZiswafController extends AppBaseController
      */
     public function create()
     {
-        return view('admin.pages.ziswafs.create');
+        $category = ZiswafCategory::pluck('name', 'id');
+        return view('admin.pages.ziswafs.create')
+            ->with('category', $category);
     }
 
     /**
@@ -52,7 +56,12 @@ class ZiswafController extends AppBaseController
      */
     public function store(CreateZiswafRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'is_active' => 1
+        ];
 
         $ziswaf = $this->ziswafRepository->create($input);
 
@@ -119,7 +128,14 @@ class ZiswafController extends AppBaseController
             return redirect(route('admin.ziswafs.index'));
         }
 
-        $ziswaf = $this->ziswafRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'is_active' => 1
+        ];
+
+        $ziswaf = $this->ziswafRepository->update($input, $id);
 
         Flash::success('Ziswaf updated successfully.');
 

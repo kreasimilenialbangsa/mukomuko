@@ -67,17 +67,21 @@
                     </div>
                     @endforeach
                 @else
-                <div class="col-md-6">
+                <div class="form col-md-6">
                     <!-- Image Field -->
                     <div class="form-group">
                         {!! Form::label('image', 'Image:') !!}
-                        {!! Form::file('images[]', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-show-remove' => 'false', 'data-height' => '300', 'data-default-file' => @$banner->image ? asset('storage/'.$banner->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
+                        {!! Form::file('images[0][file]', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-show-remove' => 'false', 'data-height' => '300', 'data-default-file' => @$banner->image ? asset('storage/'.$banner->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
                     </div>
                 </div>
                 @endif
             </div>
             <div class="col-md-12">
-                <button type="button" class="btn btn-primary btn-block" id="add-data"><i class="fa fa-plus"></i> Add Image</button>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-block" id="add-data"><i class="fa fa-plus"></i> Add Image</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

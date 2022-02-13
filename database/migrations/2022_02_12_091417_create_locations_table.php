@@ -4,8 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserProfilesTable extends Migration
+class CreateLocationsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,9 +14,14 @@ class CreateUserProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
-            $table->id();
+        Schema::create('locations', function (Blueprint $table) {
+            $table->id('id');
+            $table->integer('user_id');
+            $table->integer('parent_id')->default(0);
+            $table->string('name');
+            $table->integer('is_active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +32,6 @@ class CreateUserProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_profiles');
+        Schema::drop('locations');
     }
 }

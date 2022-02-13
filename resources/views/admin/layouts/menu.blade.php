@@ -44,6 +44,14 @@
     </ul>
 </li>
 
+<li class="nav-item dropdown {{ Request::is('admin/location*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Location</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/location/kecamatan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.location.kecamatan.index') }}">Kecamatan</a></li>
+        <li class="{{ Request::is('admin/location/desa*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.location.desa.index') }}">Desa</a></li>
+    </ul>
+</li>
+
 <li class="side-menus {{ Request::is('admin/users*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-building"></i><span>Users</span></a>
 </li>

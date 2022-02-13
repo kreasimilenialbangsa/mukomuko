@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 @section('title')
-    Create Program 
+    Create Desa 
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading m-0">New Program</h3>
-            <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.programs.index') }}" class="btn btn-primary">Back</a>
+            <h3 class="page__heading m-0">New Desa</h3>
+            <div class="filter-container section-header-breadcrumb row justify-content-md-end">
+                <a href="{{ route('admin.location.desa.index') }}" class="btn btn-primary">Back</a>
             </div>
         </div>
         <div class="content">
@@ -17,9 +17,9 @@
                    <div class="col-lg-12">
                        <div class="card">
                            <div class="card-body ">
-                                {!! Form::open(['route' => 'admin.programs.store', 'files' => true]) !!}
+                                {!! Form::open(['route' => 'admin.location.desa.store']) !!}
                                     <div class="row">
-                                        @include('admin.pages.programs.fields')
+                                        @include('admin.pages.desas.fields')
                                     </div>
                                 {!! Form::close() !!}
                            </div>

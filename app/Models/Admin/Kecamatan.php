@@ -7,23 +7,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * Class Service
+ * Class Kecamatan
  * @package App\Models\Admin
- * @version February 9, 2022, 5:28 pm UTC
+ * @version February 12, 2022, 9:14 am UTC
  *
  * @property integer $user_id
- * @property string $title
- * @property string $slug
- * @property string $description
+ * @property integer $parent_id
+ * @property string $name
  * @property integer $is_active
  */
-class Service extends Model
+class Kecamatan extends Model
 {
     use SoftDeletes;
 
     use HasFactory;
 
-    public $table = 'services';
+    public $table = 'locations';
     
 
     protected $dates = ['deleted_at'];
@@ -32,9 +31,8 @@ class Service extends Model
 
     public $fillable = [
         'user_id',
-        'title',
-        'slug',
-        'description',
+        'parent_id',
+        'name',
         'is_active'
     ];
 
@@ -45,9 +43,8 @@ class Service extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
-        'title' => 'string',
-        'slug' => 'string',
-        'description' => 'string',
+        'parent_id' => 'integer',
+        'name' => 'string',
         'is_active' => 'integer'
     ];
 
@@ -57,8 +54,7 @@ class Service extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required',
-        'description' => 'required'
+        'name' => 'required'
     ];
 
     

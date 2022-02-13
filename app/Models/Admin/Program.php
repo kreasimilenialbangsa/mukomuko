@@ -13,12 +13,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $user_id
  * @property string $title
- * @property string $location
+ * @property string $slug
+ * @property integer $location
  * @property integer $target_dana
  * @property string $end_date
  * @property integer $category_id
  * @property string $description
  * @property string $image
+ * @property integer $is_urgent
  * @property integer $is_active
  */
 class Program extends Model
@@ -37,12 +39,14 @@ class Program extends Model
     public $fillable = [
         'user_id',
         'title',
+        'slug',
         'location',
         'target_dana',
         'end_date',
         'category_id',
         'description',
         'image',
+        'is_urgent',
         'is_active'
     ];
 
@@ -54,12 +58,14 @@ class Program extends Model
     protected $casts = [
         'user_id' => 'integer',
         'title' => 'string',
-        'location' => 'string',
+        'slug' => 'string',
+        'location' => 'integer',
         'target_dana' => 'integer',
         'end_date' => 'string',
         'category_id' => 'integer',
         'description' => 'string',
         'image' => 'string',
+        'is_urgent' => 'integer',
         'is_active' => 'integer'
     ];
 
@@ -76,7 +82,5 @@ class Program extends Model
         'category_id' => 'required',
         'description' => 'required',
         'image' => 'required'
-    ];
-
-    
+    ];    
 }

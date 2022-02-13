@@ -2,11 +2,11 @@
 
 namespace App\DataTables\Admin;
 
-use App\Models\Admin\Service;
+use App\Models\Admin\Kecamatan;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class ServiceDataTable extends DataTable
+class KecamatanDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class ServiceDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.services.datatables_actions')
+        return $dataTable->addColumn('action', 'admin.pages.kecamatans.datatables_actions')
             ->editColumn('is_active', 'admin.layouts.toggle')
             ->rawColumns(['is_active', 'action']);
     }
@@ -26,12 +26,13 @@ class ServiceDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Service $model
+     * @param \App\Models\Kecamatan $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Service $model)
+    public function query(Kecamatan $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->whereParentId(0);
     }
 
     /**
@@ -50,7 +51,6 @@ class ServiceDataTable extends DataTable
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
-                    
                     ['extend' => 'export', 'className' => 'btn btn-primary no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-primary no-corner',],
                     ['extend' => 'reload', 'className' => 'btn btn-primary no-corner',],
@@ -66,7 +66,7 @@ class ServiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'title' => ['className' => 'text-center'],
+            'name' => ['title' => 'Kecamatan', 'className' => 'text-center'],
             'is_active' => ['className' => 'text-center']
         ];
     }
@@ -78,6 +78,6 @@ class ServiceDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'services_datatable_' . time();
+        return 'kecamatans_datatable_' . time();
     }
 }

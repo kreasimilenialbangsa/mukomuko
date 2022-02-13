@@ -72,7 +72,7 @@ class UserDataTable extends DataTable
         return [
             'name',
             'email',
-            'role_user.role.name' => ['title' => 'Role', 'className' => 'text-center'],
+            'role_user.role.name' => ['title' => 'Role', 'name'=> 'role_user.role.name', 'className' => 'text-center'],
             'created_at' => ['className' => 'text-center'],
             'is_active' => ['className' => 'text-center']
         ];
