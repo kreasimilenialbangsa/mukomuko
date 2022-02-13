@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $user_id
  * @property string $title
+ * @property string $slug
  * @property string $description
  * @property integer $is_active
  */
@@ -32,6 +33,7 @@ class Service extends Model
     public $fillable = [
         'user_id',
         'title',
+        'slug',
         'description',
         'is_active'
     ];
@@ -44,6 +46,7 @@ class Service extends Model
     protected $casts = [
         'user_id' => 'integer',
         'title' => 'string',
+        'slug' => 'string',
         'description' => 'string',
         'is_active' => 'integer'
     ];

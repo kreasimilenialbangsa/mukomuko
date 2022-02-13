@@ -29,7 +29,9 @@ class ZiswafDataTable extends DataTable
      */
     public function query(Ziswaf $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->with('category')
+            ->select('ziswafs.*');
     }
 
     /**
@@ -64,10 +66,8 @@ class ZiswafDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id',
-            'category_id',
-            'title',
-            'is_active'
+            'title' => ['className' => 'text-center'],
+            'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category.name']
         ];
     }
 

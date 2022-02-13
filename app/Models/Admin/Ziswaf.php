@@ -58,5 +58,8 @@ class Ziswaf extends Model
         'title' => 'required'
     ];
 
-    
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Admin\ZiswafCategory::class, 'category_id');
+    }    
 }
