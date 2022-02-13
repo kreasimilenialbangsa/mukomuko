@@ -6,9 +6,6 @@
 @section('content')
   <div class="rekening-page">
     <div class="container">
-      <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span>Layanan</span> / <span class="current">Daftar Rekening</span>
-      </div>
       <div class="row">
         <section class="col-12">
           <div class="wrapper-boxtext">

@@ -1,19 +1,31 @@
 @extends('layouts.app')
 
 @section('css')
-  <link rel="stylesheet" href="{{ asset('css/pages/program.css') }}">
 @endsection
 
 @section('content')
-  <div class="home-page">
+  <div class="program-page">
     <div class="container">
-    <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span class="current">Program</span>
-      </div>
       <div class="row">
-        <section class="col-12 mt-5 pt-3 sec-aydonation">
-          <h4 class="text-center">Ayo Mulai Berdonasi!</h4>
-          <div class="row mt-4">
+        <section class="col-12 mb-3 mt-2 sec-filter">
+          <div class="d-center justify-content-between">
+            <div class="title-filter">
+               <h4>Program</h4>
+               <p class="text-base font-medium mb-0">Menampilkan 15 dari 30 Campaign</p>
+            </div>
+            <div class="dropdown dropdown-cat">
+              <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" id="dropdowncat" data-toggle="dropdown" aria-expanded="false">
+                Pilih Kategori
+              </button>
+              <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdowncat">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="col-12 sec-aydonation">
+          <div class="row">
             <div class="col-lg-3 col-md-4 col-6 p-3">
               <div class="card-thumbnail">
                 <div class="thumb-pict">
@@ -36,7 +48,7 @@
                       <h6 class="text-sm">32</h6>
                     </div>
                   </div>
-                  <a href="" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
+                  <a href="" class="mt-2 btn btn-green py-2 w-100">Ikut Donasi</a>
                 </div>
               </div>
             </div>
@@ -62,18 +74,19 @@
                       <h6 class="text-sm">32</h6>
                     </div>
                   </div>
-                  <a href="" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
+                  <a href="" class="mt-2 btn btn-green py-2 w-100">Ikut Donasi</a>
                 </div>
               </div>
             </div>
           </div>
-          <div class="text-center mt-3">
-            <a href="" class="btn btn-green px-3">
-              <div class="d-center">
-                Lihat Semua
-                <ion-icon class="ml-2" name="chevron-down-outline"></ion-icon>
-              </div>
-            </a>
+          <div class="d-flex mt-3 justify-content-center">
+            <ul class="pagination mb-0">
+              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
           </div>
         </section>
       </div>

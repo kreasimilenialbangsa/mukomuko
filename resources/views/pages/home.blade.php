@@ -14,7 +14,7 @@
           <div class="slide-text">
             <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
           </div>
-          <a class="btn btn-green" href="">Donasi Sekarang</a>
+          <a class="btn btn-green text-base px-3" href="">Donasi Sekarang</a>
         </div>
       </div>
       <div>
@@ -24,7 +24,7 @@
           <div class="slide-text">
             <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
           </div>
-          <a class="btn btn-green" href="">Donasi Sekarang</a>
+          <a class="btn btn-green text-base px-3" href="">Donasi Sekarang</a>
         </div>
       </div>
     </section>
@@ -149,7 +149,7 @@
         </section>
         <section class="col-12 sec-todonation">
           <h4 class="text-center">Donasi Hari Ini</h4>
-          <div class="row mt-4">
+          <div class="row px-2 mt-4">
             <a href="" class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
                 <h6 class="clr-green text-sm">Anonim</h6>
@@ -194,7 +194,7 @@
             </a>
           </div>
           <div class="text-center mt-3">
-            <a href="" class="btn btn-green py-2 px-3">
+            <a href="/view/donatur" class="btn btn-green py-2 px-3">
               <div class="d-center">
                 Lihat Semua
                 <ion-icon class="ml-2" name="chevron-down-outline"></ion-icon>
@@ -253,7 +253,7 @@
                       <h6 class="text-sm">32</h6>
                     </div>
                   </div>
-                  <a href="" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
+                  <a href="" class="mt-2 btn btn-green py-2 w-100">Ikut Donasi</a>
                 </div>
               </div>
             </div>

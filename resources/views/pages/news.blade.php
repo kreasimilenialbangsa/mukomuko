@@ -10,21 +10,21 @@
       <div>
         <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
         <div class="slider-detail">
+          <div class="cat-news">Sosial</div>
           <h3 class="slide-title">Berdonasi bersama Lazisnu Trenggalek</h3>
           <div class="slide-text">
             <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
           </div>
-          <a class="btn btn-green" href="">Donasi Sekarang</a>
         </div>
       </div>
       <div>
         <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
         <div class="slider-detail">
+          <div class="cat-news">Sosial</div>
           <h3 class="slide-title">Berdonasi bersama Lazisnu Trenggalek</h3>
           <div class="slide-text">
             <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
           </div>
-          <a class="btn btn-green" href="">Donasi Sekarang</a>
         </div>
       </div>
     </section>
@@ -37,7 +37,7 @@
                 <button class="btn dropdown-toggle" type="button" id="dropdowncat" data-toggle="dropdown" aria-expanded="false">
                   Semua Kategori Berita
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdowncat">
+                <div class="dropdown-menu w-100" aria-labelledby="dropdowncat">
                   <a class="dropdown-item" href="#">Action</a>
                   <a class="dropdown-item" href="#">Another action</a>
                   <a class="dropdown-item" href="#">Something else here</a>
@@ -52,8 +52,6 @@
             </button>
           </div>
         </section>
-      </div>
-      <div class="row">
         <section class="col-12 pt-4 sec-listnews">
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
@@ -154,7 +152,7 @@
             </a>
           </div>
           <div class="d-flex mt-3 justify-content-center">
-            <ul class="pagination">
+            <ul class="pagination mb-0">
               <li class="page-item"><a class="page-link" href="#">Prev</a></li>
               <li class="page-item active"><a class="page-link" href="#">1</a></li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>

@@ -1,5 +1,5 @@
 .main-content{
-  padding-top: 0;
+  margin-top: -45px;
   min-height: 100vh;
 }
 
@@ -8,6 +8,21 @@
   height: 100vh;
   object-fit: cover;
   object-position: center;
+}
+
+.news-page .slider-donate .slide-text{
+  font-size: 18px;
+}
+
+.news-page .slider-donate .cat-news {
+  background: #45BF7C;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin-bottom: 10px;
+  display: inline-block;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .news-page .slider-donate .slick-dots {

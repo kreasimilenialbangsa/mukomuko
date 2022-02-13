@@ -6,9 +6,6 @@
 @section('content')
   <div class="goziwaf-page">
     <div class="container">
-      <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span>Layanan</span> / <span class="current">Go Ziwaf</span>
-      </div>
       <div class="row">
         <section class="col-12">
           <div class="wrapper-boxtext">

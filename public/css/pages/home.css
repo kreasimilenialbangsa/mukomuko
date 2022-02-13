@@ -1,5 +1,5 @@
 .main-content{
-  padding-top: 0;
+  margin-top: -45px;
   min-height: 100vh;
 }
 
@@ -8,6 +8,10 @@
   height: 100vh;
   object-fit: cover;
   object-position: center;
+}
+
+.home-page .slider-donate .slide-text {
+  font-size: 18px;
 }
 
 .home-page .slider-donate .slick-dots {

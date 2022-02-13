@@ -41,6 +41,10 @@ Route::get('/view/layanan/daftar-rekening', function () {
     return view('pages.list-rek');
 });
 
+Route::get('/view/donatur', function () {
+    return view('pages.donatur');
+});
+
 Route::get('/view/layanan/go-ziswaf', function () {
     return view('pages.go-ziswaf');
 });
