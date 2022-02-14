@@ -1,4 +1,5 @@
 <div>
+    @if(!empty($notice))
     <div class="slider-header">
         @foreach($notice as $row)
             <div>
@@ -12,4 +13,5 @@
             </div>
         @endforeach
       </div>
+      @endif
 </div>
