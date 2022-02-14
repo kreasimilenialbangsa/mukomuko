@@ -70,7 +70,6 @@ class GalleryDataTable extends DataTable
         return [
             'title',
             'content' => ['className' => 'text-center'],
-            'link_url' => ['className' => 'text-center'],
             'created_at' => ['className' => 'text-center'],
             'is_active' => ['className' => 'text-center']
         ];
