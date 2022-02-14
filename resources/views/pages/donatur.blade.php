@@ -11,7 +11,7 @@
           <h4 class="text-center">Donatur</h4>
           <form class="d-center mt-5 justify-content-between">
             <div class="group-select d-flex">
-              <div class="wrap-select btn btn-green mr-2">
+              <div class="btn btn-green mr-2">
                 <select class="form-control select-cat">
                   <option selected>Pilih Kecamatan</option>
                   <option value="1">One</option>
@@ -19,7 +19,7 @@
                   <option value="3">Three</option>
                 </select>
               </div>
-              <div class="wrap-select btn btn-green mr-2">
+              <div class="btn btn-green mr-2">
                 <select class="form-control select-cat">
                   <option selected>Pilih Desa</option>
                   <option value="1">One</option>
@@ -27,7 +27,7 @@
                   <option value="3">Three</option>
                 </select>
               </div>
-              <div class="wrap-select btn btn-green mr-2">
+              <div class="btn btn-green mr-2">
                 <select class="form-control select-cat">
                   <option selected>Pilih Program</option>
                   <option value="1">One</option>
@@ -35,7 +35,7 @@
                   <option value="3">Three</option>
                 </select>
               </div>
-              <div class="wrap-select btn btn-green mr-2">
+              <div class="btn btn-green mr-2">
                 <select class="form-control select-cat">
                   <option selected>Pilih Ziwaf</option>
                   <option value="1">One</option>
