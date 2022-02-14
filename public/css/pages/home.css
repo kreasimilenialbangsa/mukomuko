@@ -21,7 +21,7 @@
 .home-page .slider-donate .slider-detail {
   position: absolute;
   top: 50%;
-  max-width: 450px;
+  max-width: 480px;
   color: white;
   right: 100px;
   transform: translateY(-50%);
