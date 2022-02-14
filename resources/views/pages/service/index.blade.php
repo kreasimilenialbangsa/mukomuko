@@ -14,6 +14,7 @@
           <div class="wrapper-boxtext">
             <h1 class="box-title">{{ $service->title }}</h1>
             {!! $service->description !!}
+          </div>
         </section>
       </div>
     </div>

@@ -59,7 +59,7 @@
                         <h6 class="text-sm">{{ $program->count_day }}</h6>
                       </div>
                     </div>
-                    <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
+                    <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
                   </div>
                 </div>
               </div>

@@ -21,22 +21,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto pt-lg-0 pt-3">
-        <li class="nav-item active">
+        <li class="nav-item {{ Request::is('ziswaf') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('ziswaf.index') }}">Ziswaf</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('program') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('program.index') }}">Program</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('berita') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('news.index') }}">Berita</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/view/donatur">Donatur</a>
+        <li class="nav-item {{ Request::is('donatur') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('donatur.index') }}">Donatur</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('galeri') ? 'active' : '' }}">
           <a class="nav-link" href="/view/galeri">Galeri</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown {{ Request::is('layanan*') ? 'active' : '' }}">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             Layanan
           </a>
@@ -44,7 +44,7 @@
             <x-header.service/>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown {{ Request::is('tentang*') ? 'active' : '' }}">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             Tentang
           </a>

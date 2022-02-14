@@ -27,12 +27,14 @@ Route::get('/program/{slug}', [\App\Http\Controllers\ProgramContoller::class, 'd
 Route::get('/berita', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
 Route::get('/berita/{slug}', [\App\Http\Controllers\NewsController::class, 'detail'])->name('news.detail');
 
+// Donatur
+Route::get('/donatur', [\App\Http\Controllers\DonaturController::class, 'index'])->name('donatur.index');
+
 // Service
 Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'index'])->name('service.index');
 
 // About
 Route::get('/tentang/{slug}', [\App\Http\Controllers\AboutContoller::class, 'index'])->name('about.index');
-
 
 
 Auth::routes(['register' => false]);

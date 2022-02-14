@@ -87,6 +87,10 @@
   position: relative;
 }
 
+.slick-dots li:only-child{
+  display: none;
+}
+
 .slider-arrows .wrap-arrow{
   background: #45BF7C;
   border-radius: 50%;

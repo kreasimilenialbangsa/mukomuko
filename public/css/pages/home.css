@@ -1,5 +1,5 @@
 .main-content{
-  margin-top: -45px;
+  padding-top: 0px;
   min-height: 100vh;
 }
 
@@ -194,6 +194,21 @@
 
 .home-page .sec-regist .btn-regist:hover{
   transform: scale(1.02);
+}
+
+@media only screen and (max-width: 991px){
+  .home-page .slider-donate .slider-img{
+    height: 60vh;
+  }
+  .home-page .slider-donate .slider-detail {
+    max-width: 100%;
+    left: 0;
+    right: initial;
+    padding: 0 20px;
+  }
+  .home-page .slider-donate .slide-title {
+    width: 100%;
+  } 
 }
 
 @media only screen and (max-width: 767px){

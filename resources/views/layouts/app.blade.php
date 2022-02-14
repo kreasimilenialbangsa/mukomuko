@@ -70,7 +70,7 @@
   <script src="{{ asset('js/slick.min.js') }}"></script>
   <script>
       $('.slider-header').slick({
-        dots: false,
+        dots: true,
         arrows: false,
         autoplay: true,
         autoplaySpeed: 2000
