@@ -1,7 +1,7 @@
 <div class="slider-header">
   <div>
     <div class="bg-green">
-      <span class="mb-2">
+      <span class="mb-3">
         <span class="headline">KABAR TERBARU!</span>
         Donasi bantu korban bencana alam Desa A
         <a href="" class="view-more">Lihat disini</a>
@@ -10,7 +10,7 @@
   </div>
   <div>
     <div class="bg-green">
-      <span class="mb-2">
+      <span class="mb-3">
         <span class="headline">KABAR TERBARU!</span>
         Donasi bantu korban bencana alam Desa A
         <a href="" class="view-more">Lihat disini</a>
@@ -19,7 +19,7 @@
   </div>
   <div>
     <div class="bg-green">
-      <span class="mb-2">
+      <span class="mb-3">
         <span class="headline">KABAR TERBARU!</span>
         Donasi bantu korban bencana alam Desa A
         <a href="" class="view-more">Lihat disini</a>

@@ -31,9 +31,17 @@
     <div class="container">
       <div class="row">
         <section class="col-lg-9 col-md-10 mx-auto my-4 sec-filter">
-          <div class="d-flex">
+          <form class="d-flex">
             <div class="box-search">
-              <div class="dropdown dropdown-cat">
+              <div class="wrap-select">
+                <select class="form-control select-cat">
+                  <option selected>Semua Kategori Berita</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <!-- <div class="dropdown dropdown-cat">
                 <button class="btn dropdown-toggle" type="button" id="dropdowncat" data-toggle="dropdown" aria-expanded="false">
                   Semua Kategori Berita
                 </button>
@@ -42,7 +50,7 @@
                   <a class="dropdown-item" href="#">Another action</a>
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-              </div>
+              </div> -->
               <div class="wrap-search w-100">
                 <input type="search" class="input-search w-100" name="search" placeholder="Cari Berita">
               </div>
@@ -50,7 +58,7 @@
             <button class="btn btn-search btn-green">
               <ion-icon name="search-outline"></ion-icon>
             </button>
-          </div>
+          </form>
         </section>
         <section class="col-12 pt-4 sec-listnews">
           <h4 class="text-center">Berita Terkini</h4>
