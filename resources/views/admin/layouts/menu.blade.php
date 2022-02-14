@@ -12,10 +12,6 @@
     <a class="nav-link" href="{{ route('admin.ziswafs.index') }}"><i class="fas fa-building"></i><span>Ziswaf</span></a>
 </li>
 
-<li class="side-menus {{ Request::is('admin/services*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.services.index') }}"><i class="fas fa-building"></i><span>Services</span></a>
-</li>
-
 <li class="menu-header">Content</li>
 <li class="side-menus {{ Request::is('admin/banners*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.banners.index') }}"><i class="fas fa-building"></i><span>Banners</span></a>
@@ -29,6 +25,9 @@
     <a class="nav-link" href="{{ route('admin.galleries.index') }}"><i class="fas fa-building"></i><span>Galleries</span></a>
 </li>
 
+<li class="side-menus {{ Request::is('admin/services*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.services.index') }}"><i class="fas fa-building"></i><span>Services</span></a>
+</li>
 
 <li class="side-menus {{ Request::is('admin/abouts*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.abouts.index') }}"><i class="fas fa-building"></i><span>Abouts</span></a>

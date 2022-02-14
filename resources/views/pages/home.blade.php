@@ -7,26 +7,24 @@
 @section('content')
   <div class="home-page">
     <section class="slider-donate">
+      @foreach($banners as $key => $banner)
       <div>
-        <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
+        <img class="slider-img" src="{{ asset('storage/'.$banner->image) }}" alt="">
         <div class="slider-detail">
-          <h3 class="slide-title">Berdonasi bersama Lazisnu Trenggalek</h3>
+          <h3 class="slide-title">{{ $banner->title }}</h3>
           <div class="slide-text">
-            <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
+            @if(strlen($banner->description) > 100)
+              {!! substr($banner->description, 0, 100) . '...' !!}
+            @else
+              {!! $banner->description !!}
+            @endif
           </div>
-          <a class="btn btn-green text-base px-3" href="">Donasi Sekarang</a>
+          @if(!empty($banner->link_url))
+          <a class="btn btn-green" href="{{ $banner->link_url }}">Donasi Sekarang</a>
+          @endif
         </div>
       </div>
-      <div>
-        <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-        <div class="slider-detail">
-          <h3 class="slide-title">Berdonasi bersama Lazisnu Trenggalek</h3>
-          <div class="slide-text">
-            <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
-          </div>
-          <a class="btn btn-green text-base px-3" href="">Donasi Sekarang</a>
-        </div>
-      </div>
+      @endforeach
     </section>
     <div class="container">
       <div class="row">
@@ -205,61 +203,37 @@
         <section class="col-12 mt-5 pt-3 sec-aydonation">
           <h4 class="text-center">Ayo Mulai Berdonasi!</h4>
           <div class="row mt-4">
-            <div class="col-lg-3 col-md-4 col-6 p-3">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Kemanusiaan</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B</h6>
-                  <p class="text-xs mb-1 font-medium">Rumah Zakat Kecamatan A</p>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            @foreach($programs as $key => $program)
+              <div class="col-lg-3 col-md-4 col-6 p-3">
+                <div class="card-thumbnail">
+                  <div class="thumb-pict">
+                    <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
+                    <span class="tag-cat">{{ $program->category->name }}</span>
                   </div>
-                  <div class="d-flex mt-2 justify-content-between">
-                    <div class="w-left mr-2">
-                      <span class="text-xs clr-grey">Terkumpul</span>
-                      <h6 class="text-sm">RP 3.500.000</h6>
+                  <div class="card-detail">
+                    <h6>{{ $program->title }}</h6>
+                    <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
+                    <div class="progress">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div class="w-right text-right">
-                      <span class="text-xs clr-grey">Sisa Hari</span>
-                      <h6 class="text-sm">32</h6>
+                    <div class="d-flex mt-2 justify-content-between">
+                      <div class="w-left mr-2">
+                        <span class="text-xs clr-grey">Terkumpul</span>
+                        <h6 class="text-sm">RP 3.500.000</h6>
+                      </div>
+                      <div class="w-right text-right">
+                        <span class="text-xs clr-grey">Sisa Hari</span>
+                        <h6 class="text-sm">{{ $program->count_day }}</h6>
+                      </div>
                     </div>
+                    <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
                   </div>
-                  <a href="/view/program" class="mt-2 btn btn-green w-100">Ikut Donasi</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6 p-3">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Kemanusiaan</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B</h6>
-                  <p class="text-xs mb-1 font-medium">Rumah Zakat Kecamatan A</p>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <div class="d-flex mt-2 justify-content-between">
-                    <div class="w-left mr-2">
-                      <span class="text-xs clr-grey">Terkumpul</span>
-                      <h6 class="text-sm">RP 3.500.000</h6>
-                    </div>
-                    <div class="w-right text-right">
-                      <span class="text-xs clr-grey">Sisa Hari</span>
-                      <h6 class="text-sm">32</h6>
-                    </div>
-                  </div>
-                  <a href="" class="mt-2 btn btn-green py-2 w-100">Ikut Donasi</a>
                 </div>
               </div>
-            </div>
+            @endforeach
           </div>
           <div class="text-center mt-3">
-            <a href="" class="btn btn-green px-3">
+            <a href="{{ route('program.index') }}" class="btn btn-green px-3">
               <div class="d-center">
                 Lihat Semua
                 <ion-icon class="ml-2" name="chevron-down-outline"></ion-icon>
@@ -270,104 +244,32 @@
         <section class="col-12 mt-5 pt-3 sec-news">
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
+            @forelse($news as $key => $row)
+            <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-6 p-3 wblock">
               <div class="card-thumbnail">
                 <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
+                  <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
+                  <span class="tag-cat">{{ $row->category->name }}</span>
                 </div>
                 <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
+                  <h6>{{ $row->title }}</h6>
                   <div class="d-flex author">
                     <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
+                    <span class="text-xs">{{ $row->user->name }}</span>
                   </div>
                   <div class="d-flex calendar mt-2">
                     <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
+                    <span class="text-xs">{{ date('d/m/Y', strtotime($row->created_at)) }}</span>
                   </div>
                 </div>
               </div>
             </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
+            @empty
+            Data not found!
+            @endforelse
           </div>
           <div class="text-center mt-3">
-            <a href="/view/berita" class="btn btn-green py-2 px-3">
+            <a href="{{ route('news.index') }}" class="btn btn-green py-2 px-3">
               <div class="d-center">
                 Lihat Semua
                 <ion-icon class="ml-2" name="chevron-down-outline"></ion-icon>
@@ -379,38 +281,21 @@
           <h4 class="text-center">Galeri</h4>
           <div class="position-relative mt-3">
             <div class="slider-gallery">
-              <div>
-                <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                <div class="slider-detail">
-                  <p>
-                    Acara senam pagi dan jogging yang di laksanakan pada...
-                  </p>
+              @foreach($galleries as $key => $gallery)
+              @if($gallery->type == 'image')
+                <div>
+                  <img class="slider-img" src="{{ asset('storage/' . $gallery->content) }}" alt="{{ $gallery->title }}">
+                  <div class="slider-detail">
+                    <p>{{ $gallery->title }}</p>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                <div class="slider-detail">
-                  <p>
-                    Acara senam pagi dan jogging yang di laksanakan pada...
-                  </p>
+                @else
+                <div>
+                  <iframe width="368" height="202" src="https://www.youtube.com/embed/{{ $gallery->content }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-              </div>
-              <div>
-                <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                <div class="slider-detail">
-                  <p>
-                    Acara senam pagi dan jogging yang di laksanakan pada...
-                  </p>
-                </div>
-              </div>
-              <div>
-                <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                <div class="slider-detail">
-                  <p>
-                    Acara senam pagi dan jogging yang di laksanakan pada...
-                  </p>
-                </div>
-              </div>
+                @endif
+              @endforeach
+              
             </div>
             <div class="slider-arrows">
               <div class="prev-slider wrap-arrow" id="prev-slider">

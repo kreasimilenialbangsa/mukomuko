@@ -19,12 +19,13 @@ class CreateProgramsTable extends Migration
             $table->integer('user_id');
             $table->text('title');
             $table->text('slug');
-            $table->string('location');
+            $table->integer('location');
             $table->integer('target_dana');
             $table->string('end_date');
             $table->integer('category_id');
             $table->text('description');
             $table->text('image');
+            $table->integer('is_urgent');
             $table->integer('is_active');
             $table->timestamps();
             $table->softDeletes();

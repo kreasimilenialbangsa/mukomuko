@@ -15,15 +15,15 @@
             <div class="section-body">
                <div class="row">
                    <div class="col-lg-12">
-                       <div class="card">
-                           <div class="card-body ">
+                       {{-- <div class="card">
+                           <div class="card-body "> --}}
                                 {!! Form::open(['route' => 'admin.news.store', 'files' => true]) !!}
                                     <div class="row">
                                         @include('admin.pages.news.fields')
                                     </div>
                                 {!! Form::close() !!}
-                           </div>
-                       </div>
+                           {{-- </div>
+                       </div> --}}
                    </div>
                </div>
             </div>

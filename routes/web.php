@@ -13,51 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Home
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/view/home', function () {
-    return view('pages.home');
-});
+// Ziswaf
+Route::get('/ziswaf', [\App\Http\Controllers\ZiswafContoller::class, 'index'])->name('ziswaf.index');
 
-Route::get('/view/ziswaf', function () {
-    return view('pages.ziswaf');
-});
+// Program
+Route::get('/program', [\App\Http\Controllers\ProgramContoller::class, 'index'])->name('program.index');
+Route::get('/program/{slug}', [\App\Http\Controllers\ProgramContoller::class, 'detail'])->name('program.detail');
 
-Route::get('/view/tentang/sekilas-nu', function () {
-    return view('pages.about');
-});
+// News
+Route::get('/berita', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
+Route::get('/berita/{slug}', [\App\Http\Controllers\NewsController::class, 'detail'])->name('news.detail');
 
-Route::get('/view/tentang/visi-misi', function () {
-    return view('pages.visi-misi');
-});
+// Service
+Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'index'])->name('service.index');
 
-Route::get('/view/tentang/pengurus', function () {
-    return view('pages.management');
-});
+// About
+Route::get('/tentang/{slug}', [\App\Http\Controllers\AboutContoller::class, 'index'])->name('about.index');
 
-Route::get('/view/layanan/daftar-rekening', function () {
-    return view('pages.list-rek');
-});
 
-Route::get('/view/donatur', function () {
-    return view('pages.donatur');
-});
 
-Route::get('/view/layanan/go-ziswaf', function () {
-    return view('pages.go-ziswaf');
-});
-
-Route::get('/view/berita', function () {
-    return view('pages.news');
-});
-
-Route::get('/view/program', function () {
-    return view('pages.program');
-});
-
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -92,6 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:SuperAdmin|Kab
         Route::resource('desa', App\Http\Controllers\Admin\DesaController::class, ["as" => 'admin.location']);
     });    
 
+    // User
     Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
 });
 /** Admin Area End*/

@@ -15,16 +15,16 @@
               <div class="section-body">
                  <div class="row">
                      <div class="col-lg-12">
-                         <div class="card">
-                             <div class="card-body ">
+                         {{-- <div class="card">
+                             <div class="card-body "> --}}
                                     {!! Form::model($program, ['route' => ['admin.programs.update', $program->id], 'method' => 'patch', 'files' => true]) !!}
                                         <div class="row">
                                             @include('admin.pages.programs.fields')
                                         </div>
 
                                     {!! Form::close() !!}
-                            </div>
-                         </div>
+                            {{-- </div>
+                         </div> --}}
                     </div>
                  </div>
               </div>

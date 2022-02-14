@@ -10,6 +10,7 @@ use App\Repositories\Admin\ProgramRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\ProgramCategory;
 use App\Models\Admin\Kecamatan;
+use App\Models\Admin\ProgramNews;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Str;
@@ -185,6 +186,35 @@ class ProgramController extends AppBaseController
         }
 
         $program = $this->programRepository->update($input, $id);
+
+        if(isset($request->news)) {
+            foreach($request->news as $key => $news) {
+                if(isset($news['description'])) {
+                    $dataNews = [
+                        'user_id' => Auth::user()->id,
+                        'program_id' => $program->id,
+                        'description' => $news['description']
+                    ];
+
+                    if(isset($news['id'])) {
+                        // Update news
+                        ProgramNews::whereId($news['id'])->update($dataNews);
+                    } else {
+                        // Create news
+                        ProgramNews::create($dataNews);
+                    }
+                }
+            }
+
+            // Delete news
+            if (isset($request->del)) {
+                $del = explode(",", $request->del);
+                
+                foreach ($del as $key => $id) {
+                    ProgramNews::whereId($id)->delete();
+                }
+            }
+        }
 
         Flash::success('Program updated successfully.');
 

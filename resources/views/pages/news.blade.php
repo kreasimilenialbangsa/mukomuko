@@ -7,26 +7,22 @@
 @section('content')
   <div class="news-page">
     <section class="slider-donate">
-      <div>
-        <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-        <div class="slider-detail">
-          <div class="cat-news">Sosial</div>
-          <h3 class="slide-title">Berdonasi bersama Lazisnu Trenggalek</h3>
-          <div class="slide-text">
-            <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
+      @foreach($highlight as $key => $row)
+        <div>
+          <img class="slider-img" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
+          <div class="slider-detail">
+            <a class="btn btn-green mb-3" href="">{{ $row->category->name }}</a>
+            <h3 class="slide-title">{{ $row->title }}</h3>
+            <div class="slide-text">
+              @if(strlen($row->content) > 100)
+                {!! substr($row->content, 0, 100) . '...' !!}
+              @else
+                {!! $row->content !!}
+              @endif
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        <img class="slider-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-        <div class="slider-detail">
-          <div class="cat-news">Sosial</div>
-          <h3 class="slide-title">Berdonasi bersama Lazisnu Trenggalek</h3>
-          <div class="slide-text">
-            <p>“Allah senantiasa menolong seorang hamba selama hamba itu menolong saudaranya.” <br><br> - HR. Muslim</p>
-          </div>
-        </div>
-      </div>
+      @endforeach
     </section>
     <div class="container">
       <div class="row">
@@ -63,110 +59,32 @@
         <section class="col-12 pt-4 sec-listnews">
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
+            @forelse($news as $key => $row)
+              <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-6 p-3 wblock">
+                <div class="card-thumbnail">
+                  <div class="thumb-pict">
+                    <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
+                    <span class="tag-cat">{{ $row->category->name }}</span>
                   </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
+                  <div class="card-detail">
+                    <h6>{{ $row->title }}</h6>
+                    <div class="d-flex author">
+                      <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
+                      <span class="text-xs">{{ $row->user->name }}</span>
+                    </div>
+                    <div class="d-flex calendar mt-2">
+                      <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
+                      <span class="text-xs">{{ date('d/m/Y', strtotime($row->created_at)) }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                  <span class="tag-cat">Sosial</span>
-                </div>
-                <div class="card-detail">
-                  <h6>Sedekah Makanan Gratis untuk Desa B...</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">Sudirjo Tirto</span>
-                  </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">10/08/2021</span>
-                  </div>
-                </div>
-              </div>
-            </a>
+              </a>
+            @empty
+            Data not found!
+            @endforelse
           </div>
           <div class="d-flex mt-3 justify-content-center">
-            <ul class="pagination mb-0">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+            {{ $news->links('vendor.pagination.bootstrap-4') }}
           </div>
         </section>
       </div>

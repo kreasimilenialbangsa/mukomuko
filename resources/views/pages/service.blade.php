@@ -4,19 +4,16 @@
 @endsection
 
 @section('content')
-  <div class="about-page">
+  <div class="rekening-page">
     <div class="container">
       <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span>Tentang</span> / <span class="current">{{ $about->title }}</span>
+        <span>Beranda</span> / <span>Layanan</span> / <span class="current">{{ $service->title }}</span>
       </div>
       <div class="row">
         <section class="col-12">
           <div class="wrapper-boxtext">
-            <h1 class="box-title">{{ $about->title }}</h1>
-            <div class="box-detail">
-              {!! $about->description !!}
-            </div>
-          </div>
+            <h1 class="box-title">{{ $service->title }}</h1>
+            {!! $service->description !!}
         </section>
       </div>
     </div>

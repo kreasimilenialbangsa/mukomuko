@@ -77,5 +77,10 @@ class News extends Model
     {
         return $this->hasOne(\App\Models\Admin\NewsCategory::class, 'id', 'category_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(\App\Models\User::class, 'id', 'user_id');
+    }
     
 }

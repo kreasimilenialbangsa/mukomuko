@@ -81,6 +81,15 @@ class Program extends Model
         'end_date' => 'required',
         'category_id' => 'required',
         'description' => 'required',
-        'image' => 'required'
-    ];    
+    ];
+
+    public function category()
+    {
+        return $this->hasOne(\App\Models\Admin\ProgramCategory::class, 'id', 'category_id');
+    }
+
+    public function news()
+    {
+        return $this->hasMany(\App\Models\Admin\ProgramNews::class, 'program_id', 'id');
+    }
 }
