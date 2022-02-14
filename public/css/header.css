@@ -12,7 +12,7 @@
 .slider-header .bg-green{
   background: #45BF7C;
   color: white;
-  height: 80px;
+  min-height: 75px;
   text-align: center;
   display: flex;
   align-items: center;

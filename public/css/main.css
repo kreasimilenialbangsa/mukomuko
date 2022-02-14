@@ -306,8 +306,30 @@
   padding-bottom: 0.6rem;
 }
 
+.custom-search .btn-search {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .custom-search .input-search:focus-visible {
   outline: none;
+}
+
+.group-select .select-cat {
+  color: white;
+  padding: 0;
+  font-size: 0.875rem;
+  background: initial;
+  border: none;
+}
+
+.group-select .select-cat option{
+  color: black;
+}
+
+.group-select .select-cat:focus{
+  outline: none;
+  box-shadow: none;
 }
 
 /* enter , tab visible */

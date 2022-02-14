@@ -8,22 +8,22 @@
   <div class="home-page">
     <section class="slider-donate">
       @foreach($banners as $key => $banner)
-      <div>
-        <img class="slider-img" src="{{ asset('storage/'.$banner->image) }}" alt="">
-        <div class="slider-detail">
-          <h3 class="slide-title">{{ $banner->title }}</h3>
-          <div class="slide-text">
-            @if(strlen($banner->description) > 100)
-              {!! substr($banner->description, 0, 100) . '...' !!}
-            @else
-              {!! $banner->description !!}
+        <div>
+          <img class="slider-img" src="{{ asset('storage/'.$banner->image) }}" alt="">
+          <div class="slider-detail">
+            <h3 class="slide-title">{{ $banner->title }}</h3>
+            <div class="slide-text">
+              @if(strlen($banner->description) > 100)
+                {!! substr($banner->description, 0, 100) . '...' !!}
+              @else
+                {!! $banner->description !!}
+              @endif
+            </div>
+            @if(!empty($banner->link_url))
+              <a class="btn btn-green" href="{{ $banner->link_url }}">Donasi Sekarang</a>
             @endif
           </div>
-          @if(!empty($banner->link_url))
-          <a class="btn btn-green" href="{{ $banner->link_url }}">Donasi Sekarang</a>
-          @endif
         </div>
-      </div>
       @endforeach
     </section>
     <div class="container">
@@ -245,27 +245,27 @@
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
             @forelse($news as $key => $row)
-            <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-6 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
-                  <span class="tag-cat">{{ $row->category->name }}</span>
-                </div>
-                <div class="card-detail">
-                  <h6>{{ $row->title }}</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">{{ $row->user->name }}</span>
+              <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-6 p-3 wblock">
+                <div class="card-thumbnail">
+                  <div class="thumb-pict">
+                    <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
+                    <span class="tag-cat">{{ $row->category->name }}</span>
                   </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">{{ date('d/m/Y', strtotime($row->created_at)) }}</span>
+                  <div class="card-detail">
+                    <h6>{{ $row->title }}</h6>
+                    <div class="d-flex author">
+                      <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
+                      <span class="text-xs">{{ $row->user->name }}</span>
+                    </div>
+                    <div class="d-flex calendar mt-2">
+                      <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
+                      <span class="text-xs">{{ date('d/m/Y', strtotime($row->created_at)) }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
             @empty
-            Data not found!
+              Data not found!
             @endforelse
           </div>
           <div class="text-center mt-3">
@@ -282,20 +282,19 @@
           <div class="position-relative mt-3">
             <div class="slider-gallery">
               @foreach($galleries as $key => $gallery)
-              @if($gallery->type == 'image')
-                <div>
-                  <img class="slider-img" src="{{ asset('storage/' . $gallery->content) }}" alt="{{ $gallery->title }}">
-                  <div class="slider-detail">
-                    <p>{{ $gallery->title }}</p>
+                @if($gallery->type == 'image')
+                  <div>
+                    <img class="slider-img" src="{{ asset('storage/' . $gallery->content) }}" alt="{{ $gallery->title }}">
+                    <div class="slider-detail">
+                      <p>{{ $gallery->title }}</p>
+                    </div>
                   </div>
-                </div>
                 @else
-                <div>
-                  <iframe width="368" height="202" src="https://www.youtube.com/embed/{{ $gallery->content }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+                  <div>
+                    <iframe width="368" height="202" src="https://www.youtube.com/embed/{{ $gallery->content }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
                 @endif
               @endforeach
-              
             </div>
             <div class="slider-arrows">
               <div class="prev-slider wrap-arrow" id="prev-slider">

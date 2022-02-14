@@ -8,10 +8,42 @@
     <div class="container">
       <div class="row">
         <section class="col-12 mb-4 sec-filter">
-          <h4 class="text-center">Donasi</h4>
-          <div class="d-center mt-5 justify-content-between">
-            <div class="group-filter d-flex">
-              <div class="dropdown dropdown-cat mr-2">
+          <h4 class="text-center">Donatur</h4>
+          <form class="d-center mt-5 justify-content-between">
+            <div class="group-select d-flex">
+              <div class="btn btn-green mr-2">
+                <select class="form-control select-cat">
+                  <option selected>Pilih Kecamatan</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="btn btn-green mr-2">
+                <select class="form-control select-cat">
+                  <option selected>Pilih Desa</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="btn btn-green mr-2">
+                <select class="form-control select-cat">
+                  <option selected>Pilih Program</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="btn btn-green mr-2">
+                <select class="form-control select-cat">
+                  <option selected>Pilih Ziwaf</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <!-- <div class="dropdown dropdown-cat mr-2">
                 <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                   Pilih Kecamatan
                 </button>
@@ -46,7 +78,7 @@
                   <a class="dropdown-item" href="#">Action</a>
                   <a class="dropdown-item" href="#">Another action</a>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="custom-search">
               <input type="search" class="input-search w-100" name="search" placeholder="Cari">
@@ -54,7 +86,7 @@
                 <ion-icon name="search-outline"></ion-icon>
               </button>
             </div>
-          </div>
+          </form>
         </section>
         <section class="col-12 sec-todonation">
           <div class="row px-2">

@@ -80,15 +80,6 @@ input[type='number'] {
 	-moz-appearance: textfield;
 }
 
-select:focus > option:checked { 
-	background: #000 !important;
-}
-
-select option:checked,
-select option:hover {
-    box-shadow: 0 0 10px 100px #000 inset;
-}
-
 .main-content {
   padding-top: 45px;
   min-height: 95vh;

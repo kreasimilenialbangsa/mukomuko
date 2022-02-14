@@ -13,7 +13,17 @@
                <h4>Program</h4>
                <p class="text-base font-medium mb-0">Menampilkan 15 dari 30 Campaign</p>
             </div>
-            <div class="dropdown dropdown-cat">
+            <div class="group-select">
+              <div class="btn btn-green mr-2">
+                <select class="form-control select-cat">
+                  <option selected>Pilih Kecamatan</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+            <!-- <div class="dropdown dropdown-cat">
               <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" id="dropdowncat" data-toggle="dropdown" aria-expanded="false">
                 Pilih Kategori
               </button>
@@ -21,7 +31,7 @@
                 <a class="dropdown-item" href="#">Action</a>
                 <a class="dropdown-item" href="#">Another action</a>
               </div>
-            </div>
+            </div> -->
           </div>
         </section>
         <section class="col-12 sec-aydonation">
