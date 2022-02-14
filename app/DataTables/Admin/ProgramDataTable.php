@@ -18,7 +18,9 @@ class ProgramDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.programs.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.pages.programs.datatables_actions')
+            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->rawColumns(['is_active', 'action']);
     }
 
     /**
@@ -29,7 +31,9 @@ class ProgramDataTable extends DataTable
      */
     public function query(Program $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->with('category')
+            ->select('programs.*');
     }
 
     /**
@@ -65,11 +69,12 @@ class ProgramDataTable extends DataTable
     {
         return [
             'title',
-            'location',
-            'target_dana',
-            'end_date',
-            'category_id',
-            'is_active'
+            'location' => ['className' => 'text-center'],
+            'target_dana' => ['className' => 'text-center'],
+            'end_date' => ['className' => 'text-center'],
+            'category.name' => ['className' => 'text-center', 'defaultContent' => 'Not set', 'name' => 'category.name'],
+            'is_urgent' => ['className' => 'text-center'],
+            'is_active' => ['className' => 'text-center']
         ];
     }
 

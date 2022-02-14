@@ -16,12 +16,6 @@
     <p>{{ $gallery->description }}</p>
 </div>
 
-<!-- Link Url Field -->
-<div class="form-group">
-    {!! Form::label('link_url', 'Link Url:') !!}
-    <p>{{ $gallery->link_url }}</p>
-</div>
-
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}

@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $user_id
  * @property string $title
  * @property string $description
- * @property string $link_url
  * @property string $type
  * @property string $content
  * @property integer $is_active
@@ -36,7 +35,6 @@ class Gallery extends Model
         'user_id',
         'title',
         'description',
-        'link_url',
         'type',
         'content',
         'is_active'
@@ -51,7 +49,6 @@ class Gallery extends Model
         'user_id' => 'integer',
         'title' => 'string',
         'description' => 'string',
-        'link_url' => 'string',
         'type' => 'string',
         'content' => 'string',
         'is_active' => 'integer'

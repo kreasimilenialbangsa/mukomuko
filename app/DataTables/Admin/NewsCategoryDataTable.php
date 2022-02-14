@@ -64,8 +64,8 @@ class NewsCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name',
-            'slug'
+            'name' => ['className' => 'text-center'],
+            'slug' => ['className' => 'text-center']
         ];
     }
 

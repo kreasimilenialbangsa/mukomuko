@@ -19,7 +19,6 @@ class CreateGalleriesTable extends Migration
             $table->integer('user_id');
             $table->text('title');
             $table->text('description');
-            $table->text('link_url')->nullable();
             $table->enum('type', ['image', 'video']);
             $table->text('content');
             $table->integer('is_active');

@@ -11,7 +11,7 @@ class AboutContoller extends Controller
     {
         $about = About::whereSlug($slug)->firstOrFail();
 
-        return view('pages.about')
+        return view('pages.about.index')
             ->with('about', $about);
     }
 }

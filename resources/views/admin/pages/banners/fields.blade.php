@@ -1,11 +1,3 @@
-<div class="col-md-5">
-    <!-- Image Field -->
-    <div class="form-group">
-        {!! Form::label('image', 'Image:') !!}
-        {!! Form::file('image', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-height' => '300', 'data-default-file' => @$banner->image ? asset('storage/'.$banner->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
-    </div>
-</div>
-
 <div class="col">
     <!-- Title Field -->
     <div class="form-group">
@@ -13,16 +5,38 @@
         {!! Form::text('title', null, ['class' => 'form-control']) !!}
     </div>
 
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Link Url Field -->
+            <div class="form-group">
+                {!! Form::label('link_url', 'Link Url:') !!}
+                {!! Form::text('link_url', null, ['class' => 'form-control']) !!}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Is Active Field -->
+            <div class="form-group">
+                <div class="control-label">Is Active:</div>
+                <label class="custom-switch mt-2 pl-0">
+                    <input type="checkbox" name="is_active" value="1" class="custom-switch-input" {{ @$banner->is_active == 1 ? 'checked' : '' }}>
+                    <span class="custom-switch-indicator"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
     <!-- Description Field -->
     <div class="form-group">
         {!! Form::label('description', 'Description:') !!}
-        {!! Form::textarea('description', null, ['class' => 'form-control my-editor']) !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'style' => 'height: 130px;']) !!}
     </div>
+</div>
 
-    <!-- Link Url Field -->
+<div class="col-md-5">
+    <!-- Image Field -->
     <div class="form-group">
-        {!! Form::label('link_url', 'Link Url:') !!}
-        {!! Form::text('link_url', null, ['class' => 'form-control']) !!}
+        {!! Form::label('image', 'Image:') !!}
+        {!! Form::file('image', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-height' => '300', 'data-default-file' => @$banner->image ? asset('storage/'.$banner->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
     </div>
 </div>
 

@@ -21,7 +21,8 @@ class NewsDataTable extends DataTable
         return $dataTable->addColumn('action', 'admin.pages.news.datatables_actions')
             ->editColumn('image', '<img src="{{ $images ? asset("storage".$images[0]["file"]) : asset("img/no_image.jpg") }}" height="120px"/>')
             ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
-            ->rawColumns(['image','action']);
+            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->rawColumns(['is_active', 'image','action']);
     }
 
     /**
@@ -69,11 +70,11 @@ class NewsDataTable extends DataTable
     {
         return [
             'title',
-            'image' => ['searchable' => false, 'orderable' => false],
-            'created_at',
-            'category_id' => ['data' => 'category.name', 'name' => 'category_id', 'title' => 'Category'],
-            'is_active',
-            'is_highlight'
+            'image' => ['searchable' => false, 'orderable' => false, 'className' => 'text-center'],
+            'created_at' => ['className' => 'text-center'],
+            'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category_id', 'title' => 'Category'],
+            'is_highlight' => ['className' => 'text-center'],
+            'is_active' => ['className' => 'text-center']
         ];
     }
 

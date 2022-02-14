@@ -376,7 +376,9 @@
   <script>
     $('.slider-donate').slick({
       dots: true,
-      arrows: false
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 5000
     });
     $('.slider-gallery').slick({
       infinite: true,

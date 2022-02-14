@@ -71,7 +71,9 @@
   <script>
       $('.slider-header').slick({
         dots: false,
-        arrows: false
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 2000
       });
   </script>
   @yield('scripts')

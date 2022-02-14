@@ -8,6 +8,6 @@ class ZiswafContoller extends Controller
 {
     public function index(Request $request)
     {
-        return view('pages.ziswaf');
+        return view('pages.ziswaf.index');
     }
 }

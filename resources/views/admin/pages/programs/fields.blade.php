@@ -13,7 +13,7 @@
             <div class="tab-content" id="myTab3Content">
                 <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
                     <div class="row">
-        @endif
+@endif
                         <div class="col">
                             <!-- Title Field -->
                             <div class="form-group">
@@ -79,7 +79,7 @@
                             {!! Form::label('description', 'Description:') !!}
                             {!! Form::textarea('description', null, ['class' => 'form-control my-editor']) !!}
                         </div>
-        @if(@$program)                
+@if(@$program)               
                     </div>
                 </div>
                 <div class="tab-pane fade" id="images2" role="tabpanel" aria-labelledby="images-tab2">
@@ -110,13 +110,14 @@
                         </div>
                     </div>
                 </div>
-
+@endif
                 <!-- Submit Field -->
                 <div class="form-group">
                     {!! Form::hidden('del', null, ['class' => 'form-control']) !!}
                     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     <a href="{{ route('admin.programs.index') }}" class="btn btn-light">Cancel</a>
                 </div>
+@if(@$program)
             </div>
         </div>
     </div>

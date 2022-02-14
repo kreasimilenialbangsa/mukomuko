@@ -11,7 +11,7 @@ class ServiceContoller extends Controller
     {
         $service = Service::whereSlug($slug)->firstOrFail();
 
-        return view('pages.service')
+        return view('pages.service.index')
             ->with('service', $service);
     }
 }

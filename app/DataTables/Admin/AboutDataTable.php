@@ -66,8 +66,8 @@ class AboutDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'title',
-            'is_active'
+            'title' => ['className' => 'text-center'],
+            'is_active' => ['className' => 'text-center']
         ];
     }
 

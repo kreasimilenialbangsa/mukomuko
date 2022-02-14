@@ -69,9 +69,9 @@ class BannerDataTable extends DataTable
     {
         return [
             'title',
-            'image',
-            'created_at',
-            'is_active'
+            'image' => ['className' => 'text-center'],
+            'created_at' => ['className' => 'text-center'],
+            'is_active' => ['className' => 'text-center']
         ];
     }
 

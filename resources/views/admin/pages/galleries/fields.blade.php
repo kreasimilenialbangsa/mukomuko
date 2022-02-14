@@ -38,12 +38,6 @@
             {!! Form::label('title', 'Title:') !!}
             {!! Form::text('title', null, ['class' => 'form-control']) !!}
         </div>
-        
-        <!-- Link Url Field -->
-        <div class="form-group col-sm-12">
-            {!! Form::label('link_url', 'Link Url:') !!}
-            {!! Form::text('link_url', null, ['class' => 'form-control']) !!}
-        </div>
 
         <!-- Is Active Field -->
         <div class="form-group col-md-6">

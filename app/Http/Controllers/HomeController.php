@@ -42,7 +42,7 @@ class HomeController extends Controller
             ->orderBy('id', 'desc')
             ->get();
         
-        return view('pages.home')
+        return view('pages.home.index')
             ->with('banners', $banners)
             ->with('programs', $programs)
             ->with('news', $news)

@@ -70,9 +70,9 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name',
-            'email',
-            'role_user.role.name' => ['title' => 'Role', 'name'=> 'role_user.role.name', 'className' => 'text-center'],
+            'name' => ['className' => 'text-center'],
+            'email' => ['className' => 'text-center'],
+            'role_user.role.name' => ['defaultContent' => 'Not set', 'title' => 'Role', 'name'=> 'role_user.role.name', 'className' => 'text-center'],
             'created_at' => ['className' => 'text-center'],
             'is_active' => ['className' => 'text-center']
         ];

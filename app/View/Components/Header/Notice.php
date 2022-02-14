@@ -24,10 +24,10 @@ class Notice extends Component
     public function render()
     {
         $notice = \App\Models\Admin\Program::select('title', 'slug', 'created_at')
-            ->where('end_date', '<=', date('Y-m-d'))
+            ->where('end_date', '>=', date('Y-m-d'))
             ->whereIsUrgent(1)
             ->whereIsActive(1)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('components.header.notice')

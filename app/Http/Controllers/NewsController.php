@@ -22,7 +22,7 @@ class NewsController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(12);
 
-        return view('pages.news')
+        return view('pages.news.index')
             ->with('highlight', $highlight)
             ->with('news', $news);
     }
