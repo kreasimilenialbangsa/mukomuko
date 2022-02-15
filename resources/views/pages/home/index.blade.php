@@ -9,7 +9,9 @@
     <section class="slider-donate">
       @foreach($banners as $key => $banner)
         <div>
-          <img class="slider-img" src="{{ asset('storage/'.$banner->image) }}" alt="">
+          <a href="{{ $banner->link_url }}">
+            <img class="slider-img" src="{{ asset('storage/'.$banner->image) }}" alt="">
+          </a>
           {{-- <div class="slider-detail">
             <h3 class="slide-title">{{ $banner->title }}</h3>
             <div class="slide-text">
