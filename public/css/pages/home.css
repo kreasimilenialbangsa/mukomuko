@@ -198,7 +198,7 @@
 
 @media only screen and (max-width: 991px){
   .home-page .slider-donate .slider-img{
-    height: 60vh;
+    height: 30vh;
   }
   .home-page .slider-donate .slider-detail {
     max-width: 100%;

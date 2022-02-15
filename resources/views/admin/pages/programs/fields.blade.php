@@ -30,7 +30,7 @@
                             <!-- Location Field -->
                             <div class="form-group">
                                 {!! Form::label('location', 'Location:') !!}
-                                {!! Form::select('location', $location, null, ['class' => 'form-control select2']) !!}
+                                {!! Form::text('location', null, ['class' => 'form-control']) !!}
                             </div>
                         
                             <!-- Target Dana Field -->

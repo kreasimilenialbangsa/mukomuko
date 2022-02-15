@@ -155,4 +155,11 @@
   .main-header .navbar-nav{
     text-align: center;
   }
+  .slider-header .bg-green{
+    font-size: 0.8rem;
+  }
+
+  .slider-header .bg-green .headline {
+    font-size: 14px;
+  }
 }

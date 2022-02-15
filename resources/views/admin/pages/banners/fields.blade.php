@@ -24,12 +24,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Description Field -->
-    <div class="form-group">
-        {!! Form::label('description', 'Description:') !!}
-        {!! Form::textarea('description', null, ['class' => 'form-control', 'style' => 'height: 130px;']) !!}
-    </div>
 </div>
 
 <div class="col-md-5">

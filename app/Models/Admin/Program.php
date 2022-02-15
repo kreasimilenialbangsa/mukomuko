@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $user_id
  * @property string $title
  * @property string $slug
- * @property integer $location
+ * @property string $location
  * @property integer $target_dana
  * @property string $end_date
  * @property integer $category_id
@@ -59,7 +59,7 @@ class Program extends Model
         'user_id' => 'integer',
         'title' => 'string',
         'slug' => 'string',
-        'location' => 'integer',
+        'location' => 'string',
         'target_dana' => 'integer',
         'end_date' => 'string',
         'category_id' => 'integer',

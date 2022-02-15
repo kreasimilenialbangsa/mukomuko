@@ -10,7 +10,7 @@
       @foreach($banners as $key => $banner)
         <div>
           <img class="slider-img" src="{{ asset('storage/'.$banner->image) }}" alt="">
-          <div class="slider-detail">
+          {{-- <div class="slider-detail">
             <h3 class="slide-title">{{ $banner->title }}</h3>
             <div class="slide-text">
               @if(strlen($banner->description) > 100)
@@ -22,7 +22,7 @@
             @if(!empty($banner->link_url))
               <a class="btn btn-green" href="{{ $banner->link_url }}">Donasi Sekarang</a>
             @endif
-          </div>
+          </div> --}}
         </div>
       @endforeach
     </section>
@@ -38,16 +38,16 @@
               </div>
               <div class="col-md-3 col-6">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/himpunan.svg') }}" alt="">
-                <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
-                <span class="clr-grey font-medium">Penerima Manfaat</span>
+                <h6 class="clr-green mt-2 mb-0">Rp 34.232.232</h6>
+                <span class="clr-grey font-medium">Perhimpunan</span>
               </div>
               <div class="col-md-3 col-6 mt-md-0 mt-4">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/penyaluran.svg') }}" alt="">
-                <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
-                <span class="clr-grey font-medium">Penerima Manfaat</span>
+                <h6 class="clr-green mt-2 mb-0">Rp 34.232.232</h6>
+                <span class="clr-grey font-medium">Penyaluran</span>
               </div>
               <div class="col-md-3 col-6 mt-md-0 mt-4">
-                <img class="icon-fitur" height="64" width="64" src="{{ asset('img/donatur.png') }}" alt="">
+                <img class="icon-fitur" height="64" width="64" src="{{ asset('img/donatur.svg') }}" alt="">
                 <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
                 <span class="clr-grey font-medium">Donatur</span>
               </div>
@@ -192,7 +192,7 @@
             </a>
           </div>
           <div class="text-center mt-3">
-            <a href="/view/donatur" class="btn btn-green py-2 px-3">
+            <a href="{{ route('donatur.index') }}" class="btn btn-green py-2 px-3">
               <div class="d-center">
                 Lihat Semua
                 <ion-icon class="ml-2" name="chevron-down-outline"></ion-icon>
@@ -204,7 +204,7 @@
           <h4 class="text-center">Ayo Mulai Berdonasi!</h4>
           <div class="row mt-4">
             @foreach($programs as $key => $program)
-              <div class="col-lg-3 col-md-4 col-6 p-3">
+              <div class="col-lg-3 col-md-4 col-12 p-3">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
@@ -214,12 +214,12 @@
                     <h6>{{ $program->title }}</h6>
                     <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
                     <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-success" role="progressbar" style="width: {{ 350000/$program->target_dana*100 }}%" aria-valuenow="{{ 350000/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="d-flex mt-2 justify-content-between">
                       <div class="w-left mr-2">
                         <span class="text-xs clr-grey">Terkumpul</span>
-                        <h6 class="text-sm">RP 3.500.000</h6>
+                        <h6 class="text-sm">Rp 3.500.000</h6>
                       </div>
                       <div class="w-right text-right">
                         <span class="text-xs clr-grey">Sisa Hari</span>
@@ -245,7 +245,7 @@
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
             @forelse($news as $key => $row)
-              <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-6 p-3 wblock">
+              <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-12 p-3 wblock">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
