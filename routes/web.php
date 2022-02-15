@@ -52,6 +52,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:SuperAdmin|Kab
     Route::resource('programs', App\Http\Controllers\Admin\ProgramController::class, ["as" => 'admin']);
     Route::resource('ziswafs', App\Http\Controllers\Admin\ZiswafController::class, ["as" => 'admin']);
     Route::resource('services', App\Http\Controllers\Admin\ServiceController::class, ["as" => 'admin']);
+    Route::group(['prefix' => 'donatur'], function () {
+        Route::resource('program', App\Http\Controllers\Admin\ProgramDonateController::class, ["as" => 'admin.donatur']);
+        Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafDonateController::class, ["as" => 'admin.donatur']);
+    });
 
     // Content
     Route::resource('banners', App\Http\Controllers\Admin\BannerController::class, ["as" => 'admin']);
@@ -76,3 +80,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:SuperAdmin|Kab
     Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
 });
 /** Admin Area End*/
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::resource('donates', App\Http\Controllers\Admin\DonateController::class, ["as" => 'admin']);
+});

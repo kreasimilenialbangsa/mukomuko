@@ -12,6 +12,15 @@
     <a class="nav-link" href="{{ route('admin.ziswafs.index') }}"><i class="fas fa-building"></i><span>Ziswaf</span></a>
 </li>
 
+<li class="nav-item dropdown {{ Request::is('admin/donatur*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Donatur</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/donatur/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.donatur.program.index') }}">Program</a></li>
+        <li class="{{ Request::is('admin/donatur/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.donatur.ziswaf.index') }}">Ziswaf</a></li>
+    </ul>
+</li>
+
+
 <li class="menu-header">Content</li>
 <li class="side-menus {{ Request::is('admin/banners*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.banners.index') }}"><i class="fas fa-building"></i><span>Banners</span></a>
