@@ -1,7 +1,7 @@
 <x-header.notice/>
 
 <header class="main-header">
-  <nav class="navbar p-0 navbar-expand-lg">
+  <nav class="navbar container p-0 navbar-expand-lg">
     <a class="navbar-brand mr-0" href="{{ route('home') }}">
       <img class="logo-header" src="{{ asset('img/logo-nu.png') }}" alt="">
     </a>

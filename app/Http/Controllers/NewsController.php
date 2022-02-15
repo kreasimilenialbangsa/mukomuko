@@ -29,6 +29,6 @@ class NewsController extends Controller
 
     public function detail($slug)
     {
-        return 'Detail News';
+        return view('pages.news.detail-news');
     }
 }
