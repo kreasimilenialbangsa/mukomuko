@@ -207,7 +207,7 @@
               <div class="col-lg-3 col-md-4 col-12 p-3">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
-                    <img class="w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
+                    <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
                     <span class="tag-cat">{{ $program->category->name }}</span>
                   </div>
                   <div class="card-detail">

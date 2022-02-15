@@ -59,7 +59,7 @@ class BannerController extends AppBaseController
         $input = [
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'description' => $request->description,
+            'description' => 'description',
             'link_url' => $request->link_url,
             'is_active' => isset($request->is_active) ? $request->is_active : 0,
         ];
@@ -144,7 +144,7 @@ class BannerController extends AppBaseController
         $input = [
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'description' => $request->description,
+            'description' => 'description',
             'link_url' => $request->link_url,
             'is_active' => isset($request->is_active) ? $request->is_active : 0,
         ];

@@ -19,8 +19,9 @@ class ProgramDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.programs.datatables_actions')
+            ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')
             ->editColumn('is_active', 'admin.layouts.toggle')
-            ->rawColumns(['is_active', 'action']);
+            ->rawColumns(['is_active', 'target_dana', 'action']);
     }
 
     /**

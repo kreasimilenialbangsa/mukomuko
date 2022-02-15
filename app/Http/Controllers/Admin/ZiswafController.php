@@ -106,8 +106,12 @@ class ZiswafController extends AppBaseController
 
             return redirect(route('admin.ziswafs.index'));
         }
+        
+        $category = ZiswafCategory::pluck('name', 'id');
 
-        return view('admin.pages.ziswafs.edit')->with('ziswaf', $ziswaf);
+        return view('admin.pages.ziswafs.edit')
+            ->with('category', $category)
+            ->with('ziswaf', $ziswaf);
     }
 
     /**
