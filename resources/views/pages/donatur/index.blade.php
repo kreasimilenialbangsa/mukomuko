@@ -6,6 +6,9 @@
 @section('content')
   <div class="donatur-page">
     <div class="container">
+      <div class="cus-breadcrumb">
+        <span>Beranda</span> / <span class="current">Donatur</span>
+      </div>
       <div class="row">
         <section class="col-12 mb-4 sec-filter">
           <h4 class="text-center">Donatur</h4>

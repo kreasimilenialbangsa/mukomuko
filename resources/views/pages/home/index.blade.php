@@ -6,10 +6,10 @@
 
 @section('content')
   <div class="home-page">
-    <section class="slider-donate">
+    <section class="slider-headline">
       @foreach($banners as $key => $banner)
         <div>
-          <a href="{{ $banner->link_url }}">
+          <a class="d-block" href="{{ $banner->link_url }}">
             <img class="slider-img" src="{{ asset('storage/'.$banner->image) }}" alt="">
           </a>
           {{-- <div class="slider-detail">
@@ -376,7 +376,7 @@
 
 @section('scripts')
   <script>
-    $('.slider-donate').slick({
+    $('.slider-headline').slick({
       dots: true,
       arrows: false,
       autoplay: true,

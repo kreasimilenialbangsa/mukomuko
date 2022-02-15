@@ -6,7 +6,7 @@
 
 @section('content')
   <div class="news-page">
-    <section class="slider-donate">
+    <section class="slider-headline">
       @foreach($highlight as $key => $row)
         <div>
           <img class="slider-img" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
@@ -25,8 +25,11 @@
       @endforeach
     </section>
     <div class="container">
+      <div class="cus-breadcrumb mt-4">
+        <span>Beranda</span> / <span class="current">Berita</span>
+      </div>
       <div class="row">
-        <section class="col-lg-9 col-md-10 mx-auto my-4 sec-filter">
+        <section class="col-lg-9 col-md-10 mx-auto mb-4 sec-filter">
           <form class="d-flex">
             <div class="box-search">
               <div class="wrap-select">
@@ -94,9 +97,11 @@
 
 @section('scripts')
   <script>
-    $('.slider-donate').slick({
+    $('.slider-headline').slick({
       dots: true,
-      arrows: false
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 5000
     });
   </script>
 @endsection
