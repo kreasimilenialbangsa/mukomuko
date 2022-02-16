@@ -1,0 +1,46 @@
+.programdetail-page .sec-regist .banner-regist {
+  background: #45BF7C;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  padding: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.programdetail-page .sec-regist .banner-title{
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.programdetail-page .sec-regist .btn-regist{
+  background: #FFFFFF;
+  color: #45BF7C;
+  transition: .3s all linear;
+}
+
+.programdetail-page .sec-regist .btn-regist:hover{
+  transform: scale(1.02);
+}
+
+.thumb-headline{
+  position: relative;
+}
+
+.thumb-headline img{
+  height: 484px;
+}
+
+.thumb-headline .tag-cat{
+  background: #45BF7C;
+  border-radius: 4px;
+  padding: 3px 8px;
+  color: white;
+  position: absolute;
+  z-index: 1;
+  right: 15px;
+  top: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}

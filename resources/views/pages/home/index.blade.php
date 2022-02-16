@@ -286,14 +286,22 @@
               @foreach($galleries as $key => $gallery)
                 @if($gallery->type == 'image')
                   <div>
-                    <img class="slider-img" src="{{ asset('storage/' . $gallery->content) }}" alt="{{ $gallery->title }}">
-                    <div class="slider-detail">
-                      <p>{{ $gallery->title }}</p>
-                    </div>
+                    <a class="d-block" data-fancybox="video-gallery" data-src="{{ asset('storage/' . $gallery->content) }}">
+                      <img class="slider-img" src="{{ asset('storage/' . $gallery->content) }}" alt="{{ $gallery->title }}">
+                      <div class="slider-detail">
+                        <p>{{ $gallery->title }}</p>
+                      </div>
+                    </a>
                   </div>
                 @else
                   <div>
-                    <iframe width="368" height="202" src="https://www.youtube.com/embed/{{ $gallery->content }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <a class="d-block" data-fancybox="video-gallery" data-src="https://www.youtube.com/watch?v={{ $gallery->content }}">
+                      <img class="slider-img" src="https://i3.ytimg.com/vi/{{ $gallery->content }}/maxresdefault.jpg">
+                      <img class="icon-play" src="{{ asset('img/play.svg') }}" height="30" width="30" alt="" class="icon-play">
+                      <div class="slider-detail">
+                        <p>{{ $gallery->title }}</p>
+                      </div>
+                    </a>
                   </div>
                 @endif
               @endforeach

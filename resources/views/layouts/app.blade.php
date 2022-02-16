@@ -29,6 +29,7 @@
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/fancybox.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/panzoom.css') }}">
   <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
   <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
 
@@ -69,12 +70,27 @@
   <script src="{{ asset('js/fancybox.js') }}"></script>
   <script src="{{ asset('js/slick.min.js') }}"></script>
   <script>
-      $('.slider-header').slick({
-        dots: true,
-        arrows: false,
-        autoplay: true,
-        autoplaySpeed: 2000
-      });
+     Fancybox.bind('[data-fancybox="video-gallery"]', {
+      Toolbar: {
+        display: [
+          { id: "prev", position: "center" },
+          { id: "counter", position: "center" },
+          { id: "next", position: "center" },
+          "zoom",
+          "slideshow",
+          "fullscreen",
+          "download",
+          "thumbs",
+          "close",
+        ],
+      },
+    });
+    $('.slider-header').slick({
+      dots: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 2000
+    });
   </script>
   @yield('scripts')
 </body>

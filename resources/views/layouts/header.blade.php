@@ -34,7 +34,7 @@
           <a class="nav-link" href="{{ route('donatur.index') }}">Donatur</a>
         </li>
         <li class="nav-item {{ Request::is('galeri') ? 'active' : '' }}">
-          <a class="nav-link" href="/view/galeri">Galeri</a>
+          <a class="nav-link" href="/galeri">Galeri</a>
         </li>
         <li class="nav-item dropdown {{ Request::is('layanan*') ? 'active' : '' }}">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">

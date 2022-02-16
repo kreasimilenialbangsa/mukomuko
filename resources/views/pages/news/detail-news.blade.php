@@ -11,7 +11,7 @@
         <span>Beranda</span> / <span>Berita</span> / <span class="current">lorem ipsum</span>
       </div>
       <div class="row">
-        <section class="col-12">
+        <section class="col-12 sec-headline">
           <div class="slider-headline">
             <div>
               <img class="slider-img" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
@@ -24,26 +24,26 @@
             </div>
           </div>
         </section>
-        <section class="col-12 my-3">
+        <section class="col-12 my-3 sec-detail">
           <div class="row">
-            <div class="col-md-2">
-              <div class="wrap-share">
+            <div class="col-md-2 order-md-1 order-2 mt-md-0 mt-4">
+              <div class="wrap-share d-md-block d-flex">
                 <h6 class="font-medium mb-3">Bagikan</h6>
-                <div class="clr-grey h4">
+                <div class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-facebook"></ion-icon>
                 </div>
-                <div class="clr-grey h4">
+                <div class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-twitter"></ion-icon>
                 </div>
-                <div class="clr-grey h4">
+                <div class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-whatsapp"></ion-icon>
                 </div>
               </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 order-md-2 order-1">
               <div class="title-news">
                 <h3 class="font-semibold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Imperdiet aliquam enim phasellus et posuere eget magna.</h3>
-                <span class="clr-grey">By <b>Anonymous</b> | 0/08/2021 — 21.50 WIB</span>
+                <span class="clr-grey font-medium">By <b>Anonymous</b> | 0/08/2021 — 21.50 WIB</span>
               </div>
               <div class="wrapper-detail mt-4">
                 <img src="{{ asset('img/bg-ziwaf.jpg') }}" class="w-100" alt="">
@@ -73,16 +73,16 @@
             </div>
           </div>
         </section>
-        <section class="col-12">
+        <section class="col-12 sec-navigation">
           <div class="d-center justify-content-between">
-            <div class="d-center">
+            <a class="d-center font-medium clr-black">
               <img class="mr-2" src="{{ asset('img/arrdouble-left.svg') }}" alt="">
               Kembali
-            </div>
-            <div class="d-center">
+            </a>
+            <a class="d-center font-medium clr-black">
               Selanjutnya
               <img class="ml-2" src="{{ asset('img/arrdouble-right.svg') }}" alt="">
-            </div>
+            </a>
           </div>
         </section>
         <section class="col-12 pt-4 sec-listnews">
