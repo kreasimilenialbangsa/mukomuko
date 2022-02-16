@@ -5,46 +5,55 @@
 
 <li class="menu-header">Service</li>
 <li class="side-menus {{ Request::is('admin/programs*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.programs.index') }}"><i class="fas fa-building"></i><span>Programs</span></a>
+    <a class="nav-link" href="{{ route('admin.programs.index') }}"><i class="fas fa-building"></i><span>Program</span></a>
 </li>
 
 <li class="side-menus {{ Request::is('admin/ziswafs*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.ziswafs.index') }}"><i class="fas fa-building"></i><span>Ziswaf</span></a>
 </li>
 
+<li class="nav-item dropdown {{ Request::is('admin/donatur*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Donasi</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/donatur/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.donatur.program.index') }}">Donasi Program</a></li>
+        <li class="{{ Request::is('admin/donatur/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.donatur.ziswaf.index') }}">Donasi Ziswaf</a></li>
+    </ul>
+</li>
+
+
 <li class="menu-header">Content</li>
 <li class="side-menus {{ Request::is('admin/banners*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.banners.index') }}"><i class="fas fa-building"></i><span>Banners</span></a>
+    <a class="nav-link" href="{{ route('admin.banners.index') }}"><i class="fas fa-building"></i><span>Banner</span></a>
 </li>
 
 <li class="side-menus {{ Request::is('admin/news*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.news.index') }}"><i class="fas fa-building"></i><span>News</span></a>
+    <a class="nav-link" href="{{ route('admin.news.index') }}"><i class="fas fa-building"></i><span>Berita</span></a>
 </li>
 
 <li class="side-menus {{ Request::is('admin/galleries*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.galleries.index') }}"><i class="fas fa-building"></i><span>Galleries</span></a>
+    <a class="nav-link" href="{{ route('admin.galleries.index') }}"><i class="fas fa-building"></i><span>Galeri</span></a>
 </li>
 
 <li class="side-menus {{ Request::is('admin/services*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.services.index') }}"><i class="fas fa-building"></i><span>Services</span></a>
+    <a class="nav-link" href="{{ route('admin.services.index') }}"><i class="fas fa-building"></i><span>Layanan</span></a>
 </li>
 
 <li class="side-menus {{ Request::is('admin/abouts*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.abouts.index') }}"><i class="fas fa-building"></i><span>Abouts</span></a>
+    <a class="nav-link" href="{{ route('admin.abouts.index') }}"><i class="fas fa-building"></i><span>Tentang</span></a>
 </li>
 
 <li class="menu-header">Master Data</li>
 <li class="nav-item dropdown {{ Request::is('admin/category*') ? 'active' : '' }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Categories</span></a>
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Kategori</span></a>
     <ul class="dropdown-menu">
-        <li class="{{ Request::is('admin/category/news*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.news.index') }}">News Categories</a></li>
-        <li class="{{ Request::is('admin/category/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.program.index') }}">Program Categories</a></li>
-        <li class="{{ Request::is('admin/category/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.ziswaf.index') }}">Ziswaf Categories</a></li>
+        <li class="{{ Request::is('admin/category/news*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.news.index') }}">Kategori Berita</a></li>
+        <li class="{{ Request::is('admin/category/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.program.index') }}">KategoriProgram</a></li>
+        <li class="{{ Request::is('admin/category/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.ziswaf.index') }}">Kategori Ziswaf</a></li>
     </ul>
 </li>
 
 <li class="nav-item dropdown {{ Request::is('admin/location*') ? 'active' : '' }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Location</span></a>
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Lokasi</span></a>
     <ul class="dropdown-menu">
         <li class="{{ Request::is('admin/location/kecamatan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.location.kecamatan.index') }}">Kecamatan</a></li>
         <li class="{{ Request::is('admin/location/desa*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.location.desa.index') }}">Desa</a></li>
