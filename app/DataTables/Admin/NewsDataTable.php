@@ -22,7 +22,10 @@ class NewsDataTable extends DataTable
             ->editColumn('image', '<img src="{{ $images ? asset("storage".$images[0]["file"]) : asset("img/no_image.jpg") }}" height="120px"/>')
             ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
             ->editColumn('is_active', 'admin.layouts.toggle')
-            ->rawColumns(['is_active', 'image','action']);
+            ->rawColumns(['is_active', 'image','action'])
+            ->filter(function($query) {
+                $query->where('category_id', 1);
+            }, true);
     }
 
     /**
@@ -49,7 +52,7 @@ class NewsDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                // 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -57,7 +60,7 @@ class NewsDataTable extends DataTable
                     ['extend' => 'export', 'className' => 'btn btn-primary no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-primary no-corner',],
                     ['extend' => 'reload', 'className' => 'btn btn-primary no-corner',],
-                ],
+                ]
             ]);
     }
 

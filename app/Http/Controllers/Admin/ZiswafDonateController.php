@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\DonateDataTable;
 use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateDonateRequest;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\Donate;
+use App\Models\Admin\Ziswaf;
+use Illuminate\Http\Request;
 use Response;
+use Yajra\DataTables\DataTables;
 
 class ZiswafDonateController extends AppBaseController
 {
@@ -28,9 +31,18 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function index(DonateDataTable $donateDataTable)
+    public function index(Request $request)
     {
-        return $donateDataTable->render('admin.pages.donates.index');
+        if($request->ajax()) {
+            $ziswaf = Ziswaf::select('id', 'title', 'category_id', 'created_at')->get();
+            return $result = DataTables::of($ziswaf)
+                ->addColumn('action', 'admin.pages.ziswaf_donates.datatables_actions')
+                // ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')
+                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->make(true);
+        }
+        
+        return view('admin.pages.ziswaf_donates.index');
     }
 
     /**
@@ -38,9 +50,9 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('admin.pages.donates.create');
+        return view('admin.pages.ziswaf_donates.create');
     }
 
     /**
@@ -68,17 +80,19 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $donate = $this->donateRepository->find($id);
+        if($request->ajax()) {
+            $donatur = Donate::select('id', 'name', 'email', 'phone', 'total_donate', 'created_at')->get();
 
-        if (empty($donate)) {
-            Flash::error('Donate not found');
-
-            return redirect(route('admin.donates.index'));
+            return DataTables::of($donatur)
+                ->addColumn('action', 'admin.pages.ziswaf_donates.donatur.datatables_actions')
+                ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
+                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->make(true);
         }
 
-        return view('admin.pages.donates.show')->with('donate', $donate);
+        return view('admin.pages.ziswaf_donates.donatur.index');
     }
 
     /**
@@ -98,7 +112,7 @@ class ZiswafDonateController extends AppBaseController
             return redirect(route('admin.donates.index'));
         }
 
-        return view('admin.pages.donates.edit')->with('donate', $donate);
+        return view('admin.pages.ziswaf_donates.edit')->with('donate', $donate);
     }
 
     /**

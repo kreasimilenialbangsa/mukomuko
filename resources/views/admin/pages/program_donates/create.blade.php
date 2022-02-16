@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
-    Create Donate 
+    Tambah Donasi 
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading m-0">New Donate</h3>
-            <div class="filter-container section-header-breadcrumb row justify-content-md-end">
-                <a href="{{ route('admin.donates.index') }}" class="btn btn-primary">Back</a>
+            <h3 class="page__heading m-0">New Donasi</h3>
+            <div class="section-header-breadcrumb">
+                <a href="{{ route('admin.donatur.ziswaf.index') }}" class="btn btn-primary">Kembali</a>
             </div>
         </div>
         <div class="content">
@@ -17,9 +17,9 @@
                    <div class="col-lg-12">
                        <div class="card">
                            <div class="card-body ">
-                                {!! Form::open(['route' => 'admin.donates.store']) !!}
+                                {!! Form::open(['route' => ['admin.donatur.ziswaf.storage', Request::segment(4)]]) !!}
                                     <div class="row">
-                                        @include('admin.pages.donates.fields')
+                                        @include('admin.pages.ziswaf_donates.fields')
                                     </div>
                                 {!! Form::close() !!}
                            </div>

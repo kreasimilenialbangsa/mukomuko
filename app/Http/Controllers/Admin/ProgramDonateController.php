@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\DonateDataTable;
 use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateDonateRequest;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\Donate;
+use App\Models\Admin\Program;
+use Illuminate\Http\Request;
 use Response;
+use Yajra\DataTables\DataTables;
 
 class ProgramDonateController extends AppBaseController
 {
@@ -24,13 +27,21 @@ class ProgramDonateController extends AppBaseController
     /**
      * Display a listing of the Donate.
      *
-     * @param DonateDataTable $donateDataTable
      *
      * @return Response
      */
-    public function index(DonateDataTable $donateDataTable)
+    public function index(Request $request)
     {
-        return $donateDataTable->render('admin.pages.donates.index');
+        if($request->ajax()) {
+            $programs = Program::select('id', 'title', 'category_id', 'target_dana', 'created_at')->get();
+            return $result = DataTables::of($programs)
+                ->addColumn('action', 'admin.pages.program_donates.datatables_actions')
+                ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')
+                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->make(true);
+        }
+        
+        return view('admin.pages.program_donates.index');
     }
 
     /**
@@ -38,9 +49,9 @@ class ProgramDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('admin.pages.donates.create');
+        return view('admin.pages.program_donates.create');
     }
 
     /**
@@ -50,7 +61,7 @@ class ProgramDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateDonateRequest $request)
+    public function store(CreateDonateRequest $request, $id)
     {
         $input = $request->all();
 
@@ -58,7 +69,7 @@ class ProgramDonateController extends AppBaseController
 
         Flash::success('Donate saved successfully.');
 
-        return redirect(route('admin.donates.index'));
+        return redirect(route('admin.program_donates.index'));
     }
 
     /**
@@ -68,17 +79,20 @@ class ProgramDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $donate = $this->donateRepository->find($id);
 
-        if (empty($donate)) {
-            Flash::error('Donate not found');
+        if($request->ajax()) {
+            $donatur = Donate::select('id', 'name', 'email', 'phone', 'total_donate', 'created_at')->get();
 
-            return redirect(route('admin.donates.index'));
+            return DataTables::of($donatur)
+                ->addColumn('action', 'admin.pages.program_donates.donatur.datatables_actions')
+                ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
+                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->make(true);
         }
 
-        return view('admin.pages.donates.show')->with('donate', $donate);
+        return view('admin.pages.program_donates.donatur.index');
     }
 
     /**
@@ -95,10 +109,10 @@ class ProgramDonateController extends AppBaseController
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donates.index'));
+            return redirect(route('admin.program_donates.index'));
         }
 
-        return view('admin.pages.donates.edit')->with('donate', $donate);
+        return view('admin.pages.program_donates.edit')->with('donate', $donate);
     }
 
     /**
@@ -116,14 +130,14 @@ class ProgramDonateController extends AppBaseController
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donates.index'));
+            return redirect(route('admin.program_donates.index'));
         }
 
         $donate = $this->donateRepository->update($request->all(), $id);
 
         Flash::success('Donate updated successfully.');
 
-        return redirect(route('admin.donates.index'));
+        return redirect(route('admin.program_donates.index'));
     }
 
     /**
@@ -140,13 +154,13 @@ class ProgramDonateController extends AppBaseController
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donates.index'));
+            return redirect(route('admin.program_donates.index'));
         }
 
         $this->donateRepository->delete($id);
 
         Flash::success('Donate deleted successfully.');
 
-        return redirect(route('admin.donates.index'));
+        return redirect(route('admin.program_donates.index'));
     }
 }

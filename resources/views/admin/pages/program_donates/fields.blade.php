@@ -61,5 +61,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('admin.donates.index') }}" class="btn btn-light">Cancel</a>
+    <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-light">Cancel</a>
 </div>

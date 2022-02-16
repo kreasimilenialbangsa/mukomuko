@@ -1,15 +1,11 @@
-{!! Form::open(['route' => ['admin.donates.destroy', $id], 'method' => 'delete']) !!}
-<div class='btn-group'>
-    <a href="{{ route('admin.donates.show', $id) }}" class='btn btn-default btn-xs'>
+<div class='text-center'>
+    {{-- <a href="{{ route('admin.donates.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
+    </a> --}}
+    <a href="{{ route('admin.donatur.program.list', $id) }}" class='btn btn-warning btn-xs'>
+        <i class="fa fa-list"></i> Daftar Donatur
     </a>
-    <a href="{{ route('admin.donates.edit', $id) }}" class='btn btn-default btn-xs'>
-        <i class="glyphicon glyphicon-edit"></i>
+    <a href="{{ route('admin.donatur.program.create', $id) }}" class='btn btn-primary btn-xs'>
+        <i class="fa fa-plus"></i> Tambah Donasi
     </a>
-    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', [
-        'type' => 'submit',
-        'class' => 'btn btn-danger btn-xs',
-        'onclick' => "return confirm('Are you sure?')"
-    ]) !!}
 </div>
-{!! Form::close() !!}

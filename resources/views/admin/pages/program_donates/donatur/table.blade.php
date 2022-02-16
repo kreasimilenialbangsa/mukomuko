@@ -6,10 +6,11 @@
     <table class="table table-striped" id="table">
         <thead>
             <tr>
-                <th>Nama Ziswaf</th>
-                {{-- <th>Total Donasi</th> --}}
+                <th>Nama Program</th>
+                <th>Nama Donatur</th>
+                <th>Jumlah Donasi</th>
                 <th>Tanggal</th>
-                <th>Aksi</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -27,11 +28,12 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.donatur.ziswaf.index') !!}",
+                    url: "{!!  route('admin.donatur.ziswaf.list', Request::segment(4)) !!}",
                 },
                 columns: [
-                    { data: 'title', name: 'title', className: "text-center" },
-                    // { data: 'target_dana', name: 'target_dana', className: "text-center" },
+                    { data: 'type_id, name: type_id', className: "text-center" },
+                    { data: 'name', name: 'name', className: "text-center" },
+                    { data: 'total_donate', name: 'total_donate', className: "text-center" },
                     { data: 'created_at', name: 'created_at', className: "text-center" },
                     { data: 'action', name: 'action', className: "text-center" },
                 ]
