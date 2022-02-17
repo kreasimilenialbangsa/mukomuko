@@ -20,9 +20,9 @@
               <div class="btn btn-green mr-2">
                 <select class="form-control select-cat">
                   <option selected>Pilih Kecamatan</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  @foreach($kecamatan as $row)
+                  <option value="{{ $row->id }}">{{ $row->name }}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -39,7 +39,7 @@
         </section>
         <section class="col-12 sec-aydonation">
           <div class="row">
-            @foreach($programs as $key => $program)
+            @forelse($programs as $key => $program)
               <div class="col-lg-3 col-md-4 col-6 p-3">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
@@ -50,12 +50,12 @@
                     <h6>{{ $program->title }}</h6>
                     <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
                     <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="d-flex mt-2 justify-content-between">
                       <div class="w-left mr-2">
                         <span class="text-xs clr-grey">Terkumpul</span>
-                        <h6 class="text-sm">RP 3.500.000</h6>
+                        <h6 class="text-sm"><h6 class="text-sm">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6></h6>
                       </div>
                       <div class="w-right text-right">
                         <span class="text-xs clr-grey">Sisa Hari</span>
@@ -66,7 +66,11 @@
                   </div>
                 </div>
               </div>
-            @endforeach
+            @empty
+              <div class="text-center w-100">
+                <h3>Data not found</h3>
+              </div>
+            @endforelse
           </div>
           <div class="d-flex mt-3 justify-content-center">
             {{ $programs->links('vendor.pagination.bootstrap-4') }}

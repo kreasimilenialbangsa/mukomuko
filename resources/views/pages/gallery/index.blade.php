@@ -14,7 +14,7 @@
         <section class="col-12 sec-gallery">
           <h4 class="text-center">Galeri</h4>
           <div class="row mt-4">
-            @foreach($galleries as $gallery)
+            @forelse($galleries as $gallery)
               @if(@$gallery->type == 'image')
                 <a class="wblock p-3 col-md-4 col-sm-6 col-12" data-fancybox="video-gallery" data-src="{{ asset('storage' . $gallery->content) }}">
                   <img class="slider-img" src="{{ asset('storage' . $gallery->content) }}">
@@ -31,7 +31,11 @@
                   </div>
                 </a>
               @endif
-            @endforeach
+            @empty
+            <div class="text-center w-100">
+              <h3>Data not found</h3>
+            </div>
+            @endforelse
           </div>
           <div class="d-flex mt-4 justify-content-center">
             {{ $galleries->links('vendor.pagination.bootstrap-4') }}

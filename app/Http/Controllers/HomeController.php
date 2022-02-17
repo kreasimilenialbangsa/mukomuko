@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Banner;
+use App\Models\Admin\Donate;
 use App\Models\Admin\Gallery;
 use App\Models\Admin\News;
 use App\Models\Admin\Program;
@@ -18,8 +19,14 @@ class HomeController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
+        $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
+            ->whereDate('created_at', Carbon::today())
+            // ->whereIsConfirm(1)
+            ->get();
+
         $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at')
             ->with('category')
+            ->withSum('donate', 'total_donate')
             ->whereIsActive(1)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -44,6 +51,7 @@ class HomeController extends Controller
         
         return view('pages.home.index')
             ->with('banners', $banners)
+            ->with('donates', $donates)
             ->with('programs', $programs)
             ->with('news', $news)
             ->with('galleries', $galleries);

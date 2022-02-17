@@ -17,17 +17,9 @@
               <div class="btn btn-green mr-2">
                 <select class="form-control select-cat">
                   <option selected>Pilih Kecamatan</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
-              <div class="btn btn-green mr-2">
-                <select class="form-control select-cat">
-                  <option selected>Pilih Desa</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  @foreach($kecamatan as $row)
+                    <option value="{{ $row->id }}">{{ $row->name }}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="btn btn-green mr-2">
@@ -93,57 +85,22 @@
         </section>
         <section class="col-12 sec-todonation">
           <div class="row px-2">
-            <a href="" class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
+            @forelse($donates as $donate)
+              <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
+                <div class="card-simple">
+                  <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Anonim' : $donate->name }}</h6>
+                  <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($donate->total_donate,0,",",".") }}</p>
+                  <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
+                </div>
+              </a>
+              @empty
+              <div class="text-center w-100">
+                <h3>Belum ada donasi hari ini</h3>
               </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
+            @endforelse
           </div>
           <div class="d-flex mt-4 justify-content-center">
-            <ul class="pagination mb-0">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+            {{ $donates->links('vendor.pagination.bootstrap-4') }}
           </div>
         </section>
       </div>

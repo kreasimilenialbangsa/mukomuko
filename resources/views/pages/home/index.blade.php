@@ -150,48 +150,20 @@
         <section class="col-12 sec-todonation">
           <h4 class="text-center">Donasi Hari Ini</h4>
           <div class="row px-2 mt-4">
-            <a href="" class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
+            @forelse($donates as $donate)
             <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
               <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
+                <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Anonim' : $donate->name }}</h6>
+                <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($donate->total_donate,0,",",".") }}</p>
+                <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
               </div>
             </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">Anonim</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar Rp 50.000</p>
-                <span class="text-xxs">7 menit yang lalu</span>
-              </div>
-            </a>
+            @empty
+             <div class="text-center w-100">
+              <h3>Belum ada donasi hari ini</h3>
+             </div>
+            @endforelse
+
           </div>
           <div class="text-center mt-3">
             <a href="{{ route('donatur.index') }}" class="btn btn-green py-2 px-3">
@@ -216,12 +188,12 @@
                     <h6>{{ $program->title }}</h6>
                     <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
                     <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: {{ 350000/$program->target_dana*100 }}%" aria-valuenow="{{ 350000/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="d-flex mt-2 justify-content-between">
                       <div class="w-left mr-2">
                         <span class="text-xs clr-grey">Terkumpul</span>
-                        <h6 class="text-sm">Rp 3.500.000</h6>
+                        <h6 class="text-sm">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
                       </div>
                       <div class="w-right text-right">
                         <span class="text-xs clr-grey">Sisa Hari</span>
