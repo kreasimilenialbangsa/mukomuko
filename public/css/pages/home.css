@@ -127,11 +127,19 @@
 
 .home-page .slider-gallery .slider-img{
   width: 100%;
-  height: 202px;
+  height: 210px;
   object-fit: cover;
   border-radius: 4px;
   object-position: center;
   cursor: pointer;
+}
+
+.home-page .slider-gallery .icon-play{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  z-index: 1;
 }
 
 .home-page .slider-gallery .slick-slide,

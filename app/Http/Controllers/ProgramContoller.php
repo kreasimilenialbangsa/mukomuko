@@ -29,6 +29,6 @@ class ProgramContoller extends Controller
 
     public function detail($slug)
     {
-        return 'Detail Program';
+        return view('pages.program.detail-program');
     }
 }

@@ -11,7 +11,7 @@
         <span>Beranda</span> / <span>Berita</span> / <span class="current">{{ $news->title }}</span>
       </div>
       <div class="row">
-        <section class="col-12">
+        <section class="col-12 sec-headline">
           <div class="slider-headline">
             @foreach($news->images as $image)
             <div>
@@ -20,23 +20,23 @@
             @endforeach
           </div>
         </section>
-        <section class="col-12 my-lg-3">
+        <section class="col-12 my-3 sec-detail">
           <div class="row">
-            <div class="col-md-2">
-              <div class="wrap-share d-flex d-md-block">
-                <h6 class="font-medium mb-3 mr-3">Bagikan</h6>
-                <div class="clr-grey h4 mr-3">
+            <div class="col-md-2 order-md-1 order-2 mt-md-0 mt-4">
+              <div class="wrap-share d-md-block d-flex">
+                <h6 class="font-medium mb-3">Bagikan</h6>
+                <div class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-facebook"></ion-icon>
                 </div>
-                <div class="clr-grey h4 mr-3">
+                <div class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-twitter"></ion-icon>
                 </div>
-                <div class="clr-grey h4 mr-3">
+                <div class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-whatsapp"></ion-icon>
                 </div>
               </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 order-md-2 order-1">
               <div class="title-news">
                 <h3 class="font-semibold">{{ $news->title }}</h3>
                 <span class="clr-grey">By <b>{{ $news->user->name }}</b> | {{ date('d/m/Y - H:i', strtotime($news->created_at)) }} WIB</span>
@@ -53,16 +53,16 @@
             </div>
           </div>
         </section>
-        <section class="col-12">
+        <section class="col-12 sec-navigation">
           <div class="d-center justify-content-between">
-            <div class="d-center">
+            <a class="d-center font-medium clr-black">
               <img class="mr-2" src="{{ asset('img/arrdouble-left.svg') }}" alt="">
               Kembali
-            </div>
-            <div class="d-center">
+            </a>
+            <a class="d-center font-medium clr-black">
               Selanjutnya
               <img class="ml-2" src="{{ asset('img/arrdouble-right.svg') }}" alt="">
-            </div>
+            </a>
           </div>
         </section>
         <section class="col-12 pt-4 sec-listnews">
