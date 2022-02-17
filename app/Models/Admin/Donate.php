@@ -79,5 +79,14 @@ class Donate extends Model
         'total_donate' => 'required'
     ];
 
+    public function program()
+    {
+        return $this->belongsTo(\App\Models\Admin\Program::class, 'type_id');
+    }
+
+    public function ziswaf()
+    {
+        return $this->belongsTo(\App\Models\Admin\Ziswaf::class, 'type_id');
+    }
     
 }

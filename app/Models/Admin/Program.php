@@ -92,4 +92,9 @@ class Program extends Model
     {
         return $this->hasMany(\App\Models\Admin\ProgramNews::class, 'program_id', 'id');
     }
+
+    public function donate()
+    {
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id');
+    }
 }

@@ -66,8 +66,8 @@ class ZiswafDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'title' => ['className' => 'text-center'],
-            'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category.name']
+            'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category.name'],
+            'title' => ['className' => 'text-center']
         ];
     }
 

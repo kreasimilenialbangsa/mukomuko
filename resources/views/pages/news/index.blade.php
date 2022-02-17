@@ -30,14 +30,14 @@
       </div>
       <div class="row">
         <section class="col-lg-9 col-md-10 mx-auto mb-4 sec-filter">
-          <form class="d-flex">
+          <form class="d-flex" action="{{ route('news.index') }}" method="GET">
             <div class="box-search">
               <div class="wrap-select">
-                <select class="form-control select-cat">
-                  <option selected>Semua Kategori Berita</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select class="form-control select-cat" name="category">
+                  <option value="" selected>Semua Kategori Berita</option>
+                  @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ @app('request')->input('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                  @endforeach
                 </select>
               </div>
               <!-- <div class="dropdown dropdown-cat">
@@ -51,10 +51,10 @@
                 </div>
               </div> -->
               <div class="wrap-search w-100">
-                <input type="search" class="input-search w-100" name="search" placeholder="Cari Berita">
+                <input type="search" class="input-search w-100" name="search" placeholder="Cari Berita" value="{{ @app('request')->input('search') }}">
               </div>
             </div>
-            <button class="btn btn-search btn-green">
+            <button class="btn btn-search btn-green" type="submit">
               <ion-icon name="search-outline"></ion-icon>
             </button>
           </form>
@@ -83,7 +83,9 @@
                 </div>
               </a>
             @empty
-            Data not found!
+            <div class="text-center w-100">
+              <h3>Data not found!</h3>
+            </div>
             @endforelse
           </div>
           <div class="d-flex mt-3 justify-content-center">

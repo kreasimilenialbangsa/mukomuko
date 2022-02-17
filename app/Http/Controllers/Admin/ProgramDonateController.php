@@ -10,7 +10,9 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Program;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Response;
 use Yajra\DataTables\DataTables;
 
@@ -33,10 +35,21 @@ class ProgramDonateController extends AppBaseController
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $programs = Program::select('id', 'title', 'category_id', 'target_dana', 'created_at')->get();
+            $programs = Program::select('id', 'title', 'category_id', 'end_date', 'target_dana', 'created_at')
+                ->withSum('donate', 'total_donate')
+                ->whereIsActive(1)
+                ->get();
+
+            foreach($programs as $program) {
+                $date = Carbon::parse($program->end_date . ' 23:59:00');
+                $now = Carbon::now();
+    
+                $program->count_day = $date->diffInDays($now);
+            }
+
             return $result = DataTables::of($programs)
                 ->addColumn('action', 'admin.pages.program_donates.datatables_actions')
-                ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')
+                ->editColumn('donate_sum_total_donate', '{{ "Rp " . number_format($donate_sum_total_donate,0,",",".") }}')
                 ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
                 ->make(true);
         }
@@ -51,7 +64,18 @@ class ProgramDonateController extends AppBaseController
      */
     public function create($id)
     {
-        return view('admin.pages.program_donates.create');
+        $program = Program::whereId($id)
+            ->with('category')
+            ->withSum('donate', 'total_donate')
+            ->firstOrFail();
+    
+        $date = Carbon::parse($program->end_date . ' 23:59:00');
+        $now = Carbon::now();
+
+        $program->count_day = $date->diffInDays($now);
+        
+        return view('admin.pages.program_donates.create')
+            ->with('program', $program);
     }
 
     /**
@@ -63,13 +87,26 @@ class ProgramDonateController extends AppBaseController
      */
     public function store(CreateDonateRequest $request, $id)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'type' => '\App\Models\Admin\Ziswaf',
+            'type_id' => $id,
+            // 'location_id' => Auth::user()->location_id,
+            'location_id' => 1,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+            'total_donate' => $request->total_donate,
+            'is_anonim' => isset($request->is_anonim) ? $request->is_anonim : 0,
+            'is_confirm' => 0
+        ];
 
         $donate = $this->donateRepository->create($input);
 
         Flash::success('Donate saved successfully.');
 
-        return redirect(route('admin.program_donates.index'));
+        return redirect(route('admin.donatur.program.index'));
     }
 
     /**
@@ -83,7 +120,9 @@ class ProgramDonateController extends AppBaseController
     {
 
         if($request->ajax()) {
-            $donatur = Donate::select('id', 'name', 'email', 'phone', 'total_donate', 'created_at')->get();
+            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
+                ->with('program')
+                ->get();
 
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.program_donates.donatur.datatables_actions')

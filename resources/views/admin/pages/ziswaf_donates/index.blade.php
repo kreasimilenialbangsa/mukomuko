@@ -32,16 +32,16 @@
             <div class="card-body">
                 <div class="tab-content" id="myTab3Content">
                     <div class="tab-pane fade show active" id="zakat" role="tabpanel" aria-labelledby="zakat-tab2">
-                        @include('admin.pages.ziswaf_donates.table')
+                        @include('admin.pages.ziswaf_donates.table_zakat')
                     </div>
                     <div class="tab-pane fade" id="infaq2" role="tabpanel" aria-labelledby="infaq-tab2">
-                        Infaq
+                        @include('admin.pages.ziswaf_donates.table_infaq')
                     </div>
                     <div class="tab-pane fade" id="wakaf2" role="tabpanel" aria-labelledby="wakaf-tab2">
-                        Wakaf
+                        @include('admin.pages.ziswaf_donates.table_wakaf')
                     </div>
                     <div class="tab-pane fade" id="shadaqah2" role="tabpanel" aria-labelledby="shadaqah-tab2">
-                        Shadaqah
+                        @include('admin.pages.ziswaf_donates.table_shadaqah')
                     </div>
                     <div class="tab-pane fade" id="riwayat2" role="tabpanel" aria-labelledby="riwayat-tab2">
                         Riwayat

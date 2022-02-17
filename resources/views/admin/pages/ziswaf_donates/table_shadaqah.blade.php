@@ -3,7 +3,7 @@
 @endpush
 
 <div>
-    <table class="table table-striped" id="table">
+    <table class="table table-striped" id="table_shadaqah" width="100%">
         <thead>
             <tr>
                 <th>Nama Ziswaf</th>
@@ -22,12 +22,12 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#table').DataTable({
+            var table = $('#table_shadaqah').DataTable({
                 // dom: "<'row mb-1'<'col-sm'><'col-sm-3'<'fusername'>><'col-sm-4'<'fdate'>><'col-sm-2'<'bexport'>>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.donatur.ziswaf.index') !!}",
+                    url: "{!!  route('admin.donatur.ziswaf.index', ['category' => 4]) !!}",
                 },
                 columns: [
                     { data: 'title', name: 'title', className: "text-center" },

@@ -30,6 +30,9 @@ Route::get('/berita/{slug}', [\App\Http\Controllers\NewsController::class, 'deta
 // Donatur
 Route::get('/donatur', [\App\Http\Controllers\DonaturController::class, 'index'])->name('donatur.index');
 
+// Gallery
+Route::get('/galeri', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');
+
 // Service
 Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'index'])->name('service.index');
 
@@ -56,7 +59,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:SuperAdmin|Kab
         // Route::resource('program', App\Http\Controllers\Admin\ProgramDonateController::class, ["as" => 'admin.donatur']);
         Route::get('program', [App\Http\Controllers\Admin\ProgramDonateController::class, 'index'])->name('admin.donatur.program.index');
         Route::get('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'create'])->name('admin.donatur.program.create');
-        Route::post('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'storage'])->name('admin.donatur.program.storage');
+        Route::post('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'store'])->name('admin.donatur.program.store');
+        Route::delete('program/{id}', [App\Http\Controllers\Admin\ProgramDonateController::class, 'destroy'])->name('admin.donatur.program.destroy');
         Route::get('program/{id}/list', [App\Http\Controllers\Admin\ProgramDonateController::class, 'show'])->name('admin.donatur.program.list');
 
         // Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafDonateController::class, ["as" => 'admin.donatur']);

@@ -7,7 +7,7 @@
         <div class="section-header">
             <h3 class="page__heading m-0">New Donasi</h3>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.donatur.ziswaf.index') }}" class="btn btn-primary">Kembali</a>
+                <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-primary">Kembali</a>
             </div>
         </div>
         <div class="content">
@@ -17,9 +17,9 @@
                    <div class="col-lg-12">
                        <div class="card">
                            <div class="card-body ">
-                                {!! Form::open(['route' => ['admin.donatur.ziswaf.storage', Request::segment(4)]]) !!}
+                                {!! Form::open(['route' => ['admin.donatur.program.store', Request::segment(4)]]) !!}
                                     <div class="row">
-                                        @include('admin.pages.ziswaf_donates.fields')
+                                        @include('admin.pages.program_donates.fields')
                                     </div>
                                 {!! Form::close() !!}
                            </div>

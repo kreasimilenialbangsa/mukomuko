@@ -34,7 +34,10 @@ class ZiswafDonateController extends AppBaseController
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $ziswaf = Ziswaf::select('id', 'title', 'category_id', 'created_at')->get();
+            $ziswaf = Ziswaf::select('id', 'title', 'category_id', 'created_at')
+                ->whereCategoryId($request->category)
+                ->get();
+
             return $result = DataTables::of($ziswaf)
                 ->addColumn('action', 'admin.pages.ziswaf_donates.datatables_actions')
                 // ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')

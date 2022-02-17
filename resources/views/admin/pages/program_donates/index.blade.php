@@ -11,6 +11,7 @@
             </div>
         </div>
     <div class="section-body">
+        @include('flash::message')
         <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">Program Berjalan</a>

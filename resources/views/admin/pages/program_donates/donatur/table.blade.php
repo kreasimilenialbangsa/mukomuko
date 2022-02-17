@@ -3,13 +3,16 @@
 @endpush
 
 <div>
-    <table class="table table-striped" id="table">
+    <table class="table table-striped table-responsive-sm" id="table" width="100%">
         <thead>
             <tr>
-                <th>Nama Program</th>
-                <th>Nama Donatur</th>
-                <th>Jumlah Donasi</th>
                 <th>Tanggal</th>
+                <th width="100px">Nama Program</th>
+                <th>Nama Donatur</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Jumlah Donasi</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -28,14 +31,17 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.donatur.ziswaf.list', Request::segment(4)) !!}",
+                    url: "{!!  route('admin.donatur.program.list', Request::segment(4)) !!}",
                 },
                 columns: [
-                    { data: 'type_id, name: type_id', className: "text-center" },
-                    { data: 'name', name: 'name', className: "text-center" },
-                    { data: 'total_donate', name: 'total_donate', className: "text-center" },
-                    { data: 'created_at', name: 'created_at', className: "text-center" },
-                    { data: 'action', name: 'action', className: "text-center" },
+                    { data: 'created_at', name: 'created_at', className: 'text-center' },
+                    { data: 'program.title', name: 'program.title', className: 'text-center' },
+                    { data: 'name', name: 'name', className: 'text-center' },
+                    { data: 'email', name: 'email', className: 'text-center' },
+                    { data: 'phone', name: 'phone', className: 'text-center' },
+                    { data: 'total_donate', name: 'total_donate', className: 'text-center' },
+                    { data: 'is_confirm', name: 'is_confirm', className: 'text-center' },
+                    { data: 'action', name: 'action', className: 'text-center' },
                 ]
             });
         });

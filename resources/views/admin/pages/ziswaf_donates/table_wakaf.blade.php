@@ -3,14 +3,12 @@
 @endpush
 
 <div>
-    <table class="table table-striped table-responsive-sm" id="table" width="100%">
+    <table class="table table-striped" id="table_wakaf" width="100%">
         <thead>
             <tr>
+                <th>Nama Ziswaf</th>
+                {{-- <th>Total Donasi</th> --}}
                 <th>Tanggal</th>
-                <th>Nama Program</th>
-                <th>Kategori</th>
-                <th>Total Donasi</th>
-                <th>Sisa Hari</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -24,19 +22,17 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#table').DataTable({
+            var table = $('#table_wakaf').DataTable({
                 // dom: "<'row mb-1'<'col-sm'><'col-sm-3'<'fusername'>><'col-sm-4'<'fdate'>><'col-sm-2'<'bexport'>>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.donatur.program.index') !!}",
+                    url: "{!!  route('admin.donatur.ziswaf.index', ['category' => 3]) !!}",
                 },
                 columns: [
-                    { data: 'created_at', name: 'created_at', className: "text-center" },
                     { data: 'title', name: 'title', className: "text-center" },
-                    { data: 'category_id', name: 'category_id', className: "text-center" },
-                    { data: 'donate_sum_total_donate', name: 'donate_sum_total_donate', defaultContent: 'Rp 0', className: "text-center" },
-                    { data: 'count_day', name: 'count_day', className: "text-center" },
+                    // { data: 'target_dana', name: 'target_dana', className: "text-center" },
+                    { data: 'created_at', name: 'created_at', className: "text-center" },
                     { data: 'action', name: 'action', className: "text-center" },
                 ]
             });
