@@ -37,8 +37,12 @@ class ZiswafDonateController extends AppBaseController
         if($request->ajax()) {
             $ziswaf = Ziswaf::select('id', 'title', 'category_id', 'created_at')
                 ->whereCategoryId($request->category)
-                ->withCount('donate')
-                ->withSum('donate', 'total_donate')
+                ->withSum(['donate' => function($query) {
+                    $query->where('location_id', Auth::user()->location_id);
+                }], 'total_donate')
+                ->withCount(['donate' => function($query) {
+                    $query->where('location_id', Auth::user()->location_id);
+                }])
                 ->get();
 
             return DataTables::of($ziswaf)
