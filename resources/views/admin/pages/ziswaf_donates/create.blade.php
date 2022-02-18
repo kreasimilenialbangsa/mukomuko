@@ -17,7 +17,7 @@
                    <div class="col-lg-12">
                        <div class="card">
                            <div class="card-body ">
-                                {!! Form::open(['route' => ['admin.donatur.ziswaf.storage', Request::segment(4)]]) !!}
+                                {!! Form::open(['route' => ['admin.donatur.ziswaf.store', Request::segment(4)]]) !!}
                                     <div class="row">
                                         @include('admin.pages.ziswaf_donates.fields')
                                     </div>

@@ -57,5 +57,8 @@ class Kecamatan extends Model
         'name' => 'required'
     ];
 
-    
+    public function desa()
+    {
+        return $this->hasOne(\App\Models\Admin\Desa::class, 'id', 'parent_id');
+    }
 }

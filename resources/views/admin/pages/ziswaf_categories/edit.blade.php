@@ -7,7 +7,7 @@
             <div class="section-header">
                 <h3 class="page__heading m-0">Edit Ziswaf Category</h3>
                 <div class="section-header-breadcrumb">
-                    <a href="{{ route('admin.ziswafCategories.index') }}"  class="btn btn-primary">Back</a>
+                    <a href="{{ route('admin.category.ziswaf.index') }}"  class="btn btn-primary">Back</a>
                 </div>
             </div>
   <div class="content">
@@ -17,7 +17,7 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-body ">
-                                    {!! Form::model($ziswafCategory, ['route' => ['admin.ziswafCategories.update', $ziswafCategory->id], 'method' => 'patch']) !!}
+                                    {!! Form::model($ziswafCategory, ['route' => ['admin.category.ziswaf.update', $ziswafCategory->id], 'method' => 'patch']) !!}
                                         <div class="row">
                                             @include('admin.pages.ziswaf_categories.fields')
                                         </div>

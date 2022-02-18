@@ -20,6 +20,14 @@
     </ul>
 </li>
 
+<li class="nav-item dropdown {{ Request::is('admin/approval*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Approval Donasi</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/approval/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.program.index') }}">Donasi Program</a></li>
+        <li class="{{ Request::is('admin/approval/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ziswaf.index') }}">Donasi Ziswaf</a></li>
+    </ul>
+</li>
+
 
 <li class="menu-header">Content</li>
 <li class="side-menus {{ Request::is('admin/banners*') ? 'active' : '' }}">
@@ -47,7 +55,7 @@
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Kategori</span></a>
     <ul class="dropdown-menu">
         <li class="{{ Request::is('admin/category/news*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.news.index') }}">Kategori Berita</a></li>
-        <li class="{{ Request::is('admin/category/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.program.index') }}">KategoriProgram</a></li>
+        <li class="{{ Request::is('admin/category/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.program.index') }}">Kategori Program</a></li>
         <li class="{{ Request::is('admin/category/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.ziswaf.index') }}">Kategori Ziswaf</a></li>
     </ul>
 </li>

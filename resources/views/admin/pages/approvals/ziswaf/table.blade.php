@@ -7,12 +7,13 @@
         <thead>
             <tr>
                 <th>Tanggal</th>
-                <th>Nama Program</th>
+                <th>JIPZISNU</th>
+                <th>Desa</th>
+                <th>Nama Ziswaf</th>
                 <th>Nama Donatur</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Jumlah Donasi</th>
-                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,16 +32,17 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.donatur.program.list', Request::segment(4)) !!}",
+                    url: "{!!  route('admin.approval.ziswaf.index') !!}",
                 },
                 columns: [
                     { data: 'created_at', name: 'created_at', className: 'text-center' },
-                    { data: 'program.title', name: 'program.title', className: 'text-center' },
+                    { data: 'user.name', name: 'user.name', className: 'text-center' },
+                    { data: 'location.name', name: 'location.name', className: 'text-center' },
+                    { data: 'ziswaf.title', name: 'ziswaf.title', className: 'text-center' },
                     { data: 'name', name: 'name', className: 'text-center' },
                     { data: 'email', name: 'email', className: 'text-center' },
                     { data: 'phone', name: 'phone', className: 'text-center' },
                     { data: 'total_donate', name: 'total_donate', className: 'text-center' },
-                    { data: 'is_confirm', name: 'is_confirm', className: 'text-center' },
                     { data: 'action', name: 'action', className: 'text-center' },
                 ]
             });

@@ -6,10 +6,11 @@
     <table class="table table-striped" id="table">
         <thead>
             <tr>
-                <th>Nama Program</th>
+                <th>Nama Ziswaf</th>
                 <th>Nama Donatur</th>
                 <th>Jumlah Donasi</th>
                 <th>Tanggal</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -28,14 +29,15 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.donatur.program.list', Request::segment(4)) !!}",
+                    url: "{!!  route('admin.donatur.ziswaf.list', Request::segment(4)) !!}",
                 },
                 columns: [
-                    { data: 'type_id, name: type_id', className: "text-center" },
-                    { data: 'name', name: 'name', className: "text-center" },
-                    { data: 'total_donate', name: 'total_donate', className: "text-center" },
-                    { data: 'created_at', name: 'created_at', className: "text-center" },
-                    { data: 'action', name: 'action', className: "text-center" },
+                    { data: 'ziswaf.title', name: 'ziswaf.title', className: 'text-center' },
+                    { data: 'name', name: 'name', className: 'text-center' },
+                    { data: 'total_donate', name: 'total_donate', className: 'text-center' },
+                    { data: 'created_at', name: 'created_at', className: 'text-center' },
+                    { data: 'is_confirm', name: 'is_confirm', className: 'text-center' },
+                    { data: 'action', name: 'action', className: 'text-center' },
                 ]
             });
         });

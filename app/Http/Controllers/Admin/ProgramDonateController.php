@@ -36,6 +36,8 @@ class ProgramDonateController extends AppBaseController
     {
         if($request->ajax()) {
             $programs = Program::select('id', 'title', 'category_id', 'end_date', 'target_dana', 'created_at')
+                ->with('category')
+                ->withCount('donate')
                 ->withSum('donate', 'total_donate')
                 ->whereIsActive(1)
                 ->get();
@@ -89,7 +91,7 @@ class ProgramDonateController extends AppBaseController
     {
         $input = [
             'user_id' => Auth::user()->id,
-            'type' => '\App\Models\Admin\Ziswaf',
+            'type' => '\App\Models\Admin\Program',
             'type_id' => $id,
             // 'location_id' => Auth::user()->location_id,
             'location_id' => 1,
@@ -122,12 +124,19 @@ class ProgramDonateController extends AppBaseController
         if($request->ajax()) {
             $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
                 ->with('program')
+                ->whereType('\App\Models\Admin\Program')
+                ->whereTypeId($id)
                 ->get();
 
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.program_donates.donatur.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('is_confirm', function($q) {
+                    $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
+                    return $status;
+                })
+                ->rawColumns(['is_confirm', 'action'])
                 ->make(true);
         }
 

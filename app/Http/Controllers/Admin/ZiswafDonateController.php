@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Ziswaf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Response;
 use Yajra\DataTables\DataTables;
 
@@ -36,13 +37,15 @@ class ZiswafDonateController extends AppBaseController
         if($request->ajax()) {
             $ziswaf = Ziswaf::select('id', 'title', 'category_id', 'created_at')
                 ->whereCategoryId($request->category)
+                ->withCount('donate')
+                ->withSum('donate', 'total_donate')
                 ->get();
 
-            return $result = DataTables::of($ziswaf)
+            return DataTables::of($ziswaf)
                 ->addColumn('action', 'admin.pages.ziswaf_donates.datatables_actions')
-                // ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->editColumn('donate_sum_total_donate', '{{ "Rp " . number_format($donate_sum_total_donate,0,",",".") }}')
                 ->make(true);
+
         }
         
         return view('admin.pages.ziswaf_donates.index');
@@ -55,6 +58,11 @@ class ZiswafDonateController extends AppBaseController
      */
     public function create($id)
     {
+        $program = Ziswaf::whereId($id)
+            ->with('category')
+            ->withSum('donate', 'total_donate')
+            ->firstOrFail();
+
         return view('admin.pages.ziswaf_donates.create');
     }
 
@@ -65,15 +73,28 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateDonateRequest $request)
+    public function store($id, CreateDonateRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'type' => '\App\Models\Admin\Ziswaf',
+            'type_id' => $id,
+            // 'location_id' => Auth::user()->location_id,
+            'location_id' => 1,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+            'total_donate' => $request->total_donate,
+            'is_anonim' => isset($request->is_anonim) ? $request->is_anonim : 0,
+            'is_confirm' => 0
+        ];
 
         $donate = $this->donateRepository->create($input);
 
         Flash::success('Donate saved successfully.');
 
-        return redirect(route('admin.donates.index'));
+        return redirect(route('admin.donatur.ziswaf.index'));
     }
 
     /**
@@ -86,12 +107,21 @@ class ZiswafDonateController extends AppBaseController
     public function show(Request $request, $id)
     {
         if($request->ajax()) {
-            $donatur = Donate::select('id', 'name', 'email', 'phone', 'total_donate', 'created_at')->get();
+            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
+                ->with('ziswaf')
+                ->whereType('\App\Models\Admin\Ziswaf')
+                ->whereTypeId($id)
+                ->get();
 
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.ziswaf_donates.donatur.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('is_confirm', function($q) {
+                    $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
+                    return $status;
+                })
+                ->rawColumns(['is_confirm', 'action'])
                 ->make(true);
         }
 

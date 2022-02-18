@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th>Nama Ziswaf</th>
-                {{-- <th>Total Donasi</th> --}}
-                <th>Tanggal</th>
+                <th>Total Donatur</th>
+                <th>Total Donasi</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -31,8 +31,8 @@
                 },
                 columns: [
                     { data: 'title', name: 'title', className: "text-center" },
-                    // { data: 'target_dana', name: 'target_dana', className: "text-center" },
-                    { data: 'created_at', name: 'created_at', className: "text-center" },
+                    { data: 'donate_count', name: 'donate_count', className: "text-center" },
+                    { data: 'donate_sum_total_donate', name: 'donate_sum_total_donate', className: "text-center" },
                     { data: 'action', name: 'action', className: "text-center" },
                 ]
             });

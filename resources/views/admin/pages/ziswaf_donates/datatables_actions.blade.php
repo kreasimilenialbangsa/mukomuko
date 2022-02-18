@@ -3,9 +3,9 @@
         <i class="glyphicon glyphicon-eye-open"></i>
     </a> --}}
     <a href="{{ route('admin.donatur.ziswaf.list', $id) }}" class='btn btn-warning btn-xs'>
-        <i class="fa fa-list"></i> Daftar Donatur
+        <i class="fa fa-list"></i>
     </a>
     <a href="{{ route('admin.donatur.ziswaf.create', $id) }}" class='btn btn-primary btn-xs'>
-        <i class="fa fa-plus"></i> Tambah Donasi
+        <i class="fa fa-plus"></i>
     </a>
 </div>

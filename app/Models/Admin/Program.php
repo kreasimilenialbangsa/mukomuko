@@ -95,6 +95,6 @@ class Program extends Model
 
     public function donate()
     {
-        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id');
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Program');;
     }
 }

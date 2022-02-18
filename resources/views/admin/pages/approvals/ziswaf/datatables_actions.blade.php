@@ -1,4 +1,4 @@
-{!! Form::open(['route' => ['admin.donatur.program.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['admin.approval.update', $id], 'method' => 'patch']) !!}
 <div class='text-center'>
     {{-- <a href="{{ route('admin.donatur.program.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
@@ -6,12 +6,10 @@
     {{-- <a href="{{ route('admin.donatur.program.list', $id) }}" class='btn btn-warning btn-xs'>
         <i class="fa fa-edit"></i> Daftar Donatur
     </a> --}}
-    @if($is_confirm != 1)
-    {!! Form::button('<i class="fa fa-trash"></i>', [
+    {!! Form::button('<i class="fa fa-check"></i>', [
         'type' => 'submit',
-        'class' => 'btn btn-danger btn-xs',
+        'class' => 'btn btn-success btn-xs',
         'onclick' => "return confirm('Are you sure?')"
     ]) !!}
-    @endif
 </div>
 {!! Form::close() !!}

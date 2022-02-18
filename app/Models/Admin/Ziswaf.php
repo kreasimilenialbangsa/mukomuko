@@ -61,5 +61,10 @@ class Ziswaf extends Model
     public function category()
     {
         return $this->belongsTo(\App\Models\Admin\ZiswafCategory::class, 'category_id');
-    }    
+    }
+
+    public function donate()
+    {
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Ziswaf');
+    }
 }

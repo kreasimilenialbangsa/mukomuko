@@ -1,13 +1,17 @@
-{!! Form::open(['route' => ['admin.donates.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['admin.donatur.ziswaf.destroy', $id], 'method' => 'delete']) !!}
 <div class='text-center'>
-    {{-- <a href="{{ route('admin.donates.show', $id) }}" class='btn btn-default btn-xs'>
+    {{-- <a href="{{ route('admin.donatur.ziswaf.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a> --}}
-    <a href="{{ route('admin.donatur.program.list', $id) }}" class='btn btn-warning btn-xs'>
-        <i class="fa fa-list"></i> Daftar Donatur
-    </a>
-    <a href="{{ route('admin.donates.edit', $id) }}" class='btn btn-primary btn-xs'>
-        <i class="fa fa-plus"></i> Tambah Donasi
-    </a>
+    {{-- <a href="{{ route('admin.donatur.ziswaf.list', $id) }}" class='btn btn-warning btn-xs'>
+        <i class="fa fa-edit"></i> Daftar Donatur
+    </a> --}}
+    @if($is_confirm != 1)
+    {!! Form::button('<i class="fa fa-trash"></i>', [
+        'type' => 'submit',
+        'class' => 'btn btn-danger btn-xs',
+        'onclick' => "return confirm('Are you sure?')"
+    ]) !!}
+    @endif
 </div>
 {!! Form::close() !!}

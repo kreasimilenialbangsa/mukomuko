@@ -9,6 +9,7 @@
                 <th>Tanggal</th>
                 <th>Nama Program</th>
                 <th>Kategori</th>
+                <th>Total Donatur</th>
                 <th>Total Donasi</th>
                 <th>Sisa Hari</th>
                 <th>Aksi</th>
@@ -34,7 +35,8 @@
                 columns: [
                     { data: 'created_at', name: 'created_at', className: "text-center" },
                     { data: 'title', name: 'title', className: "text-center" },
-                    { data: 'category_id', name: 'category_id', className: "text-center" },
+                    { data: 'category.name', name: 'category.name', className: "text-center" },
+                    { data: 'donate_count', name: 'donate_count', className: "text-center" },
                     { data: 'donate_sum_total_donate', name: 'donate_sum_total_donate', defaultContent: 'Rp 0', className: "text-center" },
                     { data: 'count_day', name: 'count_day', className: "text-center" },
                     { data: 'action', name: 'action', className: "text-center" },
