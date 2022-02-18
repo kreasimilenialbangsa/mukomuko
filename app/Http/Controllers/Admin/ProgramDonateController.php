@@ -39,7 +39,6 @@ class ProgramDonateController extends AppBaseController
                 ->with('category')
                 ->withCount('donate')
                 ->withSum('donate', 'total_donate')
-                ->whereRelation('donate', 'location_id', Auth::user()->location_id)
                 ->whereIsActive(1)
                 ->get();
 
