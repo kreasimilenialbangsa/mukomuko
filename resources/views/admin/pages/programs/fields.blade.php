@@ -126,7 +126,7 @@
 
 @push('script')
 <script>
-     $(document).on('click', '#add-data', function (){
+    $(document).on('click', '#add-data', function (){
         var key = $('.row-data > .form').length;
         var no = key+1;
         $('.row-data').append(`

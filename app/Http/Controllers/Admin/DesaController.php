@@ -107,7 +107,10 @@ class DesaController extends AppBaseController
             return redirect(route('admin.location.desa.index'));
         }
 
-        return view('admin.pages.desas.edit')->with('desa', $desa);
+        $kecamatan = Kecamatan::where('parent_id', 0)->pluck('name', 'id');
+
+        return view('admin.pages.desas.edit')->with('desa', $desa)
+            ->with('kecamatan', $kecamatan);
     }
 
     /**

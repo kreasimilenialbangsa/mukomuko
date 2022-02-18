@@ -7,6 +7,8 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\Desa;
+use App\Models\Admin\Kecamatan;
 use App\Models\Admin\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -41,9 +43,21 @@ class UserController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $role = Role::where('id', '<>', 1)->orderBy('id', 'asc')->pluck('name', 'id');
+
+        if($request->ajax()) {
+            if($request->type == '3') {
+                $location = Kecamatan::select('id', 'name')->whereParentId(0)->orderBy('id', 'asc')->get();
+                return response()->json($location);
+            } else {
+                $location = Desa::select('id', 'name')->where('parent_id', '>', 0)->orderBy('id', 'asc')->get();
+                return response()->json($location);
+            }
+        }
+
+
         return view('admin.pages.users.create')
             ->with('role', $role);
     }
@@ -135,7 +149,7 @@ class UserController extends AppBaseController
      * @return Response
      */
     public function update($id, UpdateUserRequest $request)
-    {
+    {   
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
@@ -147,6 +161,7 @@ class UserController extends AppBaseController
         $input = [
             'name' => $request->name,
             'email' => $request->email,
+            'location_id' => isset($request->location) ? $request->location : 0,
             'is_active' => isset($request->is_active) ? $request->is_active : 0
         ];
 

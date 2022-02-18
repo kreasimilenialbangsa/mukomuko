@@ -23,7 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_active',
+        'location_id',
+        'is_active'
     ];
 
     /**
@@ -51,5 +52,10 @@ class User extends Authenticatable
 
     public function role() {
         return $this->hasOne(\App\Models\Admin\Role::class, 'id');
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(\App\Models\Admin\Kecamatan::class, 'location_id');
     }
 }

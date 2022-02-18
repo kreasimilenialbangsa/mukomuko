@@ -49,62 +49,71 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth']], func
 });
 
 /** Admin Area Start*/
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:SuperAdmin|Kabupaten']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // Dashboard
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
     
-    // Service
-    Route::resource('programs', App\Http\Controllers\Admin\ProgramController::class, ["as" => 'admin']);
-    Route::resource('ziswafs', App\Http\Controllers\Admin\ZiswafController::class, ["as" => 'admin']);
-    Route::resource('services', App\Http\Controllers\Admin\ServiceController::class, ["as" => 'admin']);
-    Route::group(['prefix' => 'donatur'], function () {
-        // Route::resource('program', App\Http\Controllers\Admin\ProgramDonateController::class, ["as" => 'admin.donatur']);
-        Route::get('program', [App\Http\Controllers\Admin\ProgramDonateController::class, 'index'])->name('admin.donatur.program.index');
-        Route::get('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'create'])->name('admin.donatur.program.create');
-        Route::post('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'store'])->name('admin.donatur.program.store');
-        Route::delete('program/{id}', [App\Http\Controllers\Admin\ProgramDonateController::class, 'destroy'])->name('admin.donatur.program.destroy');
-        Route::get('program/{id}/list', [App\Http\Controllers\Admin\ProgramDonateController::class, 'show'])->name('admin.donatur.program.list');
+    // Role Kabupaten
+    Route::group(['middleware' => ['role:SuperAdmin|Kabupaten']], function() {
+        // Service
+        Route::resource('programs', App\Http\Controllers\Admin\ProgramController::class, ["as" => 'admin']);
+        Route::resource('ziswafs', App\Http\Controllers\Admin\ZiswafController::class, ["as" => 'admin']);
+
+        // Content
+        Route::resource('banners', App\Http\Controllers\Admin\BannerController::class, ["as" => 'admin']);
+        Route::resource('news', App\Http\Controllers\Admin\NewsController::class, ["as" => 'admin']);
+        Route::resource('abouts', App\Http\Controllers\Admin\AboutController::class, ["as" => 'admin']);
+        Route::resource('galleries', App\Http\Controllers\Admin\GalleryController::class, ["as" => 'admin']);
+        Route::resource('services', App\Http\Controllers\Admin\ServiceController::class, ["as" => 'admin']);
+    });
+
+    // Role Kecamatan
+    Route::group(['middleware' => ['role:SuperAdmin|Kecamatan']], function() {
+        // Approval
+        Route::group(['prefix' => 'approval'], function () {
+            Route::get('program', [App\Http\Controllers\Admin\ApprovalController::class, 'program_index'])->name('admin.approval.program.index');
+            Route::get('ziswaf', [App\Http\Controllers\Admin\ApprovalController::class, 'ziswaf_index'])->name('admin.approval.ziswaf.index');
+            Route::patch('update/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve'])->name('admin.approval.update');
+        });
+    });
+
+    // Role Desa
+    Route::group(['middleware' => ['role:SuperAdmin|Desa']], function() {
+        Route::group(['prefix' => 'donatur'], function () {
+            // Route::resource('program', App\Http\Controllers\Admin\ProgramDonateController::class, ["as" => 'admin.donatur']);
+            Route::get('program', [App\Http\Controllers\Admin\ProgramDonateController::class, 'index'])->name('admin.donatur.program.index');
+            Route::get('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'create'])->name('admin.donatur.program.create');
+            Route::post('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'store'])->name('admin.donatur.program.store');
+            Route::delete('program/{id}', [App\Http\Controllers\Admin\ProgramDonateController::class, 'destroy'])->name('admin.donatur.program.destroy');
+            Route::get('program/{id}/list', [App\Http\Controllers\Admin\ProgramDonateController::class, 'show'])->name('admin.donatur.program.list');
+            
+            // Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafDonateController::class, ["as" => 'admin.donatur']);
+            Route::get('ziswaf', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'index'])->name('admin.donatur.ziswaf.index');
+            Route::get('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'create'])->name('admin.donatur.ziswaf.create');
+            Route::post('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'store'])->name('admin.donatur.ziswaf.store');
+            Route::delete('ziswaf/{id}', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'destroy'])->name('admin.donatur.ziswaf.destroy');
+            Route::get('ziswaf/{id}/list', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'show'])->name('admin.donatur.ziswaf.list');
+        });
+    });
+    
+    // Role SuperAdmin
+    Route::group(['middleware' => ['role:SuperAdmin']], function() {
+        // Master Data
+        Route::group(['prefix' => 'category'], function () {
+            Route::resource('news', App\Http\Controllers\Admin\NewsCategoryController::class, ["as" => 'admin.category']);
+            Route::resource('program', App\Http\Controllers\Admin\ProgramCategoryController::class, ["as" => 'admin.category']);
+            Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafCategoryController::class, ["as" => 'admin.category']);
+        });
         
-        // Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafDonateController::class, ["as" => 'admin.donatur']);
-        Route::get('ziswaf', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'index'])->name('admin.donatur.ziswaf.index');
-        Route::get('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'create'])->name('admin.donatur.ziswaf.create');
-        Route::post('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'store'])->name('admin.donatur.ziswaf.store');
-        Route::delete('ziswaf/{id}', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'destroy'])->name('admin.donatur.ziswaf.destroy');
-        Route::get('ziswaf/{id}/list', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'show'])->name('admin.donatur.ziswaf.list');
-    });
-    
-    // Approval
-    Route::group(['prefix' => 'approval'], function () {
-        Route::get('program', [App\Http\Controllers\Admin\ApprovalController::class, 'program_index'])->name('admin.approval.program.index');
-        Route::get('ziswaf', [App\Http\Controllers\Admin\ApprovalController::class, 'ziswaf_index'])->name('admin.approval.ziswaf.index');
-        Route::patch('update/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve'])->name('admin.approval.update');
+        // Location
+        Route::group(['prefix' => 'location'], function () {
+            Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class, ["as" => 'admin.location']);
+            Route::resource('desa', App\Http\Controllers\Admin\DesaController::class, ["as" => 'admin.location']);
+        });    
+
+        // User
+        Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
     });
 
-    // Content
-    Route::resource('banners', App\Http\Controllers\Admin\BannerController::class, ["as" => 'admin']);
-    Route::resource('news', App\Http\Controllers\Admin\NewsController::class, ["as" => 'admin']);
-    Route::resource('abouts', App\Http\Controllers\Admin\AboutController::class, ["as" => 'admin']);
-    Route::resource('galleries', App\Http\Controllers\Admin\GalleryController::class, ["as" => 'admin']);
-    
-    // Master Data
-    Route::group(['prefix' => 'category'], function () {
-        Route::resource('news', App\Http\Controllers\Admin\NewsCategoryController::class, ["as" => 'admin.category']);
-        Route::resource('program', App\Http\Controllers\Admin\ProgramCategoryController::class, ["as" => 'admin.category']);
-        Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafCategoryController::class, ["as" => 'admin.category']);
-    });
-    
-    // Location
-    Route::group(['prefix' => 'location'], function () {
-        Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class, ["as" => 'admin.location']);
-        Route::resource('desa', App\Http\Controllers\Admin\DesaController::class, ["as" => 'admin.location']);
-    });    
-
-    // User
-    Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
 });
 /** Admin Area End*/
-
-
-Route::group(['prefix' => 'admin'], function () {
-    Route::resource('donates', App\Http\Controllers\Admin\DonateController::class, ["as" => 'admin']);
-});

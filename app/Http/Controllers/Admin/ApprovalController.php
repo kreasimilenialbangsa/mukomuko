@@ -37,7 +37,7 @@ class ApprovalController extends AppBaseController
         if($request->ajax()) {
             $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
                 ->with(['user', 'program', 'location'])
-                ->whereRelation('location', 'parent_id', 1)
+                ->whereRelation('location', 'parent_id', Auth::user()->location_id)
                 ->whereType('\App\Models\Admin\Program')
                 ->whereIsConfirm(0)
                 ->get();
@@ -63,7 +63,7 @@ class ApprovalController extends AppBaseController
         if($request->ajax()) {
             $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
                 ->with(['user', 'ziswaf', 'location'])
-                ->whereRelation('location', 'parent_id', 1)
+                ->whereRelation('location', 'parent_id', Auth::user()->location_id)
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereIsConfirm(0)
                 ->get();

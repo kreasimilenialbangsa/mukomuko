@@ -3,6 +3,7 @@
     <a class="nav-link" href="{{ route('admin.dashboard') }}"><i class=" fas fa-building"></i><span>Dashboard</span></a>
 </li>
 
+@role('SuperAdmin|Kabupaten')
 <li class="menu-header">Service</li>
 <li class="side-menus {{ Request::is('admin/programs*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.programs.index') }}"><i class="fas fa-building"></i><span>Program</span></a>
@@ -11,7 +12,9 @@
 <li class="side-menus {{ Request::is('admin/ziswafs*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.ziswafs.index') }}"><i class="fas fa-building"></i><span>Ziswaf</span></a>
 </li>
+@endrole
 
+@role('SuperAdmin|Desa')
 <li class="nav-item dropdown {{ Request::is('admin/donatur*') ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Donasi</span></a>
     <ul class="dropdown-menu">
@@ -19,7 +22,9 @@
         <li class="{{ Request::is('admin/donatur/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.donatur.ziswaf.index') }}">Donasi Ziswaf</a></li>
     </ul>
 </li>
+@endrole
 
+@role('SuperAdmin|Kecamatan')
 <li class="nav-item dropdown {{ Request::is('admin/approval*') ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Approval Donasi</span></a>
     <ul class="dropdown-menu">
@@ -27,8 +32,9 @@
         <li class="{{ Request::is('admin/approval/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ziswaf.index') }}">Donasi Ziswaf</a></li>
     </ul>
 </li>
+@endrole
 
-
+@role('SuperAdmin|Kabupaten')
 <li class="menu-header">Content</li>
 <li class="side-menus {{ Request::is('admin/banners*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.banners.index') }}"><i class="fas fa-building"></i><span>Banner</span></a>
@@ -49,7 +55,9 @@
 <li class="side-menus {{ Request::is('admin/abouts*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.abouts.index') }}"><i class="fas fa-building"></i><span>Tentang</span></a>
 </li>
+@endrole
 
+@role('SuperAdmin')
 <li class="menu-header">Master Data</li>
 <li class="nav-item dropdown {{ Request::is('admin/category*') ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Kategori</span></a>
@@ -71,4 +79,4 @@
 <li class="side-menus {{ Request::is('admin/users*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-building"></i><span>Users</span></a>
 </li>
-
+@endrole
