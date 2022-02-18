@@ -5,6 +5,7 @@ namespace App\Models\Admin;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Program
@@ -95,6 +96,6 @@ class Program extends Model
 
     public function donate()
     {
-        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Program');;
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Program')->whereLocation(Auth::user()->id);
     }
 }

@@ -65,6 +65,6 @@ class Ziswaf extends Model
 
     public function donate()
     {
-        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Ziswaf');
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Ziswaf')->whereLocation(Auth::user()->id);
     }
 }
