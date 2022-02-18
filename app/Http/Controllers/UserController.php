@@ -75,6 +75,7 @@ class UserController extends AppBaseController
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'location_id' => isset($request->location) ? $request->location : 0,
             'is_active' => 1
         ];
 
