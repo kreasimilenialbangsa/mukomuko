@@ -39,6 +39,7 @@ class ZiswafDonateController extends AppBaseController
                 ->whereCategoryId($request->category)
                 ->withCount('donate')
                 ->withSum('donate', 'total_donate')
+                ->whereRelation('donate', 'location_id', Auth::user()->location_id)
                 ->get();
 
             return DataTables::of($ziswaf)
@@ -110,6 +111,7 @@ class ZiswafDonateController extends AppBaseController
                 ->with('ziswaf')
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereTypeId($id)
+                ->whereUserId(Auth::user()->id)
                 ->get();
 
             return DataTables::of($donatur)

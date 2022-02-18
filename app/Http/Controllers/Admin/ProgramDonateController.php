@@ -39,6 +39,7 @@ class ProgramDonateController extends AppBaseController
                 ->with('category')
                 ->withCount('donate')
                 ->withSum('donate', 'total_donate')
+                ->whereRelation('donate', 'location_id', Auth::user()->location_id)
                 ->whereIsActive(1)
                 ->get();
 
@@ -125,6 +126,7 @@ class ProgramDonateController extends AppBaseController
                 ->with('program')
                 ->whereType('\App\Models\Admin\Program')
                 ->whereTypeId($id)
+                ->whereUserId(Auth::user()->id)
                 ->get();
 
             return DataTables::of($donatur)
