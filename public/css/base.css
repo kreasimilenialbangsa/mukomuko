@@ -154,8 +154,8 @@ input:checked + .slider:before {
 
 .main-content {
   padding-top: 45px;
-  min-height: 95vh;
-	margin-bottom: 60px;
+  min-height: 80vh;
+	margin-bottom: 50px;
 	position: relative;
 }
 

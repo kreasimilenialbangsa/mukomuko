@@ -71,6 +71,9 @@
   padding: 20px 80px;
   margin-bottom: 1.5rem;
   margin-top: 0.3rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 @media only screen and (max-width: 767px){
@@ -87,5 +90,8 @@
   .ziswaf-page .wrapper-handout .nav-tabs .nav-link svg{
     width: 24px;
     height: 24px;
+  }
+  .ziswaf-page .wrapper-handout .bg-quote {
+    padding: 15px;
   }
 }
