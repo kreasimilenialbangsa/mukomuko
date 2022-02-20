@@ -24,15 +24,17 @@
   transform: scale(1.02);
 }
 
-.thumb-headline{
+.programdetail-page .thumb-headline{
   position: relative;
 }
 
-.thumb-headline img{
+.programdetail-page .thumb-headline img{
   height: 484px;
+  object-fit: cover;
+  object-position: center;
 }
 
-.thumb-headline .tag-cat{
+.programdetail-page .thumb-headline .tag-cat{
   background: #45BF7C;
   border-radius: 4px;
   padding: 3px 8px;
@@ -43,4 +45,48 @@
   top: 10px;
   font-size: 0.75rem;
   font-weight: 500;
+}
+
+.wrapper-donatur {
+  background: #FFFFFF;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
+  border-radius: 4px;
+  padding: 30px 20px;
+  position: sticky;
+  top: 100px;
+}
+
+.wrapper-detail {
+  background: #FFFFFF;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
+  border-radius: 4px;
+}
+
+.wrapper-donatur .progress {
+  height: 5px;
+  border-radius: 10px;
+  background: #E3E3E3;
+}
+
+.wrapper-donatur .progress .bg-success {
+  background-color: #45BF7C !important;
+}
+
+.wrapper-donatur .wrap-share .ic-sosmed:hover{
+  color: #45BF7C;
+}
+
+.wrapper-donatur .total-donasi{
+  position: relative;
+  display: flex;
+}
+
+.wrapper-donatur .wrap-share{
+  border-bottom: 2px solid #E3E3E3;
+}
+
+@media only screen and (max-width: 991px){
+  .programdetail-page .thumb-headline img{
+    height: 300px;
+  }
 }

@@ -83,8 +83,8 @@ input[type='number'] {
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 35px;
+  height: 16px;
 }
 
 .switch input { 
@@ -100,7 +100,7 @@ input[type='number'] {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: rgba(34, 31, 31, 0.26);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -108,28 +108,40 @@ input[type='number'] {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  bottom: -1px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+  background: #F8F8F8;
+  box-shadow: 0px 1px 1px rgb(0 0 0 / 24%);
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #45BF7C;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #45BF7C;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
 }
+
+.form-control{
+  border: 1px solid #45BF7C;
+  font-weight: 500;
+}
+
+.form-control:focus{
+  box-shadow: 0 0 0 0.1rem rgb(0 123 255 / 25%);
+}
+
 
 /* Rounded sliders */
 .slider.round {
@@ -147,3 +159,9 @@ input:checked + .slider:before {
 	position: relative;
 }
 
+
+@media only screen and (min-width: 1400px){
+  .container, .container-lg, .container-md, .container-sm, .container-xl{
+    max-width: 1340px;
+  }
+}

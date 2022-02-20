@@ -8,6 +8,7 @@
   height: 100vh;
   object-fit: cover;
   object-position: center;
+  filter: brightness(0.5);
 }
 
 .home-page .slider-headline .slide-text {
@@ -206,7 +207,7 @@
 
 @media only screen and (max-width: 991px){
   .home-page .slider-headline .slider-img{
-    height: 30vh;
+    height: 35vh;
   }
   .home-page .slider-headline .slider-detail {
     max-width: 100%;

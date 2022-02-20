@@ -100,56 +100,60 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="donatur">
+              <div class="wrapper-donatur">
                 <h5>Sedekah Bantu Saudara Dhuafa</h5>
-                <div class="d-center">
-                  <ion-icon class="mr-2" name="location-sharp"></ion-icon>
-                  <span class="text-xs font-medium">Rumah Zakat Kecamatan A</span>
-                </div>
-                <div class="d-center">
-                  <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                  <span class="text-xs font-medium">Kabupaten Mukomuko</span>
+                <div class="d-flex justify-content-between my-3">  
+                  <div class="d-center">
+                    <ion-icon class="mr-1 text-md" name="location-sharp"></ion-icon>
+                    <span class="text-xs font-medium">Rumah Zakat Kecamatan A</span>
+                  </div>
+                  <div class="d-center">
+                    <img class="mr-1" width="16" height="16" src="{{ asset('img/user.svg') }}" alt="">
+                    <span class="text-xs font-medium">Kabupaten Mukomuko</span>
+                  </div>
                 </div>
                 <div class="progress">
                   <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <div class="d-flex mt-2 justify-content-between">
-                  <div class="w-left mr-2">
+                <div class="d-center mt-2 justify-content-between">
+                  <div class="d-flex mr-2">
                     <h6 class="clr-green">RP. 3500.0000</h6>
-                    <span class="mini-max">Rp 500.000.000</span>
+                    <span class="text-xs clr-grey font-semibold ml-2">Rp 500.000.000</span>
                   </div>
-                  <div class="w-right text-right">
+                  <div class="text-right">
                     <span class="text-xs clr-grey">Sisa Hari</span>
                     <h6 class="text-sm">3</h6>
                   </div>
                 </div>
-                <div class="wrap-share border-bottom pb-3">
+                <div class="wrap-share pb-2">
                   <span class="text-xs clr-grey">Bagikan agar target lebih cepat terkumpul:</span>
-                  <div class="d-flex">
-                    <div class="clr-grey h4 ml-3">
-                      <ion-icon class="ic-ion ic-sosmed" name="logo-facebook"></ion-icon>
-                    </div>
-                    <div class="clr-grey h4 ml-3">
-                      <ion-icon class="ic-ion ic-sosmed" name="logo-twitter"></ion-icon>
-                    </div>
-                    <div class="clr-grey h4 ml-3">
-                      <ion-icon class="ic-ion ic-sosmed" name="logo-whatsapp"></ion-icon>
-                    </div>
+                  <div class="d-flex mt-2">
+                    <a class="clr-grey h5 mr-2">
+                      <ion-icon class="ic-sosmed" name="logo-facebook"></ion-icon>
+                    </a>
+                    <a class="clr-grey h5 mr-2">
+                      <ion-icon class="ic-sosmed" name="logo-twitter"></ion-icon>
+                    </a>
+                    <a class="clr-grey h5 mr-2">
+                      <ion-icon class="ic-sosmed" name="logo-whatsapp"></ion-icon>
+                    </a>
                   </div>
                 </div>
-                <form class="wrap-donatur">
+                <form class="form-donatur mt-3">
                   <div class="form-group">
-                    <label for="">Masukan Nominal Donasi</label>
+                    <label class="font-semibold" for="">Masukan Nominal Donasi</label>
                     <input type="text" class="form-control">
                   </div>
-                  <div class="form-group d-flex">
-                    <label for="">Sembunyikan nama saya (Anonim)</label>
+                  <div class="form-group d-flex justify-content-between">
+                    <label class="font-semibold" for="">Sembunyikan nama saya (Anonim)</label>
                     <label class="switch">
                       <input type="checkbox">
                       <span class="slider round"></span>
                     </label>
                   </div>
-                  <button class="btn w-100 btn-green mt-5 py-2">Lanjut Pembayaran</button>
+                  <div class="form-group mb-0">
+                    <button class="btn w-100 btn-green mt-5 py-2">Lanjut Pembayaran</button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -167,7 +171,7 @@
             </a>
           </div>
         </section>
-        <section class="col-12 mt-5 pt-3 sec-regist">
+        <section class="col-12 mt-4 sec-regist">
           <div class="banner-regist">
             <h4 class="banner-title mr-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
             <a href="" class="btn btn-green btn-regist">Daftar Sekarang Gratis</a>
