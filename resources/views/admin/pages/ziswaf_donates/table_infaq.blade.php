@@ -6,7 +6,7 @@
     <table class="table table-striped" id="table_infaq" width="100%">
         <thead>
             <tr>
-                <th>Nama Ziswaf</th>
+                <th>Jenis Infaq</th>
                 <th>Total Donatur</th>
                 <th>Total Donasi</th>
                 <th>Aksi</th>

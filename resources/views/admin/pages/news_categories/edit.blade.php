@@ -1,13 +1,19 @@
 @extends('admin.layouts.app')
 @section('title')
-    Edit News Category 
+    Edit Kategori Berita 
 @endsection
 @section('content')
     <section class="section">
             <div class="section-header">
-                <h3 class="page__heading m-0">Edit News Category</h3>
+                <div>
+                    <h1>Edit Kategori Berita</h1>
+                    <div class="section-header-breadcrumb mt-2">
+                        <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+                        <div class="breadcrumb-item">Edit Kategori Berita</div>
+                    </div>
+                </div>
                 <div class="section-header-breadcrumb">
-                    <a href="{{ route('admin.category.news.index') }}"  class="btn btn-primary">Back</a>
+                    <a href="{{ route('admin.category.news.index') }}"  class="btn btn-primary">Kembali</a>
                 </div>
             </div>
   <div class="content">

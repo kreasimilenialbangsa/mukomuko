@@ -47,9 +47,9 @@ class ProgramDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => 'Aksi'])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                // 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -69,13 +69,13 @@ class ProgramDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'title',
-            'location' => ['className' => 'text-center'],
+            'title' => ['title' => 'Nama'],
+            'location' => ['className' => 'text-center', 'title' => 'Lokasi'],
             'target_dana' => ['className' => 'text-center'],
-            'end_date' => ['className' => 'text-center'],
-            'category.name' => ['className' => 'text-center', 'defaultContent' => 'Not set', 'name' => 'category.name'],
-            'is_urgent' => ['className' => 'text-center'],
-            'is_active' => ['className' => 'text-center']
+            'end_date' => ['className' => 'text-center', 'title' => 'Tgl Berakhir'],
+            'category.name' => ['className' => 'text-center', 'defaultContent' => 'Not set', 'name' => 'category.name', 'title' => 'Kategori'],
+            'is_urgent' => ['className' => 'text-center', 'title' => 'Darurat'],
+            'is_active' => ['className' => 'text-center', 'title' => 'Tampil']
         ];
     }
 

@@ -1,13 +1,19 @@
 @extends('admin.layouts.app')
 @section('title')
-    Services 
+    Layanan 
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Services</h1>
+            <div>
+                <h1>Layanan</h1>
+                <div class="section-header-breadcrumb mt-2">
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+                    <div class="breadcrumb-item">Layanan</div>
+                </div>
+            </div>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.services.create')}}" class="btn btn-primary form-btn">Service <i class="fas fa-plus"></i></a>
+                <a href="{{ route('admin.services.create')}}" class="btn btn-primary form-btn"><i class="fas fa-plus"></i> Layanan</a>
             </div>
         </div>
     <div class="section-body">

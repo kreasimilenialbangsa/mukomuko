@@ -19,7 +19,7 @@ class BannerDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.banners.datatables_actions')
-            ->editColumn('image', '<img src="{{ $image ? asset("storage".$image) : asset("img/no_image.jpg") }}" height="120px"/>')
+            ->editColumn('image', '<img src="{{ $image ? asset("storage".$image) : asset("img/no_image.jpg") }}" height="100px"/>')
             ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
             ->editColumn('is_active', 'admin.layouts.toggle')
             ->rawColumns(['image', 'is_active', 'action']);
@@ -46,9 +46,9 @@ class BannerDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => 'Aksi'])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                // 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -68,10 +68,10 @@ class BannerDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'title',
-            'image' => ['className' => 'text-center'],
-            'created_at' => ['className' => 'text-center'],
-            'is_active' => ['className' => 'text-center']
+            'title' => ['title' => 'Nama'],
+            'image' => ['className' => 'text-center', 'title' => 'Gambar'],
+            'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
+            'is_active' => ['className' => 'text-center', 'title' => 'Aktif']
         ];
     }
 

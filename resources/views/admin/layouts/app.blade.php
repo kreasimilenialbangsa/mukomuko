@@ -74,7 +74,7 @@
               default: 'Drag and drop file here or click',
               replace: 'Drag and drop file here or click to Replace',
               remove:  'Remove',
-              error:   'Sorry, the file is too large'
+              error:   'Maaf, ukuran file terlalu besar'
           }
       });
     });

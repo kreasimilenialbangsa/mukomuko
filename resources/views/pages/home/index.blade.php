@@ -35,22 +35,22 @@
             <div class="row text-center">
               <div class="col-md-3 col-6">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/manfaat.svg') }}" alt="">
-                <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
+                <h6 class="clr-green mt-2 mb-0">{{ number_format($total['penerima_manfaat'],0,",",".") }}</h6>
                 <span class="clr-grey font-medium">Penerima Manfaat</span>
               </div>
               <div class="col-md-3 col-6">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/himpunan.svg') }}" alt="">
-                <h6 class="clr-green mt-2 mb-0">Rp 34.232.232</h6>
-                <span class="clr-grey font-medium">Perhimpunan</span>
+                <h6 class="clr-green mt-2 mb-0">{{ "Rp " . number_format($total['penghimpunan'],0,",",".") }}</h6>
+                <span class="clr-grey font-medium">Penghimpunan</span>
               </div>
               <div class="col-md-3 col-6 mt-md-0 mt-4">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/penyaluran.svg') }}" alt="">
-                <h6 class="clr-green mt-2 mb-0">Rp 34.232.232</h6>
+                <h6 class="clr-green mt-2 mb-0">{{ "Rp " . number_format($total['penyaluran'],0,",",".") }}</h6>
                 <span class="clr-grey font-medium">Penyaluran</span>
               </div>
               <div class="col-md-3 col-6 mt-md-0 mt-4">
                 <img class="icon-fitur" height="64" width="64" src="{{ asset('img/donatur.svg') }}" alt="">
-                <h6 class="clr-green mt-2 mb-0">34.232.232</h6>
+                <h6 class="clr-green mt-2 mb-0">{{ number_format($total['donatur'],0,",",".") }}</h6>
                 <span class="clr-grey font-medium">Donatur</span>
               </div>
             </div>
