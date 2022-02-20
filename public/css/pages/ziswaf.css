@@ -46,10 +46,6 @@
   background: #F8F8F8;
 }
 
-.ziswaf-page .wrapper-handout .total-input {
-  border: 1px solid #45BF7C;
-}
-
 .ziswaf-page .wrapper-handout .nav-tabs .nav-item.show .nav-link, 
 .ziswaf-page .wrapper-handout .nav-tabs .nav-link.active,
 .ziswaf-page .wrapper-handout .nav-tabs .nav-link:focus, 
@@ -75,6 +71,9 @@
   padding: 20px 80px;
   margin-bottom: 1.5rem;
   margin-top: 0.3rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 @media only screen and (max-width: 767px){
@@ -91,5 +90,8 @@
   .ziswaf-page .wrapper-handout .nav-tabs .nav-link svg{
     width: 24px;
     height: 24px;
+  }
+  .ziswaf-page .wrapper-handout .bg-quote {
+    padding: 15px;
   }
 }

@@ -52,7 +52,7 @@
         @yield('content')
       </div>
       <a href="https://wa.me/6281271116449?text=Halo%20LazizNU%20Mukomuko,%20saya%20ingin%20berdonasi" target="_blank" class="wa-sosmed">
-        <img height="64" width="64" src="{{ asset('img/wa-contact.svg') }}" alt="">
+        <img height="55" width="55" src="{{ asset('img/wa-contact.svg') }}" alt="">
       </a>
       <!-- Main Footer -->
       @include('layouts.footer')

@@ -159,9 +159,11 @@
               </div>
             </a>
             @empty
-             <div class="text-center w-100">
-              <h3>Belum ada donasi hari ini</h3>
-             </div>
+            <div class="empty-state w-100">
+                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+              </div>
             @endforelse
 
           </div>
@@ -178,7 +180,7 @@
           <h4 class="text-center">Ayo Mulai Berdonasi!</h4>
           <div class="row mt-4">
             @foreach($programs as $key => $program)
-              <div class="col-lg-3 col-md-4 col-12 p-3">
+              <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-3">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
@@ -219,7 +221,7 @@
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
             @forelse($news as $key => $row)
-              <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-12 p-3 wblock">
+              <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-sm-6 col-12 p-3 wblock">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
@@ -239,7 +241,11 @@
                 </div>
               </a>
             @empty
-              Data not found!
+              <div class="empty-state w-100">
+                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+              </div>
             @endforelse
           </div>
           <div class="text-center mt-3">

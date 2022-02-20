@@ -8,6 +8,7 @@
   height: 100vh;
   object-fit: cover;
   object-position: center;
+  filter: brightness(0.5);
 }
 
 .news-page .slider-headline .slide-text{
@@ -39,7 +40,7 @@
 }
 
 .news-page .slider-headline .slide-title{
-  width: 60%;
+  width: 70%;
   font-weight: 600;
   font-size: 2rem;
 }
@@ -98,4 +99,19 @@
 
 .news-page .sec-filter .input-search:focus-visible {
   outline: none;
+}
+
+@media only screen and (max-width: 991px){
+  .news-page .slider-headline .slider-img{
+    height: 45vh;
+  }
+  .news-page .slider-headline .slider-detail {
+    max-width: 100%;
+    left: 0;
+    right: initial;
+    padding: 0 20px;
+  }
+  .news-page .slider-headline .slide-title {
+    width: 100%;
+  } 
 }

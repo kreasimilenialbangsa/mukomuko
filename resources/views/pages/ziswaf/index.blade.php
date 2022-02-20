@@ -47,7 +47,7 @@
                       Orang yang berzakat menjadikan hartanya suci bersih.
                       <sup><img height="24" width="10" src="{{ asset('img/quote.svg') }}" alt=""></sup>
                     </blockquote>
-                    <h5 class="ml-3 mt-3">Prof. Dr. Quraish Shihab</h5>
+                    <h5 class="mt-3">Prof. Dr. Quraish Shihab</h5>
                   </div>
                 </div>
                 <h4>Ayo hitung zakat kamu!</h4>
@@ -75,11 +75,11 @@
                   <div class="text-quote">
                     <blockquote class="h4">
                       <sup><img height="24" width="10" src="{{ asset('img/quote.svg') }}" alt=""></sup>
-                      Apa yang kita makan habis, apa yang kita simpan belum tentu kita nikmati.<br>&nbsp;
+                      Apa yang kita makan habis, apa yang kita simpan belum tentu kita nikmati.
                       Apa yang kita infakkan justru menjadi rezeki yang kita perlukan kelak.
                       <sup><img height="24" width="10" src="{{ asset('img/quote.svg') }}" alt=""></sup>
                     </blockquote>
-                    <h5 class="ml-3 mt-3">Prof. Dr. Quraish Shihab</h5>
+                    <h5 class="mt-3">Prof. Dr. Quraish Shihab</h5>
                   </div>
                 </div>
                 <h4>Ayo mulai infak!</h4>
@@ -105,12 +105,12 @@
                   <div class="text-quote">
                     <blockquote class="h5">
                       <sup><img height="24" width="10" src="{{ asset('img/quote.svg') }}" alt=""></sup>
-                      Kamu sekali-kali tidak sampai kepada kebajikan (yang sempurna),<br>&nbsp;
-                      sebelum kamu menafkahkan sebagian harta yang kamu cintai. Dan apa saja yang<br>&nbsp;
+                      Kamu sekali-kali tidak sampai kepada kebajikan (yang sempurna),
+                      sebelum kamu menafkahkan sebagian harta yang kamu cintai. Dan apa saja yang
                       kamu nafkahkan maka sesungguhnya Allah mengetahuinya.
                       <sup><img height="24" width="10" src="{{ asset('img/quote.svg') }}" alt=""></sup>
                     </blockquote>
-                    <h5 class="ml-3 mt-3">QS Ali Imran : 92</h5>
+                    <h5 class="mt-3">QS Ali Imran : 92</h5>
                   </div>
                 </div>
                 <h4>Ayo mulai wakaf!</h4>
