@@ -69,7 +69,7 @@
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
             @foreach($latestNews as $last)
-            <a href="{{ route('news.detail', $last->slug) }}" class="col-lg-3 col-md-4 col-6 p-3 wblock">
+            <a href="{{ route('news.detail', $last->slug) }}" class="col-lg-3 col-md-4 col-sm-6 col-12 p-3 wblock">
               <div class="card-thumbnail">
                 <div class="thumb-pict">
                   <img class="w-100" src="{{ asset('storage/' . $last->images[0]->file) }}" alt="{{ $last->title }}">

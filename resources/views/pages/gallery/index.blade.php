@@ -32,8 +32,10 @@
                 </a>
               @endif
             @empty
-            <div class="text-center w-100">
-              <h3>Data not found</h3>
+            <div class="empty-state w-100">
+              <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+              <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+              <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
             </div>
             @endforelse
           </div>
