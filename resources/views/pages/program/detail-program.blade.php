@@ -137,7 +137,7 @@
                     <label class="font-semibold" for="">Masukan Nominal Donasi</label>
                     <input type="text" class="form-control">
                   </div>
-                  <div class="form-group d-flex justify-content-between">
+                  <div class="form-group mb-0 d-flex justify-content-between">
                     <label class="font-semibold" for="">Sembunyikan nama saya (Anonim)</label>
                     <label class="switch">
                       <input type="checkbox">
