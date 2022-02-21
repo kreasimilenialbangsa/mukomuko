@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Kecamatan;
+use App\Models\Admin\Banner;
+use App\Models\Admin\Donate;
 use App\Models\Admin\Program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,14 +30,27 @@ class ProgramContoller extends Controller
         $kecamatan = Kecamatan::select('name', 'id')
             ->whereParentId(0)
             ->get();
+
         
+        $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
+            ->whereDate('created_at', Carbon::today())
+            // ->whereIsConfirm(1)
+            ->get();
+    
         return view('pages.program.index')
             ->with('kecamatan', $kecamatan)
-            ->with('programs', $programs);
+            ->with('programs', $programs)
+            ->with('donates', $donates);
     }
 
     public function detail($slug)
-    {
-        return view('pages.program.detail-program');
+    {   
+        $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
+            ->whereDate('created_at', Carbon::today())
+            // ->whereIsConfirm(1)
+            ->get();
+
+        return view('pages.program.detail-program')
+                ->with('donates', $donates);
     }
 }

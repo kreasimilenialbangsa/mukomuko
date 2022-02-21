@@ -11,96 +11,89 @@
         <span>Beranda</span> / <span>Program</span> / <span class="current">Program Donasi A</span>
       </div>
       <div class="row">
-        <section class="col-12 my-3 sec-detail">
+        <section class="col-12 sec-detail pb-4">
           <div class="row">
             <div class="col-md-8">
               <div class="thumb-headline">
                 <img class="w-100" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
                 <span class="tag-cat">Social</span>
               </div>
-              <div class="wrapper-detail">
+              <div class="wrapper-detail mt-4">
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="zakat-tab" data-toggle="tab" href="#zakat" role="tab" aria-controls="zakat" aria-selected="true">
+                    <a class="nav-link active" id="detail-tab" data-toggle="tab" href="#detailtab" role="tab" aria-controls="detailtab" aria-selected="true">
                       Detail
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="infak-tab" data-toggle="tab" href="#infak" role="tab" aria-controls="infak" aria-selected="false">
+                    <a class="nav-link" id="new-info" data-toggle="tab" href="#newinfotab" role="tab" aria-controls="newinfotab" aria-selected="false">
                       Kabar Terbaru
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="wakaf-tab" data-toggle="tab" href="#wakaf" role="tab" aria-controls="wakaf" aria-selected="false">
+                    <a class="nav-link" id="donatur-tab" data-toggle="tab" href="#donaturtab" role="tab" aria-controls="donaturtab" aria-selected="false">
                       Donatur <span class="clr-green">(16)</span>
                     </a>
                   </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                  <div class="tab-pane fade show active" id="zakat" role="tabpanel" aria-labelledby="zakat-tab">
-                    <h4>Ayo hitung zakat kamu!</h4>
-                    <div class="cat-select mb-3">
-                      <select class="form-control">
-                        <option>Zakat Maal</option>
-                        <option>Zakat</option>
-                      </select>
+                  <div class="tab-pane fade show active" id="detailtab" role="tabpanel" aria-labelledby="detail-tab">
+                    <h4>Bantu Sedekah Makanan Gratis untuk Desa B</h4>
+                    <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, doloremque recusandae? Officia provident nostrum sed soluta illum aliquam explicabo rerum, perspiciatis minus beatae est, nam maiores! Nobis vel delectus consectetur?</p>
+                  </div>
+                  <div class="tab-pane fade" id="newinfotab" role="tabpanel" aria-labelledby="new-info">
+                    <div class="history-info">
+                      <div class="bullet">
+                        <img width="12" height="12" src="{{ asset('img/bullet.svg') }}" alt="">
+                      </div>
+                      <div class="info-detail">
+                        <span class="text-xs clr-grey">10/08/2021</span>
+                        <h6 class="text-sm my-2">Program Dirilis</h6>
+                        <p class="mb-0 text-xs clr-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Imperdiet aliquam enim phasellus et posuere eget magna. Faucibus mi ut quam enim.</p>
+                        <div class="image-info">
+                          <img src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
+                          <img src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
+                        </div>
+                      </div>
                     </div>
-                    <p class="font-medium clr-grey">
-                      Coba masukkan jumlah hartamu dan kalkulator kami akan menghitung jumlah zakatnya.
-                    </p>
-                    <div class="form-group">
-                      <label class="font-semibold text-sm" for="total">Kekayaan 1 Tahun</label>
-                      <input type="number" value="60.000" class="form-control total-input" name="total">
-                    </div>
-                    <h6 class="text-sm clr-grey">Zakat Maal Kamu</h6>
-                    <h6 class="clr-green">1.500.000</h6>
-                    <div class="text-right">
-                      <button class="btn btn-green">Bayar Zakat</button>
+                    <div class="history-info">
+                      <div class="bullet">
+                        <img width="12" height="12" src="{{ asset('img/bullet.svg') }}" alt="">
+                      </div>
+                      <div class="info-detail">
+                        <span class="text-xs clr-grey">10/08/2021</span>
+                        <h6 class="text-sm my-2">Program Dirilis</h6>
+                        <p class="mb-0 text-xs clr-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Imperdiet aliquam enim phasellus et posuere eget magna. Faucibus mi ut quam enim.</p>
+                        <div class="image-info">
+                          <img src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="infak" role="tabpanel" aria-labelledby="infak-tab">
-                    <h4>Ayo mulai infak!</h4>
-                    <div class="cat-select mb-3">
-                      <select class="form-control">
-                        <option>Hai Santri</option>
-                        <option>Zakat</option>
-                      </select>
+                  <div class="tab-pane fade" id="donaturtab" role="tabpanel" aria-labelledby="donatur-tab">
+                    <div class="row px-2 mt-4">
+                      @forelse($donates as $donate)
+                        <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
+                          <div class="card-simple">
+                            <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Anonim' : $donate->name }}</h6>
+                            <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($donate->total_donate,0,",",".") }}</p>
+                            <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
+                          </div>
+                        </a>
+                      @empty
+                        <div class="empty-state">
+                          <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                          <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                          <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+                        </div>
+                      @endforelse
                     </div>
-                    <p class="font-medium clr-grey">
-                      Silakan isi jumlah infakmu. Insya Allah berkah.
-                    </p>
-                    <div class="form-group mb-4">
-                      <label class="font-semibold text-sm" for="total">Nominal Infak</label>
-                      <input type="number" value="60.000" class="form-control total-input" name="total">
-                    </div>
-                    <div class="text-right">
-                      <button class="btn btn-green">Bayar Infak</button>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="wakaf" role="tabpanel" aria-labelledby="wakaf-tab">
-                    <h4>Ayo mulai wakaf!</h4>
-                    <div class="cat-select mb-3">
-                      <select class="form-control">
-                        <option>Wakaf Umum</option>
-                        <option>Zakat</option>
-                      </select>
-                    </div>
-                    <p class="font-medium clr-grey">
-                      Mari wakaf tunai bersama kami!
-                    </p>
-                    <div class="form-group mb-4">
-                      <label class="font-semibold text-sm" for="total">Nominal Wakaf</label>
-                      <input type="number" value="60.000" class="form-control total-input" name="total">
-                    </div>
-                    <div class="text-right">
-                      <button class="btn btn-green">Bayar Wakaf</button>
-                    </div>
-                  </div>
+                  </div>  
                 </div>
               </div>
             </div>
             <div class="col-md-4">
-              <div class="wrapper-donatur">
+              <div class="wrapper-donatur mt-md-0 mt-4">
                 <h5>Sedekah Bantu Saudara Dhuafa</h5>
                 <div class="d-flex justify-content-between my-3">  
                   <div class="d-center">
@@ -159,7 +152,7 @@
             </div>
           </div>
         </section>
-        <section class="col-12 sec-navigation">
+        <section class="col-12 mt-5 sec-navigation">
           <div class="d-center justify-content-between">
             <a class="d-center font-medium clr-black">
               <img class="mr-2" src="{{ asset('img/arrdouble-left.svg') }}" alt="">
@@ -231,7 +224,8 @@
                   <a href="" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
                 </div>
               </div>
-            </div> <div class="col-lg-3 col-md-4 col-12 p-3">
+            </div> 
+            <div class="col-lg-3 col-md-4 col-12 p-3">
               <div class="card-thumbnail">
                 <div class="thumb-pict">
                   <img class="w-100" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">

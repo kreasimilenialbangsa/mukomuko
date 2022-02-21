@@ -14,9 +14,9 @@
         <section class="col-12 sec-headline">
           <div class="slider-headline">
             @foreach($news->images as $image)
-            <div>
-              <img class="slider-img" src="{{ asset('storage/' . $image->file) }}" alt="{{ $news->title }}">
-            </div>
+              <div>
+                <img class="slider-img" src="{{ asset('storage/' . $image->file) }}" alt="{{ $news->title }}">
+              </div>
             @endforeach
           </div>
         </section>
@@ -69,25 +69,25 @@
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
             @foreach($latestNews as $last)
-            <a href="{{ route('news.detail', $last->slug) }}" class="col-lg-3 col-md-4 col-sm-6 col-12 p-3 wblock">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('storage/' . $last->images[0]->file) }}" alt="{{ $last->title }}">
-                  <span class="tag-cat">{{ $last->category->name }}</span>
-                </div>
-                <div class="card-detail">
-                  <h6>{{ $last->title }}</h6>
-                  <div class="d-flex author">
-                    <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs">{{ $last->user->name }}</span>
+              <a href="{{ route('news.detail', $last->slug) }}" class="col-lg-3 col-md-4 col-sm-6 col-12 p-3 wblock">
+                <div class="card-thumbnail">
+                  <div class="thumb-pict">
+                    <img class="w-100" src="{{ asset('storage/' . $last->images[0]->file) }}" alt="{{ $last->title }}">
+                    <span class="tag-cat">{{ $last->category->name }}</span>
                   </div>
-                  <div class="d-flex calendar mt-2">
-                    <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                    <span class="text-xs">{{ date('d/m/Y', strtotime($last->created_at)) }}</span>
+                  <div class="card-detail">
+                    <h6>{{ $last->title }}</h6>
+                    <div class="d-flex author">
+                      <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
+                      <span class="text-xs">{{ $last->user->name }}</span>
+                    </div>
+                    <div class="d-flex calendar mt-2">
+                      <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
+                      <span class="text-xs">{{ date('d/m/Y', strtotime($last->created_at)) }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
             @endforeach
           </div>
         </section>

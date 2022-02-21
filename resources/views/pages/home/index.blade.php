@@ -151,21 +151,20 @@
           <h4 class="text-center">Donasi Hari Ini</h4>
           <div class="row px-2 mt-4">
             @forelse($donates as $donate)
-            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
-              <div class="card-simple">
-                <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Anonim' : $donate->name }}</h6>
-                <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($donate->total_donate,0,",",".") }}</p>
-                <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
-              </div>
-            </a>
+              <a class="col-lg-4 col-6 p-2 wblock">
+                <div class="card-simple">
+                  <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Anonim' : $donate->name }}</h6>
+                  <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($donate->total_donate,0,",",".") }}</p>
+                  <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
+                </div>
+              </a>
             @empty
-            <div class="empty-state w-100">
+              <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
                 <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
                 <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
             @endforelse
-
           </div>
           <div class="text-center mt-3">
             <a href="{{ route('donatur.index') }}" class="btn btn-green py-2 px-3">
@@ -241,7 +240,7 @@
                 </div>
               </a>
             @empty
-              <div class="empty-state w-100">
+              <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
                 <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
                 <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>

@@ -85,6 +85,99 @@
   border-bottom: 2px solid #E3E3E3;
 }
 
+.wrapper-detail .nav-tabs .nav-link {
+  color: #65696F;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: none;
+  border-bottom: none;
+  transition: .3s linear all;
+  padding: 0;
+  margin-right: 20px;
+}
+
+.wrapper-detail .nav-tabs {
+  border-bottom: none;
+  flex-wrap: nowrap;
+  padding: 0 30px;
+  padding-top: 25px;
+}
+
+.wrapper-detail .nav-tabs .nav-link svg path {
+  fill: #65696F;
+}
+
+.wrapper-detail .nav-tabs .nav-link svg{
+  height: 26px;
+  width: 26px;
+  margin-right: 8px;
+}
+
+.wrapper-detail .tab-content {
+  padding: 25px 30px;
+}
+
+.wrapper-detail .cat-select select {
+  background: #F8F8F8;
+}
+
+.wrapper-detail .nav-tabs .nav-item.show .nav-link, 
+.wrapper-detail .nav-tabs .nav-link.active,
+.wrapper-detail .nav-tabs .nav-link:focus, 
+.wrapper-detail .nav-tabs .nav-link:hover{
+  border-bottom: 2px solid #45BF7C;
+  color: #45BF7C;
+}
+
+.wrapper-detail .nav-tabs .nav-item.show .nav-link svg path, 
+.wrapper-detail .nav-tabs .nav-link.active svg path,
+.wrapper-detail .nav-tabs .nav-link:focus svg path, 
+.wrapper-detail .nav-tabs .nav-link:hover svg path{
+  fill: #45BF7C;
+}
+
+.wrapper-detail .history-info{
+  display: flex;
+  position: relative;
+}
+
+.wrapper-detail .history-info::before{
+  content: "";
+  background: #E3E3E3;
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  left: 8px;
+  top: 6px;
+}
+
+.wrapper-detail .bullet{
+  position: relative;
+  z-index: 2;
+  left: 2px;
+}
+
+.wrapper-detail .info-detail{
+  padding: 0px 18px;
+}
+
+.wrapper-detail .history-info:not(:first-child){
+  padding-top: 25px;
+}
+
+.wrapper-detail .image-info{
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.wrapper-detail .image-info img{
+  width: 50%;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
 @media only screen and (max-width: 991px){
   .programdetail-page .thumb-headline img{
     height: 300px;
