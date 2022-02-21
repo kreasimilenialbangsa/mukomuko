@@ -52,6 +52,7 @@
 
 .main-header .navbar-nav .dropdown-menu {
   left: 0.9rem;
+  top: 2rem;
   min-width: 180px;
 }
 

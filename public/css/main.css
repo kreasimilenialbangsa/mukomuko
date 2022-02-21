@@ -366,6 +366,10 @@
 /* responsive */
 
 @media only screen and (max-width: 991px){
+  .wrapper-boxtext {
+    padding: 40px;
+  }
+
   .slider-arrows .prev-slider{
     left: -15px;
   }
