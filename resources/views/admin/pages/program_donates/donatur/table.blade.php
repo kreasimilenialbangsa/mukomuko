@@ -10,10 +10,10 @@
                 <th>Nama Program</th>
                 <th>Nama Donatur</th>
                 <th>Email</th>
-                <th>Phone</th>
+                <th>Telepon</th>
                 <th>Jumlah Donasi</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>

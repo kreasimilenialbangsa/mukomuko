@@ -46,9 +46,9 @@ class GalleryDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => 'Aksi'])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                // 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -68,10 +68,10 @@ class GalleryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'title',
-            'content' => ['className' => 'text-center'],
-            'created_at' => ['className' => 'text-center'],
-            'is_active' => ['className' => 'text-center']
+            'title' => ['title' => 'Nama'],
+            'content' => ['className' => 'text-center', 'title' => 'Konten'],
+            'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
+            'is_active' => ['className' => 'text-center', 'title' => 'Aktif']
         ];
     }
 

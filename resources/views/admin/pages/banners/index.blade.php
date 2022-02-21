@@ -1,13 +1,19 @@
 @extends('admin.layouts.app')
 @section('title')
-    Banners 
+    Banner
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Banners</h1>
+            <div>
+                <h1>Banner</h1>
+                <div class="section-header-breadcrumb mt-2">
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+                    <div class="breadcrumb-item">Banner</div>
+                </div>
+            </div>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.banners.create')}}" class="btn btn-primary form-btn">Banner <i class="fas fa-plus"></i></a>
+                <a href="{{ route('admin.banners.create')}}" class="btn btn-primary form-btn"><i class="fas fa-plus"></i> Banner</a>
             </div>
         </div>
     <div class="section-body">

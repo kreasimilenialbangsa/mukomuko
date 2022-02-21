@@ -42,9 +42,9 @@ class NewsCategoryDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => 'Aksi'])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                // 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -64,7 +64,7 @@ class NewsCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name' => ['className' => 'text-center'],
+            'name' => ['className' => 'text-center', 'title' => 'Nama'],
             'slug' => ['className' => 'text-center']
         ];
     }

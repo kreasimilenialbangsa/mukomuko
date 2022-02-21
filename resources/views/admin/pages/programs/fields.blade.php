@@ -17,19 +17,19 @@
                         <div class="col">
                             <!-- Title Field -->
                             <div class="form-group">
-                                {!! Form::label('title', 'Title:') !!}
+                                {!! Form::label('title', 'Nama:') !!}
                                 {!! Form::text('title', null, ['class' => 'form-control']) !!}
                             </div>
                         
                             <!-- Category Id Field -->
                             <div class="form-group">
-                                {!! Form::label('category_id', 'Category Id:') !!}
+                                {!! Form::label('category_id', 'Kategori:') !!}
                                 {!! Form::select('category_id', $category, null, ['class' => 'form-control select2']) !!}
                             </div>
                         
                             <!-- Location Field -->
                             <div class="form-group">
-                                {!! Form::label('location', 'Location:') !!}
+                                {!! Form::label('location', 'Lokasi:') !!}
                                 {!! Form::text('location', null, ['class' => 'form-control']) !!}
                             </div>
                         
@@ -41,7 +41,7 @@
                         
                             <!-- End Date Field -->
                             <div class="form-group">
-                                {!! Form::label('end_date', 'End Date:') !!}
+                                {!! Form::label('end_date', 'Tgl Berakhir:') !!}
                                 {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
                             </div>
                         </div>
@@ -49,14 +49,14 @@
                         <div class="col-md-5">
                             <!-- Image Field -->
                             <div class="form-group">
-                                {!! Form::label('image', 'Image:') !!}
+                                {!! Form::label('image', 'Gambar:') !!}
                                 {!! Form::file('image', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-height' => '300', 'data-default-file' => @$program->image ? asset('storage/'.$program->image) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
                             </div>
                         
                             <div class="d-flex justify-content-around">
                                 <!-- Is Urgent Field -->
                                 <div class="form-group">
-                                    <div class="control-label">Is Urgent:</div>
+                                    <div class="control-label">Darurat:</div>
                                     <label class="custom-switch mt-2 pl-0">
                                         <input type="checkbox" name="is_urgent" value="1" class="custom-switch-input" {{ @$program->is_urgent == 1 ? 'checked' : '' }}>
                                         <span class="custom-switch-indicator"></span>
@@ -65,7 +65,7 @@
                         
                                 <!-- Is Active Field -->
                                 <div class="form-group">
-                                    <div class="control-label">Is Active:</div>
+                                    <div class="control-label">Aktif:</div>
                                     <label class="custom-switch mt-2 pl-0">
                                         <input type="checkbox" name="is_active" value="1" class="custom-switch-input" {{ @$program->is_active == 1 ? 'checked' : '' }}>
                                         <span class="custom-switch-indicator"></span>
@@ -76,7 +76,7 @@
                         
                         <!-- Description Field -->
                         <div class="form-group col-md-12">
-                            {!! Form::label('description', 'Description:') !!}
+                            {!! Form::label('description', 'Deskripsi:') !!}
                             {!! Form::textarea('description', null, ['class' => 'form-control my-editor']) !!}
                         </div>
 @if(@$program)               
@@ -114,8 +114,8 @@
                 <!-- Submit Field -->
                 <div class="form-group">
                     {!! Form::hidden('del', null, ['class' => 'form-control']) !!}
-                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                    <a href="{{ route('admin.programs.index') }}" class="btn btn-light">Cancel</a>
+                    {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
+                    <a href="{{ route('admin.programs.index') }}" class="btn btn-light">Batal</a>
                 </div>
 @if(@$program)
             </div>

@@ -1,7 +1,7 @@
 <div class="col-md-6">
     <!-- Name Field -->
     <div class="form-group">
-        {!! Form::label('name', 'Name:') !!}
+        {!! Form::label('name', 'Nama:') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
     </div>
 
@@ -22,19 +22,19 @@
 
     <!-- Phone Field -->
     <div class="form-group">
-        {!! Form::label('phone', 'Phone:') !!}
+        {!! Form::label('phone', 'Telepon:') !!}
         {!! Form::number('phone', null, ['class' => 'form-control']) !!}
     </div>
 
     <!-- Message Field -->
     <div class="form-group">
-        {!! Form::label('message', 'Message:') !!}
+        {!! Form::label('message', 'Doa:') !!}
         {!! Form::textarea('message', null, ['class' => 'form-control', 'style' => 'height: 100px;']) !!}
     </div>
 
     <!-- Total Donate Field -->
     <div class="form-group">
-        {!! Form::label('total_donate', 'Total Donate:') !!}
+        {!! Form::label('total_donate', 'Total Donasi:') !!}
         {!! Form::number('total_donate', null, ['class' => 'form-control']) !!}
     </div>
 </div>
@@ -67,8 +67,8 @@
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-light">Cancel</a>
+    {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
+    <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-light">Batal</a>
 </div>
 
 @push('style')

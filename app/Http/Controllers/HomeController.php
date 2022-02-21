@@ -18,10 +18,20 @@ class HomeController extends Controller
             ->whereIsActive(1)
             ->orderBy('id', 'asc')
             ->get();
+        
+        $total = [
+            'penerima_manfaat' => 0,
+            'penghimpunan' => Donate::whereIsConfirm(1)->sum('total_donate'),
+            'penyaluran' => 0,
+            'donatur' => Donate::whereIsConfirm(1)->count()
+        ];
+
+        // dd($total);
+
 
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
             ->whereDate('created_at', Carbon::today())
-            // ->whereIsConfirm(1)
+            ->whereIsConfirm(1)
             ->get();
 
         $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at')
@@ -51,6 +61,7 @@ class HomeController extends Controller
         
         return view('pages.home.index')
             ->with('banners', $banners)
+            ->with('total', $total)
             ->with('donates', $donates)
             ->with('programs', $programs)
             ->with('news', $news)

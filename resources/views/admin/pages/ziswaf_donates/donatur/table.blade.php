@@ -6,8 +6,10 @@
     <table class="table table-striped" id="table">
         <thead>
             <tr>
-                <th>Nama Ziswaf</th>
+                <th>Jenis Ziswaf</th>
                 <th>Nama Donatur</th>
+                <th>Email</th>
+                <th>Telepon</th>
                 <th>Jumlah Donasi</th>
                 <th>Tanggal</th>
                 <th>Status</th>
@@ -34,6 +36,8 @@
                 columns: [
                     { data: 'ziswaf.title', name: 'ziswaf.title', className: 'text-center' },
                     { data: 'name', name: 'name', className: 'text-center' },
+                    { data: 'email', name: 'email', className: 'text-center' },
+                    { data: 'phone', name: 'phone', className: 'text-center' },
                     { data: 'total_donate', name: 'total_donate', className: 'text-center' },
                     { data: 'created_at', name: 'created_at', className: 'text-center' },
                     { data: 'is_confirm', name: 'is_confirm', className: 'text-center' },

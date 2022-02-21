@@ -50,7 +50,7 @@ class NewsDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => 'Aksi'])
             ->parameters([
                 // 'dom'       => 'Bfrtip',
                 'stateSave' => true,
@@ -72,12 +72,12 @@ class NewsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'title',
-            'image' => ['searchable' => false, 'orderable' => false, 'className' => 'text-center'],
-            'created_at' => ['className' => 'text-center'],
-            'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category_id', 'title' => 'Category'],
-            'is_highlight' => ['className' => 'text-center'],
-            'is_active' => ['className' => 'text-center']
+            'title' => ['title' => 'Nama'],
+            'image' => ['searchable' => false, 'orderable' => false, 'className' => 'text-center', 'title' => 'Gambar'],
+            'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
+            'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category_id', 'title' => 'Kategori'],
+            'is_highlight' => ['className' => 'text-center', 'title' => 'Highlight'],
+            'is_active' => ['className' => 'text-center', 'title' => 'Aktif']
         ];
     }
 

@@ -4,7 +4,7 @@
 </li>
 
 @role('SuperAdmin|Kabupaten')
-<li class="menu-header">Service</li>
+<li class="menu-header">Servis</li>
 <li class="side-menus {{ Request::is('admin/programs*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.programs.index') }}"><i class="fas fa-building"></i><span>Program</span></a>
 </li>
@@ -35,7 +35,7 @@
 @endrole
 
 @role('SuperAdmin|Kabupaten')
-<li class="menu-header">Content</li>
+<li class="menu-header">Konten</li>
 <li class="side-menus {{ Request::is('admin/banners*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.banners.index') }}"><i class="fas fa-building"></i><span>Banner</span></a>
 </li>

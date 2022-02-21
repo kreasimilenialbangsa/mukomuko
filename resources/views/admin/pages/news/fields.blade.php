@@ -1,10 +1,10 @@
 <div class="col-md-12">
     <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">BERITA</a>
+            <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">Berita</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="images-tab2" data-toggle="tab" href="#images2" role="tab" aria-controls="images" aria-selected="false">GAMBAR</a>
+            <a class="nav-link" id="images-tab2" data-toggle="tab" href="#images2" role="tab" aria-controls="images" aria-selected="false">Gambar</a>
         </li>
     </ul>
     <div class="card">
@@ -13,7 +13,7 @@
                 <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
                     <!-- Title Field -->
                     <div class="form-group">
-                        {!! Form::label('title', 'Title:') !!}
+                        {!! Form::label('title', 'Nama:') !!}
                         {!! Form::text('title', null, ['class' => 'form-control']) !!}
                     </div>
 
@@ -21,23 +21,23 @@
                         <div class="col-md-6">
                             <!-- Category Id Field -->
                             <div class="form-group">
-                                {!! Form::label('category_id', 'Category Id:') !!}
+                                {!! Form::label('category_id', 'Kategori:') !!}
                                 {!! Form::select('category_id', $category, null, ['class' => 'form-control select2']) !!}
                             </div>
                         </div>
                         <div class="col-md-6 d-flex justify-content-around">
                             <div class="form-group">
-                                <div class="control-label">Is Highlight:</div>
+                                <div class="control-label">Highlight:</div>
                                 <label class="custom-switch mt-2 pl-0">
-                                    <input type="checkbox" name="is_highlight" value="1" class="custom-switch-input">
+                                    <input type="checkbox" name="is_highlight" value="1" class="custom-switch-input" {{ @$news->is_highlight == 1 ? 'checked' : '' }}>
                                     <span class="custom-switch-indicator"></span>
                                 </label>
                             </div>
                                             
                             <div class="form-group">
-                                <div class="control-label">Is Active:</div>
+                                <div class="control-label">Aktif:</div>
                                 <label class="custom-switch mt-2 pl-0">
-                                    <input type="checkbox" name="is_active" value="1" class="custom-switch-input" checked>
+                                    <input type="checkbox" name="is_active" value="1" class="custom-switch-input" {{ @$news->is_active == 1 ? 'checked' : '' }}>
                                     <span class="custom-switch-indicator"></span>
                                 </label>
                             </div>
@@ -47,7 +47,7 @@
 
                     <!-- Content Field -->
                     <div class="form-group">
-                        {!! Form::label('content', 'Content:') !!}
+                        {!! Form::label('content', 'Konten:') !!}
                         {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
                     </div>
                     
@@ -62,7 +62,7 @@
                                 @endif
                                 <!-- Image Field -->
                                 <div class="form-group">
-                                    {!! Form::label('image', 'Image:') !!}
+                                    {!! Form::label('image', 'Gambar:') !!}
                                     {!! Form::file('images['.$key.'][file]', ['class' => 'form-control dropify', 'id' => 'input-file-now', 'data-show-remove' => 'false', 'data-height' => '300', 'data-default-file' => @$row->file ? asset('storage/'.$row->file) : '', 'data-allowed-file-extensions' => 'jpg jpeg png', 'data-max-file-size' => '1M']) !!}
                                 </div>
                                 {!! Form::hidden('images['.$key.'][id]', null, ['class' => 'form-control']) !!}
@@ -81,7 +81,7 @@
                     <div class="col-md-12">
                         <div class="row justify-content-center">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-primary btn-block" id="add-data"><i class="fa fa-plus"></i> Add Image</button>
+                                <button type="button" class="btn btn-primary btn-block" id="add-data"><i class="fa fa-plus"></i> Tambah Gambar</button>
                             </div>
                         </div>
                     </div>
@@ -91,8 +91,8 @@
             <!-- Submit Field -->
             <div class="form-group">
                 {!! Form::hidden('del', null, ['class' => 'form-control']) !!}
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('admin.news.index') }}" class="btn btn-light">Cancel</a>
+                {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('admin.news.index') }}" class="btn btn-light">Kembali</a>
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
                 <span class="far fa-times-circle remove position-absolute text-danger" style="right: 15px; cursor: pointer; font-size: 20px;"></span>
                 <!-- Image Field -->
                 <div class="form-group">
-                    {!! Form::label('images', 'Image:') !!}
+                    {!! Form::label('images', 'Gambar:') !!}
                     <input type="file" class="dropify" name="images[${key}][file]" data-height="300" data-allowed-file-extensions="jpeg png jpg" "data-show-remove"="false", accept=".png, .jpg, .jpeg" data-max-file-size="2M">
                 </div>
             </div>
