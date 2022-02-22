@@ -12,9 +12,10 @@
       <div class="row">
         <section class="col-12 mb-4 sec-filter">
           <h4 class="text-center">Donatur</h4>
-          <form class="d-center mt-5 justify-content-between">
-            <div class="group-select d-flex">
-              <div class="btn btn-green mr-2">
+          <form class="d-center mt-md-5 mt-4 row justify-content-md-between">
+            <div class="col-md-6 col-12">
+            <div class="group-select row">
+              <div class="btn btn-green ml-3 col-md-3 col">
                 <select class="form-control select-cat">
                   <option selected>Pilih Kecamatan</option>
                   @foreach($kecamatan as $row)
@@ -22,65 +23,32 @@
                   @endforeach
                 </select>
               </div>
-              <div class="btn btn-green mr-2">
+              <div class="btn btn-green mx-2 col-md-3 col">
                 <select class="form-control select-cat">
                   <option selected>Pilih Program</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  @foreach($programs as $row)
+                    <option value="{{ $row->id }}">{{ $row->title }}</option>
+                  @endforeach
                 </select>
               </div>
-              <div class="btn btn-green mr-2">
+              <div class="btn btn-green mr-3 col-md-3 col">
                 <select class="form-control select-cat">
                   <option selected>Pilih Ziwaf</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  @foreach($ziswaf as $row)
+                  <option value="{{ $row->id }}">{{ $row->title }}</option>
+                @endforeach
                 </select>
               </div>
-              <!-- <div class="dropdown dropdown-cat mr-2">
-                <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  Pilih Kecamatan
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdowncat">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                </div>
-              </div>
-              <div class="dropdown dropdown-cat mr-2">
-                <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  Pilih Desa
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdowncat">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                </div>
-              </div>
-              <div class="dropdown dropdown-cat mr-2">
-                <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  Pilih Program
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdowncat">
-                  <a class="dropdown-item" href="#">Sedekah Makanan Gratis untuk Desa A</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                </div>
-              </div>
-              <div class="dropdown dropdown-cat mr-2">
-                <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  Pilih Ziwaf
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdowncat">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                </div>
-              </div> -->
             </div>
+          </div>
+          <div class="col-md-4 col-lg-3 col-12 mt-3">
             <div class="custom-search">
               <input type="search" class="input-search w-100" name="search" placeholder="Cari">
               <button class="btn btn-search btn-green">
                 <ion-icon name="search-outline"></ion-icon>
               </button>
             </div>
+          </div>
           </form>
         </section>
         <section class="col-12 sec-todonation">

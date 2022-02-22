@@ -34,7 +34,7 @@ class ProgramContoller extends Controller
         
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
             ->whereDate('created_at', Carbon::today())
-            // ->whereIsConfirm(1)
+            ->whereIsConfirm(1)
             ->get();
     
         return view('pages.program.index')
@@ -45,12 +45,36 @@ class ProgramContoller extends Controller
 
     public function detail($slug)
     {   
+        $program = Program::whereSlug($slug)
+            ->with(['user', 'category', 'news'])
+            ->withCount('donate')
+            ->withSum('donate', 'total_donate')
+            ->whereIsActive(1)
+            ->firstOrFail();
+
+        $date = Carbon::parse($program->end_date . ' 23:59:00');
+        $now = Carbon::now();
+
+        $program->count_day = $date->diffInDays($now);
+
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
-            ->whereDate('created_at', Carbon::today())
-            // ->whereIsConfirm(1)
+            ->whereType('\App\Models\Admin\Program')
+            ->whereTypeId($program->id)
+            ->whereIsConfirm(1)
+            ->get();
+
+        $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at')
+            ->with('category')
+            ->withSum('donate', 'total_donate')
+            ->where('id', '<>', $program->id)
+            ->whereIsActive(1)
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
             ->get();
 
         return view('pages.program.detail-program')
-                ->with('donates', $donates);
+                ->with('donates', $donates)
+                ->with('program', $program)
+                ->with('programs', $programs);
     }
 }

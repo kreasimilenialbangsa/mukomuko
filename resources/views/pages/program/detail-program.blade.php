@@ -8,15 +8,15 @@
   <div class="programdetail-page">
     <div class="container">
       <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span>Program</span> / <span class="current">Program Donasi A</span>
+        <span>Beranda</span> / <span>Program</span> / <span class="current">{{ $program->title }}</span>
       </div>
       <div class="row">
         <section class="col-12 sec-detail pb-4">
           <div class="row">
             <div class="col-md-8">
               <div class="thumb-headline">
-                <img class="w-100" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                <span class="tag-cat">Social</span>
+                <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="">
+                <span class="tag-cat">{{ $program->category->name }}</span>
               </div>
               <div class="wrapper-detail mt-4">
                 <ul class="nav nav-tabs" role="tablist">
@@ -32,43 +32,40 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id="donatur-tab" data-toggle="tab" href="#donaturtab" role="tab" aria-controls="donaturtab" aria-selected="false">
-                      Donatur <span class="clr-green">(16)</span>
+                      Donatur <span class="clr-green">({{ $program->donate_count }})</span>
                     </a>
                   </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="detailtab" role="tabpanel" aria-labelledby="detail-tab">
-                    <h4>Bantu Sedekah Makanan Gratis untuk Desa B</h4>
-                    <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, doloremque recusandae? Officia provident nostrum sed soluta illum aliquam explicabo rerum, perspiciatis minus beatae est, nam maiores! Nobis vel delectus consectetur?</p>
+                    <h4>{{ $program->title }}</h4>
+                    <div class="mb-0">{!! $program->description !!}</div>
                   </div>
                   <div class="tab-pane fade" id="newinfotab" role="tabpanel" aria-labelledby="new-info">
+                    @forelse($program->news as $key => $news)
                     <div class="history-info">
                       <div class="bullet">
                         <img width="12" height="12" src="{{ asset('img/bullet.svg') }}" alt="">
                       </div>
                       <div class="info-detail">
-                        <span class="text-xs clr-grey">10/08/2021</span>
-                        <h6 class="text-sm my-2">Program Dirilis</h6>
+                        <span class="text-xs clr-grey">{{ date('d/m/Y H:i:s', strtotime($news->created_at)) }}</span>
+                        <div class="mb-0 text-xs clr-grey">
+                          {!! $news->description !!}
+                        </div>
+                        {{-- <h6 class="text-sm my-2">Program Dirilis</h6>
                         <p class="mb-0 text-xs clr-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Imperdiet aliquam enim phasellus et posuere eget magna. Faucibus mi ut quam enim.</p>
                         <div class="image-info">
                           <img src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                          <img src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                        </div>
+                        </div> --}}
                       </div>
                     </div>
-                    <div class="history-info">
-                      <div class="bullet">
-                        <img width="12" height="12" src="{{ asset('img/bullet.svg') }}" alt="">
+                    @empty
+                      <div class="empty-state">
+                        <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                        <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                        <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
                       </div>
-                      <div class="info-detail">
-                        <span class="text-xs clr-grey">10/08/2021</span>
-                        <h6 class="text-sm my-2">Program Dirilis</h6>
-                        <p class="mb-0 text-xs clr-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Imperdiet aliquam enim phasellus et posuere eget magna. Faucibus mi ut quam enim.</p>
-                        <div class="image-info">
-                          <img src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                        </div>
-                      </div>
-                    </div>
+                    @endforelse
                   </div>
                   <div class="tab-pane fade" id="donaturtab" role="tabpanel" aria-labelledby="donatur-tab">
                     <div class="row px-2 mt-4">
@@ -94,28 +91,28 @@
             </div>
             <div class="col-md-4">
               <div class="wrapper-donatur mt-md-0 mt-4">
-                <h5>Sedekah Bantu Saudara Dhuafa</h5>
+                <h5>{{ $program->title }}</h5>
                 <div class="d-flex justify-content-between my-3">  
                   <div class="d-center">
                     <ion-icon class="mr-1 text-md" name="location-sharp"></ion-icon>
-                    <span class="text-xs font-medium">Rumah Zakat Kecamatan A</span>
+                    <span class="text-xs font-medium">{{ $program->location }}</span>
                   </div>
                   <div class="d-center">
                     <img class="mr-1" width="16" height="16" src="{{ asset('img/user.svg') }}" alt="">
-                    <span class="text-xs font-medium">Kabupaten Mukomuko</span>
+                    <span class="text-xs font-medium">{{ $program->user->name }}</span>
                   </div>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="d-center mt-2 justify-content-between">
                   <div class="d-flex mr-2">
-                    <h6 class="clr-green">RP. 3500.0000</h6>
-                    <span class="text-xs clr-grey font-semibold ml-2">Rp 500.000.000</span>
+                    <h6 class="clr-green">R{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
+                    <span class="text-xs clr-grey font-semibold ml-2">{{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
                   </div>
                   <div class="text-right">
                     <span class="text-xs clr-grey">Sisa Hari</span>
-                    <h6 class="text-sm">3</h6>
+                    <h6 class="text-sm">{{ $program->count_day }}</h6>
                   </div>
                 </div>
                 <div class="wrap-share pb-2">
@@ -173,110 +170,44 @@
         <section class="col-12 mt-5 pt-3 sec-programlist">
           <h4 class="text-center">Program Lainnya!</h4>
           <div class="row mt-4">
-            <div class="col-lg-3 col-md-4 col-12 p-3">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                  <span class="tag-cat">Social</span>
-                </div>
-                <div class="card-detail">
-                  <h6>lorem</h6>
-                  <p class="text-xs mb-1 font-medium">helo</p>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            @forelse($programs as $key => $program)
+              <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-3">
+                <div class="card-thumbnail">
+                  <div class="thumb-pict">
+                    <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
+                    <span class="tag-cat">{{ $program->category->name }}</span>
                   </div>
-                  <div class="d-flex mt-2 justify-content-between">
-                    <div class="w-left mr-2">
-                      <span class="text-xs clr-grey">Terkumpul</span>
-                      <h6 class="text-sm">Rp 3.500.000</h6>
+                  <div class="card-detail">
+                    <h6>{{ $program->title }}</h6>
+                    <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
+                    <div class="progress">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div class="w-right text-right">
-                      <span class="text-xs clr-grey">Sisa Hari</span>
-                      <h6 class="text-sm">3</h6>
+                    <div class="d-flex mt-2 justify-content-between">
+                      <div class="w-left mr-2">
+                        <span class="text-xs clr-grey">Terkumpul</span>
+                        <h6 class="text-sm"><h6 class="text-sm">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6></h6>
+                      </div>
+                      <div class="w-right text-right">
+                        <span class="text-xs clr-grey">Sisa Hari</span>
+                        <h6 class="text-sm">{{ $program->count_day }}</h6>
+                      </div>
                     </div>
+                    @if($program->count_day > 0)
+                      <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
+                    @else
+                      <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
+                    @endif
                   </div>
-                  <a href="" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-12 p-3">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                  <span class="tag-cat">Social</span>
-                </div>
-                <div class="card-detail">
-                  <h6>lorem</h6>
-                  <p class="text-xs mb-1 font-medium">helo</p>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <div class="d-flex mt-2 justify-content-between">
-                    <div class="w-left mr-2">
-                      <span class="text-xs clr-grey">Terkumpul</span>
-                      <h6 class="text-sm">Rp 3.500.000</h6>
-                    </div>
-                    <div class="w-right text-right">
-                      <span class="text-xs clr-grey">Sisa Hari</span>
-                      <h6 class="text-sm">3</h6>
-                    </div>
-                  </div>
-                  <a href="" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
                 </div>
               </div>
-            </div> 
-            <div class="col-lg-3 col-md-4 col-12 p-3">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                  <span class="tag-cat">Social</span>
-                </div>
-                <div class="card-detail">
-                  <h6>lorem</h6>
-                  <p class="text-xs mb-1 font-medium">helo</p>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <div class="d-flex mt-2 justify-content-between">
-                    <div class="w-left mr-2">
-                      <span class="text-xs clr-grey">Terkumpul</span>
-                      <h6 class="text-sm">Rp 3.500.000</h6>
-                    </div>
-                    <div class="w-right text-right">
-                      <span class="text-xs clr-grey">Sisa Hari</span>
-                      <h6 class="text-sm">3</h6>
-                    </div>
-                  </div>
-                  <a href="" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
-                </div>
+            @empty
+              <div class="empty-state">
+                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-12 p-3">
-              <div class="card-thumbnail">
-                <div class="thumb-pict">
-                  <img class="w-100" src="{{ asset('img/bg-ziwaf.jpg') }}" alt="">
-                  <span class="tag-cat">Social</span>
-                </div>
-                <div class="card-detail">
-                  <h6>lorem</h6>
-                  <p class="text-xs mb-1 font-medium">helo</p>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <div class="d-flex mt-2 justify-content-between">
-                    <div class="w-left mr-2">
-                      <span class="text-xs clr-grey">Terkumpul</span>
-                      <h6 class="text-sm">Rp 3.500.000</h6>
-                    </div>
-                    <div class="w-right text-right">
-                      <span class="text-xs clr-grey">Sisa Hari</span>
-                      <h6 class="text-sm">3</h6>
-                    </div>
-                  </div>
-                  <a href="" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
-                </div>
-              </div>
-            </div>
+            @endforelse
           </div>
         </section>
       </div>

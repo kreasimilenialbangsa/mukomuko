@@ -201,7 +201,11 @@
                         <h6 class="text-sm">{{ $program->count_day }}</h6>
                       </div>
                     </div>
-                    <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
+                    @if($program->count_day > 0)
+                      <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
+                    @else
+                      <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -256,6 +260,12 @@
             </a>
           </div>
         </section>
+        <section class="col-12 mt-5 pt-3 sec-regist">
+          <div class="banner-regist">
+            <h4 class="banner-title mr-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
+            <a href="" class="btn btn-green btn-regist">Daftar Sekarang Gratis</a>
+          </div>
+        </section>
         <section class="col-md-11 mx-auto mt-5 pt-3 sec-gallery">
           <h4 class="text-center">Galeri</h4>
           <div class="position-relative mt-3">
@@ -293,13 +303,7 @@
             </div>
           </div>
         </section>
-        <section class="col-12 mt-5 pt-3 sec-regist">
-          <div class="banner-regist">
-            <h4 class="banner-title mr-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
-            <a href="" class="btn btn-green btn-regist">Daftar Sekarang Gratis</a>
-          </div>
-        </section>
-        <section class="col-md-9 mx-auto mt-5 pt-3 sec-mitra">
+        {{-- <section class="col-md-9 mx-auto mt-5 pt-3 sec-mitra">
           <h4 class="text-center">Mitra LAZISNU Mukomuko</h4>
           <div class="position-relative mt-3">
             <div class="slider-mitra">
@@ -353,7 +357,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </section> --}}
       </div>
     </div>
   </div>

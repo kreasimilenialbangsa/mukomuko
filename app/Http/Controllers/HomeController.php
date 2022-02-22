@@ -26,11 +26,7 @@ class HomeController extends Controller
             'donatur' => Donate::whereIsConfirm(1)->count()
         ];
 
-        // dd($total);
-
-
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
-            ->whereDate('created_at', Carbon::today())
             ->whereIsConfirm(1)
             ->get();
 

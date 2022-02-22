@@ -84,6 +84,11 @@ class Program extends Model
         'description' => 'required',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
+
     public function category()
     {
         return $this->hasOne(\App\Models\Admin\ProgramCategory::class, 'id', 'category_id');

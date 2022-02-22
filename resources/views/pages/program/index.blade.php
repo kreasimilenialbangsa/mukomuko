@@ -62,7 +62,11 @@
                         <h6 class="text-sm">{{ $program->count_day }}</h6>
                       </div>
                     </div>
-                    <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
+                    @if($program->count_day > 0)
+                      <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
+                    @else
+                      <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
+                    @endif
                   </div>
                 </div>
               </div>
