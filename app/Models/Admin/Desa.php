@@ -61,4 +61,9 @@ class Desa extends Model
     {
         return $this->belongsTo(\App\Models\Admin\Kecamatan::class, 'parent_id');
     }
+
+    public function donate()
+    {
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'location_id', 'id')->whereType('\App\Models\Admin\Ziswaf');
+    }
 }

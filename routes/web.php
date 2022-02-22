@@ -58,6 +58,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         // Service
         Route::resource('programs', App\Http\Controllers\Admin\ProgramController::class, ["as" => 'admin']);
         Route::resource('ziswafs', App\Http\Controllers\Admin\ZiswafController::class, ["as" => 'admin']);
+        Route::group(['prefix' => 'report'], function () {
+            Route::get('laporan-keuangan', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.report.keuangan.index');
+        });
 
         // Content
         Route::resource('banners', App\Http\Controllers\Admin\BannerController::class, ["as" => 'admin']);

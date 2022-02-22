@@ -35,6 +35,16 @@
 @endrole
 
 @role('SuperAdmin|Kabupaten')
+<li class="nav-item dropdown {{ Request::is('admin/report*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Laporan</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/report/laporan-keuangan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.keuangan.index') }}">Laporan Keuangan</a></li>
+        <li class="{{ Request::is('admin/report/atur-perolehan*') ? 'active' : '' }}"><a class="nav-link" href="#">Atur Perolehan</a></li>
+    </ul>
+</li>
+@endrole
+
+@role('SuperAdmin|Kabupaten')
 <li class="menu-header">Konten</li>
 <li class="side-menus {{ Request::is('admin/banners*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.banners.index') }}"><i class="fas fa-building"></i><span>Banner</span></a>

@@ -54,8 +54,13 @@ class User extends Authenticatable
         return $this->hasOne(\App\Models\Admin\Role::class, 'id');
     }
 
-    public function kecamatan()
+    public function desa()
     {
-        return $this->belongsTo(\App\Models\Admin\Kecamatan::class, 'location_id');
+        return $this->belongsTo(\App\Models\Admin\Desa::class, 'location_id')->with('kecamatan');
+    }
+
+    public function donate()
+    {
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'user_id', 'id')->whereType('\App\Models\Admin\Ziswaf');
     }
 }

@@ -61,4 +61,9 @@ class Kecamatan extends Model
     {
         return $this->hasOne(\App\Models\Admin\Desa::class, 'id', 'parent_id');
     }
+
+    public function donate()
+    {
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'location_id', 'id')->whereType('\App\Models\Admin\Ziswaf')->with('location');
+    }
 }
