@@ -34,16 +34,37 @@ class ReportController extends AppBaseController
                 ->join('locations', 'locations.id', 'users.location_id')
                 // ->whereParentId(3)
                 ->with(['role_user', 'desa'])
-                ->withCount('donate')
-                ->withSum('donate', 'total_donate')
+                ->withCount(['donate' => function($q) use($request) {
+                    if(isset($request->from_date) && isset($request->to_date)) {
+                        $q->whereBetween('created_at', [$request->from_date . ' 23:59:00', $request->to_date . ' 23:59:00']);
+                    } else {
+                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 23:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                    }
+                }])
+                ->withSum(['donate' => function($q) use($request) {
+                    if(isset($request->from_date) && isset($request->to_date)) {
+                        $q->whereBetween('created_at', [$request->from_date . ' 23:59:00', $request->to_date . ' 23:59:00']);
+                    } else {
+                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 23:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                    }
+                }], 'total_donate')
                 ->whereRelation('role_user', 'role_id', 4)
                 ->get();
             
-            // dd($donatur->toArray());
+            foreach($donatur as $key => $row) {
+                $row->col1 = ($row['donate_sum_total_donate'] * 10)/100;
+                $row->col2 = ($row['donate_sum_total_donate'] * 45)/100;
+                $row->col3 = ($row['donate_sum_total_donate'] * 20)/100;
+                $row->col4 = ($row['donate_sum_total_donate'] * 10)/100;
+            }
 
             return DataTables::of($donatur)
                 ->addIndexColumn()
                 ->editColumn('donate_sum_total_donate', '{{ "Rp " . number_format($donate_sum_total_donate,0,",",".") }}')
+                ->editColumn('col1', '{{ "Rp " . number_format($col1,0,",",".") }}')
+                ->editColumn('col2', '{{ "Rp " . number_format($col2,0,",",".") }}')
+                ->editColumn('col3', '{{ "Rp " . number_format($col3,0,",",".") }}')
+                ->editColumn('col4', '{{ "Rp " . number_format($col4,0,",",".") }}')
                 ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
                 ->make(true);
         }

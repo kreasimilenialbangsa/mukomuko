@@ -3,6 +3,7 @@
 namespace App\DataTables\Admin;
 
 use App\Models\Admin\News;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -24,7 +25,7 @@ class NewsDataTable extends DataTable
             ->editColumn('is_active', 'admin.layouts.toggle')
             ->rawColumns(['is_active', 'image','action'])
             ->filter(function($query) {
-                $query->where('category_id', 1);
+                $query->where('user_id', Auth::user()->id);
             }, true);
     }
 
