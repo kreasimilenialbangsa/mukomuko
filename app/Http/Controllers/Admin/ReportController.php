@@ -2,22 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin;
-use App\Http\Requests\Admin\CreateDonateRequest;
-use App\Http\Requests\Admin\UpdateDonateRequest;
-use App\Repositories\Admin\DonateRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
-use App\Models\Admin\Desa;
-use App\Models\Admin\Donate;
-use App\Models\Admin\Program;
+use Yajra\DataTables\DataTables;
+use Illuminate\Http\Request;
+use App\Models\Admin\Kecamatan;
+use App\Models\Admin\Income;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Response;
-use Yajra\DataTables\DataTables;
 
 class ReportController extends AppBaseController
 {
@@ -29,33 +21,50 @@ class ReportController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $kecamatan = Kecamatan::select('id', 'name')
+            ->whereParentId(0)
+            ->whereIsActive(1)
+            ->get();
+        
+        $desa = Kecamatan::select('id', 'name')
+            ->where('parent_id', '<>', 0)
+            ->whereIsActive(1)
+            ->get();
+
+        $incomes = Income::select('id', 'name', 'precent')->get();
+
         if($request->ajax()) {
             $donatur = User::select('users.id', 'users.location_id', 'users.name', 'users.created_at')
                 ->join('locations', 'locations.id', 'users.location_id')
-                // ->whereParentId(3)
+                ->when(!empty($request->kecamatan), function($q) use($request) {
+                    $q->where('locations.parent_id', $request->kecamatan);
+                })
+                ->when(!empty($request->desa), function($q) use($request) {
+                    $q->where('locations.id', $request->desa);
+                })
                 ->with(['role_user', 'desa'])
                 ->withCount(['donate' => function($q) use($request) {
                     if(isset($request->from_date) && isset($request->to_date)) {
-                        $q->whereBetween('created_at', [$request->from_date . ' 23:59:00', $request->to_date . ' 23:59:00']);
+                        $q->whereBetween('created_at', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
                     } else {
-                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 23:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
                     }
                 }])
                 ->withSum(['donate' => function($q) use($request) {
                     if(isset($request->from_date) && isset($request->to_date)) {
-                        $q->whereBetween('created_at', [$request->from_date . ' 23:59:00', $request->to_date . ' 23:59:00']);
+                        $q->whereBetween('created_at', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
                     } else {
-                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 23:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
                     }
                 }], 'total_donate')
                 ->whereRelation('role_user', 'role_id', 4)
                 ->get();
-            
+
             foreach($donatur as $key => $row) {
-                $row->col1 = ($row['donate_sum_total_donate'] * 10)/100;
-                $row->col2 = ($row['donate_sum_total_donate'] * 45)/100;
-                $row->col3 = ($row['donate_sum_total_donate'] * 20)/100;
-                $row->col4 = ($row['donate_sum_total_donate'] * 10)/100;
+                $row->col1 = ($row['donate_sum_total_donate'] * $incomes[0]->precent)/100;
+                $row->col2 = ($row['donate_sum_total_donate'] * $incomes[1]->precent)/100;
+                $row->col3 = ($row['donate_sum_total_donate'] * $incomes[2]->precent)/100;
+                $row->col4 = ($row['donate_sum_total_donate'] * $incomes[3]->precent)/100;
             }
 
             return DataTables::of($donatur)
@@ -69,6 +78,9 @@ class ReportController extends AppBaseController
                 ->make(true);
         }
         
-        return view('admin.pages.reports.index');
+        return view('admin.pages.reports.index')
+            ->with('kecamatan', $kecamatan)
+            ->with('desa', $desa)
+            ->with('incomes', $incomes);
     }
 }

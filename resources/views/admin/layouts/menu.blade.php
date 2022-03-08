@@ -39,7 +39,7 @@
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Laporan</span></a>
     <ul class="dropdown-menu">
         <li class="{{ Request::is('admin/report/laporan-keuangan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.keuangan.index') }}">Laporan Keuangan</a></li>
-        <li class="{{ Request::is('admin/report/atur-perolehan*') ? 'active' : '' }}"><a class="nav-link" href="#">Atur Perolehan</a></li>
+        <li class="{{ Request::is('admin/report/incomes*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.incomes.index') }}">Atur Perolehan</a></li>
     </ul>
 </li>
 @endrole

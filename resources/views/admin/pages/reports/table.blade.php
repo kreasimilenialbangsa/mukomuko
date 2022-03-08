@@ -1,10 +1,32 @@
 @push('style')
     @include('admin.layouts.datatables_css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <style>
+        .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+            line-height: calc(1em + .75rem);
+        }
+        .select2-container--bootstrap4 .select2-selection--single {
+            height: 31px !important;
+        }
+        .select2-container .select2-selection--multiple, .select2-container .select2-selection--single {
+            min-height: unset !important;
+        }
+        .table:not(.table-sm) tfoot th {
+            border-bottom: none;
+            background-color: rgba(0, 0, 0, 0.04);
+            color: #666;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        table.dataTable tfoot th {
+            border-top: 1px solid #ddd !important;
+            border-bottom: 1px solid #ddd !important;
+        }
+    </style>
 @endpush
 
 <div>
-    <table class="table table-striped table-responsive" id="table" width="100%">
+    <table class="table table-striped" id="table" width="2150px">
         <thead>
             <tr>
                 <th>No</th>
@@ -13,15 +35,27 @@
                 <th width="250px">JIPZISNU</th>
                 <th width="250px">Total Donatur</th>
                 <th width="250px">Jumlah Donasi</th>
-                <th width="250px">MUJAMI' 10%</th>
-                <th width="250px">UPZIS RANTING 45%</th>
-                <th width="250px">LAZISNU 20%</th>
-                <th width="250px">PC.NU 10%</th>
+                <th width="250px">{{$incomes[0]['name']}} {{$incomes[0]['precent']}}%</th>
+                <th width="250px">{{$incomes[1]['name']}} {{$incomes[1]['precent']}}%</th>
+                <th width="300px">{{$incomes[2]['name']}} {{$incomes[2]['precent']}}%</th>
+                <th width="250px">{{$incomes[3]['name']}} {{$incomes[3]['precent']}}%</th>
                 <th width="250px">Jumlah</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4">Jumlah</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
@@ -34,14 +68,18 @@
     <script>
         $(document).ready(function() {
             var table = $('#table').DataTable({
-                dom: "<'row justify-content-between px-3'<<'fdate'>><<'bexport'>>><'row justify-content-between px-3'<<'fdate'>><f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                dom: "<'row justify-content-between px-3 mb-2'<<'fdate'>><<'bexport'>>><'row justify-content-between px-3 mb-1'<'row px-0 col-12 col-md-4'<'col-12 col-md-6'<'fkecamatan'>><'col-12 col-md-6'<'fdesa'>>><f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                pageLength: 100,
                 processing: true,
                 serverSide: true,
+                scrollX: true,
                 ajax: {
                     url: "{!!  route('admin.report.keuangan.index') !!}",
                     data: function(d) {
                         d.from_date = $('input[name="from_date"]').val(),
-                        d.to_date = $('input[name="to_date"]').val()
+                        d.to_date = $('input[name="to_date"]').val(),
+                        d.kecamatan = $('select[name="kecamatan"]').val(),
+                        d.desa = $('select[name="desa"]').val()
                     }
                 },
                 columns: [
@@ -56,7 +94,44 @@
                     { data: 'col3', name: 'col3', className: 'text-center' },
                     { data: 'col4', name: 'col4', className: 'text-center' },
                     { data: 'donate_sum_total_donate', name: 'donate_sum_total_donate', className: 'text-center' }
-                ]
+                ],
+                footerCallback: function ( row, data, start, end, display ) {
+                    var api = this.api();
+
+                    const rupiah = (number)=>{
+                        return new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                        minimumFractionDigits: 0
+                        }).format(number);
+                    }
+        
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,.Rp]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+        
+                    // Total over all pages
+                    totalDonatur = api.column( 4 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total1 = api.column( 5 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total2 = api.column( 6 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total3 = api.column( 7 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total4 = api.column( 8 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total5 = api.column( 9 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total6 = api.column( 10 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        
+                    // Update footer
+                    $( api.column( 4 ).footer() ).html(totalDonatur);
+                    $( api.column( 5 ).footer() ).html(rupiah(total1));
+                    $( api.column( 6 ).footer() ).html(rupiah(total2));
+                    $( api.column( 7 ).footer() ).html(rupiah(total3));
+                    $( api.column( 8 ).footer() ).html(rupiah(total4));
+                    $( api.column( 9 ).footer() ).html(rupiah(total5));
+                    $( api.column( 10 ).footer() ).html(rupiah(total6));
+                }
             });
 
             $("div.bexport").html(`<a href="#" target="_blank" class="btn btn-primary btn-sm btn-block export-button"><i class="fa fa-file-excel"></i> Export</a>`);
@@ -64,7 +139,7 @@
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">
                     <span style="width: 155px;">Filter Tanggal:</span>
-                    <input type="text" class="form-control form-control-sm" name="range_date" placeholder="Filter Tanggal" value="" readonly style="cursor: pointer;">
+                    <input type="text" class="form-control form-control-sm" name="range_date" placeholder="Filter Tanggal" value="" autocomplete="off" style="cursor: pointer;">
                     <input type="hidden" name="from_date"><input type="hidden" name="to_date">
                 </label>
             `);
@@ -116,6 +191,37 @@
 
                 $('.export-button').attr('href', "#?user=" + $('select[name="username"]').val());
                 table.draw();
+            });
+
+
+            $("div.fkecamatan").html(`
+                <select class="form-control form-control-sm select2" name="kecamatan">
+                    <option value="">Semua Kecamatan</option>
+                    @foreach($kecamatan as $row)
+                        <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+                    @endforeach
+                </select>
+            `);
+
+            $('select[name="kecamatan"]').on('change', function(){
+                table.draw();
+            });
+
+            $("div.fdesa").html(`
+                <select class="form-control form-control-sm select2" name="desa">
+                    <option value="">Semua Desa</option>
+                    @foreach($desa as $row)
+                        <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+                    @endforeach
+                </select>
+            `);
+
+            $('select[name="desa"]').on('change', function(){
+                table.draw();
+            });
+
+            $('.select2').select2({
+                theme: 'bootstrap4',
             });
         });
 

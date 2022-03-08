@@ -10,3 +10,7 @@
     <a class="nav-link" href="{{ route('admin.desas.index') }}"><i class="fas fa-building"></i><span>Desas</span></a>
 </li>
 
+<li class="side-menus {{ Request::is('admin/incomes*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.incomes.index') }}"><i class="fas fa-building"></i><span>Incomes</span></a>
+</li>
+

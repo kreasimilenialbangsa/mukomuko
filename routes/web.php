@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::resource('ziswafs', App\Http\Controllers\Admin\ZiswafController::class, ["as" => 'admin']);
         Route::group(['prefix' => 'report'], function () {
             Route::get('laporan-keuangan', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.report.keuangan.index');
+            Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);
         });
 
         // Content
@@ -83,14 +84,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // Role Desa
     Route::group(['middleware' => ['role:SuperAdmin|Desa']], function() {
         Route::group(['prefix' => 'donatur'], function () {
-            // Route::resource('program', App\Http\Controllers\Admin\ProgramDonateController::class, ["as" => 'admin.donatur']);
             Route::get('program', [App\Http\Controllers\Admin\ProgramDonateController::class, 'index'])->name('admin.donatur.program.index');
             Route::get('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'create'])->name('admin.donatur.program.create');
             Route::post('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'store'])->name('admin.donatur.program.store');
             Route::delete('program/{id}', [App\Http\Controllers\Admin\ProgramDonateController::class, 'destroy'])->name('admin.donatur.program.destroy');
             Route::get('program/{id}/list', [App\Http\Controllers\Admin\ProgramDonateController::class, 'show'])->name('admin.donatur.program.list');
             
-            // Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafDonateController::class, ["as" => 'admin.donatur']);
             Route::get('ziswaf', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'index'])->name('admin.donatur.ziswaf.index');
             Route::get('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'create'])->name('admin.donatur.ziswaf.create');
             Route::post('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'store'])->name('admin.donatur.ziswaf.store');
