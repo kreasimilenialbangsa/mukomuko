@@ -43,7 +43,7 @@
                     { data: 'email', name: 'email', className: 'text-center' },
                     { data: 'phone', name: 'phone', className: 'text-center' },
                     { data: 'total_donate', name: 'total_donate', className: 'text-center' },
-                    { data: 'action', name: 'action', className: 'text-center' },
+                    { data: 'action', name: 'action', className: 'text-center', orderable: false },
                 ]
             });
         });

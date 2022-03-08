@@ -48,7 +48,7 @@ class UserDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => 'Aksi'])
             ->parameters([
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
@@ -70,11 +70,11 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name' => ['className' => 'text-center'],
+            'name' => ['className' => 'text-center', 'title' => 'Nama'],
             'email' => ['className' => 'text-center'],
             'role_user.role.name' => ['defaultContent' => 'Not set', 'title' => 'Role', 'name'=> 'role_user.role.name', 'className' => 'text-center'],
-            'created_at' => ['className' => 'text-center'],
-            'is_active' => ['className' => 'text-center']
+            'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
+            'is_active' => ['className' => 'text-center', 'title' => 'Aktif']
         ];
     }
 

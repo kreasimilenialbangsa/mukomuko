@@ -39,7 +39,7 @@
                     { data: 'donate_count', name: 'donate_count', className: "text-center" },
                     { data: 'donate_sum_total_donate', name: 'donate_sum_total_donate', defaultContent: 'Rp 0', className: "text-center" },
                     { data: 'count_day', name: 'count_day', className: "text-center" },
-                    { data: 'action', name: 'action', className: "text-center" },
+                    { data: 'action', name: 'action', className: "text-center", orderable: false },
                 ]
             });
         });

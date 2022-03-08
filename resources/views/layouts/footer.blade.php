@@ -1,4 +1,5 @@
 <footer class="main-footer">
+  <div class="container">
   <div class="row wrapper-footer">
     <div class="col-lg-4 pl-0 pr-xl-5 pr-lg-4">
       <img class="logo-footer" src="{{ asset('img/logo-nu.png') }}" alt="">
@@ -87,4 +88,5 @@
       </a>
     </div>
   </div>
+</div>
 </footer>

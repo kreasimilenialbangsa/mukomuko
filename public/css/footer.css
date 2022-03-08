@@ -4,7 +4,7 @@
 }
 
 .main-footer .wrapper-footer{
-  padding: 30px 50px;
+  padding: 30px 0px;
   margin: 0;
 }
 
@@ -85,7 +85,7 @@
     margin-bottom: 60px;
   }
   .main-footer .wrapper-footer{
-    padding: 15px;
+    padding: 15px 0px;
   }
   .main-footer .nav-link{
     font-size: 12px;

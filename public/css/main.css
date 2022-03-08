@@ -184,6 +184,19 @@
   font-weight: 500;
 }
 
+.card-thumbnail .tag-urgent{
+  background: #CB3F34;
+  border-radius: 4px;
+  padding: 3px 8px;
+  color: white;
+  position: absolute;
+  z-index: 1;
+  right: 15px;
+  top: 40px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
 .card-thumbnail .thumb-pict img{
   height: 182px;
   object-fit: cover;

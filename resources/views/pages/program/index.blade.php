@@ -45,6 +45,9 @@
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
                     <span class="tag-cat">{{ $program->category->name }}</span>
+                    @if($program->is_urgent == 1)
+                      <span class="tag-urgent">Darurat</span>
+                    @endif
                   </div>
                   <div class="card-detail">
                     <h6>{{ $program->title }}</h6>

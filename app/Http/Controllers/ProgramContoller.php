@@ -13,11 +13,12 @@ class ProgramContoller extends Controller
 {
     public function index(Request $request)
     {
-        $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at')
+        $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at', 'is_urgent')
             ->with('category')
             ->withSum('donate', 'total_donate')
             ->whereIsActive(1)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('is_urgent', 'desc')
+            ->orderBy('id', 'desc')
             ->paginate(12);
 
         foreach($programs as $program) {
@@ -68,7 +69,6 @@ class ProgramContoller extends Controller
             ->withSum('donate', 'total_donate')
             ->where('id', '<>', $program->id)
             ->whereIsActive(1)
-            ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
 

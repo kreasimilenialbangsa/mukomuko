@@ -1,11 +1,17 @@
 @extends('admin.layouts.app')
 @section('title')
-    Users 
+    Akun Pengguna 
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Users</h1>
+            <div>
+                <h1>Akun Pengguna</h1>
+                <div class="section-header-breadcrumb mt-2">
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+                    <div class="breadcrumb-item">Akun Pengguna</div>
+                </div>
+            </div>
             <div class="section-header-breadcrumb">
                 <a href="{{ route('admin.users.create')}}" class="btn btn-primary form-btn">User <i class="fas fa-plus"></i></a>
             </div>
