@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="section-header-breadcrumb">
-                    <a href="{{ route('admin.news.index') }}"  class="btn btn-primary">Back</a>
+                    <a href="{{ route('admin.news.index') }}"  class="btn btn-primary">Kembali</a>
                 </div>
             </div>
   <div class="content">

@@ -63,6 +63,8 @@
   <!-- Select2 JavaScript-->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js" integrity="sha256-AFAYEOkzB6iIKnTYZOdUf9FFje6lOTYdwRJKwTN5mks=" crossorigin="anonymous"></script>
 
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     $(document).ready(function() {
       $('.select2').select2({
@@ -110,6 +112,26 @@
           }
       }
       tinymce.init(editor_config);
+    });
+  </script>
+
+  <script>
+    $(document).on('click','.delete',function(e){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Menghapus Data',
+            text: "Anda yakin untuk menghapus data ini?",
+            showCancelButton: true,
+            confirmButtonColor: '#FF0101',
+            cancelButtonColor: '#B9B2B2',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Hapus',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).submit();
+            }
+        });
     });
   </script>
 

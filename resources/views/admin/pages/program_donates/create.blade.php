@@ -24,7 +24,7 @@
                    <div class="col-lg-12">
                        <div class="card">
                            <div class="card-body ">
-                                {!! Form::open(['route' => ['admin.donatur.program.store', Request::segment(4)]]) !!}
+                                {!! Form::open(['route' => ['admin.donatur.program.store', Request::segment(4)], 'class' => 'form-save']) !!}
                                     <div class="row">
                                         @include('admin.pages.program_donates.fields')
                                     </div>
