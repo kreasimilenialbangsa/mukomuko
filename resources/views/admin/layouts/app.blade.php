@@ -120,6 +120,7 @@
         e.preventDefault();
         Swal.fire({
             title: 'Menghapus Data',
+            icon: 'warning',
             text: "Anda yakin untuk menghapus data ini?",
             showCancelButton: true,
             confirmButtonColor: '#FF0101',
@@ -133,6 +134,34 @@
             }
         });
     });
+
+    function toggle(el, url) {
+      $(document).on('change', el, function(e) {
+        e.preventDefault();
+        let val = $(this).is(":checked") == true ? 1 : 0;
+        let id = $(this).data('id');
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+              "_token": "{{ csrf_token() }}",
+              "val": val,
+              "id": id
+            },
+            success: function(res){
+              if(res) {
+                Swal.fire({
+                    title: 'Berhasil',
+                    icon: 'success',
+                    confirmButtonColor: '#45BF7C',
+                    text: res.message
+                })
+              }
+            }
+        });
+      });
+    }
   </script>
 
   <!-- Page Specific JS File -->

@@ -20,8 +20,9 @@ class ProgramDataTable extends DataTable
 
         return $dataTable->addColumn('action', 'admin.pages.programs.datatables_actions')
             ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')
-            ->editColumn('is_active', 'admin.layouts.toggle')
-            ->rawColumns(['is_active', 'target_dana', 'action']);
+            ->editColumn('is_urgent', 'admin.layouts.toggle_urgent')
+            ->editColumn('is_active', 'admin.layouts.toggle_active')
+            ->rawColumns(['is_active', 'is_urgent', 'target_dana', 'action']);
     }
 
     /**
@@ -75,7 +76,7 @@ class ProgramDataTable extends DataTable
             'end_date' => ['className' => 'text-center', 'title' => 'Tgl Berakhir'],
             'category.name' => ['className' => 'text-center', 'defaultContent' => 'Not set', 'name' => 'category.name', 'title' => 'Kategori'],
             'is_urgent' => ['className' => 'text-center', 'title' => 'Darurat'],
-            'is_active' => ['className' => 'text-center', 'title' => 'Tampil']
+            'is_active' => ['className' => 'text-center', 'title' => 'Aktif']
         ];
     }
 

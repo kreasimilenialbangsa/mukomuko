@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Str;
 use File;
 use Flash;
+use Illuminate\Http\Request;
 use Response;
 
 class GalleryController extends AppBaseController
@@ -199,5 +200,19 @@ class GalleryController extends AppBaseController
         Flash::success('Gallery deleted successfully.');
 
         return redirect(route('admin.galleries.index'));
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->galleryRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
     }
 }

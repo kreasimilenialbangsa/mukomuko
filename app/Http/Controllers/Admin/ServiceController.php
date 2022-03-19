@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Str;
 use Flash;
+use Illuminate\Http\Request;
 use Response;
 
 class ServiceController extends AppBaseController
@@ -164,5 +165,19 @@ class ServiceController extends AppBaseController
         Flash::success('Service deleted successfully.');
 
         return redirect(route('admin.services.index'));
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->serviceRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
     }
 }

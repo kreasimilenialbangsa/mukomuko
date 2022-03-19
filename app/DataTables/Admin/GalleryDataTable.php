@@ -21,7 +21,7 @@ class GalleryDataTable extends DataTable
         return $dataTable->addColumn('action', 'admin.pages.galleries.datatables_actions')
             ->editColumn('content', 'admin.pages.galleries.type')
             ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
-            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->editColumn('is_active', 'admin.layouts.toggle_active')
             ->rawColumns(['content', 'is_active', 'action']);
     }
 

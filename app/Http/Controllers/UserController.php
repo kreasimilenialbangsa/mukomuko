@@ -217,4 +217,18 @@ class UserController extends AppBaseController
 
         return redirect(route('admin.users.index'));
     }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->userRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
+    }
 }

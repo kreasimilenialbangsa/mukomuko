@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Str;
 use File;
 use Flash;
+use Illuminate\Http\Request;
 use Response;
 
 class ProgramController extends AppBaseController
@@ -243,5 +244,33 @@ class ProgramController extends AppBaseController
         Flash::success('Program deleted successfully.');
 
         return redirect(route('admin.programs.index'));
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->programRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
+    }
+
+    public function toggleUrgent(Request $request)
+    {
+        $input = [
+            'is_urgent' => $request->val
+        ];
+
+        $program = $this->programRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
     }
 }

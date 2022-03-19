@@ -20,7 +20,7 @@ class UserDataTable extends DataTable
 
         return $dataTable->addColumn('action', 'admin.pages.users.datatables_actions')
             ->addIndexColumn()
-            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->editColumn('is_active', 'admin.layouts.toggle_active')
             ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
             ->rawColumns(['is_active', 'action']);
     }

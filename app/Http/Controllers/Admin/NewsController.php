@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Str;
 use File;
 use Flash;
+use Illuminate\Http\Request;
 use Response;
 
 class NewsController extends AppBaseController
@@ -227,5 +228,33 @@ class NewsController extends AppBaseController
         Flash::success('News deleted successfully.');
 
         return redirect(route('admin.news.index'));
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->newsRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
+    }
+
+    public function toggleHighlight(Request $request)
+    {
+        $input = [
+            'is_highlight' => $request->val
+        ];
+
+        $program = $this->newsRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
     }
 }

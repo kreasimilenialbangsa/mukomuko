@@ -19,8 +19,8 @@
             <div class="group-select">
               <div class="btn btn-green mr-2">
                 <select class="form-control select-cat">
-                  <option selected>Pilih Kecamatan</option>
-                  @foreach($kecamatan as $row)
+                  <option selected>Pilih Kategori</option>
+                  @foreach($categories as $row)
                   <option value="{{ $row->id }}">{{ $row->name }}</option>
                   @endforeach
                 </select>

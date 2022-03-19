@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Str;
 use Flash;
+use Illuminate\Http\Request;
 use Response;
 
 class AboutController extends AppBaseController
@@ -164,5 +165,19 @@ class AboutController extends AppBaseController
         Flash::success('About deleted successfully.');
 
         return redirect(route('admin.abouts.index'));
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->aboutRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
     }
 }

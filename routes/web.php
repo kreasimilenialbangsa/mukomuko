@@ -115,6 +115,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
         // User
         Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
+
+        // Toggle Update
+        Route::post('program/toggle/active', [App\Http\Controllers\Admin\ProgramController::class, 'toggleActive'])->name('admin.program.toggle_active');
+        Route::post('program/toggle/urgent', [App\Http\Controllers\Admin\ProgramController::class, 'toggleUrgent'])->name('admin.program.toggle_urgent');
+        Route::post('banner/toggle/urgent', [App\Http\Controllers\Admin\BannerController::class, 'toggleActive'])->name('admin.banner.toggle_active');
+        Route::post('news/toggle/active', [App\Http\Controllers\Admin\NewsController::class, 'toggleActive'])->name('admin.news.toggle_active');
+        Route::post('news/toggle/hightlight', [App\Http\Controllers\Admin\NewsController::class, 'toggleHighlight'])->name('admin.news.toggle_highlight');
+        Route::post('gallery/toggle/active', [App\Http\Controllers\Admin\GalleryController::class, 'toggleActive'])->name('admin.gallery.toggle_active');
+        Route::post('service/toggle/active', [App\Http\Controllers\Admin\ServiceController::class, 'toggleActive'])->name('admin.service.toggle_active');
+        Route::post('about/toggle/active', [App\Http\Controllers\Admin\AboutController::class, 'toggleActive'])->name('admin.about.toggle_active');
+        Route::post('user/toggle/active', [App\Http\Controllers\UserController::class, 'toggleActive'])->name('admin.user.toggle_active');
     });
 
 });

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\Kecamatan;
-use App\Models\Admin\Banner;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Program;
+use App\Models\Admin\ProgramCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -28,8 +27,7 @@ class ProgramContoller extends Controller
             $program->count_day = $date->diffInDays($now);
         }
 
-        $kecamatan = Kecamatan::select('name', 'id')
-            ->whereParentId(0)
+        $categories = ProgramCategory::select('name', 'id')
             ->get();
 
         
@@ -39,7 +37,7 @@ class ProgramContoller extends Controller
             ->get();
     
         return view('pages.program.index')
-            ->with('kecamatan', $kecamatan)
+            ->with('categories', $categories)
             ->with('programs', $programs)
             ->with('donates', $donates);
     }

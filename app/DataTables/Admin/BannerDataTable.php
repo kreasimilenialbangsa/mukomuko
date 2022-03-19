@@ -21,7 +21,7 @@ class BannerDataTable extends DataTable
         return $dataTable->addColumn('action', 'admin.pages.banners.datatables_actions')
             ->editColumn('image', '<img src="{{ $image ? asset("storage".$image) : asset("img/no_image.jpg") }}" height="100px"/>')
             ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
-            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->editColumn('is_active', 'admin.layouts.toggle_active')
             ->rawColumns(['image', 'is_active', 'action']);
     }
 

@@ -19,7 +19,7 @@ class ServiceDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.services.datatables_actions')
-            ->editColumn('is_active', 'admin.layouts.toggle')
+            ->editColumn('is_active', 'admin.layouts.toggle_active')
             ->rawColumns(['is_active', 'action']);
     }
 
