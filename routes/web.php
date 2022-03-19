@@ -126,6 +126,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::post('service/toggle/active', [App\Http\Controllers\Admin\ServiceController::class, 'toggleActive'])->name('admin.service.toggle_active');
         Route::post('about/toggle/active', [App\Http\Controllers\Admin\AboutController::class, 'toggleActive'])->name('admin.about.toggle_active');
         Route::post('user/toggle/active', [App\Http\Controllers\UserController::class, 'toggleActive'])->name('admin.user.toggle_active');
+        Route::post('kecamatan/toggle/active', [App\Http\Controllers\Admin\KecamatanController::class, 'toggleActive'])->name('admin.kecamatan.toggle_active');
+        Route::post('desa/toggle/active', [App\Http\Controllers\Admin\DesaController::class, 'toggleActive'])->name('admin.desa.toggle_active');
     });
 
 });

@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\UpdateKecamatanRequest;
 use App\Repositories\Admin\KecamatanRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Response;
 
@@ -161,5 +162,19 @@ class KecamatanController extends AppBaseController
         Flash::success('Kecamatan deleted successfully.');
 
         return redirect(route('admin.location.kecamatan.index'));
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->kecamatanRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
     }
 }

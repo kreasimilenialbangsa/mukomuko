@@ -10,6 +10,7 @@ use App\Repositories\Admin\DesaRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Kecamatan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Response;
 
@@ -167,5 +168,19 @@ class DesaController extends AppBaseController
         Flash::success('Desa deleted successfully.');
 
         return redirect(route('admin.location.desa.index'));
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $input = [
+            'is_active' => $request->val
+        ];
+
+        $program = $this->desaRepository->update($input, $request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diubah'
+        ], 200);
     }
 }
