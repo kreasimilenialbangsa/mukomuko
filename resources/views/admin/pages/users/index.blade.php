@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.users.create')}}" class="btn btn-primary form-btn">User <i class="fas fa-plus"></i></a>
+                <a href="{{ route('admin.users.create')}}" class="btn btn-primary form-btn"><i class="fas fa-plus"></i> Akun</a>
             </div>
         </div>
     <div class="section-body">

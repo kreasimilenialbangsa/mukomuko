@@ -1,7 +1,7 @@
 <div class="col-md-6">
     <!-- Name Field -->
     <div class="form-group">
-        {!! Form::label('name', 'Name') !!}
+        {!! Form::label('name', 'Nama') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
     </div>
 
@@ -13,13 +13,13 @@
 
     <!-- Role Field -->
     <div class="form-group">
-        {!! Form::label('role', 'Role:') !!}
+        {!! Form::label('role', 'Tipe Akun:') !!}
         {!! Form::select('role', $role, @$user->role_user->role->id, ['class' => 'form-control select2 role']) !!}
     </div>
 
     <!-- Location Field -->
     <div class="form-group location d-none">
-        {!! Form::label('location', 'Location:') !!}
+        {!! Form::label('location', 'Wilayah:') !!}
         {!! Form::select('location', [], null, ['class' => 'form-control select2-user']) !!}
     </div>
 </div>
@@ -33,13 +33,13 @@
 
     <!-- Confirmation Password Field -->
     <div class="form-group">
-        {!! Form::label('password', 'Password Confirmation') !!}
+        {!! Form::label('password', 'Konfirmasi Password') !!}
         {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
     </div>
 
     <!-- Is Active Field -->
     <div class="form-group">
-        <div class="control-label">Is Active:</div>
+        <div class="control-label">Aktif:</div>
         <label class="custom-switch mt-2 pl-0">
             <input type="checkbox" name="is_active" value="1" class="custom-switch-input" {{ @$user->is_active == 1 ? 'checked' : '' }}>
             <span class="custom-switch-indicator"></span>
@@ -49,8 +49,8 @@
 
 <!-- Submit Field -->
 <div class="form-group col-md-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('admin.users.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('admin.users.index') !!}" class="btn btn-default">Batal</a>
 </div>
 
 @push('script')
