@@ -1,4 +1,4 @@
-{!! Form::open(['route' => ['admin.donatur.ziswaf.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['admin.donatur.ziswaf.destroy', $type_id, $id], 'method' => 'delete', 'class' => 'delete']) !!}
 <div class='text-center'>
     {{-- <a href="{{ route('admin.donatur.ziswaf.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
@@ -9,8 +9,7 @@
     @if($is_confirm != 1)
     {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
-        'class' => 'btn btn-danger btn-xs',
-        'onclick' => "return confirm('Apakah Anda yakin?')"
+        'class' => 'btn btn-danger btn-xs'
     ]) !!}
     @endif
 </div>

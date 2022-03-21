@@ -12,6 +12,7 @@ use App\Models\Admin\Donate;
 use App\Models\Admin\Ziswaf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 use Yajra\DataTables\DataTables;
 
@@ -95,9 +96,20 @@ class ZiswafDonateController extends AppBaseController
 
         $donate = $this->donateRepository->create($input);
 
-        Flash::success('Donate saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
-        return redirect(route('admin.donatur.ziswaf.index'));
+        $type = '';
+        if($id == 2) {
+            $type = 'infaq';
+        } else if($id == 3) {
+            $type = 'wakaf';
+        } else if($id == 4) {
+            $type = 'shadaqah';
+        } else {
+            $type = 'zakat';
+        }
+
+        return redirect(route('admin.donatur.ziswaf.index').'#'.$type);
     }
 
     /**
@@ -139,14 +151,14 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($type_id, $id)
     {
         $donate = $this->donateRepository->find($id);
 
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donates.index'));
+            return redirect(route('admin.donatur.ziswaf.list', $type_id));
         }
 
         return view('admin.pages.ziswaf_donates.edit')->with('donate', $donate);
@@ -160,21 +172,21 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateDonateRequest $request)
+    public function update($type_id, $id, UpdateDonateRequest $request)
     {
         $donate = $this->donateRepository->find($id);
 
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donates.index'));
+            return redirect(route('admin.donatur.ziswaf.list', $type_id));
         }
 
         $donate = $this->donateRepository->update($request->all(), $id);
 
-        Flash::success('Donate updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
-        return redirect(route('admin.donates.index'));
+        return redirect(route('admin.donatur.ziswaf.list', $type_id));
     }
 
     /**
@@ -184,20 +196,20 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($type_id, $id)
     {
         $donate = $this->donateRepository->find($id);
 
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donates.index'));
+            return redirect(route('admin.donatur.ziswaf.list', $type_id));
         }
 
         $this->donateRepository->delete($id);
 
-        Flash::success('Donate deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
-        return redirect(route('admin.donates.index'));
+        return redirect(route('admin.donatur.ziswaf.list', $type_id));
     }
 }

@@ -16,6 +16,7 @@ use Str;
 use File;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class NewsController extends AppBaseController
@@ -89,7 +90,7 @@ class NewsController extends AppBaseController
             }
         }
 
-        Flash::success('News saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.news.index'));
     }
@@ -201,7 +202,7 @@ class NewsController extends AppBaseController
             }
         }
 
-        Flash::success('News updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.news.index'));
     }
@@ -225,7 +226,7 @@ class NewsController extends AppBaseController
 
         $this->newsRepository->delete($id);
 
-        Flash::success('News deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.news.index'));
     }

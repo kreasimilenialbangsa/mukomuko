@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class DonateController extends AppBaseController
@@ -56,7 +57,7 @@ class DonateController extends AppBaseController
 
         $donate = $this->donateRepository->create($input);
 
-        Flash::success('Donate saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.donates.index'));
     }
@@ -121,7 +122,7 @@ class DonateController extends AppBaseController
 
         $donate = $this->donateRepository->update($request->all(), $id);
 
-        Flash::success('Donate updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.donates.index'));
     }
@@ -145,7 +146,7 @@ class DonateController extends AppBaseController
 
         $this->donateRepository->delete($id);
 
-        Flash::success('Donate deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.donates.index'));
     }

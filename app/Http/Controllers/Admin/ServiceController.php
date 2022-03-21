@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Str;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class ServiceController extends AppBaseController
@@ -65,7 +66,7 @@ class ServiceController extends AppBaseController
 
         $service = $this->serviceRepository->create($input);
 
-        Flash::success('Service saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.services.index'));
     }
@@ -138,7 +139,7 @@ class ServiceController extends AppBaseController
 
         $service = $this->serviceRepository->update($input, $id);
 
-        Flash::success('Service updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.services.index'));
     }
@@ -162,7 +163,7 @@ class ServiceController extends AppBaseController
 
         $this->serviceRepository->delete($id);
 
-        Flash::success('Service deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.services.index'));
     }

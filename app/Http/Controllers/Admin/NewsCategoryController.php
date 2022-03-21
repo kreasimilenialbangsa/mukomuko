@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Str;
 use Flash;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class NewsCategoryController extends AppBaseController
@@ -61,8 +62,8 @@ class NewsCategoryController extends AppBaseController
         ];
 
         $newsCategory = $this->newsCategoryRepository->create($input);
-
-        Flash::success('News Category saved successfully.');
+        
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.category.news.index'));
     }
@@ -133,7 +134,7 @@ class NewsCategoryController extends AppBaseController
 
         $newsCategory = $this->newsCategoryRepository->update($input, $id);
 
-        Flash::success('News Category updated successfully.');
+        Session::flash('success', 'Data berhasil dubah');
 
         return redirect(route('admin.category.news.index'));
     }
@@ -157,7 +158,7 @@ class NewsCategoryController extends AppBaseController
 
         $this->newsCategoryRepository->delete($id);
 
-        Flash::success('News Category deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.category.news.index'));
     }

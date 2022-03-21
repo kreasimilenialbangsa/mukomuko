@@ -14,6 +14,7 @@ use Str;
 use File;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class BannerController extends AppBaseController
@@ -79,7 +80,7 @@ class BannerController extends AppBaseController
 
         $banner = $this->bannerRepository->create($input);
 
-        Flash::success('Banner saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.banners.index'));
     }
@@ -164,7 +165,7 @@ class BannerController extends AppBaseController
 
         $banner = $this->bannerRepository->update($input, $id);
 
-        Flash::success('Banner updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.banners.index'));
     }
@@ -188,7 +189,7 @@ class BannerController extends AppBaseController
 
         $this->bannerRepository->delete($id);
 
-        Flash::success('Banner deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.banners.index'));
     }

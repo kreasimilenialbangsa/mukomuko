@@ -10,6 +10,7 @@ use App\Repositories\Admin\IncomeRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class IncomeController extends AppBaseController
@@ -61,7 +62,7 @@ class IncomeController extends AppBaseController
 
         $income = $this->incomeRepository->create($input);
 
-        Flash::success('Income saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.report.incomes.index'));
     }
@@ -132,7 +133,7 @@ class IncomeController extends AppBaseController
 
         $income = $this->incomeRepository->update($input, $id);
 
-        Flash::success('Income updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.report.incomes.index'));
     }
@@ -156,7 +157,7 @@ class IncomeController extends AppBaseController
 
         $this->incomeRepository->delete($id);
 
-        Flash::success('Income deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.report.incomes.index'));
     }

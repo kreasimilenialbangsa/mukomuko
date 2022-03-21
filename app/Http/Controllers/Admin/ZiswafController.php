@@ -11,6 +11,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\ZiswafCategory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class ZiswafController extends AppBaseController
@@ -65,7 +66,7 @@ class ZiswafController extends AppBaseController
 
         $ziswaf = $this->ziswafRepository->create($input);
 
-        Flash::success('Ziswaf saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.ziswafs.index'));
     }
@@ -141,7 +142,7 @@ class ZiswafController extends AppBaseController
 
         $ziswaf = $this->ziswafRepository->update($input, $id);
 
-        Flash::success('Ziswaf updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.ziswafs.index'));
     }
@@ -165,7 +166,7 @@ class ZiswafController extends AppBaseController
 
         $this->ziswafRepository->delete($id);
 
-        Flash::success('Ziswaf deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.ziswafs.index'));
     }

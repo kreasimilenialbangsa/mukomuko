@@ -13,6 +13,7 @@ use App\Models\Admin\Program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 use Yajra\DataTables\DataTables;
 
@@ -102,7 +103,7 @@ class ApprovalController extends AppBaseController
 
         $donate = $this->donateRepository->update($input, $id);
 
-        Flash::success('Donate updated successfully.');
+        Session::flash('success', 'Donasi berhasil diapprove');
 
         if($donate->type == '\App\Models\Admin\Program') {
             return redirect(route('admin.approval.program.index'));

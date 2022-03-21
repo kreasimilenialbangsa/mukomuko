@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Str;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class AboutController extends AppBaseController
@@ -65,9 +66,9 @@ class AboutController extends AppBaseController
 
         $about = $this->aboutRepository->create($input);
 
-        Flash::success('About saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
-        return redirect(route('admin.abouts.index'));
+        return redirect(route('admin.abouts.index'))->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -138,7 +139,7 @@ class AboutController extends AppBaseController
 
         $about = $this->aboutRepository->update($input, $id);
 
-        Flash::success('About updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.abouts.index'));
     }
@@ -162,7 +163,7 @@ class AboutController extends AppBaseController
 
         $this->aboutRepository->delete($id);
 
-        Flash::success('About deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.abouts.index'));
     }

@@ -17,6 +17,7 @@ use Str;
 use File;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class ProgramController extends AppBaseController
@@ -92,7 +93,7 @@ class ProgramController extends AppBaseController
 
         $program = $this->programRepository->create($input);
 
-        Flash::success('Program saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.programs.index'));
     }
@@ -217,7 +218,7 @@ class ProgramController extends AppBaseController
             }
         }
 
-        Flash::success('Program updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.programs.index'));
     }
@@ -241,7 +242,7 @@ class ProgramController extends AppBaseController
 
         $this->programRepository->delete($id);
 
-        Flash::success('Program deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.programs.index'));
     }

@@ -116,6 +116,35 @@
   </script>
 
   <script>
+    @if(Session::has('success'))
+      $(document).ready(function() {
+        Swal.fire({
+            title: 'Berhasil',
+            icon: 'success',
+            confirmButtonColor: '#45BF7C',
+            text: "{{ Session::get('success') }}"
+        });
+      });
+    @endif
+
+    $(document).on('click','.approve',function(e){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Approve Donasi',
+            icon: 'warning',
+            text: "Anda yakin untuk approve donasi ini?",
+            showCancelButton: true,
+            confirmButtonColor: '#45BF7C',
+            cancelButtonColor: '#B9B2B2',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Approve',
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).submit();
+            }
+        });
+    });
+
     $(document).on('click','.delete',function(e){
         e.preventDefault();
         Swal.fire({
@@ -156,7 +185,7 @@
                     icon: 'success',
                     confirmButtonColor: '#45BF7C',
                     text: res.message
-                })
+                });
               }
             }
         });

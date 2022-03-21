@@ -11,6 +11,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class KecamatanController extends AppBaseController
@@ -63,7 +64,7 @@ class KecamatanController extends AppBaseController
 
         $kecamatan = $this->kecamatanRepository->create($input);
 
-        Flash::success('Kecamatan saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.location.kecamatan.index'));
     }
@@ -135,7 +136,7 @@ class KecamatanController extends AppBaseController
 
         $kecamatan = $this->kecamatanRepository->update($input, $id);
 
-        Flash::success('Kecamatan updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.location.kecamatan.index'));
     }
@@ -159,7 +160,7 @@ class KecamatanController extends AppBaseController
 
         $this->kecamatanRepository->delete($id);
 
-        Flash::success('Kecamatan deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.location.kecamatan.index'));
     }

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -34,8 +35,8 @@ class UserDataTable extends DataTable
     public function query(User $model)
     {
         return $model->newQuery()
-            ->with('role_user.role')
-            ->select('users.*');
+            ->with('role_user.role', 'desa')
+            ->select('users.*')->where('users.id', '<>', Auth::user()->id);
     }
 
     /**
@@ -73,6 +74,7 @@ class UserDataTable extends DataTable
             'name' => ['className' => 'text-center', 'title' => 'Nama'],
             'email' => ['className' => 'text-center'],
             'role_user.role.name' => ['defaultContent' => 'Not set', 'title' => 'Role', 'name'=> 'role_user.role.name', 'className' => 'text-center'],
+            'desa.name' => ['defaultContent' => 'Not set', 'title' => 'Wilayah', 'name'=> 'desa.name', 'data' => 'desa.name', 'className' => 'text-center'],
             'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
             'is_active' => ['className' => 'text-center', 'title' => 'Aktif']
         ];

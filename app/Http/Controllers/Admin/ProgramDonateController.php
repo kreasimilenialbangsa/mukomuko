@@ -13,6 +13,7 @@ use App\Models\Admin\Program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 use Yajra\DataTables\DataTables;
 
@@ -105,9 +106,9 @@ class ProgramDonateController extends AppBaseController
 
         $donate = $this->donateRepository->create($input);
 
-        Flash::success('Donate saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
-        return redirect(route('admin.donatur.program.index'));
+        return redirect(route('admin.donatur.program.index', $id));
     }
 
     /**
@@ -157,7 +158,7 @@ class ProgramDonateController extends AppBaseController
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.program_donates.index'));
+            return redirect(route('admin.donatur.program.list', $id));
         }
 
         return view('admin.pages.program_donates.edit')->with('donate', $donate);
@@ -178,14 +179,14 @@ class ProgramDonateController extends AppBaseController
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.program_donates.index'));
+            return redirect(route('admin.donatur.program.list'));
         }
 
         $donate = $this->donateRepository->update($request->all(), $id);
 
-        Flash::success('Donate updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
-        return redirect(route('admin.program_donates.index'));
+        return redirect(route('admin.donatur.program.list', $id));
     }
 
     /**
@@ -195,20 +196,20 @@ class ProgramDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($type_id, $id)
     {
         $donate = $this->donateRepository->find($id);
 
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.program_donates.index'));
+            return redirect(route('admin.donatur.program.list'));
         }
 
         $this->donateRepository->delete($id);
 
-        Flash::success('Donate deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
-        return redirect(route('admin.program_donates.index'));
+        return redirect(route('admin.donatur.program.list', $type_id));
     }
 }

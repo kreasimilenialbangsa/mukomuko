@@ -17,7 +17,7 @@
             </div>
         </div>
     <div class="section-body">
-            @include('flash::message')
+            {{-- @include('flash::message') --}}
            <div class="card">
                 <div class="card-body">
                 @include('admin.pages.abouts.table')

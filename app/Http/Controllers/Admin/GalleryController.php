@@ -14,6 +14,7 @@ use Str;
 use File;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class GalleryController extends AppBaseController
@@ -83,7 +84,7 @@ class GalleryController extends AppBaseController
 
         $gallery = $this->galleryRepository->create($input);
 
-        Flash::success('Gallery saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.galleries.index'));
     }
@@ -173,7 +174,7 @@ class GalleryController extends AppBaseController
 
         $gallery = $this->galleryRepository->update($input, $id);
 
-        Flash::success('Gallery updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.galleries.index'));
     }
@@ -197,7 +198,7 @@ class GalleryController extends AppBaseController
 
         $this->galleryRepository->delete($id);
 
-        Flash::success('Gallery deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.galleries.index'));
     }

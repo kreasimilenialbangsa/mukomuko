@@ -37,7 +37,7 @@
                 columns: [
                     { data: 'created_at', name: 'created_at', className: 'text-center' },
                     { data: 'user.name', name: 'user.name', className: 'text-center' },
-                    { data: 'location.name', name: 'location.name', className: 'text-center' },
+                    { data: 'location.name', name: 'location.name', defaultContent: '-', className: 'text-center' },
                     { data: 'program.title', name: 'program.title', className: 'text-center' },
                     { data: 'name', name: 'name', className: 'text-center' },
                     { data: 'email', name: 'email', className: 'text-center' },

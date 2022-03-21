@@ -10,7 +10,7 @@
                 <div class="section-header-breadcrumb mt-2">
                     <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('admin.donatur.ziswaf.index') }}">Donasi Ziswaf</a></div>
-                    <div class="breadcrumb-item">Daftar Donatur Program</div>
+                    <div class="breadcrumb-item">Daftar Donatur Ziswaf</div>
                 </div>
             </div>
             <div class="section-header-breadcrumb">

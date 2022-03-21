@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Str;
 use Flash;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class ProgramCategoryController extends AppBaseController
@@ -62,7 +63,7 @@ class ProgramCategoryController extends AppBaseController
 
         $programCategory = $this->programCategoryRepository->create($input);
 
-        Flash::success('Program Category saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.category.program.index'));
     }
@@ -133,7 +134,7 @@ class ProgramCategoryController extends AppBaseController
 
         $programCategory = $this->programCategoryRepository->update($input, $id);
 
-        Flash::success('Program Category updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.category.program.index'));
     }
@@ -157,7 +158,7 @@ class ProgramCategoryController extends AppBaseController
 
         $this->programCategoryRepository->delete($id);
 
-        Flash::success('Program Category deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.category.program.index'));
     }

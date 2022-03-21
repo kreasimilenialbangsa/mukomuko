@@ -1,4 +1,4 @@
-{!! Form::open(['route' => ['admin.approval.update', $id], 'method' => 'patch']) !!}
+{!! Form::open(['route' => ['admin.approval.update', $id], 'method' => 'patch', 'class' => 'approve']) !!}
 <div class='text-center'>
     {{-- <a href="{{ route('admin.donatur.program.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
@@ -8,8 +8,7 @@
     </a> --}}
     {!! Form::button('<i class="fa fa-check"></i>', [
         'type' => 'submit',
-        'class' => 'btn btn-success btn-xs',
-        'onclick' => "return confirm('Apakah Anda yakin?')"
+        'class' => 'btn btn-success btn-xs'
     ]) !!}
 </div>
 {!! Form::close() !!}

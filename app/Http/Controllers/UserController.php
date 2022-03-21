@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use Hash;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends AppBaseController
 {
@@ -94,7 +95,7 @@ class UserController extends AppBaseController
             }
         }
 
-        Flash::success('User saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.users.index'));
     }
@@ -187,7 +188,7 @@ class UserController extends AppBaseController
             }
         }
 
-        Flash::success('User updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.users.index'));
     }
@@ -213,7 +214,7 @@ class UserController extends AppBaseController
 
         $this->userRepository->delete($id);
 
-        Flash::success('User deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.users.index'));
     }

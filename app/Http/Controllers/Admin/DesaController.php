@@ -12,6 +12,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Kecamatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class DesaController extends AppBaseController
@@ -66,7 +67,7 @@ class DesaController extends AppBaseController
 
         $desa = $this->desaRepository->create($input);
 
-        Flash::success('Desa saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
         return redirect(route('admin.location.desa.index'));
     }
@@ -141,7 +142,7 @@ class DesaController extends AppBaseController
 
         $desa = $this->desaRepository->update($input, $id);
 
-        Flash::success('Desa updated successfully.');
+        Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('admin.location.desa.index'));
     }
@@ -165,7 +166,7 @@ class DesaController extends AppBaseController
 
         $this->desaRepository->delete($id);
 
-        Flash::success('Desa deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.location.desa.index'));
     }

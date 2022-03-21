@@ -19,19 +19,19 @@
     <div class="section-body">
         <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="zakat-tab2" data-toggle="tab" href="#zakat" role="tab" aria-controls="zakat" aria-selected="true">Zakat</a>
+                <a class="nav-link active" id="zakat-tab" data-toggle="tab" href="#zakat" role="tab" aria-controls="zakat" aria-selected="true">Zakat</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="infaq-tab2" data-toggle="tab" href="#infaq2" role="tab" aria-controls="infaq" aria-selected="false">Infaq</a>
+                <a class="nav-link" id="infaq-tab" data-toggle="tab" href="#infaq" role="tab" aria-controls="infaq" aria-selected="false">Infaq</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="wakaf-tab2" data-toggle="tab" href="#wakaf2" role="tab" aria-controls="wakaf" aria-selected="false">Wakaf</a>
+                <a class="nav-link" id="wakaf-tab" data-toggle="tab" href="#wakaf" role="tab" aria-controls="wakaf" aria-selected="false">Wakaf</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="shadaqah-tab2" data-toggle="tab" href="#shadaqah2" role="tab" aria-controls="shadaqah" aria-selected="false">Shadaqah</a>
+                <a class="nav-link" id="shadaqah-tab" data-toggle="tab" href="#shadaqah" role="tab" aria-controls="shadaqah" aria-selected="false">Shadaqah</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="riwayat-tab2" data-toggle="tab" href="#riwayat2" role="tab" aria-controls="riwayat" aria-selected="false">Riwayat Donasi</a>
+                <a class="nav-link" id="riwayat-tab" data-toggle="tab" href="#riwayat" role="tab" aria-controls="riwayat" aria-selected="false">Riwayat Donasi</a>
             </li>
         </ul>
        <div class="card border border-top-0">
@@ -40,16 +40,16 @@
                     <div class="tab-pane fade show active" id="zakat" role="tabpanel" aria-labelledby="zakat-tab2">
                         @include('admin.pages.ziswaf_donates.table_zakat')
                     </div>
-                    <div class="tab-pane fade" id="infaq2" role="tabpanel" aria-labelledby="infaq-tab2">
+                    <div class="tab-pane fade" id="infaq" role="tabpanel" aria-labelledby="infaq-tab2">
                         @include('admin.pages.ziswaf_donates.table_infaq')
                     </div>
-                    <div class="tab-pane fade" id="wakaf2" role="tabpanel" aria-labelledby="wakaf-tab2">
+                    <div class="tab-pane fade" id="wakaf" role="tabpanel" aria-labelledby="wakaf-tab2">
                         @include('admin.pages.ziswaf_donates.table_wakaf')
                     </div>
-                    <div class="tab-pane fade" id="shadaqah2" role="tabpanel" aria-labelledby="shadaqah-tab2">
+                    <div class="tab-pane fade" id="shadaqah" role="tabpanel" aria-labelledby="shadaqah-tab2">
                         @include('admin.pages.ziswaf_donates.table_shadaqah')
                     </div>
-                    <div class="tab-pane fade" id="riwayat2" role="tabpanel" aria-labelledby="riwayat-tab2">
+                    <div class="tab-pane fade" id="riwayat" role="tabpanel" aria-labelledby="riwayat-tab2">
                         Riwayat
                     </div>
                 </div>
@@ -59,4 +59,20 @@
     
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(function(){
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+            $('.nav-tabs a').click(function (e) {
+                $(this).tab('show');
+                var scrollmem = $('body').scrollTop();
+                window.location.hash = this.hash;
+                $('html,body').scrollTop(scrollmem);
+            });
+        });
+    </script>
+@endpush
 
