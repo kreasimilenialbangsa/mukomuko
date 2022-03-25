@@ -1,0 +1,56 @@
+.modal-auth .form-control{
+  background: #F8F8F8;
+  border: none;
+}
+
+
+.modal-auth ::placeholder {
+ color: #65696F;
+ font-weight: 500;
+ font-size: 0.75rem;
+}
+
+.modal-auth .modal-footer {
+  border-top: none;
+  justify-content: center;
+}
+
+.modal-auth .modal-title {
+  border-bottom: none;
+}
+
+.modal-auth .modal-footer .line-grey{
+  height: 2px;
+  background: #E3E3E3;
+  width: 100px;
+  margin: 0 20px;
+  display: block;
+}
+
+.modal-auth .btn-fb,
+.modal-auth .btn-google {
+  background: #1977F3;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 2px;
+  margin-right: 20px;
+}
+
+.modal-auth .btn-fb .icon,
+.modal-auth .btn-google .icon{
+ background: #FFFFFF;
+  border: 2px solid #4285F4;
+  box-sizing: border-box;
+  padding: 3px;
+  border-radius: 4px 0px 0px 4px;
+}
+
+.modal-auth .other-login{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}

@@ -53,14 +53,18 @@
           </div>
         </li>
         <li class="nav-actions py-3 d-lg-none d-block">
-          <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a>
-          {{-- <button class="btn px-3 btn-green">Daftar</button> --}}
+          <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
+          <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
+          <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
         </li>
       </ul>
     </div>
     <div class="nav-actions d-lg-block d-none">
-      <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a>
-      {{-- <button class="btn px-3 btn-green">Daftar</button> --}}
+      <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
+      <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
+      <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
     </div>
   </nav>
 </header>
+
+<x-header.modal-auth/>
