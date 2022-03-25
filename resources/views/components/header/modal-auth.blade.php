@@ -8,7 +8,7 @@
             <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Masuk</a>
           </li>
           <li class="nav-item">
-            <a lass="nav-link" id="sigin-tab" data-toggle="tab" href="#sigin" role="tab" aria-controls="sigin" aria-selected="false">Daftar</a>
+            <a class="nav-link" id="sigin-tab" data-toggle="tab" href="#sigin" role="tab" aria-controls="sigin" aria-selected="false">Daftar</a>
           </li>
         </ul>
       </div>
