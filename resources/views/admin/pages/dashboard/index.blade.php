@@ -226,41 +226,90 @@
 
           @role('SuperAdmin|Desa')
             <div class="col-md-8">
+              <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                  <li class="nav-item">
+                      <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">Ziswaf</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" id="images-tab2" data-toggle="tab" href="#images2" role="tab" aria-controls="images" aria-selected="false">Program</a>
+                  </li>
+              </ul>
+
               <div class="card">
-                <div class="card-header">
-                  <h4>List Donasi</h4>
-                  <div class="card-header-action">
-                    <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-danger">Lihat Lebih Banyak <i class="fas fa-chevron-right"></i></a>
-                  </div>
-                </div>
-                <div class="card-body p-0">
-                  <div class="table-responsive table-invoice">
-                    <table class="table table-striped">
-                      <tbody>
-                        <tr>
-                          <th>Nama Program</th>
-                          <th>Nama Donatur</th>
-                          <th>Status</th>
-                          <th>Tanggal</th>
-                          <th>Aksi</th>
-                        </tr>
-                        @forelse($donates as $donate)
-                        <tr>
-                          <td class="font-weight-600">{{ $donate->program->title }}</td>
-                          <td class="font-weight-600">{{ $donate->name }}</td>
-                          <td>{!! $donate->status = 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
-                          <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
-                          <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
-                          </td>
-                        </tr>
-                        @empty
-                        <tr>
-                          <td colspan="5" class="text-center">Data tidak ditemukan</td>
-                        </tr>
-                        @endforelse
-                      </tbody>
-                    </table>
+                <div class="card-body border border-top-0">
+                  <div class="tab-content" id="myTab3Content">
+                    <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
+                      <div class="card mb-0">
+                        <div class="card-header">
+                          <h4>List Donasi</h4>
+                          <div class="card-header-action">
+                            <a href="{{ route('admin.donatur.ziswaf.index') }}" class="btn btn-danger">Lihat Lebih Banyak <i class="fas fa-chevron-right"></i></a>
+                          </div>
+                        </div>
+                        <div class="card-body p-0">
+                          <div class="table-responsive table-invoice">
+                            <table class="table table-striped">
+                              <tbody>
+                                <tr>
+                                  <th>Nama Ziswaf</th>
+                                  <th>Nama Donatur</th>
+                                  <th>Status</th>
+                                  <th>Tanggal</th>
+                                </tr>
+                                @forelse($donates_ziswaf as $donate)
+                                <tr>
+                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? $donate->ziswaf->title :  $donate->program->title }}</td>
+                                  <td class="font-weight-600">{{ $donate->name }}</td>
+                                  <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
+                                  <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
+                                </tr>
+                                @empty
+                                <tr>
+                                  <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                </tr>
+                                @endforelse
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="images2" role="tabpanel" aria-labelledby="images-tab2">
+                      <div class="card mb-0">
+                        <div class="card-header">
+                          <h4>List Donasi</h4>
+                          <div class="card-header-action">
+                            <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-danger">Lihat Lebih Banyak <i class="fas fa-chevron-right"></i></a>
+                          </div>
+                        </div>
+                        <div class="card-body p-0">
+                          <div class="table-responsive table-invoice">
+                            <table class="table table-striped">
+                              <tbody>
+                                <tr>
+                                  <th>Nama Program</th>
+                                  <th>Nama Donatur</th>
+                                  <th>Status</th>
+                                  <th>Tanggal</th>
+                                </tr>
+                                @forelse($donates_program as $donate)
+                                <tr>
+                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? $donate->ziswaf->title :  $donate->program->title }}</td>
+                                  <td class="font-weight-600">{{ $donate->name }}</td>
+                                  <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
+                                  <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
+                                </tr>
+                                @empty
+                                <tr>
+                                  <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                </tr>
+                                @endforelse
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
