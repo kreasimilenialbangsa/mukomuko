@@ -3,17 +3,17 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-          <li class="nav-item">
+        <ul class="nav nav-pills text-center w-100" id="pills-tab" role="tablist">
+          <li class="nav-item w-50">
             <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Masuk</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item w-50">
             <a class="nav-link" id="sigin-tab" data-toggle="tab" href="#sigin" role="tab" aria-controls="sigin" aria-selected="false">Daftar</a>
           </li>
         </ul>
       </div>
-      <div class="modal-body">
-        <div class="tab-content" id="pills-tabContent">
+      <div class="modal-body pt-2">
+        <div class="tab-content">
           <div  class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
             <form action="">
               <h4 class="mb-3">Masuk</h4>
@@ -27,7 +27,7 @@
                 <span class="text-xs">Lupa Password?</span>
               </div>
               <div class="form-group mb-0">
-                <button class="btn py-2 btn-green w-100">Masuk</button>
+                <button type="submit" class="btn py-2 btn-green w-100">Masuk</button>
               </div>
             </form>
           </div>
@@ -36,7 +36,7 @@
               <h4 class="mb-3">Daftar</h4>
               <div class="form-group">
                 <label class="font-semibold" for="name">Nama</label>
-                <input type="text" required class="form-control" name="name">
+                <input type="text" required placeholder="Nama" class="form-control" name="name">
               </div>
               <div class="form-group">
                 <label class="font-semibold" for="phone">Nomor Telepon</label>
@@ -55,7 +55,7 @@
                 <input type="password" placeholder="Konfirmasi Kata Sandi" required class="form-control" name="re-password">
               </div>
               <div class="form-group mb-0">
-                <button class="btn py-2 btn-green w-100">Daftar</button>
+                <button type="submit" class="btn py-2 btn-green w-100">Daftar</button>
               </div>
             </form>
           </div>

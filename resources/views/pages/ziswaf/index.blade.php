@@ -38,7 +38,7 @@
                 </a>
               </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
+            <div class="tab-content">
               <div class="tab-pane fade show active" id="zakat" role="tabpanel" aria-labelledby="zakat-tab">
                 <div class="bg-quote" style="background-image:url({{url('img/bg-ziwaf.jpg')}})">
                   <div class="text-quote">

@@ -15,8 +15,26 @@
   justify-content: center;
 }
 
-.modal-auth .modal-title {
+.modal-auth .modal-header {
   border-bottom: none;
+}
+
+.modal-auth .nav-pills .nav-link.active, 
+.modal-auth .nav-pills .show>.nav-link{
+  background: #45BF7C;
+}
+
+.modal-auth .nav-item:first-child .nav-link{
+  border-radius: 4px 0px 0px 4px;
+}
+
+.modal-auth .nav-item:last-child .nav-link{
+  border-radius: 0px 4px 4px 0px;
+}
+
+.modal-auth .nav-link{
+  border: 2px solid #45BF7C;
+  color: #45BF7C;
 }
 
 .modal-auth .modal-footer .line-grey{
