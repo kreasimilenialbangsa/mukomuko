@@ -1,0 +1,32 @@
+.editprofile-page .form-control {
+  background: #F8F8F8;
+  border: none;
+}
+
+.editprofile-page .edit-avatar{
+  height: 130px;
+  width: 130px;
+  background: gray;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white;
+  font-size: 5rem;
+}
+
+.editprofile-page .edit-avatar .ic-camera{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+
+.editprofile-page .edit-avatar .file-input{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0;
+}
