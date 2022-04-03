@@ -53,16 +53,28 @@
           </div>
         </li>
         <li class="nav-actions py-3 d-lg-none d-block">
-          <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
-          <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
-          <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
+          <div class="account-login">
+            <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
+            <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
+            <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
+          </div>
         </li>
       </ul>
     </div>
     <div class="nav-actions d-lg-block d-none">
-      <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
-      <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
-      <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
+      <div class="account-login">
+        <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
+        <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
+        <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
+      </div>
+      <div class="nav-item dropdown {{ Request::is('layanan*') ? 'active' : '' }}">
+        <a class="nav-link nav-user dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+          B
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <x-header.profile/>
+        </div>
+      </div>
     </div>
   </nav>
 </header>
