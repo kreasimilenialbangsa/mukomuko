@@ -407,6 +407,28 @@
   color: #45BF7C;
 }
 
+
+.custom-scrollbar {
+	overflow: hidden;
+	overflow-y: auto;
+	scrollbar-color: #45BF7C #8e8e8e;
+	scrollbar-width: thin;
+	-ms-overflow-style: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track{
+  background: #8e8e8e;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb{
+  background: #45BF7C;
+}
+
+
 /* enter , tab visible */
 .pre-wrap {
 	overflow-wrap: break-word;

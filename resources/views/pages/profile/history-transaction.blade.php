@@ -14,7 +14,7 @@
         <div class="col-md-9">
           <div class="box-white p-4">
             <h5>Riwayat Transaksi</h5>
-            <div class="wrap-history px-4">
+            <div class="wrap-history">
               <div class="d-center border-bottom py-4 justify-content-between">
                 <div class="type">
                   <h6>Zakat Maal</h6>
