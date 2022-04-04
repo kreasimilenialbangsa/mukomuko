@@ -46,6 +46,7 @@ Route::get('/payment/detail', [\App\Http\Controllers\PaymentController::class, '
 Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/history-transaction', [\App\Http\Controllers\ProfileController::class, 'history'])->name('profile.history-transaction');
 Route::get('/profile/inbox', [\App\Http\Controllers\ProfileController::class, 'inbox'])->name('profile.inbox');
+Route::get('/profile/notification', [\App\Http\Controllers\ProfileController::class, 'notification'])->name('profile.notification');
 
 // Galery
 Route::get('/galeri', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');

@@ -26,7 +26,7 @@
                 </div>
               </div>
               <div class="col-lg-6 mt-3">
-                <div class="d-center item-inbox">
+                <div class="d-center item-inbox new-notif">
                   <img class="thumb-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
                   <div class="ml-3">
                     <h6 class="mb-1">Pencairan Dana Rp 50.000.000</h6>
@@ -46,7 +46,7 @@
                 </div>
               </div>
                <div class="col-lg-6 mt-3">
-                <div class="d-center item-inbox">
+                <div class="d-center item-inbox new-notif">
                   <img class="thumb-img" src="{{ asset('img/dummy-1.jpg') }}" alt="">
                   <div class="ml-3">
                     <h6 class="mb-1">Pencairan Dana Rp 50.000.000</h6>

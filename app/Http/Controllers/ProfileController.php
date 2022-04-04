@@ -20,4 +20,10 @@ class ProfileController extends Controller
     {
         return view('pages.profile.inbox');
     }
+
+    public function notification(Request $request)
+    {
+        return view('pages.profile.notification');
+    }
+
 }

@@ -57,3 +57,30 @@
   transform: translateY(-50%);
   display: block;
 }
+
+.notification-page .thumb-img {
+  border-radius: 4px;
+  height: 200px;
+  object-position: center;
+  object-fit: cover;
+}
+
+.notification-page .item-notif {
+  background: #F0FAF4;
+  padding: 15px;
+  padding-right: 25px;
+  position: relative;
+}
+
+.notification-page .item-notif.new-notif::before{
+  background: #CB3F34;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  border-radius: 50%;
+  content: '';
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+}

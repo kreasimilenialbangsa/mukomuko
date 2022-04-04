@@ -1,7 +1,7 @@
 .programdetail-page .sec-regist .banner-regist {
   background: #45BF7C;
   box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
-  border-radius: 4px;
+  border-radius: 8px;
   color: white;
   display: flex;
   padding: 25px;
@@ -36,7 +36,7 @@
 
 .programdetail-page .thumb-headline .tag-cat{
   background: #45BF7C;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 3px 8px;
   color: white;
   position: absolute;
@@ -50,7 +50,7 @@
 .wrapper-donatur {
   background: #FFFFFF;
   box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 30px 20px;
   position: sticky;
   top: 100px;
@@ -59,7 +59,7 @@
 .wrapper-detail {
   background: #FFFFFF;
   box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .wrapper-donatur .progress {
