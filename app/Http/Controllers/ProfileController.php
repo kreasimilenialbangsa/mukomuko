@@ -10,4 +10,9 @@ class ProfileController extends Controller
     {
         return view('pages.profile.index');
     }
+
+     public function history(Request $request)
+    {
+        return view('pages.profile.history-transaction');
+    }
 }

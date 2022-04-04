@@ -380,6 +380,33 @@
   max-width: 100%;
 }
 
+.pill-status{
+  width: 108px;
+  height: 37px;
+  border: 1px solid #FBBC05;
+  color: #FBBC05;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-status.yellow{
+  border: 1px solid #FBBC05;
+  color: #FBBC05;
+}
+
+.pill-status.gray{
+  border: 1px solid #65696F;
+  color: #65696F;
+}
+
+.pill-status.green{
+  border: 1px solid #45BF7C;
+  color: #45BF7C;
+}
+
 /* enter , tab visible */
 .pre-wrap {
 	overflow-wrap: break-word;
