@@ -39,6 +39,15 @@ Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'i
 // About
 Route::get('/tentang/{slug}', [\App\Http\Controllers\AboutContoller::class, 'index'])->name('about.index');
 
+// Payment
+Route::get('/payment/detail', [\App\Http\Controllers\PaymentController::class, 'detail'])->name('payment.detail');
+
+// Profile
+Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
+Route::get('/profile/history-transaction', [\App\Http\Controllers\ProfileController::class, 'history'])->name('profile.history-transaction');
+Route::get('/profile/inbox', [\App\Http\Controllers\ProfileController::class, 'inbox'])->name('profile.inbox');
+Route::get('/profile/notification', [\App\Http\Controllers\ProfileController::class, 'notification'])->name('profile.notification');
+
 // Galery
 Route::get('/galeri', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');
 

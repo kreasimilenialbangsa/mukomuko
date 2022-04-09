@@ -52,6 +52,10 @@
   color: #65696F;
 }
 
+.clr-yellow{
+  color: #E2AF1B;
+}
+
 .text-sm{
   font-size: 0.875rem;
 }
@@ -238,10 +242,18 @@
 
 .wrapper-boxtext {
   background: #FFFFFF;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   padding: 60px 80px;
   padding-bottom: 60px;
+}
+
+.box-white{
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  min-height: 143px;
+  background: white;
 }
 
 .wrapper-boxtext .box-title{
@@ -368,6 +380,55 @@
   max-width: 100%;
 }
 
+.pill-status{
+  width: 108px;
+  height: 37px;
+  border: 1px solid #FBBC05;
+  color: #FBBC05;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-status.yellow{
+  border: 1px solid #FBBC05;
+  color: #FBBC05;
+}
+
+.pill-status.gray{
+  border: 1px solid #65696F;
+  color: #65696F;
+}
+
+.pill-status.green{
+  border: 1px solid #45BF7C;
+  color: #45BF7C;
+}
+
+
+.custom-scrollbar {
+	overflow: hidden;
+	overflow-y: auto;
+	scrollbar-color: #45BF7C #8e8e8e;
+	scrollbar-width: thin;
+	-ms-overflow-style: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track{
+  background: #8e8e8e;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb{
+  background: #45BF7C;
+}
+
+
 /* enter , tab visible */
 .pre-wrap {
 	overflow-wrap: break-word;
@@ -394,6 +455,10 @@
   .wa-sosmed{
     right: 15px;
     bottom: 80px;
+  }
+
+  .box-white{
+    padding: 30px;
   }
 }
 
