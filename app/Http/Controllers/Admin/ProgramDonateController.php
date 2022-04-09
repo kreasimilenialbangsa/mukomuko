@@ -47,7 +47,7 @@ class ProgramDonateController extends AppBaseController
                 $date = Carbon::parse($program->end_date . ' 23:59:00');
                 $now = Carbon::now();
     
-                $program->count_day = $date->diffInDays($now);
+                $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
             }
 
             return $result = DataTables::of($programs)

@@ -41,7 +41,7 @@ class HomeController extends Controller
             $date = Carbon::parse($program->end_date . ' 23:59:00');
             $now = Carbon::now();
 
-            $program->count_day = $date->diffInDays($now);
+            $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
         }
 
         $news = News::select('id', 'user_id', 'title', 'slug', 'category_id', 'created_at')

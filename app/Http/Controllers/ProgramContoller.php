@@ -24,7 +24,7 @@ class ProgramContoller extends Controller
             $date = Carbon::parse($program->end_date . ' 23:59:00');
             $now = Carbon::now();
 
-            $program->count_day = $date->diffInDays($now);
+            $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
         }
 
         $categories = ProgramCategory::select('name', 'id')
@@ -54,7 +54,7 @@ class ProgramContoller extends Controller
         $date = Carbon::parse($program->end_date . ' 23:59:00');
         $now = Carbon::now();
 
-        $program->count_day = $date->diffInDays($now);
+        $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
 
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Program')
