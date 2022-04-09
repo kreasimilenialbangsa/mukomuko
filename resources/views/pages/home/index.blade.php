@@ -183,10 +183,21 @@
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
-                    <span class="tag-cat">{{ $program->category->name }}</span>
                   </div>
                   <div class="card-detail">
-                    <h6>{{ $program->title }}</h6>
+                    <div class="wrap-tags mb-2">
+                      @if($program->is_urgent == 1)
+                        <span class="tag-cat urgent">Darurat</span>
+                      @endif
+                      <span class="tag-cat">{{ $program->category->name }}</span>
+                    </div>
+                    <h6 class="card-title">
+                      @if(strlen($program->title) > 100)
+                        {!! substr($program->title, 0, 100) . '...' !!}
+                      @else
+                        {!! $program->title !!}
+                      @endif
+                    </h6>
                     <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
                     <div class="progress">
                       <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -228,10 +239,16 @@
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
-                    <span class="tag-cat">{{ $row->category->name }}</span>
+                    <span class="tag-cat tag-abs">{{ $row->category->name }}</span>
                   </div>
                   <div class="card-detail">
-                    <h6>{{ $row->title }}</h6>
+                    <h6 class="card-title">
+                      @if(strlen($row->title) > 100)
+                        {!! substr($row->title, 0, 100) . '...' !!}
+                      @else
+                        {!! $row->title !!}
+                      @endif
+                    </h6>
                     <div class="d-flex author">
                       <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
                       <span class="text-xs">{{ $row->user->name }}</span>

@@ -20,7 +20,7 @@
             @endforeach
           </div>
         </section>
-        <section class="col-12 my-3 sec-detail">
+        <section class="col-12 sec-detail">
           <div class="row">
             <div class="col-md-2 order-md-1 order-2 mt-md-0 mt-4">
               <div class="wrap-share d-md-block d-flex">
@@ -44,16 +44,16 @@
               <div class="wrapper-detail mt-4">
                 {!! $news->content !!}
               </div>
-              <div class="d-flex wrap-category">
+              <div class="d-center wrap-category">
                 <span>Kategori:</span>
-                <div class="d-flex">
-                  <span class="tag-cat">{{ $news->category->name }}</span>
+                <div class="d-center wrap-tags">
+                  <span class="tag-cat ml-2">{{ $news->category->name }}</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section class="col-12 sec-navigation">
+        <!-- <section class="col-12 sec-navigation">
           <div class="d-center justify-content-between">
             <a class="d-center font-medium clr-black">
               <img class="mr-2" src="{{ asset('img/arrdouble-left.svg') }}" alt="">
@@ -64,8 +64,8 @@
               <img class="ml-2" src="{{ asset('img/arrdouble-right.svg') }}" alt="">
             </a>
           </div>
-        </section>
-        <section class="col-12 pt-4 sec-listnews">
+        </section> -->
+        <section class="col-12 mt-5 sec-listnews">
           <h4 class="text-center">Berita Terkini</h4>
           <div class="row mt-4">
             @foreach($latestNews as $last)
@@ -73,10 +73,16 @@
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $last->images[0]->file) }}" alt="{{ $last->title }}">
-                    <span class="tag-cat">{{ $last->category->name }}</span>
+                    <span class="tag-cat tag-abs">{{ $last->category->name }}</span>
                   </div>
                   <div class="card-detail">
-                    <h6>{{ $last->title }}</h6>
+                    <h6 class="card-title">
+                      @if(strlen($last->title) > 100)
+                        {!! substr($last->title, 0, 100) . '...' !!}
+                      @else
+                        {!! $last->title !!}
+                      @endif
+                    </h6>
                     <div class="d-flex author">
                       <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
                       <span class="text-xs">{{ $last->user->name }}</span>

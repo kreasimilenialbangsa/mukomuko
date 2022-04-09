@@ -67,10 +67,16 @@
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
-                    <span class="tag-cat">{{ $row->category->name }}</span>
+                    <span class="tag-cat tag-abs">{{ $row->category->name }}</span>
                   </div>
                   <div class="card-detail">
-                    <h6>{{ $row->title }}</h6>
+                    <h6 class="card-title">
+                      @if(strlen($row->title) > 100)
+                        {!! substr($row->title, 0, 100) . '...' !!}
+                      @else
+                        {!! $row->title !!}
+                      @endif
+                    </h6>
                     <div class="d-flex author">
                       <img class="mr-2" src="{{ asset('img/user.svg') }}" alt="">
                       <span class="text-xs">{{ $row->user->name }}</span>

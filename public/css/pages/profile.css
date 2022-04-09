@@ -1,3 +1,44 @@
+.sidebar-profile .ic-side {
+  margin-right: 10px;
+  height: 22px;
+  width: 22px;
+  transition: .3s linear all;
+}
+
+.sidebar-profile {
+  position: sticky;
+  top: 100px;
+  padding: 1.5rem;
+  left: 0;
+}
+
+.sidebar-profile .ava-profile {
+  width: 80px;
+  height: 70px;
+  background: gray;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white;
+  font-size: 2.3rem;
+}
+
+.sidebar-profile .profile-link {
+  color: #65696F;
+  font-size: 1rem;
+  transition: .3s linear all;
+}
+
+.sidebar-profile .profile-link:hover{
+  color: #45BF7C;
+}
+
+.sidebar-profile .profile-link:hover .ic-side{
+  filter: brightness(0) saturate(100%) invert(76%) sepia(17%) saturate(1456%) hue-rotate(92deg) brightness(85%) contrast(80%);
+}
+
 .editprofile-page .form-control {
   background: #F8F8F8;
   border: none;
