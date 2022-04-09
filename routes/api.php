@@ -13,7 +13,42 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['prefix' => 'v1'], function () {
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    // Auth
+    Route::post('login', [App\Http\Controllers\API\V1\AuthController::class, 'login']);
+
+    // News
+    Route::get('news', [App\Http\Controllers\API\V1\NewsController::class, 'all']);
+    Route::get('news/detail/{id}', [App\Http\Controllers\API\V1\NewsController::class, 'detail']);
+    Route::get('news/category', [App\Http\Controllers\API\V1\NewsController::class, 'category']);
+    
+    // Program
+    Route::get('programs', [App\Http\Controllers\API\V1\ProgramController::class, 'all']);
+    Route::get('programs/detail/{id}', [App\Http\Controllers\API\V1\ProgramController::class, 'detail']);
+    
+    Route::get('programs/category', [App\Http\Controllers\API\V1\ProgramController::class, 'category']);
+    Route::get('programs/news/{program_id}', [App\Http\Controllers\API\V1\ProgramController::class, 'latestNews']);
+    
+    // Ziswaf
+    Route::get('ziswaf', [App\Http\Controllers\API\V1\ZiswafController::class, 'all']);
+    Route::get('ziswaf/detail/{id}', [App\Http\Controllers\API\V1\ZiswafController::class, 'detail']);
+    
+    // Donate
+    Route::get('donates', [App\Http\Controllers\API\V1\DonateController::class, 'all']);
+    Route::get('donates/detail/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailById']);
+
+    Route::get('donates/programs', [App\Http\Controllers\API\V1\DonateController::class, 'allPrograms']);
+    Route::get('donates/programs/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByProgram']);
+
+    Route::get('donates/ziswaf', [App\Http\Controllers\API\V1\DonateController::class, 'allZiswaf']);
+    Route::get('donates/ziswaf/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByZiswaf']);
+
+
+    // Private Api
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    
 });

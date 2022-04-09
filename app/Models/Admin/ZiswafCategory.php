@@ -54,5 +54,8 @@ class ZiswafCategory extends Model
         'name' => 'required'
     ];
 
-    
+    public function category()
+    {
+        return $this->hasMany(\App\Models\Admin\Ziswaf::class, 'category_id', 'id')->whereIsActive(1);
+    }
 }
