@@ -17,6 +17,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     // Auth
     Route::post('login', [App\Http\Controllers\API\V1\AuthController::class, 'login']);
+    Route::post('register', [App\Http\Controllers\API\V1\AuthController::class, 'register']);
 
     // News
     Route::get('news', [App\Http\Controllers\API\V1\NewsController::class, 'all']);
@@ -46,9 +47,10 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     // Private Api
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::get('profile', [App\Http\Controllers\API\V1\ProfileController::class, 'profile']);
+        Route::put('profile/update', [App\Http\Controllers\API\V1\ProfileController::class, 'update']);
+        Route::post('logout', [App\Http\Controllers\API\V1\AuthController::class, 'logout']);
     });
-
     
 });

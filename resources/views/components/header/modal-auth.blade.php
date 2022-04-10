@@ -33,30 +33,36 @@
             </form>
           </div>
           <div class="tab-pane fade" id="sigin" role="tabpanel" aria-labelledby="sigin-tab">
-            <form action="">
+            <form method="POST" action="{{ route('register-user') }}" class="needs-validation form-daftar" novalidate="">
+              @csrf
               <h4 class="mb-3">Daftar</h4>
               <div class="form-group">
                 <label class="font-semibold" for="name">Nama</label>
-                <input type="text" required placeholder="Nama" class="form-control" name="name">
+                <input type="text" required placeholder="Nama" class="form-control" name="name" required>
+                <div class="invalid-feedback">Nama wajib diisi</div>
               </div>
               <div class="form-group">
                 <label class="font-semibold" for="phone">Nomor Telepon</label>
-                <input type="number" placeholder="Nomor Telepon" required class="form-control" name="phone">
+                <input type="number" placeholder="Nomor Telepon" required class="form-control" name="phone" required>
+                <div class="invalid-feedback">Nomor Telepon wajib diisi</div>
               </div>
               <div class="form-group">
                 <label class="font-semibold" for="email">Alamat Surel</label>
-                <input type="email" placeholder="Alamat Surel" required class="form-control" name="email">
+                <input type="email" placeholder="Alamat Surel" required class="form-control" name="email" required>
+                <div class="invalid-feedback">Alamat Surel wajib diisi</div>
               </div>
               <div class="form-group">
                 <label class="font-semibold" for="password">Kata Sandi</label>
-                <input type="password" placeholder="Kata Sandi" required class="form-control" name="password">
+                <input type="password" placeholder="Kata Sandi" required class="form-control" name="password" required>
+                <div class="invalid-feedback">Kata Sandi wajib diisi</div>
               </div>
               <div class="form-group">
                 <label class="font-semibold" for="re-password">Konfirmasi Kata Sandi</label>
-                <input type="password" placeholder="Konfirmasi Kata Sandi" required class="form-control" name="re-password">
+                <input type="password" placeholder="Konfirmasi Kata Sandi" required class="form-control" name="re-password" required>
+                <div class="invalid-feedback">Konfirmasi Kata Sandi wajib diisi</div>
               </div>
               <div class="form-group mb-0">
-                <button type="submit" class="btn py-2 btn-green w-100">Daftar</button>
+                <button type="submit" class="btn py-2 btn-green w-100 daftar">Daftar</button>
               </div>
             </form>
           </div>

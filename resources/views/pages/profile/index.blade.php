@@ -9,7 +9,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          @include('layouts.sidebar-profile')
+          <x-sidebar-profile/>
         </div>
         <div class="col-md-9">
           <div class="box-white h-100 p-4">
@@ -38,17 +38,17 @@
                   </div>
                   <div class="form-group">
                     <label class="font-semibold" for="address">Alamat</label>
-                    <input type="text" placeholder="Alamat" required class="form-control" name="address" value="{{ $user->profile->address }}">
+                    <input type="text" placeholder="Alamat" class="form-control" name="address" value="{{ $user->profile->address }}">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="font-semibold" for="email">Email</label>
-                    <input type="text" placeholder="Email" required class="form-control" name="email" value="{{ $user->email }}" readonly>
+                    <input type="text" placeholder="Email" class="form-control" name="email" value="{{ $user->email }}" readonly>
                   </div>
                   <div class="form-group">
                     <label class="font-semibold" for="date-birth">Tanggal Lahir</label>
-                    <input type="date" placeholder="Tanggal Lahir" required class="form-control" name="date_birth" value="{{ $user->profile->birth_day }}">
+                    <input type="date" placeholder="Tanggal Lahir" class="form-control" name="date_birth" value="{{ $user->profile->birth_day }}">
                   </div>
                   <div class="form-group">
                     <label class="font-semibold" for="bio">Bio Singkat</label>
@@ -65,20 +65,4 @@
       </div>
     </div>
   </div>
-@endsection
-
-@section('scripts')
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    @if(Session::has('success'))
-      $(document).ready(function() {
-        Swal.fire({
-            title: 'Berhasil',
-            icon: 'success',
-            confirmButtonColor: '#45BF7C',
-            text: "{{ Session::get('success') }}"
-        });
-      });
-    @endif
-  </script>
 @endsection

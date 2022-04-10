@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // Login
 Route::post('/login-user', [\App\Http\Controllers\LoginController::class, 'login'])->name('login-user');
+Route::post('/register-user', [\App\Http\Controllers\LoginController::class, 'register'])->name('register-user');
 
 // Home
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

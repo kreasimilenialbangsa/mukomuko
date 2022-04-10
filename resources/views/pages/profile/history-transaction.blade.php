@@ -9,7 +9,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          @include('layouts.sidebar-profile')
+          <x-sidebar-profile/>
         </div>
         <div class="col-md-9">
           <div class="box-white h-100 p-4">
