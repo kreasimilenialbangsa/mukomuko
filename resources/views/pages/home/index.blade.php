@@ -153,7 +153,7 @@
             @forelse($donates as $donate)
               <a class="col-lg-4 col-6 p-2 wblock">
                 <div class="card-simple">
-                  <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Anonim' : $donate->name }}</h6>
+                  <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name }}</h6>
                   <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($donate->total_donate,0,",",".") }}</p>
                   <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
                 </div>
