@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasOne(\App\Models\Admin\Role::class, 'id');
     }
 
+    public function profile()
+    {
+        return $this->hasOne(\App\Models\UserProfile::class, 'user_id', 'id');
+    }
+
     public function desa()
     {
         return $this->belongsTo(\App\Models\Admin\Desa::class, 'location_id')->with('kecamatan');

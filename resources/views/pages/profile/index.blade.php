@@ -14,7 +14,8 @@
         <div class="col-md-9">
           <div class="box-white p-4">
             <h5>Edit Profil</h5>
-            <form>
+            {!! Form::open(['route' => ['user.update'], 'method' => 'post']) !!}
+              <input type="hidden" name="user_id" value="{{ $user->id }}">
               <div class="text-center mb-4">
                 <div class="edit-avatar">
                   <input type="file" class="file-input" name="file_avatar">
@@ -29,36 +30,36 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="font-semibold" for="name">Nama</label>
-                    <input type="name" placeholder="Nama" required class="form-control" name="name">
+                    <input type="name" placeholder="Nama" required class="form-control" name="name" value="{{ $user->name }}">
                   </div>
                   <div class="form-group">
                     <label class="font-semibold" for="phone-number">No. Handphone</label>
-                    <input type="number" placeholder="No. Handphone" required class="form-control" name="phone_number">
+                    <input type="number" placeholder="No. Handphone" required class="form-control" name="phone_number" value="{{ $user->profile->telp }}">
                   </div>
                   <div class="form-group">
                     <label class="font-semibold" for="address">Alamat</label>
-                    <input type="text" placeholder="Alamat" required class="form-control" name="address">
+                    <input type="text" placeholder="Alamat" required class="form-control" name="address" value="{{ $user->profile->address }}">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="font-semibold" for="email">Email</label>
-                    <input type="text" placeholder="Email" required class="form-control" name="email">
+                    <input type="text" placeholder="Email" required class="form-control" name="email" value="{{ $user->email }}" readonly>
                   </div>
                   <div class="form-group">
                     <label class="font-semibold" for="date-birth">Tanggal Lahir</label>
-                    <input type="date" placeholder="Tanggal Lahir" required class="form-control" name="date_birth">
+                    <input type="date" placeholder="Tanggal Lahir" required class="form-control" name="date_birth" value="{{ $user->profile->birth_day }}">
                   </div>
                   <div class="form-group">
                     <label class="font-semibold" for="bio">Bio Singkat</label>
-                    <input type="text" placeholder="Bio Singkat" class="form-control" name="bio">
+                    <input type="text" placeholder="Bio Singkat" class="form-control" name="bio" value="{{ $user->profile->bio }}">
                   </div>
                 </div>
               </div>
               <div class="wrap-button mt-3">
                 <button type="submit" class="w-100 btn btn-green py-2">Simpan</button>
               </div>
-            </form>
+            {!! Form::close() !!}
           </div>
         </div>
       </div>
@@ -67,6 +68,17 @@
 @endsection
 
 @section('scripts')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
+    @if(Session::has('success'))
+      $(document).ready(function() {
+        Swal.fire({
+            title: 'Berhasil',
+            icon: 'success',
+            confirmButtonColor: '#45BF7C',
+            text: "{{ Session::get('success') }}"
+        });
+      });
+    @endif
   </script>
 @endsection

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class DonaturController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $kecamatan = Kecamatan::select('name', 'id')
             ->whereParentId(0)
@@ -26,6 +26,9 @@ class DonaturController extends Controller
 
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
             ->whereIsConfirm(1)
+            ->when(isset($request->program), function($q) use($request) {
+                return $q->orWhereCategoryId($request->category);
+            })
             ->orderBy('id', 'desc')
             ->paginate(12);
         

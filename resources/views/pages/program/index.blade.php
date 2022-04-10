@@ -17,14 +17,16 @@
                <p class="text-base font-medium mb-0">Menampilkan {{ count($programs) }} dari {{ $programs->total() }} Campaign</p>
             </div>
             <div class="group-select">
+              <form class="d-flex" action="{{ route('program.index') }}" method="GET">
               <div class="btn btn-green mr-2">
-                <select class="form-control select-cat">
+                <select class="form-control select-cat" name="category">
                   <option selected>Pilih Kategori</option>
                   @foreach($categories as $row)
                   <option value="{{ $row->id }}">{{ $row->name }}</option>
                   @endforeach
                 </select>
               </div>
+              </form>
             </div>
             <!-- <div class="dropdown dropdown-cat">
               <button class="btn btn-green font-weight-normal p-3 dropdown-toggle" type="button" id="dropdowncat" data-toggle="dropdown" aria-expanded="false">
@@ -92,5 +94,10 @@
 
 @section('scripts')
   <script>
+    $(document).ready(function() {
+      $('select[name=category]').on('change', function() {
+        $(this).closest('form').submit();
+      })
+    });
   </script>
 @endsection

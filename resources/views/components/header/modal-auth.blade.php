@@ -1,6 +1,6 @@
 <!-- Modal Masuk/Daftar -->
 <div class="modal modal-auth fade" id="authmodal" tabindex="-1" role="dialog" aria-labelledby="authmodalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <ul class="nav nav-pills text-center w-100" id="pills-tab" role="tablist">
@@ -15,7 +15,8 @@
       <div class="modal-body pt-2">
         <div class="tab-content">
           <div  class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-            <form action="">
+            <form method="POST" action="{{ route('login-user') }}" class="needs-validation" novalidate="">
+              @csrf
               <h4 class="mb-3">Masuk</h4>
               <div class="form-group">
                 <label class="font-semibold" for="email">Alamat Surel</label>
@@ -23,7 +24,7 @@
               </div>
               <div class="form-group">
                 <label class="font-semibold" for="password">Kata Sandi</label>
-                <input type="password" placeholder="Kata Sandi" required class="form-control" name="email">
+                <input type="password" placeholder="Kata Sandi" required class="form-control" name="password">
                 <span class="text-xs">Lupa Password?</span>
               </div>
               <div class="form-group mb-0">

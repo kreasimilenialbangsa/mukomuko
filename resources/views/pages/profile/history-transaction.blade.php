@@ -15,42 +15,21 @@
           <div class="box-white p-4">
             <h5>Riwayat Transaksi</h5>
             <div class="list-history">
+              @forelse($donates as $donate)
               <div class="d-center border-bottom py-4 justify-content-between">
                 <div class="type">
-                  <h6>Zakat Maal</h6>
+                  <h6>{{ $donate->type == '\App\Models\Admin\Ziswaf' ? $donate->ziswaf->title :  $donate->program->title }}</h6>
                   <div class="date-price">
-                    <span class="clr-grey">23 Feb 2022 |</span>
-                    <span class="clr-green">Rp 25.000,00</span>
+                    <span class="clr-grey">{{ date('d M Y', strtotime($donate->created_at)) }} |</span>
+                    <span class="clr-green">{{ "Rp " . number_format($donate->total_donate,0,",",".") }}</span>
                   </div>
                 </div>
-                <div class="pill-status yellow">
-                  Pending
+                <div class="pill-status {{ $donate->is_confirm == 0 ? 'yellow' : ($donate->is_confirm == 1 ? 'green' : 'gray') }}">
+                  {{ $donate->is_confirm == 0 ? 'Pending' : ($donate->is_confirm == 1 ? 'Sukses' : 'Kedaluwarsa') }}
                 </div>
               </div>
-              <div class="d-center border-bottom py-4 justify-content-between">
-                <div class="type">
-                  <h6>Zakat Maal</h6>
-                  <div class="date-price">
-                    <span class="clr-grey">23 Feb 2022 |</span>
-                    <span class="clr-green">Rp 25.000,00</span>
-                  </div>
-                </div>
-                <div class="pill-status green">
-                  Success
-                </div>
-              </div>
-               <div class="d-center border-bottom py-4 justify-content-between">
-                <div class="type">
-                  <h6>Zakat Maal</h6>
-                  <div class="date-price">
-                    <span class="clr-grey">23 Feb 2022 |</span>
-                    <span class="clr-green">Rp 25.000,00</span>
-                  </div>
-                </div>
-                <div class="pill-status gray">
-                  Kadaluwarsa
-                </div>
-              </div>
+              @empty
+              @endforelse
             </div>
           </div>
         </div>

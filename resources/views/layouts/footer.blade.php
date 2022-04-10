@@ -82,7 +82,7 @@
         <ion-icon class="h4" name="people"></ion-icon>
         <span>Donatur</span>
       </a>
-      <a class="wrap-shortcut nav-link" href="{{ route('login') }}">
+      <a class="wrap-shortcut nav-link" href="{{ route('user.profile') }}">
         <ion-icon class="h4" name="person-sharp"></ion-icon>
         <span>Akun</span>
       </a>

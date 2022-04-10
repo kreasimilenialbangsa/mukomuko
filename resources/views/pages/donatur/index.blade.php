@@ -15,14 +15,14 @@
           <form class="d-center mt-md-5 mt-4 row justify-content-md-between">
             <div class="col-md-6 col-12">
             <div class="group-select row">
-              <div class="btn btn-green ml-3 col-md-3 col">
+              {{-- <div class="btn btn-green ml-3 col-md-3 col">
                 <select class="form-control select-cat">
                   <option selected>Pilih Kecamatan</option>
                   @foreach($kecamatan as $row)
                     <option value="{{ $row->id }}">{{ $row->name }}</option>
                   @endforeach
                 </select>
-              </div>
+              </div> 
               <div class="btn btn-green mx-2 col-md-3 col">
                 <select class="form-control select-cat">
                   <option selected>Pilih Program</option>
@@ -38,17 +38,23 @@
                   <option value="{{ $row->id }}">{{ $row->title }}</option>
                 @endforeach
                 </select>
+              </div>--}}
+              <div class="btn btn-green ml-3 col-md-3 col">
+                <select class="form-control select-cat">
+                  <option selected>Terbaru</option>
+                  <option value="latest">Terlama</option>
+                </select>
               </div>
             </div>
           </div>
-          <div class="col-md-4 col-lg-3 col-12 mt-3">
+          {{-- <div class="col-md-4 col-lg-3 col-12 mt-3">
             <div class="custom-search">
               <input type="search" class="input-search w-100" name="search" placeholder="Cari">
               <button class="btn btn-search btn-green">
                 <ion-icon name="search-outline"></ion-icon>
               </button>
             </div>
-          </div>
+          </div> --}}
           </form>
         </section>
         <section class="col-12 sec-todonation">
@@ -79,4 +85,11 @@
 @endsection
 
 @section('scripts')
+  <script>
+    $(document).ready(function() {
+      $('select[name=category]').on('change', function() {
+        $(this).closest('form').submit();
+      })
+    });
+  </script>
 @endsection
