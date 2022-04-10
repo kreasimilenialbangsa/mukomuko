@@ -25,7 +25,7 @@ class DonateController extends Controller
 
         foreach($donates as $donate) {
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
-            $donate->name = $donate->is_anonim == 1 ? 'Anonim' : $donate->name;
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
 
         return response()->json([
@@ -51,7 +51,7 @@ class DonateController extends Controller
         }
 
         $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
-        $donate->name = $donate->is_anonim == 1 ? 'Anonim' : $donate->name;
+        $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
 
         return response()->json([
             'status' => true,
@@ -78,7 +78,7 @@ class DonateController extends Controller
 
         foreach($donates as $donate) {
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
-            $donate->name = $donate->is_anonim == 1 ? 'Anonim' : $donate->name;
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
 
         return response()->json([
@@ -90,13 +90,13 @@ class DonateController extends Controller
 
     public function detailByProgram(Request $request, $id)
     {
-        $donate = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Program')
             ->whereTypeId($id)
             ->whereIsConfirm(1)
-            ->first();
+            ->paginate(isset($request->limit) ? $request->limit : 12);
 
-        if(empty($donate)) {
+        if(empty($donates)) {
             return response()->json([
                 'status' => false,
                 'success' => 'data not found',
@@ -104,13 +104,15 @@ class DonateController extends Controller
             ], 404); 
         }
 
-        $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
-        $donate->name = $donate->is_anonim == 1 ? 'Anonim' : $donate->name;
+        foreach($donates as $donate) {
+            $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
+        }
 
         return response()->json([
             'status' => true,
             'message' => 'success',
-            'data' => $donate
+            'data' => $donates
         ]);
     }
 
@@ -132,7 +134,7 @@ class DonateController extends Controller
 
         foreach($donates as $donate) {
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
-            $donate->name = $donate->is_anonim == 1 ? 'Anonim' : $donate->name;
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
 
         return response()->json([
@@ -144,13 +146,13 @@ class DonateController extends Controller
 
     public function detailByZiswaf(Request $request, $id)
     {
-        $donate = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereTypeId($id)
             ->whereIsConfirm(1)
-            ->first();
+            ->paginate(isset($request->limit) ? $request->limit : 12);
 
-        if(empty($donate)) {
+        if(empty($donates)) {
             return response()->json([
                 'status' => false,
                 'success' => 'data not found',
@@ -158,13 +160,15 @@ class DonateController extends Controller
             ], 404); 
         }
 
-        $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
-        $donate->name = $donate->is_anonim == 1 ? 'Anonim' : $donate->name;
+        foreach($donates as $donate) {
+            $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
+        }
 
         return response()->json([
             'status' => true,
             'message' => 'success',
-            'data' => $donate
+            'data' => $donates
         ]);
     }
 }
