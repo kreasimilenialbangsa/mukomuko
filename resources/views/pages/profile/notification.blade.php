@@ -12,7 +12,7 @@
           @include('layouts.sidebar-profile')
         </div>
         <div class="col-md-9">
-          <div class="box-white p-4">
+          <div class="box-white h-100 p-4">
             <h5>Notifikasi</h5>
             <div class="list-notifs row custom-scrollbar" style="max-height: 800px">
               <div class="col-lg-6 mt-3">

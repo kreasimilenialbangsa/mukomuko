@@ -49,17 +49,7 @@
   position: sticky;
   top: 100px;
   text-align: center;
-}
-
-
-.newsdetail-page .wrap-category .tag-cat{
-  background: #45BF7C;
-  border-radius: 4px;
-  padding: 3px 8px;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 500;
-  margin-left: 10px;
+  left: 0;
 }
 
 @media only screen and (max-width: 767px){

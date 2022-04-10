@@ -11,12 +11,11 @@
         <span>Beranda</span> / <span>Program</span> / <span class="current">{{ $program->title }}</span>
       </div>
       <div class="row">
-        <section class="col-12 sec-detail pb-4">
+        <section class="col-12 sec-detail">
           <div class="row">
             <div class="col-md-8">
               <div class="thumb-headline">
                 <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="">
-                <span class="tag-cat">{{ $program->category->name }}</span>
               </div>
               <div class="wrapper-detail mt-4">
                 <ul class="nav nav-tabs" role="tablist">
@@ -91,6 +90,12 @@
             </div>
             <div class="col-md-4">
               <div class="wrapper-donatur mt-md-0 mt-4">
+                <div class="wrap-tags mb-2">
+                  @if($program->is_urgent == 1)
+                    <span class="tag-cat urgent">Darurat</span>
+                  @endif
+                  <span class="tag-cat">{{ $program->category->name }}</span>
+                </div>
                 <h5>{{ $program->title }}</h5>
                 <div class="d-flex justify-content-between my-3">  
                   <div class="d-center">
@@ -107,7 +112,7 @@
                 </div>
                 <div class="d-center mt-2 justify-content-between">
                   <div class="d-flex mr-2">
-                    <h6 class="clr-green">R{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
+                    <h6 class="clr-green">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
                     <span class="text-xs clr-grey font-semibold ml-2">{{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
                   </div>
                   <div class="text-right">
@@ -134,8 +139,8 @@
                     <label class="font-semibold" for="">Masukan Nominal Donasi</label>
                     <input type="text" class="form-control">
                   </div>
-                  <div class="form-group mb-0 d-flex justify-content-between">
-                    <label class="font-semibold" for="">Sembunyikan nama saya (Anonim)</label>
+                  <div class="form-group mb-0 d-center justify-content-between">
+                    <label class="font-semibold mb-0" for="">Sembunyikan nama saya (Anonim)</label>
                     <label class="switch">
                       <input type="checkbox">
                       <span class="slider round"></span>
@@ -149,7 +154,7 @@
             </div>
           </div>
         </section>
-        <section class="col-12 mt-5 sec-navigation">
+        <!-- <section class="col-12 mt-5 sec-navigation">
           <div class="d-center justify-content-between">
             <a class="d-center font-medium clr-black">
               <img class="mr-2" src="{{ asset('img/arrdouble-left.svg') }}" alt="">
@@ -160,14 +165,14 @@
               <img class="ml-2" src="{{ asset('img/arrdouble-right.svg') }}" alt="">
             </a>
           </div>
-        </section>
-        <section class="col-12 mt-4 sec-regist">
+        </section> -->
+        <section class="col-12 mt-5 sec-regist">
           <div class="banner-regist">
             <h4 class="banner-title mr-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
             <a href="" class="btn btn-green btn-regist">Daftar Sekarang Gratis</a>
           </div>
         </section>
-        <section class="col-12 mt-5 pt-3 sec-programlist">
+        <section class="col-12 mt-5 sec-programlist">
           <h4 class="text-center">Program Lainnya!</h4>
           <div class="row mt-4">
             @forelse($programs as $key => $program)
@@ -175,10 +180,21 @@
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
-                    <span class="tag-cat">{{ $program->category->name }}</span>
                   </div>
                   <div class="card-detail">
-                    <h6>{{ $program->title }}</h6>
+                    <div class="wrap-tags mb-2">
+                      @if($program->is_urgent == 1)
+                        <span class="tag-cat urgent">Darurat</span>
+                      @endif
+                      <span class="tag-cat">{{ $program->category->name }}</span>
+                    </div>
+                    <h6 class="card-title">
+                      @if(strlen($program->title) > 100)
+                        {!! substr($program->title, 0, 100) . '...' !!}
+                      @else
+                        {!! $program->title !!}
+                      @endif
+                    </h6>
                     <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
                     <div class="progress">
                       <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>

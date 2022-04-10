@@ -46,13 +46,21 @@
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
-                    <span class="tag-cat">{{ $program->category->name }}</span>
-                    @if($program->is_urgent == 1)
-                      <span class="tag-urgent">Darurat</span>
-                    @endif
                   </div>
                   <div class="card-detail">
-                    <h6>{{ $program->title }}</h6>
+                    <div class="wrap-tags mb-2">
+                      @if($program->is_urgent == 1)
+                        <span class="tag-cat urgent">Darurat</span>
+                      @endif
+                      <span class="tag-cat">{{ $program->category->name }}</span>
+                    </div>
+                    <h6 class="card-title"> 
+                      @if(strlen($program->title) > 100)
+                        {!! substr($program->title, 0, 100) . '...' !!}
+                      @else
+                        {!! $program->title !!}
+                      @endif
+                    </h6>
                     <p class="text-xs mb-1 font-medium">{{ $program->location }}</p>
                     <div class="progress">
                       <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -60,7 +68,7 @@
                     <div class="d-flex mt-2 justify-content-between">
                       <div class="w-left mr-2">
                         <span class="text-xs clr-grey">Terkumpul</span>
-                        <h6 class="text-sm"><h6 class="text-sm">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6></h6>
+                        <h6 class="text-sm">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
                       </div>
                       <div class="w-right text-right">
                         <span class="text-xs clr-grey">Sisa Hari</span>

@@ -12,7 +12,7 @@
           @include('layouts.sidebar-profile')
         </div>
         <div class="col-md-9">
-          <div class="box-white p-4">
+          <div class="box-white h-100 p-4">
             <h5>Edit Profil</h5>
             {!! Form::open(['route' => ['user.update'], 'method' => 'post']) !!}
               <input type="hidden" name="user_id" value="{{ $user->id }}">
