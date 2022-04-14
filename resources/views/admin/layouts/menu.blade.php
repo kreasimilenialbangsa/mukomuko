@@ -34,6 +34,16 @@
 </li>
 @endrole
 
+@role('SuperAdmin|Desa')
+<li class="nav-item dropdown {{ Request::is('admin/permohonan*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Permohonan Bantuan</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/permohonan/ambulan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.service.ambulan.index') }}">Layanan Ambulan</a></li>
+        <li class="{{ Request::is('admin/permohonan/dana*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.service.dana.index') }}">Permohonan Dana</a></li>
+    </ul>
+</li>
+@endrole
+
 @role('SuperAdmin|Kabupaten')
 <li class="nav-item dropdown {{ Request::is('admin/report*') ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Laporan</span></a>
@@ -75,6 +85,7 @@
         <li class="{{ Request::is('admin/category/news*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.news.index') }}">Kategori Berita</a></li>
         <li class="{{ Request::is('admin/category/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.program.index') }}">Kategori Program</a></li>
         <li class="{{ Request::is('admin/category/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.ziswaf.index') }}">Kategori Ziswaf</a></li>
+        <li class="{{ Request::is('admin/category/bantuan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.bantuan.index') }}">Kategori Bantuan</a></li>
     </ul>
 </li>
 

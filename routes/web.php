@@ -113,6 +113,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
             Route::get('ziswaf/{id}/list', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'show'])->name('admin.donatur.ziswaf.list');
         });
     });
+    Route::group(['middleware' => ['role:SuperAdmin|Desa']], function() {
+        Route::group(['prefix' => 'permohonan'], function () {
+            Route::resource('ambulan', App\Http\Controllers\Admin\SupportAmbulanceController::class, ["as" => 'admin.service']);
+            Route::resource('dana', App\Http\Controllers\Admin\SupportServiceController::class, ["as" => 'admin.service']);
+        });
+    });
     
     // Role SuperAdmin
     Route::group(['middleware' => ['role:SuperAdmin']], function() {
@@ -121,6 +127,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
             Route::resource('news', App\Http\Controllers\Admin\NewsCategoryController::class, ["as" => 'admin.category']);
             Route::resource('program', App\Http\Controllers\Admin\ProgramCategoryController::class, ["as" => 'admin.category']);
             Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafCategoryController::class, ["as" => 'admin.category']);
+            Route::resource('bantuan', App\Http\Controllers\Admin\SupportServiceCategoryController::class, ["as" => 'admin.category']);
         });
         
         // Location
