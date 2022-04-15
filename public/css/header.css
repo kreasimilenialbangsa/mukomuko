@@ -43,7 +43,7 @@
 .main-header .logo-header{
   object-fit: contain;
   width: 310px;
-  height: 50px;
+  height: 45px;
 }
 
 .main-header .dropdown-toggle::after {

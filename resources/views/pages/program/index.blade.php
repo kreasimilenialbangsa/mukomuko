@@ -86,7 +86,7 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                <h3 class="mt-5 font-semibold">Data Not Found</h3>
                 <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
             @endforelse

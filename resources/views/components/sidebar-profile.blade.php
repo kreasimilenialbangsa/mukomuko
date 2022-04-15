@@ -1,5 +1,5 @@
 <div>
-    <aside class="sidebar-profile box-white">
+    <aside class="sidebar-profile box-white mb-4">
         <div class="d-center">
           <span class="ava-profile mr-3">
             <ion-icon name="person-sharp"></ion-icon>
@@ -8,25 +8,25 @@
         </div>
         <ul class="no-list pt-2 nav-profile">
           <li class="mt-4">
-            <a class="profile-link d-center" href="{{ route('user.profile') }}">
+            <a class="profile-link d-center {{ Request::is('user/profile') ? 'active' : '' }}" href="{{ route('user.profile') }}">
               <img class="ic-side" src="{{ asset('img/profile-ic.svg') }}" alt="">
               Profil
             </a>
           </li>
           <li class="mt-4">
-            <a class="profile-link d-center" href="{{ route('user.history') }}">
+            <a class="profile-link d-center {{ Request::is('user/profile/history-transaction') ? 'active' : '' }}" href="{{ route('user.history') }}">
               <img class="ic-side" src="{{ asset('img/transaction-ic.svg') }}" alt="">
               Riwayat Transaksi
             </a>
           </li>
           <li class="mt-4">
-            <a class="profile-link d-center" href="{{ route('user.inbox') }}">
+            <a class="profile-link d-center {{ Request::is('user/profile/inbox') ? 'active' : '' }}" href="{{ route('user.inbox') }}">
               <img class="ic-side" src="{{ asset('img/inbox-ic.svg') }}" alt="">
               Inbox
             </a>
           </li>
           <li class="mt-4">
-            <a class="profile-link d-center" href="{{ route('user.notification') }}">
+            <a class="profile-link d-center {{ Request::is('user/profile/notification') ? 'active' : '' }}" href="{{ route('user.notification') }}">
               <img class="ic-side" src="{{ asset('img/notif-ic.svg') }}" alt="">
               Notifikasi
             </a>
