@@ -16,6 +16,9 @@ class ProgramContoller extends Controller
             ->with('category')
             ->withSum('donate', 'total_donate')
             ->whereIsActive(1)
+            ->when(isset($request->category), function($q) use($request) {
+                return $q->whereCategoryId($request->category);
+            })
             ->orderBy('is_urgent', 'desc')
             ->orderBy('id', 'desc')
             ->paginate(12);

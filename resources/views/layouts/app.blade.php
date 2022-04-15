@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Language" content="id">
@@ -18,13 +19,14 @@
   <!-- Facebook & Whatsapp -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="">
-  <meta property="og:image" content=""/>
+  <meta property="og:image" content="" />
   <meta property="og:image:width" content="300" />
   <meta property="og:image:height" content="300" />
   <meta property="og:image:alt" content="" />
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -42,6 +44,7 @@
 
   @yield('css')
 </head>
+
 <body>
   <!-- Contents -->
   <main id="main-app">
@@ -52,7 +55,8 @@
       <div class="main-content">
         @yield('content')
       </div>
-      <a href="https://wa.me/6281271116449?text=Halo%20LazizNU%20Mukomuko,%20saya%20ingin%20berdonasi" target="_blank" class="wa-sosmed">
+      <a href="https://wa.me/6281271116449?text=Halo%20LazizNU%20Mukomuko,%20saya%20ingin%20berdonasi" target="_blank"
+        class="wa-sosmed">
         <img height="55" width="55" src="{{ asset('img/wa-contact.svg') }}" alt="">
       </a>
       <!-- Main Footer -->
@@ -71,7 +75,7 @@
   <script src="{{ asset('js/fancybox.js') }}"></script>
   <script src="{{ asset('js/slick.min.js') }}"></script>
   <script>
-     Fancybox.bind('[data-fancybox="video-gallery"]', {
+    Fancybox.bind('[data-fancybox="video-gallery"]', {
       Toolbar: {
         display: [
           { id: "prev", position: "center" },
@@ -93,6 +97,63 @@
       autoplaySpeed: 2000
     });
   </script>
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    @if(Session::has('success'))
+      $(document).ready(function() {
+        Swal.fire({
+            title: 'Berhasil',
+            icon: 'success',
+            confirmButtonColor: '#45BF7C',
+            text: "{{ Session::get('success') }}"
+        });
+      });
+    @endif
+
+    @if(Session::has('error'))
+      $(document).ready(function() {
+        Swal.fire({
+            title: 'Gagal',
+            icon: 'error',
+            confirmButtonColor: '#45BF7C',
+            text: "{{ Session::get('error') }}"
+        });
+      });
+    @endif
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('.daftar').on('click', function(e) {
+        e.preventDefault();
+
+        if ($('.form-daftar')[0].checkValidity() === false) {
+            event.preventDefault()
+            event.stopPropagation()
+        } else {
+            $.ajax({
+                url: "{{ route('register-user') }}",
+                type: "post",
+                data: $('.form-daftar').serialize(),
+                success: function(res){
+                  $('#editModal').modal('toggle').then(
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: res.message,
+                        width: 300,
+                    }).then(function() {
+                        location.reload();
+                    }));
+                }
+            });
+        }
+
+        $('.form-daftar').addClass('was-validated');
+      })
+    });
+  </script>
   @yield('scripts')
 </body>
+
 </html>

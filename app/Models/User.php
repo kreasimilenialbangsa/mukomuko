@@ -24,7 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'location_id',
-        'is_active'
+        'is_active',
+        'is_member'
     ];
 
     /**
@@ -52,6 +53,11 @@ class User extends Authenticatable
 
     public function role() {
         return $this->hasOne(\App\Models\Admin\Role::class, 'id');
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(\App\Models\UserProfile::class, 'user_id', 'id');
     }
 
     public function desa()

@@ -60,7 +60,7 @@
         </form>
 
         <div class="text-center mt-5 text-small">
-        Copyright &copy; Your Company. Made with 💙 by Stisla
+        Copyright &copy; LazisNU Mukomuko. Made with 💙 by Digihave Indonesia
         {{-- <div class="mt-2">
             <a href="#">Privacy Policy</a>
             <div class="bullet"></div>
