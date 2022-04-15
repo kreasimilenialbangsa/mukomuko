@@ -5,7 +5,7 @@
     </span>
     <span class="h5 mb-0 w-75 font-medium">Amalia Fatimah Azzahra</span>
   </div>
-  <ul class="no-list pt-2 nav-profile">
+  <ul class="no-list pt-3 nav-profile">
     <li class="mt-4">
       <a class="profile-link d-center" href="/profile">
         <img class="ic-side" src="{{ asset('img/profile-ic.svg') }}" alt="">
