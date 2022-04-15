@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 mt-lg-0 mt-4">
           <div class="box-white">
             <div class="d-flex">
               <img width="26" height="26" src="{{ asset('img/rp-icon.svg') }}" alt="">
