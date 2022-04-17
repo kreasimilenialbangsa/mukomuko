@@ -48,5 +48,23 @@
             });
         });
 
+        $(document).on('click','.approve',function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: 'Approve Donasi',
+                icon: 'warning',
+                text: "Anda yakin untuk approve donasi ini?",
+                showCancelButton: true,
+                confirmButtonColor: '#45BF7C',
+                cancelButtonColor: '#B9B2B2',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Approve',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).submit();
+                }
+            });
+        });
+
     </script>
 @endpush

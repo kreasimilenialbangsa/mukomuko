@@ -33,10 +33,14 @@
     </div>
 
     <!-- Total Donate Field -->
-    <div class="form-group">
-        {!! Form::label('total_donate', 'Total Donasi:') !!}
-        {!! Form::number('total_donate', null, ['class' => 'form-control']) !!}
+    {!! Form::label('total_donate', 'Total Donasi:') !!}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Rp</span>
+        </div>
+        {!! Form::text('total_donate', null, ['class' => 'form-control currency', 'aria-describedby' => 'basic-addon1']) !!}
     </div>
+    
 </div>
 
 <div class="col-md-6">
@@ -134,7 +138,7 @@
         e.preventDefault();
         Swal.fire({
             title: 'Konfirmasi',
-            text: "Apakah Anda yakin ingin menambahkan data ini?",
+            text: "Apakah Anda yakin data sudah benar?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#45BF7C',

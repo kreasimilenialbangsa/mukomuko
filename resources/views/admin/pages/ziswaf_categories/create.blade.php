@@ -1,13 +1,20 @@
 @extends('admin.layouts.app')
 @section('title')
-    Create Ziswaf Category 
+    Tambah Kategori Ziswaf
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading m-0">New Ziswaf Category</h3>
+            <div>
+                <h1>Tambah Kategori Ziswaf</h1>
+                <div class="section-header-breadcrumb mt-2">
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('admin.category.ziswaf.index') }}">Kategori Ziswaf</a></div>
+                    <div class="breadcrumb-item">Tambah Kategori Ziswaf</div>
+                </div>
+            </div>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.category.ziswaf.index') }}" class="btn btn-primary">Back</a>
+                <a href="{{ route('admin.category.ziswaf.index') }}" class="btn btn-primary">Kembali</a>
             </div>
         </div>
         <div class="content">

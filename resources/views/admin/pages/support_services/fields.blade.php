@@ -8,7 +8,7 @@
     <!-- Category Id Field -->
     <div class="form-group">
         {!! Form::label('nik', 'NIK:') !!}
-        {!! Form::text(null, null, ['class' => 'form-control', 'readonly' => 'true']) !!}
+        {!! Form::text(null, $user->profile->nik, ['class' => 'form-control', 'readonly' => 'true']) !!}
     </div>
     
     <div class="row">
@@ -16,14 +16,14 @@
             <!-- Category Id Field -->
             <div class="form-group">
                 {!! Form::label('birth_place', 'Tempat Lahir:') !!}
-                {!! Form::text(null, null, ['class' => 'form-control', 'readonly' => 'true']) !!}
+                {!! Form::text(null, $user->profile->birth_place, ['class' => 'form-control', 'readonly' => 'true']) !!}
             </div>
         </div>
         <div class="col-md-6">
             <!-- Category Id Field -->
             <div class="form-group">
-                {!! Form::label('category_id', 'Tanggal Lahir:') !!}
-                {!! Form::date(null, null, ['class' => 'form-control', 'readonly' => 'true']) !!}
+                {!! Form::label('birth_day', 'Tanggal Lahir:') !!}
+                {!! Form::date(null, $user->profile->birth_day, ['class' => 'form-control', 'readonly' => 'true']) !!}
             </div>  
         </div>
     </div>
@@ -31,7 +31,7 @@
     <!-- Reason Field -->
     <div class="form-group">
         {!! Form::label('address', 'Alamat:') !!}
-        {!! Form::textarea(null, null, ['class' => 'form-control', 'style' => 'height:100px;', 'readonly' => 'true']) !!}
+        {!! Form::textarea(null, $user->profile->address, ['class' => 'form-control', 'style' => 'height:100px;', 'readonly' => 'true']) !!}
     </div>
 </div>
 
@@ -47,12 +47,6 @@
         {!! Form::label('reason', 'Alasan Mengajukan Permohonan Bantuan:') !!}
         {!! Form::textarea('reason', null, ['class' => 'form-control', 'style' => 'height:100px;']) !!}
     </div>
-
-    <!-- Nominal Field -->
-    <div class="form-group">
-        {!! Form::label('nominal', 'Nominal:') !!}
-        {!! Form::number('nominal', null, ['class' => 'form-control']) !!}
-    </div>
 </div>
 
 <!-- Submit Field -->
@@ -67,7 +61,7 @@
         e.preventDefault();
         Swal.fire({
             title: 'Konfirmasi',
-            text: "Apakah Anda yakin ingin menambahkan data ini?",
+            text: "Apakah Anda yakin data sudah benar?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#45BF7C',

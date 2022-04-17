@@ -34,9 +34,12 @@
                             </div>
                         
                             <!-- Target Dana Field -->
-                            <div class="form-group">
-                                {!! Form::label('target_dana', 'Target Dana:') !!}
-                                {!! Form::number('target_dana', null, ['class' => 'form-control']) !!}
+                            {!! Form::label('target_dana', 'Target Dana:') !!}
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                </div>
+                                {!! Form::text('target_dana', null, ['class' => 'form-control currency', 'aria-describedby' => 'basic-addon1']) !!}
                             </div>
                         
                             <!-- End Date Field -->

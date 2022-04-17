@@ -30,7 +30,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Failed to login'
-            ], 202);
+            ], 401);
         }
 
         // Check password
@@ -38,7 +38,7 @@ class AuthController extends Controller
             return response()->json([
                     'status' => false,
                     'message' => 'Incorrect email or password'
-            ], 202);
+            ], 401);
         }
 
         // if (!$user->email_verified_at){

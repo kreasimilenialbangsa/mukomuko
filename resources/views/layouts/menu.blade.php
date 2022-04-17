@@ -26,3 +26,11 @@
     <a class="nav-link" href="{{ route('admin.supportServiceCategories.index') }}"><i class="fas fa-building"></i><span>Support Service Categories</span></a>
 </li>
 
+<li class="side-menus {{ Request::is('admin/outcomes*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.outcomes.index') }}"><i class="fas fa-building"></i><span>Outcomes</span></a>
+</li>
+
+<li class="side-menus {{ Request::is('admin/outcomeCategories*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.outcomeCategories.index') }}"><i class="fas fa-building"></i><span>Outcome Categories</span></a>
+</li>
+

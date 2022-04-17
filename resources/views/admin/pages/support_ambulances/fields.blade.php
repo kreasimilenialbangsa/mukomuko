@@ -25,7 +25,7 @@
         e.preventDefault();
         Swal.fire({
             title: 'Konfirmasi',
-            text: "Apakah Anda yakin ingin menambahkan data ini?",
+            text: "Apakah Anda yakin data sudah benar?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#45BF7C',

@@ -18,7 +18,14 @@ class SupportServiceDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.support_services.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.pages.support_services.datatables_actions')
+            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+            ->editColumn('nominal', '{{ "Rp " . number_format($nominal,0,",",".") }}')
+            ->editColumn('is_confirm', function($q) {
+                $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
+                return $status;
+            })
+            ->rawColumns(['is_confirm', 'action']);
     }
 
     /**
@@ -29,7 +36,8 @@ class SupportServiceDataTable extends DataTable
      */
     public function query(SupportService $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->with('category');
     }
 
     /**
@@ -65,10 +73,11 @@ class SupportServiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'category_id',
-            'reason',
-            'nominal',
-            'is_confirm'
+            'created_at' => ['title' => 'Tanggal', 'className' => 'text-center'],
+            'category.name' => ['title' => 'Kategori', 'className' => 'text-center', 'data' => 'category.name', 'name' => 'category.name'],
+            'reason' => ['title' => 'Alasan', 'className' => 'text-center'],
+            'nominal' => ['className' => 'text-center'],
+            'is_confirm' => ['title' => 'Status', 'className' => 'text-center']
         ];
     }
 

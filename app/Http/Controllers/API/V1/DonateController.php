@@ -4,13 +4,15 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Donate;
+use App\Models\Admin\Program;
+use App\Models\Admin\Ziswaf;
 use Illuminate\Http\Request;
 
 class DonateController extends Controller
 {
     public function all(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereIsConfirm(1)
             ->orderBy('id', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
@@ -24,6 +26,7 @@ class DonateController extends Controller
         }
 
         foreach($donates as $donate) {
+            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
             $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
@@ -37,7 +40,7 @@ class DonateController extends Controller
 
     public function detailById(Request $request, $id)
     {
-        $donate = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donate = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereId($id)
             ->whereIsConfirm(1)
             ->first();
@@ -50,6 +53,7 @@ class DonateController extends Controller
             ], 404); 
         }
 
+        $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
         $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
         $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
 
@@ -62,7 +66,7 @@ class DonateController extends Controller
 
     public function allPrograms(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Program')
             ->whereIsConfirm(1)
             ->orderBy('id', 'desc')
@@ -77,6 +81,7 @@ class DonateController extends Controller
         }
 
         foreach($donates as $donate) {
+            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
             $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
@@ -90,7 +95,7 @@ class DonateController extends Controller
 
     public function detailByProgram(Request $request, $id)
     {
-        $donates = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Program')
             ->whereTypeId($id)
             ->whereIsConfirm(1)
@@ -105,6 +110,7 @@ class DonateController extends Controller
         }
 
         foreach($donates as $donate) {
+            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
             $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
@@ -118,7 +124,7 @@ class DonateController extends Controller
 
     public function allZiswaf(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereIsConfirm(1)
             ->orderBy('id', 'desc')
@@ -133,6 +139,7 @@ class DonateController extends Controller
         }
 
         foreach($donates as $donate) {
+            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
             $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
@@ -146,7 +153,7 @@ class DonateController extends Controller
 
     public function detailByZiswaf(Request $request, $id)
     {
-        $donates = Donate::select('id', 'type', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereTypeId($id)
             ->whereIsConfirm(1)
@@ -161,6 +168,7 @@ class DonateController extends Controller
         }
 
         foreach($donates as $donate) {
+            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
             $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }

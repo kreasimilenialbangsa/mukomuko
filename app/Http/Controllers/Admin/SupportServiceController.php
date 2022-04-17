@@ -12,6 +12,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\SupportServiceCategory;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Response;
 
 class SupportServiceController extends AppBaseController
@@ -61,13 +62,19 @@ class SupportServiceController extends AppBaseController
      */
     public function store(CreateSupportServiceRequest $request)
     {
-        $input = $request->all();
+        $input = [
+            'user_id' => Auth::user()->id,
+            'category_id' => $request->category_id,
+            'reason' => $request->reason,
+            'nominal' => 0,
+            'is_confirm' => 0,
+        ];
 
         $supportService = $this->supportServiceRepository->create($input);
 
-        Flash::success('Support Service saved successfully.');
+        Session::flash('success', 'Data berhasil ditambah');
 
-        return redirect(route('admin.supportServices.index'));
+        return redirect(route('admin.service.dana.index'));
     }
 
     /**
@@ -84,7 +91,7 @@ class SupportServiceController extends AppBaseController
         if (empty($supportService)) {
             Flash::error('Support Service not found');
 
-            return redirect(route('admin.supportServices.index'));
+            return redirect(route('admin.service.dana.index'));
         }
 
         return view('admin.pages.support_services.show')->with('supportService', $supportService);
@@ -104,12 +111,15 @@ class SupportServiceController extends AppBaseController
         if (empty($supportService)) {
             Flash::error('Support Service not found');
 
-            return redirect(route('admin.supportServices.index'));
+            return redirect(route('admin.service.dana.index'));
         }
+
+        $user = User::with('profile')->whereId(Auth::user()->id)->first();
 
         $categories = SupportServiceCategory::pluck('name', 'id');
 
         return view('admin.pages.support_services.edit')
+            ->with('user', $user)
             ->with('categories', $categories)
             ->with('supportService', $supportService);
     }
@@ -129,14 +139,22 @@ class SupportServiceController extends AppBaseController
         if (empty($supportService)) {
             Flash::error('Support Service not found');
 
-            return redirect(route('admin.supportServices.index'));
+            return redirect(route('admin.service.dana.index'));
         }
 
-        $supportService = $this->supportServiceRepository->update($request->all(), $id);
+        $input = [
+            'user_id' => Auth::user()->id,
+            'category_id' => $request->category_id,
+            'reason' => $request->reason,
+            'nominal' => 0,
+            'is_confirm' => 0,
+        ];
 
-        Flash::success('Support Service updated successfully.');
+        $supportService = $this->supportServiceRepository->update($input, $id);
 
-        return redirect(route('admin.supportServices.index'));
+        Session::flash('success', 'Data berhasil diubah');
+
+        return redirect(route('admin.service.dana.index'));
     }
 
     /**
@@ -153,13 +171,13 @@ class SupportServiceController extends AppBaseController
         if (empty($supportService)) {
             Flash::error('Support Service not found');
 
-            return redirect(route('admin.supportServices.index'));
+            return redirect(route('admin.service.dana.index'));
         }
 
         $this->supportServiceRepository->delete($id);
 
-        Flash::success('Support Service deleted successfully.');
+        Session::flash('success', 'Data berhasil dihapus');
 
-        return redirect(route('admin.supportServices.index'));
+        return redirect(route('admin.service.dana.index'));
     }
 }

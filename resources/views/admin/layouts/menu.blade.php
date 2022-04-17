@@ -24,13 +24,9 @@
 </li>
 @endrole
 
-@role('SuperAdmin|Kecamatan')
-<li class="nav-item dropdown {{ Request::is('admin/approval*') ? 'active' : '' }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Approval Donasi</span></a>
-    <ul class="dropdown-menu">
-        <li class="{{ Request::is('admin/approval/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.program.index') }}">Donasi Program</a></li>
-        <li class="{{ Request::is('admin/approval/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ziswaf.index') }}">Donasi Ziswaf</a></li>
-    </ul>
+@role('SuperAdmin|Kabupaten')
+<li class="side-menus {{ Request::is('admin/outcomes*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.outcomes.index') }}"><i class="fas fa-building"></i><span>Pengularan</span></a>
 </li>
 @endrole
 
@@ -40,6 +36,18 @@
     <ul class="dropdown-menu">
         <li class="{{ Request::is('admin/permohonan/ambulan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.service.ambulan.index') }}">Layanan Ambulan</a></li>
         <li class="{{ Request::is('admin/permohonan/dana*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.service.dana.index') }}">Permohonan Dana</a></li>
+    </ul>
+</li>
+@endrole
+
+@role('SuperAdmin|Kecamatan')
+<li class="nav-item dropdown {{ Request::is('admin/approval*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Approval</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/approval/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.program.index') }}">Donasi Program</a></li>
+        <li class="{{ Request::is('admin/approval/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ziswaf.index') }}">Donasi Ziswaf</a></li>
+        <li class="{{ Request::is('admin/approval/ambulan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ambulan.index') }}">Pengajuan Ambulan</a></li>
+        <li class="{{ Request::is('admin/approval/dana*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.dana.index') }}">Pengajuan Dana</a></li>
     </ul>
 </li>
 @endrole
@@ -86,6 +94,7 @@
         <li class="{{ Request::is('admin/category/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.program.index') }}">Kategori Program</a></li>
         <li class="{{ Request::is('admin/category/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.ziswaf.index') }}">Kategori Ziswaf</a></li>
         <li class="{{ Request::is('admin/category/bantuan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.bantuan.index') }}">Kategori Bantuan</a></li>
+        <li class="{{ Request::is('admin/category/outcome*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.category.outcome.index') }}">Kategori Pengeluaran</a></li>
     </ul>
 </li>
 

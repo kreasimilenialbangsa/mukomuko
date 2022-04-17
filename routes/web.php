@@ -79,6 +79,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
             Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);
         });
 
+        // Outcome
+        Route::resource('outcomes', App\Http\Controllers\Admin\OutcomeController::class, ["as" => 'admin']);
+
         // Content
         Route::resource('banners', App\Http\Controllers\Admin\BannerController::class, ["as" => 'admin']);
         Route::resource('news', App\Http\Controllers\Admin\NewsController::class, ["as" => 'admin']);
@@ -94,6 +97,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
             Route::get('program', [App\Http\Controllers\Admin\ApprovalController::class, 'program_index'])->name('admin.approval.program.index');
             Route::get('ziswaf', [App\Http\Controllers\Admin\ApprovalController::class, 'ziswaf_index'])->name('admin.approval.ziswaf.index');
             Route::patch('update/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve'])->name('admin.approval.update');
+            Route::get('ambulan', [App\Http\Controllers\Admin\ApprovalController::class, 'ambulan_index'])->name('admin.approval.ambulan.index');
+            Route::patch('ambulan/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve_ambulan'])->name('admin.approval.ambulan.update');
+            Route::get('dana', [App\Http\Controllers\Admin\ApprovalController::class, 'dana_index'])->name('admin.approval.dana.index');
+            Route::get('dana/{id}/edit', [App\Http\Controllers\Admin\ApprovalController::class, 'dana_edit'])->name('admin.approval.dana.edit');
+            Route::patch('dana/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve_dana'])->name('admin.approval.dana.update');
         });
     });
 
@@ -128,6 +136,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
             Route::resource('program', App\Http\Controllers\Admin\ProgramCategoryController::class, ["as" => 'admin.category']);
             Route::resource('ziswaf', App\Http\Controllers\Admin\ZiswafCategoryController::class, ["as" => 'admin.category']);
             Route::resource('bantuan', App\Http\Controllers\Admin\SupportServiceCategoryController::class, ["as" => 'admin.category']);
+            Route::resource('outcome', App\Http\Controllers\Admin\OutcomeCategoryController::class, ["as" => 'admin.category']);
         });
         
         // Location

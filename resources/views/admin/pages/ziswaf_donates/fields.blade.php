@@ -33,9 +33,12 @@
     </div>
 
     <!-- Total Donate Field -->
-    <div class="form-group">
-        {!! Form::label('total_donate', 'Total Donasi:') !!}
-        {!! Form::number('total_donate', null, ['class' => 'form-control']) !!}
+    {!! Form::label('total_donate', 'Total Donasi:') !!}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Rp</span>
+        </div>
+        {!! Form::text('total_donate', null, ['class' => 'form-control currency', 'aria-describedby' => 'basic-addon1']) !!}
     </div>
 </div>
 

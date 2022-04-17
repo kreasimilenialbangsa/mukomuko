@@ -41,8 +41,8 @@ class SupportAmbulance extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
-        'user_id' => 'string',
         'book_date' => 'string',
+        'reason' => 'string',
         'is_confirm' => 'integer'
     ];
 
@@ -56,5 +56,9 @@ class SupportAmbulance extends Model
         'reason' => 'required'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
     
 }

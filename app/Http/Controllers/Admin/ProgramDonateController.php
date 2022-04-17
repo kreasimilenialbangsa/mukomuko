@@ -99,7 +99,7 @@ class ProgramDonateController extends AppBaseController
             'email' => $request->email,
             'phone' => $request->phone,
             'message' => $request->message,
-            'total_donate' => $request->total_donate,
+            'total_donate' => str_replace('.', '', $request->total_donate),
             'is_anonim' => isset($request->is_anonim) ? $request->is_anonim : 0,
             'is_confirm' => 0
         ];

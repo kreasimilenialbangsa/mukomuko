@@ -65,11 +65,17 @@
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <script src="{{ asset('vendor/jquery-maskmoney/jquery-maskmoney.js') }}"></script>
+
   <script>
     $(document).ready(function() {
       $('.select2').select2({
-          theme: 'bootstrap4',
+          theme: 'bootstrap4'
       });
+
+      $(".currency").maskMoney({ 
+        autoLoad:true, thousands:'.', decimal:',', affixesStay: false, precision: 0
+      }).maskMoney('mask');
 
       $('.dropify').dropify({
           messages: {
@@ -127,23 +133,16 @@
       });
     @endif
 
-    $(document).on('click','.approve',function(e){
-        e.preventDefault();
+    @if(Session::has('error'))
+      $(document).ready(function() {
         Swal.fire({
-            title: 'Approve Donasi',
-            icon: 'warning',
-            text: "Anda yakin untuk approve donasi ini?",
-            showCancelButton: true,
+            title: 'Gagal',
+            icon: 'error',
             confirmButtonColor: '#45BF7C',
-            cancelButtonColor: '#B9B2B2',
-            cancelButtonText: 'Batal',
-            confirmButtonText: 'Approve',
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $(this).submit();
-            }
+            text: "{{ Session::get('error') }}"
         });
-    });
+      });
+    @endif
 
     $(document).on('click','.delete',function(e){
         e.preventDefault();

@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\UpdateSupportAmbulanceRequest;
 use App\Repositories\Admin\SupportAmbulanceRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\SupportAmbulance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Response;
@@ -61,9 +62,21 @@ class SupportAmbulanceController extends AppBaseController
             'is_confirm' => 0,
         ];
 
-        $supportAmbulance = $this->supportAmbulanceRepository->create($input);
+        $startDate = date('Y').'-01-01';
+        $endDate = date('Y').'-12-01';
 
-        Session::flash('success', 'Data berhasil ditambah');
+        $checkQuota = SupportAmbulance::select('user_id')
+            ->whereUserId(Auth::user()->id)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->whereIsConfirm(1)
+            ->count();
+        
+        if($checkQuota > 3) {
+            Session::flash('error', 'Pengajuan ambulan melebih kuota');
+        } else {
+            Session::flash('success', 'Data berhasil ditambah');
+            $supportAmbulance = $this->supportAmbulanceRepository->create($input);
+        }
 
         return redirect(route('admin.service.ambulan.index'));
     }

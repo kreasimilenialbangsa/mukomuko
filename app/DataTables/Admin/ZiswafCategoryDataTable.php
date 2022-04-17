@@ -42,9 +42,9 @@ class ZiswafCategoryDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title' => 'Aksi',])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                // 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -64,7 +64,7 @@ class ZiswafCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name' => ['className' => 'text-center'],
+            'name' => ['title' => 'Nama', 'className' => 'text-center'],
             'slug' => ['className' => 'text-center']
         ];
     }

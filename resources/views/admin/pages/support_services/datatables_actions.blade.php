@@ -1,15 +1,19 @@
-{!! Form::open(['route' => ['admin.supportServices.destroy', $id], 'method' => 'delete']) !!}
-<div class='btn-group'>
-    <a href="{{ route('admin.supportServices.show', $id) }}" class='btn btn-default btn-xs'>
-        <i class="glyphicon glyphicon-eye-open"></i>
+<div class='text-center d-flex justify-content-center'>
+    {{-- <a href="{{ route('admin.service.dana.show', $id) }}" class='btn btn-primary btn-xs'>
+        <i class="fa fa-eye"></i>
+    </a> --}}
+    
+    @if($is_confirm == 0)
+    <a href="{{ route('admin.service.dana.edit', $id) }}" class='btn btn-warning btn-xs mr-2'>
+        <i class="fa fa-edit"></i>
     </a>
-    <a href="{{ route('admin.supportServices.edit', $id) }}" class='btn btn-default btn-xs'>
-        <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', [
+    @endif
+
+    {!! Form::open(['route' => ['admin.service.dana.destroy', $id], 'method' => 'delete', 'class' => 'delete']) !!}
+    {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
-        'class' => 'btn btn-danger btn-xs',
-        'onclick' => "return confirm('Are you sure?')"
+        'class' => 'btn btn-danger btn-xs'
     ]) !!}
+    {!! Form::close() !!}
 </div>
-{!! Form::close() !!}
+

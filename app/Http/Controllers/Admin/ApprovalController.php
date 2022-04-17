@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin;
-use App\Http\Requests\Admin\CreateDonateRequest;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Donate;
-use App\Models\Admin\Program;
+use App\Models\Admin\SupportAmbulance;
+use App\Models\Admin\SupportService;
+use App\Models\Admin\SupportServiceCategory;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,6 +79,68 @@ class ApprovalController extends AppBaseController
         
         return view('admin.pages.approvals.ziswaf.index');
     }
+
+    /**
+     * Display a listing of the Donate.
+     *
+     *
+     * @return Response
+     */
+    public function ambulan_index(Request $request)
+    {
+        if($request->ajax()) {
+            $services = SupportAmbulance::select('id', 'user_id', 'book_date', 'reason', 'is_confirm', 'created_at')
+                ->with('user')
+                ->whereIsConfirm(0)
+                ->get();
+
+            return DataTables::of($services)
+                ->addColumn('action', 'admin.pages.approvals.ambulan.datatables_actions')
+                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('book_date', '{{ date("d/M/Y", strtotime($book_date)) }}')
+                ->make(true);
+        }
+        
+        return view('admin.pages.approvals.ambulan.index');
+    }
+
+    /**
+     * Display a listing of the Donate.
+     *
+     *
+     * @return Response
+     */
+    public function dana_index(Request $request)
+    {
+        if($request->ajax()) {
+            $services = SupportService::select('id', 'user_id', 'category_id', 'reason', 'is_confirm', 'created_at')
+                ->with(['user', 'category'])
+                ->whereIsConfirm(0)
+                ->get();
+
+            return DataTables::of($services)
+                ->addColumn('action', 'admin.pages.approvals.dana.datatables_actions')
+                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->make(true);
+        }
+        
+        return view('admin.pages.approvals.dana.index');
+    }
+
+    public function dana_edit(Request $request, $id)
+    {
+        $supportService = SupportService::select('id', 'user_id', 'category_id', 'reason', 'nominal', 'is_confirm', 'created_at')
+            ->with(['user', 'category'])
+            ->whereId($id)
+            ->whereIsConfirm(0)
+            ->firstOrFail();
+
+        $user = User::with('profile')->find($supportService->user_id);
+        
+        return view('admin.pages.approvals.dana.edit')
+            ->with('user', $user)
+            ->with('supportService', $supportService);
+    }
     
     /**
      * Update the specified Donate in storage.
@@ -110,6 +173,63 @@ class ApprovalController extends AppBaseController
         } else {
             return redirect(route('admin.approval.ziswaf.index'));
         }
+
+    }
+
+    public function approve_ambulan($id)
+    {
+        $service = SupportAmbulance::find($id);
+
+        if (empty($service)) {
+            Flash::error('Service not found');
+
+            return redirect(route('admin.approval.ambulan.index'));
+        }
+
+        $input = [
+            'is_confirm' => 1
+        ];
+
+        $startDate = date('Y').'-01-01';
+        $endDate = date('Y').'-12-01';
+
+        $checkQuota = SupportAmbulance::select('user_id')
+            ->whereUserId($service->user_id)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->whereIsConfirm(1)
+            ->count();
+
+        if($checkQuota > 3) {
+            Session::flash('error', 'Pengajuan ambulan melebih kuota');
+        } else {
+            Session::flash('success', 'Pengajuan berhasil diapprove');
+            $service = SupportAmbulance::whereId($id)->update($input);
+        }
+
+        return redirect(route('admin.approval.ambulan.index'));
+
+    }
+
+    public function approve_dana(Request $request, $id)
+    {
+        $service = SupportService::find($id);
+
+        if (empty($service)) {
+            Flash::error('Service not found');
+
+            return redirect(route('admin.approval.dana.index'));
+        }
+
+        $input = [
+            'nominal' => str_replace('.', '', $request->nominal),
+            'is_confirm' => 1
+        ];
+
+        $service = SupportService::whereId($id)->update($input);
+
+        Session::flash('success', 'Pengajuan berhasil diapprove');
+
+            return redirect(route('admin.approval.dana.index'));
 
     }
 }
