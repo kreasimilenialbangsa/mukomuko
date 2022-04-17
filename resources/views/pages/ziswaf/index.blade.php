@@ -50,7 +50,7 @@
                     <h5 class="mt-3">Prof. Dr. Quraish Shihab</h5>
                   </div>
                 </div>
-                <h4>Ayo hitung zakat kamu!</h4>
+                <h4 class="mb-3">Ayo hitung zakat kamu!</h4>
                 <div class="cat-select mb-3">
                   <select class="form-control">
                     <option>Zakat Maal</option>
@@ -61,7 +61,16 @@
                   Coba masukkan jumlah hartamu dan kalkulator kami akan menghitung jumlah zakatnya.
                 </p>
                 <div class="form-group">
-                  <label class="font-semibold text-sm" for="total">Kekayaan 1 Tahun</label>
+                  <div class="d-center mb-2 justify-content-between">
+                    <label class="mb-0" for="total">Kekayaan 1 Tahun</label>
+                    <div class="d-center">
+                      <span class="mr-2">Isi sendiri Zakat Maal</span>
+                      <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
                   <input type="number" value="60.000" class="form-control total-input" name="total">
                 </div>
                 <h6 class="text-sm clr-grey">Zakat Maal Kamu</h6>
@@ -93,7 +102,7 @@
                   Silakan isi jumlah infakmu. Insya Allah berkah.
                 </p>
                 <div class="form-group mb-4">
-                  <label class="font-semibold text-sm" for="total">Nominal Infak</label>
+                  <label class="text-sm" for="total">Nominal Infak</label>
                   <input type="number" value="60.000" class="form-control total-input" name="total">
                 </div>
                 <div class="text-right">
@@ -124,7 +133,7 @@
                   Mari wakaf tunai bersama kami!
                 </p>
                 <div class="form-group mb-4">
-                  <label class="font-semibold text-sm" for="total">Nominal Wakaf</label>
+                  <label class="text-sm" for="total">Nominal Wakaf</label>
                   <input type="number" value="60.000" class="form-control total-input" name="total">
                 </div>
                 <div class="text-right">

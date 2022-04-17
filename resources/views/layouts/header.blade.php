@@ -82,7 +82,7 @@
         <a class="nav-link nav-user dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
           {{ Auth::user()->name[0] }}
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <x-header.profile/>
         </div>
       </div>

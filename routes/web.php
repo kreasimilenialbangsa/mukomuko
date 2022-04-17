@@ -44,9 +44,6 @@ Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'i
 Route::get('/tentang/{slug}', [\App\Http\Controllers\AboutContoller::class, 'index'])->name('about.index');
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
-    // Payment
-    Route::get('/payment/detail', [\App\Http\Controllers\PaymentController::class, 'detail'])->name('payment.detail');
-
     // Profile
     Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('user.profile');
     Route::post('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('user.update');
@@ -54,6 +51,10 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     Route::get('/profile/inbox', [\App\Http\Controllers\ProfileController::class, 'inbox'])->name('user.inbox');
     Route::get('/profile/notification', [\App\Http\Controllers\ProfileController::class, 'notification'])->name('user.notification');
 });
+
+// Payment
+Route::get('/payment', [\App\Http\Controllers\PaymentController::class, 'index'])->name('payment.index');
+Route::get('/payment/detail', [\App\Http\Controllers\PaymentController::class, 'detail'])->name('payment.detail');
 
 // Galery
 Route::get('/galeri', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');

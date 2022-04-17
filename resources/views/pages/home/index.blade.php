@@ -97,7 +97,7 @@
                   Coba masukkan jumlah hartamu dan kalkulator kami akan menghitung jumlah zakatnya.
                 </p>
                 <div class="form-group">
-                  <label class="font-semibold text-sm" for="total">Kekayaan 1 Tahun</label>
+                  <label class="text-sm" for="total">Kekayaan 1 Tahun</label>
                   <input type="number" value="60.000" class="form-control total-input" name="total">
                 </div>
                 <h6 class="text-sm clr-grey">Zakat Maal Kamu</h6>
@@ -118,7 +118,7 @@
                   Silakan isi jumlah infakmu. Insya Allah berkah.
                 </p>
                 <div class="form-group mb-4">
-                  <label class="font-semibold text-sm" for="total">Nominal Infak</label>
+                  <label class="text-sm" for="total">Nominal Infak</label>
                   <input type="number" value="60.000" class="form-control total-input" name="total">
                 </div>
                 <div class="text-right">
@@ -137,7 +137,7 @@
                   Mari wakaf tunai bersama kami!
                 </p>
                 <div class="form-group mb-4">
-                  <label class="font-semibold text-sm" for="total">Nominal Wakaf</label>
+                  <label class="text-sm" for="total">Nominal Wakaf</label>
                   <input type="number" value="60.000" class="form-control total-input" name="total">
                 </div>
                 <div class="text-right">
@@ -161,7 +161,7 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                <h3 class="mt-5 font-semibold">Data Not Found</h3>
                 <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
             @endforelse
@@ -263,7 +263,7 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h3 class="mt-5 pt-4 font-semibold">Data Not Found</h3>
+                <h3 class="mt-5 font-semibold">Data Not Found</h3>
                 <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
             @endforelse

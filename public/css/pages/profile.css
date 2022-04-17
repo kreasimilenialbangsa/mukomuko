@@ -31,11 +31,9 @@
   transition: .3s linear all;
 }
 
-.sidebar-profile .profile-link:hover{
+.sidebar-profile .profile-link:hover,
+.sidebar-profile .profile-link.active{
   color: #45BF7C;
-}
-
-.sidebar-profile .profile-link:hover .ic-side{
   filter: brightness(0) saturate(100%) invert(76%) sepia(17%) saturate(1456%) hue-rotate(92deg) brightness(85%) contrast(80%);
 }
 
