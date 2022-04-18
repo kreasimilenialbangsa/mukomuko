@@ -13,6 +13,9 @@ class DonateController extends Controller
     public function all(Request $request)
     {
         $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+            ->when(isset($request->user_id), function($q) use($request){
+                return $q->whereUserId($request->user_id);
+            })
             ->whereIsConfirm(1)
             ->orderBy('id', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);

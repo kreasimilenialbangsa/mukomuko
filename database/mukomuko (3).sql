@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 10 Apr 2022 pada 08.09
+-- Waktu pembuatan: 17 Apr 2022 pada 06.49
 -- Versi server: 5.7.33
 -- Versi PHP: 8.0.6
 
@@ -103,9 +103,9 @@ CREATE TABLE `donates` (
 --
 
 INSERT INTO `donates` (`id`, `user_id`, `type`, `type_id`, `location_id`, `name`, `email`, `phone`, `message`, `total_donate`, `is_anonim`, `is_confirm`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, '\\App\\Models\\Admin\\Ziswaf', 1, 2, 'Budi Anto', 'budiianto24@gmail.com', '081380713910', 'Test', 100000, 1, 1, '2022-03-26 13:27:29', '2022-03-26 13:29:03', NULL),
-(2, 1, '\\App\\Models\\Admin\\Ziswaf', 1, 2, 'John Doe', 'budiianto24@gmail.com', '081380713910', 'Qwerty', 200000, 0, 1, '2022-03-26 13:28:08', '2022-03-26 13:35:47', NULL),
-(3, 1, '\\App\\Models\\Admin\\Program', 1, 2, 'Oman', 'budiianto24@gmail.com', '081380713910', 'Test', 500000, 0, 1, '2022-03-26 13:38:38', '2022-03-26 13:38:38', NULL);
+(1, 1, '\\App\\Models\\Admin\\Ziswaf', 1, 2, 'Budi Anto', 'budiianto24@gmail.com', '081380713910', 'Test', 100000, 1, 1, '2022-03-26 13:27:29', '2022-04-17 06:31:02', NULL),
+(2, 1, '\\App\\Models\\Admin\\Ziswaf', 1, 2, 'John Doe', 'budiianto24@gmail.com', '081380713910', 'Qwerty', 200000, 0, 0, '2022-03-26 13:28:08', '2022-03-26 13:35:47', NULL),
+(3, 1, '\\App\\Models\\Admin\\Program', 1, 2, 'Oman', 'budiianto24@gmail.com', '081380713910', 'Test', 500000, 0, 0, '2022-03-26 13:38:38', '2022-03-26 13:38:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -246,7 +246,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2022_02_18_210155_add_location_to_users_table', 6),
 (22, '2022_02_24_113633_create_incomes_table', 7),
 (23, '2022_04_09_131401_add_is_member_to_users_table', 8),
-(24, '2022_04_09_153017_create_user_profile_table', 9);
+(24, '2022_04_09_153017_create_user_profile_table', 9),
+(25, '2022_04_09_153017_create_user_profiles_table', 10),
+(26, '2022_04_12_121646_create_support_services_table', 10),
+(27, '2022_04_12_122101_create_support_ambulances_table', 10),
+(28, '2022_04_12_122337_create_support_service_categories_table', 10),
+(29, '2022_04_14_130909_create_outcomes_table', 11),
+(30, '2022_04_14_131350_create_outcome_categories_table', 12);
 
 -- --------------------------------------------------------
 
@@ -366,6 +372,56 @@ INSERT INTO `news_images` (`id`, `file`, `news_id`, `created_at`, `updated_at`) 
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `outcomes`
+--
+
+CREATE TABLE `outcomes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `desa_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `nominal` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `outcomes`
+--
+
+INSERT INTO `outcomes` (`id`, `user_id`, `desa_id`, `category_id`, `description`, `nominal`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 4, 2, 'Test', 100000, '2022-04-15 09:04:47', '2022-04-17 06:28:58', NULL),
+(2, 1, 2, 2, NULL, 0, '2022-04-17 06:28:10', '2022-04-17 06:28:22', '2022-04-17 06:28:22');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `outcome_categories`
+--
+
+CREATE TABLE `outcome_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `outcome_categories`
+--
+
+INSERT INTO `outcome_categories` (`id`, `user_id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'Pendidikan 1', 'pendidikan-1', '2022-04-15 08:35:04', '2022-04-15 08:39:52', '2022-04-15 08:39:52'),
+(2, 1, 'Pendidikan', 'pendidikan', '2022-04-15 08:35:15', '2022-04-15 08:35:15', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `password_resets`
 --
 
@@ -450,7 +506,7 @@ CREATE TABLE `programs` (
 --
 
 INSERT INTO `programs` (`id`, `user_id`, `title`, `slug`, `location`, `target_dana`, `end_date`, `category_id`, `description`, `image`, `is_urgent`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Test', 'test', 'Rumah Uya', 10000000, '2022-03-07', 1, '<p>Test</p>', '/program/test_6208aa0664f57.jpeg', 0, 1, '2022-02-12 23:49:42', '2022-03-29 15:39:18', NULL),
+(1, 1, 'Test', 'test', 'Rumah Uya', 1000000, '2022-03-07', 1, '<p>Test</p>', '/program/test_6208aa0664f57.jpeg', 0, 1, '2022-02-12 23:49:42', '2022-04-17 06:24:33', NULL),
 (2, 1, 'Lorem ipsum dolor', 'lorem-ipsum-dolor', '1', 10000000, '2022-03-30', 1, '<p>Test</p>', '/program/lorem-ipsum-dolor_620a4263eafcd.jpg', 1, 1, '2022-02-14 04:52:03', '2022-03-29 15:39:34', NULL),
 (3, 1, 'Lorem ipsum dolor2', 'lorem-ipsum-dolor2', '1', 10000000, '2022-03-20', 1, '<p>Test</p>', '/program/lorem-ipsum-dolor_620a4263eafcd.jpg', 0, 1, '2022-02-13 04:52:03', '2022-02-16 09:42:27', NULL);
 
@@ -475,7 +531,7 @@ CREATE TABLE `program_categories` (
 --
 
 INSERT INTO `program_categories` (`id`, `user_id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Kemanusiaan', 'kemanusiaan', '2022-02-12 23:49:06', '2022-02-12 23:49:06', NULL);
+(1, 1, 'Kemanusiaan', 'kemanusiaan', '2022-02-12 23:49:06', '2022-04-15 08:45:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -498,9 +554,9 @@ CREATE TABLE `program_news` (
 --
 
 INSERT INTO `program_news` (`id`, `user_id`, `program_id`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, '<p>Test1</p>', '2022-02-13 00:29:13', '2022-03-19 09:09:15', NULL),
+(1, 1, 1, '<p>Test1</p>', '2022-02-13 00:29:13', '2022-04-17 06:24:33', NULL),
 (4, 1, 1, '<p>Test2</p>', '2022-02-13 00:53:07', '2022-02-13 00:53:51', '2022-02-13 00:53:51'),
-(5, 1, 1, '<p>Test3</p>', '2022-02-13 00:53:51', '2022-03-19 09:09:15', NULL),
+(5, 1, 1, '<p>Test3</p>', '2022-02-13 00:53:51', '2022-04-17 06:24:33', NULL),
 (6, 1, 2, '<p>Hello World</p>', '2022-02-22 07:18:34', '2022-03-29 15:39:34', NULL),
 (7, 1, 2, '<p>Hello World</p>', '2022-02-22 07:18:34', '2022-02-22 07:19:05', '2022-02-22 07:19:05'),
 (8, 1, 2, '<p>Qwerty</p>', '2022-02-22 07:19:05', '2022-03-29 15:39:34', NULL),
@@ -584,6 +640,78 @@ CREATE TABLE `settings` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `support_ambulances`
+--
+
+CREATE TABLE `support_ambulances` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `book_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_confirm` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `support_ambulances`
+--
+
+INSERT INTO `support_ambulances` (`id`, `user_id`, `book_date`, `reason`, `is_confirm`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '2022-04-14', 'Test', 1, '2022-04-12 06:41:31', '2022-04-17 06:48:02', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `support_services`
+--
+
+CREATE TABLE `support_services` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nominal` int(11) DEFAULT NULL,
+  `is_confirm` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `support_services`
+--
+
+INSERT INTO `support_services` (`id`, `user_id`, `category_id`, `reason`, `nominal`, `is_confirm`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 1, 'Test', 1000000, 1, '2022-04-15 09:29:44', '2022-04-17 06:30:44', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `support_service_categories`
+--
+
+CREATE TABLE `support_service_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `support_service_categories`
+--
+
+INSERT INTO `support_service_categories` (`id`, `user_id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'Bantuan kesehatan', 'bantuan-kesehatan', '2022-04-12 18:12:39', '2022-04-12 18:17:44', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `users`
 --
 
@@ -625,9 +753,11 @@ INSERT INTO `users` (`id`, `location_id`, `name`, `email`, `email_verified_at`, 
 CREATE TABLE `user_profiles` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
+  `nik` int(11) DEFAULT NULL,
   `image` text COLLATE utf8mb4_unicode_ci,
   `telp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `birth_day` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birth_place` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci,
   `bio` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -638,12 +768,8 @@ CREATE TABLE `user_profiles` (
 -- Dumping data untuk tabel `user_profiles`
 --
 
-INSERT INTO `user_profiles` (`id`, `user_id`, `image`, `telp`, `birth_day`, `address`, `bio`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, '0812345678', '1998-05-24', 'Jalan lah', 'qwerty', '2022-04-09 08:41:04', '2022-04-10 06:04:38'),
-(2, 5, NULL, '081380713910', NULL, NULL, NULL, '2022-04-10 06:43:22', '2022-04-10 06:43:22'),
-(3, 6, NULL, '08123456789', '2022-04-10', 'Jalan jalan', 'Qwerty', '2022-04-10 07:05:10', '2022-04-10 07:58:10'),
-(4, 7, NULL, '081380713910', NULL, NULL, NULL, '2022-04-10 07:08:47', '2022-04-10 07:08:47'),
-(6, 8, NULL, '08123456789', NULL, NULL, NULL, '2022-04-10 08:05:31', '2022-04-10 08:05:31');
+INSERT INTO `user_profiles` (`id`, `user_id`, `nik`, `image`, `telp`, `birth_day`, `birth_place`, `address`, `bio`, `created_at`, `updated_at`) VALUES
+(1, 1, 1234567890, NULL, '081234567890', '1998-05-24', 'Jakarta', 'Jakarta Selatan', NULL, '2022-04-15 09:22:03', '2022-04-15 09:22:03');
 
 -- --------------------------------------------------------
 
@@ -693,7 +819,7 @@ CREATE TABLE `ziswaf_categories` (
 --
 
 INSERT INTO `ziswaf_categories` (`id`, `user_id`, `name`, `slug`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Zakat', 'zakat', 1, '2022-02-15 22:14:18', '2022-02-15 22:14:18', NULL),
+(1, 1, 'Zakat', 'zakat', 1, '2022-02-15 22:14:18', '2022-04-15 08:49:31', NULL),
 (2, 1, 'Infaq', 'infaq', 1, '2022-02-16 06:38:56', '2022-02-16 06:38:56', NULL),
 (3, 1, 'Wakaf', 'wakaf', 1, '2022-02-16 06:39:05', '2022-02-16 06:39:05', NULL),
 (4, 1, 'Shadaqah', 'shadaqah', 1, '2022-02-16 06:39:13', '2022-02-16 06:39:13', NULL);
@@ -784,6 +910,18 @@ ALTER TABLE `news_images`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `outcomes`
+--
+ALTER TABLE `outcomes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `outcome_categories`
+--
+ALTER TABLE `outcome_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -846,6 +984,24 @@ ALTER TABLE `services`
 -- Indeks untuk tabel `settings`
 --
 ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `support_ambulances`
+--
+ALTER TABLE `support_ambulances`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `support_services`
+--
+ALTER TABLE `support_services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `support_service_categories`
+--
+ALTER TABLE `support_service_categories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -923,7 +1079,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `news`
@@ -942,6 +1098,18 @@ ALTER TABLE `news_categories`
 --
 ALTER TABLE `news_images`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `outcomes`
+--
+ALTER TABLE `outcomes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `outcome_categories`
+--
+ALTER TABLE `outcome_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `permissions`
@@ -992,6 +1160,24 @@ ALTER TABLE `settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `support_ambulances`
+--
+ALTER TABLE `support_ambulances`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `support_services`
+--
+ALTER TABLE `support_services`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `support_service_categories`
+--
+ALTER TABLE `support_service_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -1001,7 +1187,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `user_profiles`
 --
 ALTER TABLE `user_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `ziswafs`
