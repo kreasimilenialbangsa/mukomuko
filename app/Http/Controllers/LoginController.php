@@ -54,6 +54,11 @@ class LoginController extends Controller
 
         $user = User::whereEmail(str_replace(' ', '', $input['email']))->first();
 
+        if($user->is_active == 0) {
+            Session::flash('error', 'Akun Anda dinon-aktifkan');
+            return redirect()->route('home');
+        }
+
         $checkRole = RoleUser::whereModelId($user->id)->first();
 
         if($checkRole->role_id < 4) {

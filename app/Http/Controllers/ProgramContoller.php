@@ -70,7 +70,7 @@ class ProgramContoller extends Controller
             ->withSum('donate', 'total_donate')
             ->where('id', '<>', $program->id)
             ->whereIsActive(1)
-            ->limit(5)
+            ->limit(8)
             ->get();
 
         return view('pages.program.detail-program')

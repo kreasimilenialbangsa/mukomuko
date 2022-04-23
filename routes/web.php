@@ -43,6 +43,10 @@ Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'i
 // About
 Route::get('/tentang/{slug}', [\App\Http\Controllers\AboutContoller::class, 'index'])->name('about.index');
 
+// Member info
+Route::get('/anggota/{id}', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+
+
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     // Profile
     Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('user.profile');
@@ -66,9 +70,13 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth']], func
 });
 
 /** Admin Area Start*/
-Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], function () {
     // Dashboard
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Profile
+    Route::get('profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin.profile');
+    Route::post('profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('admin.profile.update');
     
     // Role Kabupaten
     Route::group(['middleware' => ['role:SuperAdmin|Kabupaten']], function() {
@@ -79,16 +87,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
             Route::get('laporan-keuangan', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.report.keuangan.index');
             Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);
         });
-
+        
         // Outcome
         Route::resource('outcomes', App\Http\Controllers\Admin\OutcomeController::class, ["as" => 'admin']);
-
+        
         // Content
         Route::resource('banners', App\Http\Controllers\Admin\BannerController::class, ["as" => 'admin']);
         Route::resource('news', App\Http\Controllers\Admin\NewsController::class, ["as" => 'admin']);
         Route::resource('abouts', App\Http\Controllers\Admin\AboutController::class, ["as" => 'admin']);
         Route::resource('galleries', App\Http\Controllers\Admin\GalleryController::class, ["as" => 'admin']);
         Route::resource('services', App\Http\Controllers\Admin\ServiceController::class, ["as" => 'admin']);
+        Route::get('informations', [App\Http\Controllers\Admin\InformationController::class, 'index'])->name('admin.informations.index');
+        Route::post('informations', [App\Http\Controllers\Admin\InformationController::class, 'store'])->name('admin.informations.store');
     });
 
     // Role Kecamatan
@@ -147,7 +157,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member']], function () {
         });    
 
         // User
-        Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin']);
+        Route::group(['prefix' => 'account'], function () {
+            Route::resource('members', App\Http\Controllers\UserController::class, ["as" => 'admin.account']);
+            Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin.account']);
+        });
 
         // Toggle Update
         Route::post('program/toggle/active', [App\Http\Controllers\Admin\ProgramController::class, 'toggleActive'])->name('admin.program.toggle_active');

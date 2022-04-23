@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin\Banner;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Gallery;
+use App\Models\Admin\Information;
 use App\Models\Admin\News;
 use App\Models\Admin\Program;
 use Carbon\Carbon;
@@ -19,22 +20,27 @@ class HomeController extends Controller
             ->orderBy('id', 'asc')
             ->get();
         
-        $total = [
-            'penerima_manfaat' => 0,
-            'penghimpunan' => Donate::whereIsConfirm(1)->sum('total_donate'),
-            'penyaluran' => 0,
-            'donatur' => Donate::whereIsConfirm(1)->count()
-        ];
+        $total = Information::latest('id')->first();
+        $total->donatur = Donate::whereIsConfirm(1)->count();
+
+        // $total = [
+        //     'penerima_manfaat' => 0,
+        //     'penghimpunan' => Donate::whereIsConfirm(1)->sum('total_donate'),
+        //     'penyaluran' => 0,
+        //     'donatur' => Donate::whereIsConfirm(1)->count()
+        // ];
 
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
             ->whereIsConfirm(1)
+            ->limit(12) 
             ->get();
 
-        $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at')
+        $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at', 'is_urgent')
             ->with('category')
             ->withSum('donate', 'total_donate')
             ->whereIsActive(1)
             ->orderBy('created_at', 'desc')
+            ->limit(8)
             ->get();
 
         foreach($programs as $program) {
@@ -48,11 +54,13 @@ class HomeController extends Controller
             ->with(['user', 'category', 'images'])
             ->whereIsActive(1)
             ->orderBy('id', 'desc')
+            ->limit(8)
             ->get();
 
         $galleries = Gallery::select('id', 'title', 'description', 'type', 'content', 'created_at')
             ->whereIsActive(1)
             ->orderBy('id', 'desc')
+            ->limit(9)
             ->get();
         
         return view('pages.home.index')

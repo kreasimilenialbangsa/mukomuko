@@ -18,7 +18,7 @@
               @forelse($donates as $donate)
               <div class="d-center border-bottom py-4 justify-content-between">
                 <div class="type">
-                  <h6>{{ $donate->type == '\App\Models\Admin\Ziswaf' ? $donate->ziswaf->title :  $donate->program->title }}</h6>
+                  <h6>{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</h6>
                   <div class="date-price">
                     <span class="clr-grey">{{ date('d M Y', strtotime($donate->created_at)) }} |</span>
                     <span class="clr-green">{{ "Rp " . number_format($donate->total_donate,0,",",".") }}</span>

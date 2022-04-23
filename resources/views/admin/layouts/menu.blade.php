@@ -83,6 +83,10 @@
 <li class="side-menus {{ Request::is('admin/abouts*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.abouts.index') }}"><i class="fas fa-building"></i><span>Tentang</span></a>
 </li>
+
+<li class="side-menus {{ Request::is('admin/informations*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.informations.index') }}"><i class="fas fa-building"></i><span>Informasi Dana</span></a>
+</li>
 @endrole
 
 @role('SuperAdmin')
@@ -106,7 +110,11 @@
     </ul>
 </li>
 
-<li class="side-menus {{ Request::is('admin/users*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-building"></i><span>Akun Pengguna</span></a>
+<li class="nav-item dropdown {{ Request::is('admin/account*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Akun Pengguna</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/account/member*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.account.members.index') }}">Anggota</a></li>
+        <li class="{{ Request::is('admin/account/user*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.account.users.index') }}">User</a></li>
+    </ul>
 </li>
 @endrole

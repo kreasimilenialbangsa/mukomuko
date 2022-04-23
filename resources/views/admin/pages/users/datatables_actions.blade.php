@@ -1,11 +1,11 @@
 <div class='text-center d-flex'>
-    {{-- <a href="{{ route('admin.users.show', $id) }}" class='btn btn-primary btn-xs'>
+    {{-- <a href="{{ route('admin.account.'.request()->segment(3).'.show', $id) }}" class='btn btn-primary btn-xs'>
         <i class="fa fa-eye"></i>
     </a> --}}
-    <a href="{{ route('admin.users.edit', $id) }}" class='btn btn-warning btn-xs mr-2'>
+    <a href="{{ route('admin.account.'.request()->segment(3).'.edit', $id) }}" class='btn btn-warning btn-xs mr-2'>
         <i class="fa fa-edit"></i>
     </a>
-    {!! Form::open(['route' => ['admin.users.destroy', $id], 'method' => 'delete', 'class' => 'delete']) !!}
+    {!! Form::open(['route' => ['admin.account.'.request()->segment(3).'.destroy', $id], 'method' => 'delete', 'class' => 'delete']) !!}
     {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
         'class' => 'btn btn-danger btn-xs'
