@@ -34,6 +34,11 @@
                       Donatur <span class="clr-green">({{ $program->donate_count }})</span>
                     </a>
                   </li>
+                   <li class="nav-item">
+                    <a class="nav-link" id="doa-tab" data-toggle="tab" href="#doatab" role="tab" aria-controls="doatab" aria-selected="false">
+                      Doa
+                    </a>
+                  </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="detailtab" role="tabpanel" aria-labelledby="detail-tab">
@@ -61,13 +66,13 @@
                     @empty
                       <div class="empty-state">
                         <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                        <h3 class="mt-5 font-semibold">Data Not Found</h3>
-                        <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+                        <h4 class="mt-4 font-semibold">Data Not Found</h4>
+                        <p class="font-medium">Sorry, the data you were looking for could not be found</p>
                       </div>
                     @endforelse
                   </div>
                   <div class="tab-pane fade" id="donaturtab" role="tabpanel" aria-labelledby="donatur-tab">
-                    <div class="row px-2 mt-4">
+                    <div class="row px-2">
                       @forelse($donates as $donate)
                         <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
                           <div class="card-simple">
@@ -79,10 +84,25 @@
                       @empty
                         <div class="empty-state">
                           <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                          <h3 class="mt-5 font-semibold">Data Not Found</h3>
-                          <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+                          <h4 class="mt-4 font-semibold">Data Not Found</h4>
+                          <p class="font-medium">Sorry, the data you were looking for could not be found</p>
                         </div>
                       @endforelse
+                    </div>
+                  </div>  
+                  <div class="tab-pane fade" id="doatab" role="tabpanel" aria-labelledby="doa-tab">
+                    <div class="row px-2">
+                      <a class="col-lg-4 col-sm-6 col-12 p-2 wblock">
+                        <div class="card-simple">
+                          <h6 class="text-sm">Febyna Putri</h6>
+                          <div class="d-center text-xxs">
+                            <span class="clr-green text-truncate">Sedekah Bantu Saukuu</span>
+                            <span class="mini-bullet mx-2"></span>
+                            <span class="w-50">4 menit yang lalu</span>
+                          </div>
+                          <p class="text-xs clr-grey mb-0 mt-2 font-medium">Semoga diberikan kemudahan dan berkah untuk semua </p>
+                        </div>
+                      </a>
                     </div>
                   </div>  
                 </div>
@@ -220,8 +240,8 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h3 class="mt-5 font-semibold">Data Not Found</h3>
-                <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Not Found</h4>
+                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
             @endforelse
           </div>
