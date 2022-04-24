@@ -62,7 +62,7 @@
     <div class="text-center d-lg-none d-block">
       <h6 class="text-sm mb-3">Download Aplikasi NU CARE-LAZISNU</h6>
       <p class="text-xs font-medium">Lebih mudah, bisa berdonasi mulai dari Rp 10.000</p>
-      <div class="d-flex">
+      <div class="d-flex justify-content-center">
         <img class="mr-2" width="175" height="51" src="{{ asset('img/app-store.jpg') }}" alt="">
         <img width="175" height="51" src="{{ asset('img/google-play.jpg') }}" alt="">
       </div>
