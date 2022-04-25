@@ -139,6 +139,7 @@
     z-index: 999;
 }
 
+
 .font-semibold {
     font-weight: 600;
 }
@@ -366,6 +367,7 @@
     box-shadow: none;
 }
 
+
 .empty-state {
     text-align: center;
     display: flex;
@@ -377,8 +379,7 @@
 }
 
 .empty-state .icon-empty {
-    min-width: 320px;
-    height: 149px;
+    min-width: 250px;
     object-fit: contain;
     margin: 0 auto;
     max-width: 100%;
@@ -435,6 +436,14 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.mini-bullet{
+    background: #C6C5C5;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
 }
 
 /* enter , tab visible */

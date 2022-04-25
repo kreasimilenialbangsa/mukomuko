@@ -34,7 +34,7 @@ class Gallery extends Model
     public $fillable = [
         'user_id',
         'title',
-        'description',
+        // 'description',
         'type',
         'content',
         'is_active'
@@ -48,7 +48,7 @@ class Gallery extends Model
     protected $casts = [
         'user_id' => 'integer',
         'title' => 'string',
-        'description' => 'string',
+        // 'description' => 'string',
         'type' => 'string',
         'content' => 'string',
         'is_active' => 'integer'
@@ -61,8 +61,7 @@ class Gallery extends Model
      */
     public static $rules = [
         'title' => 'required',
-        'description' => 'required',
-        'content' => 'required'
+        // 'description' => 'required'
     ];
 
     

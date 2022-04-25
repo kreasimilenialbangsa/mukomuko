@@ -161,8 +161,8 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h3 class="mt-5 font-semibold">Data Not Found</h3>
-                <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Not Found</h4>
+                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
             @endforelse
           </div>
@@ -178,7 +178,7 @@
         <section class="col-12 mt-5 pt-3 sec-aydonation">
           <h4 class="text-center">Ayo Mulai Berdonasi!</h4>
           <div class="row mt-4">
-            @foreach($programs as $key => $program)
+            @forelse($programs as $key => $program)
               <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-3">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
@@ -220,7 +220,13 @@
                   </div>
                 </div>
               </div>
-            @endforeach
+              @empty
+              <div class="empty-state">
+                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                <h4 class="mt-4 font-semibold">Data Not Found</h4>
+                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+              </div>
+            @endforelse
           </div>
           <div class="text-center mt-3">
             <a href="{{ route('program.index') }}" class="btn btn-green px-3">
@@ -262,9 +268,9 @@
               </a>
             @empty
               <div class="empty-state">
-                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h3 class="mt-5 font-semibold">Data Not Found</h3>
-                <p class="text-base font-medium">Sorry, the data you were looking for could not be found</p>
+               <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                <h4 class="mt-4 font-semibold">Data Not Found</h4>
+                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
               </div>
             @endforelse
           </div>

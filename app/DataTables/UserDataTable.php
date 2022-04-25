@@ -23,7 +23,8 @@ class UserDataTable extends DataTable
             ->addIndexColumn()
             ->editColumn('is_active', 'admin.layouts.toggle_active')
             ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
-            ->rawColumns(['is_active', 'action']);
+            ->addColumn('qrcode', '{!! $is_member == 1 ? QrCode::size(75)->generate(route("profile.show", $id)) : "-" !!}')
+            ->rawColumns(['is_active', 'qrcode', 'action']);
     }
 
     /**
@@ -36,6 +37,7 @@ class UserDataTable extends DataTable
     {
         return $model->newQuery()
             ->with('role_user.role', 'desa')
+            ->whereIsMember(request()->segment(3) == 'members' ? 1 : 0)
             ->select('users.*')->where('users.id', '<>', Auth::user()->id);
     }
 
@@ -71,12 +73,14 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'id',
             'name' => ['className' => 'text-center', 'title' => 'Nama'],
             'email' => ['className' => 'text-center'],
             'role_user.role.name' => ['defaultContent' => 'Not set', 'title' => 'Role', 'name'=> 'role_user.role.name', 'className' => 'text-center'],
             'desa.name' => ['defaultContent' => 'Not set', 'title' => 'Wilayah', 'name'=> 'desa.name', 'data' => 'desa.name', 'className' => 'text-center'],
             'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
-            'is_active' => ['className' => 'text-center', 'title' => 'Aktif']
+            'is_active' => ['className' => 'text-center', 'title' => 'Aktif'],
+            'qrcode' => ['className' => 'text-center', 'title' => 'QRcode']
         ];
     }
 

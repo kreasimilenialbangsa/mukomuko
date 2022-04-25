@@ -9,12 +9,12 @@
                 <h1>Edit Akun Pengguna</h1>
                 <div class="section-header-breadcrumb mt-2">
                     <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Akun Pengguna</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('admin.account.'.request()->segment(3).'.index') }}">Akun Pengguna</a></div>
                     <div class="breadcrumb-item">Edit Akun Pengguna</div>
                 </div>
             </div>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Kembali</a>
+                <a href="{{ route('admin.account.'.request()->segment(3).'.index') }}" class="btn btn-primary">Kembali</a>
             </div>
         </div>
         <div class="content">
@@ -24,7 +24,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body ">
-                                {!! Form::model($user, ['route' => ['admin.users.update', $user->id], 'method' => 'patch']) !!}
+                                {!! Form::model($user, ['route' => ['admin.account.'.request()->segment(3).'.update', $user->id], 'method' => 'patch']) !!}
                                 <div class="row">
                                     @include('admin.pages.users.fields')
                                 </div>

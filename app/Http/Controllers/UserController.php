@@ -11,6 +11,7 @@ use App\Models\Admin\Desa;
 use App\Models\Admin\Kecamatan;
 use App\Models\Admin\Role;
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -77,16 +78,22 @@ class UserController extends AppBaseController
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'location_id' => isset($request->location) ? $request->location : 0,
-            'is_active' => 1
+            'is_active' => 1,
+            'is_member' => isset($request->role) ? 1 : 0
         ];
 
         $role = null;
         if(!empty($request->role)) {
             $role = $request->role;
             unset($request->role);
+        } else {
+            $role = 5;
+            unset($request->role);
         }
 
         $user = $this->userRepository->create($input);
+
+        UserProfile::create(['user_id' => $user->id]);
 
         if($user) {
             $user = User::find($user->id);
@@ -97,7 +104,7 @@ class UserController extends AppBaseController
 
         Session::flash('success', 'Data berhasil ditambah');
 
-        return redirect(route('admin.users.index'));
+        return redirect(route('admin.account.'.request()->segment(3).'.index'));
     }
 
     /**
@@ -114,7 +121,7 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.users.index'));
+            return redirect(route('admin.account.'.request()->segment(3).'.index'));
         }
 
         return view('admin.pages.users.show')->with('user', $user);
@@ -134,7 +141,7 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.users.index'));
+            return redirect(route('admin.account.'.request()->segment(3).'.index'));
         }
 
         $role = Role::where('id', '<>', 1)->orderBy('id', 'asc')->pluck('name', 'id');
@@ -157,19 +164,23 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.users.index'));
+            return redirect(route('admin.account.'.request()->segment(3).'.index'));
         }
 
         $input = [
             'name' => $request->name,
             'email' => $request->email,
             'location_id' => isset($request->location) ? $request->location : 0,
-            'is_active' => isset($request->is_active) ? $request->is_active : 0
+            'is_active' => isset($request->is_active) ? $request->is_active : 0,
+            'is_member' => isset($request->role) ? 1 : 0
         ];
 
         $role = null;
         if(!empty($request->role)) {
             $role = $request->role;
+            unset($request->role);
+        } else {
+            $role = 5;
             unset($request->role);
         }
 
@@ -190,7 +201,7 @@ class UserController extends AppBaseController
 
         Session::flash('success', 'Data berhasil diubah');
 
-        return redirect(route('admin.users.index'));
+        return redirect(route('admin.account.'.request()->segment(3).'.index'));
     }
 
     /**
@@ -209,14 +220,14 @@ class UserController extends AppBaseController
         if (empty($user)) {
             Flash::error('User not found');
 
-            return redirect(route('admin.users.index'));
+            return redirect(route('admin.account.'.request()->segment(3).'.index'));
         }
 
         $this->userRepository->delete($id);
 
         Session::flash('success', 'Data berhasil dihapus');
 
-        return redirect(route('admin.users.index'));
+        return redirect(route('admin.account.'.request()->segment(3).'.index'));
     }
 
     public function toggleActive(Request $request)

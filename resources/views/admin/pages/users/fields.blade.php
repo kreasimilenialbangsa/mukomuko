@@ -10,7 +10,7 @@
         {!! Form::label('email', 'Email') !!}
         {!! Form::email('email', null, ['class' => 'form-control']) !!}
     </div>
-
+    @if(request()->segment(3) == 'members')
     <!-- Role Field -->
     <div class="form-group">
         {!! Form::label('role', 'Tipe Akun:') !!}
@@ -22,6 +22,7 @@
         {!! Form::label('location', 'Wilayah:') !!}
         {!! Form::select('location', [], null, ['class' => 'form-control select2-user']) !!}
     </div>
+    @endif
 </div>
 
 <div class="col-md-6">
@@ -50,7 +51,7 @@
 <!-- Submit Field -->
 <div class="form-group col-md-12">
     {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('admin.users.index') !!}" class="btn btn-default">Batal</a>
+    <a href="{!! route('admin.account.'.request()->segment(3).'.index') !!}" class="btn btn-default">Batal</a>
 </div>
 
 @push('script')
@@ -61,7 +62,7 @@
 
             val = $('.role').val();
 
-            if(val > 2) {
+            if(val > 2 && val < 5) {
                 $('.location').removeClass('d-none')
             } else {
                 $('.location').addClass('d-none')
@@ -70,7 +71,7 @@
             $('.role').on('change', function() {
                 val = $(this).val();
 
-                if(val > 2) {
+                if(val > 2 && val < 5) {
                     $('.location').removeClass('d-none')
                 } else {
                     $('.location').addClass('d-none')
@@ -83,7 +84,7 @@
                 theme: 'bootstrap4',
                 placeholder: 'Pilih',
                 ajax: {
-                    url: "{{ route('admin.users.create') }}",
+                    url: "{{ route('admin.account.'.request()->segment(3).'.create') }}",
                     dataType: 'json',
                     data: function (params) {
                         var queryParameters = {

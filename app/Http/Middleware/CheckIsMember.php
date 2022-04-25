@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CheckIsMember
 {
@@ -16,10 +18,14 @@ class CheckIsMember
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->is_member == 1){
+        if(Auth::user()->is_member == 1){
             return $next($request);
         }
 
-        return abort(401);
+        Session::flush();
+        Session::flash('error', 'UNAUTHORIZED');
+
+        return redirect(route('home'));
     }
 }
+

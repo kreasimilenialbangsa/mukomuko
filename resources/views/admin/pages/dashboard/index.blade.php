@@ -258,7 +258,7 @@
                                 </tr>
                                 @forelse($donates_ziswaf as $donate)
                                 <tr>
-                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? $donate->ziswaf->title :  $donate->program->title }}</td>
+                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</td>
                                   <td class="font-weight-600">{{ $donate->name }}</td>
                                   <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
                                   <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
@@ -294,7 +294,7 @@
                                 </tr>
                                 @forelse($donates_program as $donate)
                                 <tr>
-                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? $donate->ziswaf->title :  $donate->program->title }}</td>
+                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</td>
                                   <td class="font-weight-600">{{ $donate->name }}</td>
                                   <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
                                   <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>

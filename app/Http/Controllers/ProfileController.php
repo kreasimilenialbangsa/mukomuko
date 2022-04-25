@@ -67,4 +67,15 @@ class ProfileController extends Controller
         return view('pages.profile.notification');
     }
 
+    public function show($id, Request $request)
+    {
+        return 'hello';
+    }
+
+    public function verification(Request $request)
+    {
+        return view('pages.profile.verification-member');
+    }
+
+
 }

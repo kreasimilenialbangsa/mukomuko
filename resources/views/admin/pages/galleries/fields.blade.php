@@ -49,16 +49,16 @@
         </div>
 
         <!-- Description Field -->
-        <div class="form-group col-sm-12 col-lg-12">
+        {{-- <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('description', 'Deskripsi:') !!}
             {!! Form::textarea('description', null, ['class' => 'form-control my-editor']) !!}
-        </div>
+        </div> --}}
     </div>
 </div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Simpen', ['class' => 'btn btn-primary']) !!}
+    {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('admin.galleries.index') }}" class="btn btn-light">Batal</a>
 </div>
 

@@ -61,8 +61,7 @@ class GalleryController extends AppBaseController
         $input = [
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'link_url' => $request->link_url,
-            'description' => $request->description,
+            // 'description' => $request->description,
             'type' => $request->type,
             'is_active' => isset($request->is_active) ? $request->is_active : 0
         ];
@@ -150,25 +149,25 @@ class GalleryController extends AppBaseController
         $input = [
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'link_url' => $request->link_url,
-            'description' => $request->description,
+            // 'description' => $request->description,
             'type' => $request->type,
             'is_active' => isset($request->is_active) ? $request->is_active : 0
         ];
 
-        if($request->hasFile('content') && $request->type == 'image') {
-            $request->validate([
-                'image' => 'mimes:jpeg,png|max:1014',
-            ]);
-
-            $file = $request->file('content');
-            $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
-            Storage::put('public/gallery/'.$fileName, File::get($file));
-
-            $input['content'] = '/gallery/'.$fileName;
-
-        } else {
-            $input['content'] = $request->content;
+        if(isset($request->content)) {
+            if($request->hasFile('content') && $request->type == 'image') {
+                $request->validate([
+                    'image' => 'mimes:jpeg,png|max:1014',
+                ]);
+    
+                $file = $request->file('content');
+                $fileName = Str::slug($request->title).'_'.uniqid() . '.' . $file->getClientOriginalExtension();
+                Storage::put('public/gallery/'.$fileName, File::get($file));
+    
+                $input['content'] = '/gallery/'.$fileName;
+            } else {
+                $input['content'] = $request->content;
+            }
         }
 
 
