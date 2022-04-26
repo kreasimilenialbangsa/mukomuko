@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TestMail;
+use App\Models\Admin\Ziswaf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Midtrans\Config;
@@ -12,7 +13,12 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-        return view('pages.payment.index');
+        $type = $request->session()->get('donate')['type'];
+
+        $donate = $type::find($request->session()->get('donate')['type_id']);
+
+        return view('pages.payment.index')
+            ->with('donate', $donate);  
     }
 
     public function detail(Request $request)

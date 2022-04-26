@@ -10,4 +10,15 @@ class ZiswafContoller extends Controller
     {
         return view('pages.ziswaf.index');
     }
+
+    public function payment(Request $request)
+    {
+        session(['donate' => [
+            'type' => '\App\Models\Admin\Ziswaf',
+            'type_id' => $request->ziswaf,
+            'nominal' => str_replace('.', '', $request->nominal)
+        ]]);
+
+        return redirect()->route('payment.index');
+    }
 }

@@ -44,6 +44,7 @@
             @forelse($programs as $key => $program)
               <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-3">
                 <div class="card-thumbnail">
+                  <a href="{{ route('program.detail', $program->slug) }}">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
                   </div>
@@ -81,6 +82,7 @@
                       <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
                     @endif
                   </div>
+                </a>
                 </div>
               </div>
             @empty

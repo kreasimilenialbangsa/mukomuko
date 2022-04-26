@@ -8,6 +8,7 @@ use App\Models\Admin\Gallery;
 use App\Models\Admin\Information;
 use App\Models\Admin\News;
 use App\Models\Admin\Program;
+use App\Models\Admin\Ziswaf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,12 @@ class HomeController extends Controller
         
         $total = Information::latest('id')->first();
         $total->donatur = Donate::whereIsConfirm(1)->count();
+
+        $ziswaf = [
+            'zakat' => Ziswaf::select('id', 'title')->whereCategoryId(1)->whereIsActive(1)->get(),
+            'infaq' => Ziswaf::select('id', 'title')->whereCategoryId(2)->whereIsActive(1)->get(),
+            'wakaf' => Ziswaf::select('id', 'title')->whereCategoryId(3)->whereIsActive(1)->get()
+        ];
 
         // $total = [
         //     'penerima_manfaat' => 0,
@@ -66,6 +73,7 @@ class HomeController extends Controller
         return view('pages.home.index')
             ->with('banners', $banners)
             ->with('total', $total)
+            ->with('ziswaf', $ziswaf)
             ->with('donates', $donates)
             ->with('programs', $programs)
             ->with('news', $news)

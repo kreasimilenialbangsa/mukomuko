@@ -74,6 +74,7 @@
   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('js/fancybox.js') }}"></script>
   <script src="{{ asset('js/slick.min.js') }}"></script>
+  <script src="{{ asset('vendor/jquery-maskmoney/jquery-maskmoney.js') }}"></script>
   <script>
     Fancybox.bind('[data-fancybox="video-gallery"]', {
       Toolbar: {
@@ -96,6 +97,10 @@
       autoplay: true,
       autoplaySpeed: 2000
     });
+
+    $(".currency").maskMoney({ 
+      autoLoad:true, thousands:'.', decimal:',', affixesStay: false, precision: 0
+    }).maskMoney('mask');
   </script>
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

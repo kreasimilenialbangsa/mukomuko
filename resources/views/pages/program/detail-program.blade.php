@@ -134,10 +134,11 @@
                     </a>
                   </div>
                 </div>
-                <form class="form-donatur mt-3">
+                  {!! Form::open(['route' => 'program.payment', 'class' => 'form-donatur mt-3']) !!}
                   <div class="form-group">
                     <label for="nominal">Masukan Nominal Donasi</label>
-                    <input type="number" class="form-control">
+                    <input type="text" class="form-control currency" name="nominal">
+                    <input type="hidden" class="form-control currency" name="program" value="{{ $program->id }}">
                   </div>
                   <div class="form-group mb-0 d-center justify-content-between">
                     <label class="mb-0" for="hide-name">Sembunyikan nama saya (Anonim)</label>
@@ -147,9 +148,13 @@
                     </label>
                   </div>
                   <div class="form-group mb-0">
-                    <button class="btn w-100 btn-green mt-5 py-2">Lanjut Pembayaran</button>
+                    {{-- @if($program->count_day > 0) --}}
+                      <button class="btn w-100 btn-green mt-5 py-2" type="submit">Lanjut Pembayaran</button>
+                    {{-- @else
+                      <button class="btn w-100 btn-green mt-5 py-2" disabled>Lanjut Pembayaran</button>
+                    @endif --}}
                   </div>
-                </form>
+                  {!! Form::close() !!}
               </div>
             </div>
           </div>
@@ -178,6 +183,7 @@
             @forelse($programs as $key => $program)
               <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-3">
                 <div class="card-thumbnail">
+                  <a href="{{ route('program.detail', $program->slug) }}">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
                   </div>
@@ -215,6 +221,7 @@
                       <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
                     @endif
                   </div>
+                  </a>
                 </div>
               </div>
             @empty

@@ -54,6 +54,11 @@ class LoginController extends Controller
 
         $user = User::whereEmail(str_replace(' ', '', $input['email']))->first();
 
+        if(empty($user)) {
+            Session::flash('error', 'Email atau Password salah!');
+            return redirect()->route('home');
+        }
+
         if($user->is_active == 0) {
             Session::flash('error', 'Akun Anda dinon-aktifkan');
             return redirect()->route('home');
@@ -71,8 +76,8 @@ class LoginController extends Controller
             Session::flash('success', 'Anda berhasil login');
             return redirect()->route('home');
         }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+            Session::flash('error', 'Email atau Password salah!');
+            return redirect()->route('home');
         }
 
     }

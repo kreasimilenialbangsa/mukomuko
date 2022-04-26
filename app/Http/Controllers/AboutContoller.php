@@ -14,4 +14,9 @@ class AboutContoller extends Controller
         return view('pages.about.index')
             ->with('about', $about);
     }
+
+    public function privacyPolicy()
+    {
+        return view('pages.privacy-policy.index');
+    }
 }

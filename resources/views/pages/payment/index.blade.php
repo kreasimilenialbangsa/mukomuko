@@ -13,7 +13,7 @@
             <div class="d-flex">
               <img width="26" height="26" src="{{ asset('img/rp-icon.svg') }}" alt="">
               <div class="title-zakat ml-2">
-                <h3 class="font-medium">Pembayaran Zakat Maal</h3>
+                <h3 class="font-medium">Pembayaran {{ isset($donate->title) ? $donate->title : 'Donasi' }}</h3>
                 <p>Isi jumlah donasi dan temukan kebahagianmu sebentar lagi</p>
               </div>
             </div>
@@ -21,7 +21,7 @@
             <div class="form-group">
               <div class="d-flex">
                 <div class="box-green">Rp.</div>
-                <input type="number" class="form-control">
+                <input type="text" class="form-control currency" value="{{ isset(session()->get('donate')['nominal']) ? session()->get('donate')['nominal'] : 0 }}">
               </div>
               <div class="mt-1">
                 <span class="text-danger d-block text-xs">Jumlah minimal donasi adalah Rp 10.000,-</span>
@@ -31,7 +31,7 @@
             <div class="form-group">
               <input type="text" placeholder="Nama Lengkap" class="form-control">
               <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" value="">
                 <label class="form-check-label" for="inlineCheckbox1">Sembunyikan nama saya (Hamba Allah)</label>
               </div>
             </div>

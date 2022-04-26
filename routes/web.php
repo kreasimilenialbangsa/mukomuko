@@ -22,10 +22,12 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 
 // Ziswaf
 Route::get('/ziswaf', [\App\Http\Controllers\ZiswafContoller::class, 'index'])->name('ziswaf.index');
+Route::post('/ziswaf/payment', [\App\Http\Controllers\ZiswafContoller::class, 'payment'])->name('ziswaf.payment');
 
 // Program
 Route::get('/program', [\App\Http\Controllers\ProgramContoller::class, 'index'])->name('program.index');
 Route::get('/program/{slug}', [\App\Http\Controllers\ProgramContoller::class, 'detail'])->name('program.detail');
+Route::post('/program/payment', [\App\Http\Controllers\ProgramContoller::class, 'payment'])->name('program.payment');
 
 // News
 Route::get('/berita', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
@@ -42,6 +44,8 @@ Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'i
 
 // About
 Route::get('/tentang/{slug}', [\App\Http\Controllers\AboutContoller::class, 'index'])->name('about.index');
+Route::get('/privacy-policy', [\App\Http\Controllers\AboutContoller::class, 'privacyPolicy'])->name('privacy-policy.index');
+
 
 // Member info
 Route::get('/anggota/{id}', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
