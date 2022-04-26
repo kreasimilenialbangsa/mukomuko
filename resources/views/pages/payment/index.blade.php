@@ -7,6 +7,7 @@
 @section('content')
   <div class="payment-page">
     <div class="container">
+      {!! Form::open(['route' => 'payment.process']) !!}
       <div class="row">
         <div class="col-lg-6 mx-auto">
           <div class="box-white">
@@ -29,22 +30,22 @@
               </div>
             </div>
             <div class="form-group">
-              <input type="text" placeholder="Nama Lengkap" class="form-control">
+              <input type="text" placeholder="Nama Lengkap" class="form-control" name="name" value="{{ @session()->get('user')['name'] }}">
               <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" value="">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" name="is_anonim">
                 <label class="form-check-label" for="inlineCheckbox1">Sembunyikan nama saya (Hamba Allah)</label>
               </div>
             </div>
             <div class="form-group">
-              <input type="email" placeholder="Email" class="form-control">
+              <input type="email" placeholder="Email" class="form-control" name="email" value="{{ @session()->get('user')['email'] }}">
               <span>Kirim bukti donasi dan kabar perkembangan program melalui email saya.</span>
             </div>
             <div class="form-group">
-              <input type="number" placeholder="Nomor Telepon" class="form-control">
+              <input type="number" placeholder="Nomor Telepon" class="form-control" name="phone" value="{{ @session()->get('user')['phone'] }}">
             </div>
             <div class="form-group">
               <textarea 
-                name="doa" 
+                name="message" 
                 class="form-control"
                 placeholder="Tulis doa atau dukungan untuk program donasi ini" 
                 rows="7"></textarea>
@@ -103,6 +104,7 @@
             <button class="btn py-2 btn-green w-100">Lanjut Pembayaran</button>
           </div>
         </div>
+      {!! Form::close() !!}
       </div>
     </div>
   </div>

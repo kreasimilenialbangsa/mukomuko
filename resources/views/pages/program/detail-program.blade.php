@@ -66,8 +66,8 @@
                     @empty
                       <div class="empty-state">
                         <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                        <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                        <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                        <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                        <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
                       </div>
                     @endforelse
                   </div>
@@ -84,8 +84,8 @@
                       @empty
                         <div class="empty-state">
                           <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                          <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                          <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                          <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                          <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
                         </div>
                       @endforelse
                     </div>
@@ -131,9 +131,9 @@
                   <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="d-center mt-2 justify-content-between">
-                  <div class="d-flex mr-2">
+                  <div class="mr-2 mb-3">
                     <h6 class="clr-green">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
-                    <span class="text-xs clr-grey font-semibold ml-2">{{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
+                    <span class="text-xs clr-grey font-semibold">Terkumpul dari {{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
                   </div>
                   <div class="text-right">
                     <span class="text-xs clr-grey">Sisa Hari</span>
@@ -247,8 +247,8 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>

@@ -174,8 +174,8 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>
@@ -238,8 +238,8 @@
               @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>
@@ -284,8 +284,8 @@
             @empty
               <div class="empty-state">
                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>

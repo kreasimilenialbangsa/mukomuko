@@ -52,7 +52,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::whereEmail(str_replace(' ', '', $input['email']))->first();
+        $user = User::with('profile')->whereEmail(str_replace(' ', '', $input['email']))->first();
 
         if(empty($user)) {
             Session::flash('error', 'Email atau Password salah!');
@@ -73,6 +73,13 @@ class LoginController extends Controller
    
         if(auth()->attempt(array('email' => str_replace(' ', '', $input['email']), 'password' => $input['password'])))
         {
+            session(['user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->profile->telp
+            ]]);
+
             Session::flash('success', 'Anda berhasil login');
             return redirect()->route('home');
         }else{

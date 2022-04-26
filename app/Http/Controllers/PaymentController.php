@@ -19,7 +19,6 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
         $type = $request->session()->get('donate')['type'];
-
         $donate = $type::find($request->session()->get('donate')['type_id']);
 
         return view('pages.payment.index')
@@ -37,33 +36,63 @@ class PaymentController extends Controller
         return view('pages.payment.detail-payment');
     }
 
-    public function midtrans($type, $totalDonate, $userID, $message = null)
+    public function process_payment(Request $request)
+    {
+        $input = [
+            'type' => $request->session()->get('donate')['type'] == '\App\Models\Admin\Ziswaf' ? 'ZISWAF-' : 'PROGRAM-',
+            'type_id' => $request->session()->get('donate')['type_id'],
+            'totalDonate' => $request->session()->get('donate')['nominal'],
+            'userId' => isset($request->session()->get('user')['id']) ? $request->session()->get('user')['id'] : 0,
+            'userName' => isset($request->session()->get('user')['name']) ? $request->session()->get('user')['name'] : $request->name,
+            'userEmail' => isset($request->session()->get('user')['email']) ? $request->session()->get('user')['email'] : $request->email,
+            'userPhone' => isset($request->session()->get('user')['phone']) ? $request->session()->get('user')['phone'] : $request->phone,
+            'is_anonim' => isset($request->is_anonim) ? 1 : 0,
+            'message' => !empty($request->message) ? $request->message : '',
+            'paymentChannel' => $request->paymentChannel
+        ];
+        
+        $url = $this->_midtrans($input);
+
+        
+        // if($input['paymentChannel'] == '') {
+        //     $url = $this->_midtrans($input);
+        //     } else {
+        //     $url = $this->_xenditEWallet($input);
+        // }
+
+        return redirect($url);
+    }
+
+    private function _midtrans($input)
     {
         Config::$serverKey = config('services.midtrans.serverKey');
         Config::$isProduction = config('services.midtrans.isProduction');
         Config::$isSanitized = config('services.midtrans.isSanitized');
         Config::$is3ds = config('services.midtrans.is3ds');
 
-        $orderID = $type . time();
+        $orderID = $input['type'] . time();
+
+        $type = session()->get('donate')['type'];
+        $donate = $type::find(session()->get('donate')['type_id']);
 
         $midtrans = array(
             'transaction_details' => array(
                 'order_id' => $orderID,
-                'gross_amount' => (int) $totalDonate,
+                'gross_amount' => (int) $input['totalDonate'],
             ),
             'credit_card' => array(
                 'secure' => true
             ),
             'item_details' => array(array(
-                "id" => 2,
-                "price" => 3000,
-                "quantity" => 4,
-                "name" => $type
+                "id" => $input['type_id'],
+                "price" => $input['totalDonate'],
+                "quantity" => 1,
+                "name" => $donate->title
             ),),
             'customer_details' => array(
-                'first_name' => 'Bima Sakti',
-                'email' => 'adam14113@gmail.com',
-                'phone' => '+628111222333',
+                'first_name' => $input['is_anonim'] == 1 ? $input['userName'] : 'Hamba Allah',
+                'email' => $input['userEmail'],
+                'phone' => $input['userPhone'],
             ),
             'enabled_payments' => array('shopeepay'),
             'vtweb' => array()
@@ -71,37 +100,40 @@ class PaymentController extends Controller
 
         $paymentUrl = Snap::getSnapUrl($midtrans);
 
-        Mail::to('adam2802002@gmail.com')->send(new TestMail($paymentUrl));
+        // Mail::to('adam2802002@gmail.com')->send(new TestMail($paymentUrl));
 
-        $data = [
-            'order_id' => $orderID,
-            'type' => $type,
-            'type_id' => 1,
-            'user_id' => 2,
-            'name' => 'Bima Sakti',
-            'email' => 'adam14113@gmail.com',
-            'phone' => '+628111222333',
-            'message' => $message,
-            'total_donate' => $totalDonate,
-            'is_anonim' => false,
-        ];
+        // $data = [
+        //     'order_id' => $orderID,
+        //     'type' => $type,
+        //     'type_id' => $input['type_id'],
+        //     'user_id' => 2,
+        //     'name' => $input['userName'],
+        //     'email' => $input['userEmail'],
+        //     'phone' => $input['userPhone'],
+        //     'message' => $input['message'],
+        //     'total_donate' => $input['totalDonate'],
+        //     'is_anonim' => $input['is_anonim'],
+        // ];
 
-        Transaction::create($data);
+        // Transaction::create($data);
 
         return $paymentUrl;
     }
 
-    public function xenditEWallet($type, $totalDonate, $userID, $message = null)
+    private function _xenditEWallet($input)
     {
         Xendit::setApiKey(env('XENDIT_KEY'));
 
-        $orderID = $type . time();
+        $orderID = $input['type'] . time();
+
+        $type = session()->get('donate')['type'];
+        $donate = $type::find(session()->get('donate')['type_id']);
 
         $ewalletChargeParams = [
             'reference_id' => $orderID,
-            "name" => "Steve Wozniak",
+            "name" => $input['username'],
             'currency' => 'IDR',
-            'amount' => $totalDonate,
+            'amount' => $input['totalDonate'],
             'checkout_method' => 'ONE_TIME_PAYMENT',
             'channel_code' => 'ID_DANA',
             "expiration_date" => Carbon::now()->addMinutes(4)->subSeconds(30),
@@ -112,13 +144,13 @@ class PaymentController extends Controller
             ],
             'basket' => array(
                 array(
-                    "reference_id" => '1',
-                    "name" => $type,
-                    "category" => $type,
+                    "reference_id" => $input['type_id'],
+                    "name" => $donate->title,
+                    "category" => $input['type'],
                     'currency' => 'IDR',
-                    "price" => $totalDonate,
+                    "price" => $input['totalDonate'],
                     "quantity" => 1,
-                    "type" => $type,
+                    "type" => $input['type'],
                 ),
             ),
             'metadata' => [
@@ -128,22 +160,22 @@ class PaymentController extends Controller
 
         $createEWalletCharge = EWallets::createEWalletCharge($ewalletChargeParams);
 
-        Mail::to('adam2802002@gmail.com')->send(new TestMail($createEWalletCharge['actions']['desktop_web_checkout_url']));
+        // Mail::to('adam2802002@gmail.com')->send(new TestMail($createEWalletCharge['actions']['desktop_web_checkout_url']));
 
-        $data = [
-            'order_id' => $orderID,
-            'type' => $type,
-            'type_id' => 1,
-            'user_id' => 3,
-            'name' => "Steve Wozniak",
-            'email' => 'adam14113@gmail.com',
-            'phone' => "+6285157906624",
-            'message' => $message,
-            'total_donate' => $totalDonate,
-            'is_anonim' => false,
-        ];
+        // $data = [
+        //     'order_id' => $orderID,
+        //     'type' => $type,
+        //     'type_id' => 1,
+        //     'user_id' => 3,
+        //     'name' => "Steve Wozniak",
+        //     'email' => 'adam14113@gmail.com',
+        //     'phone' => "+6285157906624",
+        //     'message' => $message,
+        //     'total_donate' => $totalDonate,
+        //     'is_anonim' => false,
+        // ];
 
-        Transaction::create($data);
+        // Transaction::create($data);
 
         return $createEWalletCharge;
     }
