@@ -76,6 +76,8 @@ class CallbackController extends Controller
 
     public function xenditCallback(Request $request)
     {
+        // return $request;
+
         $transaction = Transaction::where('order_id', $request->data['reference_id'])->first(); //$request->data['reference_id']);
 
         if ($request->data['status'] == 'SUCCEEDED') {
@@ -92,7 +94,5 @@ class CallbackController extends Controller
 
             Mail::to('adam2802002@gmail.com')->send(new TestMail($request->data['status']));
         }
-
-        // return $request;
     }
 }

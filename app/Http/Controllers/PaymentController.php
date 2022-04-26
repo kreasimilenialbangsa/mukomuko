@@ -22,7 +22,7 @@ class PaymentController extends Controller
         $donate = $type::find($request->session()->get('donate')['type_id']);
 
         return view('pages.payment.index')
-            ->with('donate', $donate);  
+            ->with('donate', $donate);
     }
 
     public function detail(Request $request)
@@ -50,10 +50,11 @@ class PaymentController extends Controller
             'message' => !empty($request->message) ? $request->message : '',
             'paymentChannel' => $request->paymentChannel
         ];
-        
-        $url = $this->_midtrans($input);
 
-        
+        // $url = $this->_midtrans($input);
+        $url = $this->_xenditEWallet($input);
+
+
         // if($input['paymentChannel'] == '') {
         //     $url = $this->_midtrans($input);
         //     } else {
@@ -102,20 +103,20 @@ class PaymentController extends Controller
 
         // Mail::to('adam2802002@gmail.com')->send(new TestMail($paymentUrl));
 
-        // $data = [
-        //     'order_id' => $orderID,
-        //     'type' => $type,
-        //     'type_id' => $input['type_id'],
-        //     'user_id' => 2,
-        //     'name' => $input['userName'],
-        //     'email' => $input['userEmail'],
-        //     'phone' => $input['userPhone'],
-        //     'message' => $input['message'],
-        //     'total_donate' => $input['totalDonate'],
-        //     'is_anonim' => $input['is_anonim'],
-        // ];
+        $data = [
+            'order_id' => $orderID,
+            'type' => $type,
+            'type_id' => $input['type_id'],
+            'user_id' => $input['userId'],
+            'name' => $input['userName'],
+            'email' => $input['userEmail'],
+            'phone' => $input['userPhone'],
+            'message' => $input['message'],
+            'total_donate' => $input['totalDonate'],
+            'is_anonim' => $input['is_anonim'],
+        ];
 
-        // Transaction::create($data);
+        Transaction::create($data);
 
         return $paymentUrl;
     }
@@ -131,16 +132,16 @@ class PaymentController extends Controller
 
         $ewalletChargeParams = [
             'reference_id' => $orderID,
-            "name" => $input['username'],
+            "name" => $input['userName'],
             'currency' => 'IDR',
-            'amount' => $input['totalDonate'],
+            'amount' => (int) $input['totalDonate'],
             'checkout_method' => 'ONE_TIME_PAYMENT',
             'channel_code' => 'ID_DANA',
             "expiration_date" => Carbon::now()->addMinutes(4)->subSeconds(30),
             'channel_properties' => [
-                "mobile_number" => "+6285157906624",
-                'success_redirect_url' => 'http://fd2c-139-228-135-89.ngrok.io',
-                'failure_redirect_url' => 'http://fd2c-139-228-135-89.ngrok.io',
+                "mobile_number" => '+62' . $input['userPhone'],
+                'success_redirect_url' => 'http://bba8-139-228-135-89.ngrok.io',
+                'failure_redirect_url' => 'http://bba8-139-228-135-89.ngrok.io',
             ],
             'basket' => array(
                 array(
@@ -148,7 +149,7 @@ class PaymentController extends Controller
                     "name" => $donate->title,
                     "category" => $input['type'],
                     'currency' => 'IDR',
-                    "price" => $input['totalDonate'],
+                    "price" => (int) $input['totalDonate'],
                     "quantity" => 1,
                     "type" => $input['type'],
                 ),
@@ -162,22 +163,22 @@ class PaymentController extends Controller
 
         // Mail::to('adam2802002@gmail.com')->send(new TestMail($createEWalletCharge['actions']['desktop_web_checkout_url']));
 
-        // $data = [
-        //     'order_id' => $orderID,
-        //     'type' => $type,
-        //     'type_id' => 1,
-        //     'user_id' => 3,
-        //     'name' => "Steve Wozniak",
-        //     'email' => 'adam14113@gmail.com',
-        //     'phone' => "+6285157906624",
-        //     'message' => $message,
-        //     'total_donate' => $totalDonate,
-        //     'is_anonim' => false,
-        // ];
+        $data = [
+            'order_id' => $orderID,
+            'type' => $type,
+            'type_id' => $input['type_id'],
+            'user_id' => $input['userId'],
+            'name' => $input['userName'],
+            'email' => $input['userEmail'],
+            'phone' => $input['userPhone'],
+            'message' => $input['message'],
+            'total_donate' => $input['totalDonate'],
+            'is_anonim' => $input['is_anonim'],
+        ];
 
-        // Transaction::create($data);
+        Transaction::create($data);
 
-        return $createEWalletCharge;
+        return $createEWalletCharge['actions']['desktop_web_checkout_url'];
     }
 
     // public function xenditVA()
