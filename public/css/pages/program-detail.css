@@ -53,6 +53,13 @@
   background: #FFFFFF;
   box-shadow: 0px 2px 4px rgb(0 0 0 / 8%);
   border-radius: 8px;
+  overflow: hidden;
+}
+
+.wapper-detail img{
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
 }
 
 .wrapper-donatur .progress {

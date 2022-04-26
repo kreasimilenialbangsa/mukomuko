@@ -72,4 +72,10 @@ class ProfileController extends Controller
         return 'hello';
     }
 
+    public function verification(Request $request)
+    {
+        return view('pages.profile.verification-member');
+    }
+
+
 }

@@ -48,7 +48,7 @@ Route::get('/privacy-policy', [\App\Http\Controllers\AboutContoller::class, 'pri
 
 
 // Member info
-Route::get('/anggota/{id}', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile/verification', [\App\Http\Controllers\ProfileController::class, 'verification'])->name('profile.show');
 
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
@@ -66,6 +66,9 @@ Route::get('/payment/detail', [\App\Http\Controllers\PaymentController::class, '
 
 // Galery
 Route::get('/galeri', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');
+
+// Verification Member
+Route::get('/verification-member', [\App\Http\Controllers\ProfileController::class, 'verification'])->name('profile.verification');
 
 Auth::routes(['register' => false]);
 

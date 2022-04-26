@@ -71,7 +71,7 @@ class ProgramContoller extends Controller
             ->where('id', '<>', $program->id)
             ->whereDate('end_date', '<=', date('Y-m-d'))
             ->whereIsActive(1)
-            ->limit(8)
+            ->limit(4)
             ->get();
             
         foreach($programs as $row) {

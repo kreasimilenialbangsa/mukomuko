@@ -82,7 +82,8 @@
   .main-footer{
     box-shadow: none;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
+    padding-top: 20px;
   }
   .main-footer .wrapper-footer{
     padding: 15px 0px;
@@ -96,12 +97,19 @@
   }
   .main-footer .nav-wrap{
     justify-content: center;
-    border-top: 1px solid #E3E3E3;
-    border-bottom: 1px solid #E3E3E3;
-    padding: 10px 0px;
+    padding: 13px 0px;
   }
-  .main-footer .wrap-sosmed{
-    border-bottom: 1px solid #E3E3E3;
-    padding: 10px 0px;
+  .main-footer .copyright{
+    border-top: none;
+  }
+  .main-footer .mob-icon{
+    width: 36px;
+    height: 36px;
+    background: #E8E8E8;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
   }
 }
