@@ -86,11 +86,14 @@
             </ul>
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="zakat" role="tabpanel" aria-labelledby="zakat-tab">
+              {!! Form::open(['route' => 'ziswaf.payment']) !!}
                 <h4>Ayo hitung zakat kamu!</h4>
                 <div class="cat-select mb-3">
-                  <select class="form-control">
-                    <option>Zakat Maal</option>
-                    <option>Zakat</option>
+                  <select class="form-control" name="ziswaf" id="zakat">
+                    <option>Pilih</option>
+                    @foreach($ziswaf['zakat'] as $zakat)
+                    <option value="{{ $zakat->id }}">{{ $zakat->title }}</option>
+                    @endforeach
                   </select>
                 </div>
                 <p class="font-medium clr-grey">
@@ -98,20 +101,25 @@
                 </p>
                 <div class="form-group">
                   <label class="text-sm" for="total">Kekayaan 1 Tahun</label>
-                  <input type="number" value="60.000" class="form-control total-input" name="total">
+                  <input type="text" value="0" class="form-control total-input currency" id="zakat-input">
+                  <input type="hidden" class="form-control total-input" name="nominal" id="zakat-send">
                 </div>
-                <h6 class="text-sm clr-grey">Zakat Maal Kamu</h6>
-                <h6 class="clr-green">1.500.000</h6>
+                <h6 class="text-sm clr-grey" id="zakat-name"></h6>
+                <h6 class="clr-green" id="zakat-nominal"></h6>
                 <div class="text-right">
-                  <button class="btn btn-green">Bayar Zakat</button>
+                  <button class="btn btn-green" type="submit">Bayar Zakat</button>
                 </div>
+                {!! Form::close() !!}
               </div>
               <div class="tab-pane fade" id="infak" role="tabpanel" aria-labelledby="infak-tab">
+                {!! Form::open(['route' => 'ziswaf.payment']) !!}
                 <h4>Ayo mulai infak!</h4>
                 <div class="cat-select mb-3">
-                  <select class="form-control">
-                    <option>Hai Santri</option>
-                    <option>Zakat</option>
+                  <select class="form-control" name="ziswaf">
+                    <option>Pilih</option>
+                    @foreach($ziswaf['infaq'] as $infaq)
+                    <option value="{{ $infaq->id }}">{{ $infaq->title }}</option>
+                    @endforeach
                   </select>
                 </div>
                 <p class="font-medium clr-grey">
@@ -119,18 +127,22 @@
                 </p>
                 <div class="form-group mb-4">
                   <label class="text-sm" for="total">Nominal Infak</label>
-                  <input type="number" value="60.000" class="form-control total-input" name="total">
+                  <input type="text" value="0" class="form-control total-input currency" name="nominal">
                 </div>
                 <div class="text-right">
-                  <button class="btn btn-green">Bayar Infak</button>
+                  <button class="btn btn-green" type="submit">Bayar Infak</button>
                 </div>
+                {!! Form::close() !!}
               </div>
               <div class="tab-pane fade" id="wakaf" role="tabpanel" aria-labelledby="wakaf-tab">
+                {!! Form::open(['route' => 'ziswaf.payment']) !!}
                 <h4>Ayo mulai wakaf!</h4>
                 <div class="cat-select mb-3">
-                  <select class="form-control">
-                    <option>Wakaf Umum</option>
-                    <option>Zakat</option>
+                  <select class="form-control" name="ziswaf">
+                    <option>Pilih</option>
+                    @foreach($ziswaf['wakaf'] as $wakaf)
+                    <option value="{{ $wakaf->id }}">{{ $wakaf->title }}</option>
+                    @endforeach
                   </select>
                 </div>
                 <p class="font-medium clr-grey">
@@ -138,11 +150,12 @@
                 </p>
                 <div class="form-group mb-4">
                   <label class="text-sm" for="total">Nominal Wakaf</label>
-                  <input type="number" value="60.000" class="form-control total-input" name="total">
+                  <input type="text" value="0" class="form-control total-input currency" name="nominal">
                 </div>
                 <div class="text-right">
-                  <button class="btn btn-green">Bayar Wakaf</button>
+                  <button class="btn btn-green" type="submit">Bayar Wakaf</button>
                 </div>
+                {!! Form::close() !!}
               </div>
             </div>
           </div>
@@ -161,8 +174,8 @@
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>
@@ -181,6 +194,7 @@
             @forelse($programs as $key => $program)
               <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-3">
                 <div class="card-thumbnail">
+                  <a href="{{ route('program.detail', $program->slug) }}">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
                   </div>
@@ -218,13 +232,14 @@
                       <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
                     @endif
                   </div>
+                </a>
                 </div>
               </div>
               @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>
@@ -269,8 +284,8 @@
             @empty
               <div class="empty-state">
                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>
@@ -441,6 +456,43 @@
           }
         }
       ]
+    });
+
+    const rupiah = (number)=>{
+        return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0
+        }).format(number);
+    }
+
+    // Remove the formatting to get integer data for summation
+    var intVal = function ( i ) {
+        return typeof i === 'string' ?
+            i.replace(/[\$,.Rp]/g, '')*1 :
+            typeof i === 'number' ?
+                i : 0;
+    };
+
+    $('#zakat').on('change', function() {
+      var name = $('#zakat option:selected').text();
+
+      if(name == 'Pilih') {
+        $('#zakat-name').html('');
+        $('#zakat-nominal').html('');
+      } else {
+        $('#zakat-name').html(name + ' Kamu');
+        $('#zakat-nominal').html('Rp 0');
+      }
+
+      $('#zakat-input').on('keyup', function() {
+        var nominal = $(this).val();
+        var result = nominal.replaceAll('.', '') * (2.5/100);
+
+        $('#zakat-send').val(result);
+
+        $('#zakat-nominal').html( rupiah(result));
+      });
     });
   </script>
 @endsection

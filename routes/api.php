@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\API\V1\CallbackController;
-use App\Mail\TestMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +21,10 @@ Route::group(['prefix' => 'v1'], function () {
     // Callback
     Route::group(['prefix' => 'callback'], function () {
         Route::post('midtrans', [CallbackController::class, 'midtransCallback']);
+
+        Route::post('xenditVA', [CallbackController::class, 'xenditVA']);
+        Route::get('xenditFVA', [CallbackController::class, 'xenditFVA']);
+        Route::post('xenditCallback', [CallbackController::class, 'xenditCallback']);
     });
 
     // Auth

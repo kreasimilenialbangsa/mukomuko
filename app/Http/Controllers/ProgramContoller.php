@@ -69,13 +69,32 @@ class ProgramContoller extends Controller
             ->with('category')
             ->withSum('donate', 'total_donate')
             ->where('id', '<>', $program->id)
+            ->whereDate('end_date', '<=', date('Y-m-d'))
             ->whereIsActive(1)
             ->limit(4)
             ->get();
+            
+        foreach($programs as $row) {
+            $date = Carbon::parse($row->end_date . ' 23:59:00');
+            $now = Carbon::now();
+
+            $row->count_day = $row->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
+        }
 
         return view('pages.program.detail-program')
                 ->with('donates', $donates)
                 ->with('program', $program)
                 ->with('programs', $programs);
+    }
+
+    public function payment(Request $request)
+    {
+        session(['donate' => [
+            'type' => '\App\Models\Admin\Program',
+            'type_id' => $request->program,
+            'nominal' => $request->nominal
+        ]]);
+
+        return redirect()->route('payment.index');
     }
 }

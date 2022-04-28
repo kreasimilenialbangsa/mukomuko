@@ -7,13 +7,14 @@
 @section('content')
   <div class="payment-page">
     <div class="container">
+      {!! Form::open(['route' => 'payment.process']) !!}
       <div class="row">
         <div class="col-lg-6 mx-auto">
           <div class="box-white">
             <div class="d-flex">
               <img width="26" height="26" src="{{ asset('img/rp-icon.svg') }}" alt="">
               <div class="title-zakat ml-2">
-                <h3 class="font-medium">Pembayaran Zakat Maal</h3>
+                <h3 class="font-medium">Pembayaran {{ isset($donate->title) ? $donate->title : 'Donasi' }}</h3>
                 <p>Isi jumlah donasi dan temukan kebahagianmu sebentar lagi</p>
               </div>
             </div>
@@ -21,7 +22,7 @@
             <div class="form-group">
               <div class="d-flex">
                 <div class="box-green">Rp.</div>
-                <input type="number" class="form-control">
+                <input type="text" class="form-control currency" value="{{ isset(session()->get('donate')['nominal']) ? session()->get('donate')['nominal'] : 0 }}">
               </div>
               <div class="mt-1">
                 <span class="text-danger d-block text-xs">Jumlah minimal donasi adalah Rp 10.000,-</span>
@@ -29,22 +30,22 @@
               </div>
             </div>
             <div class="form-group">
-              <input type="text" placeholder="Nama Lengkap" class="form-control">
+              <input type="text" placeholder="Nama Lengkap" class="form-control" name="name" value="{{ @session()->get('user')['name'] }}">
               <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" name="is_anonim">
                 <label class="form-check-label" for="inlineCheckbox1">Sembunyikan nama saya (Hamba Allah)</label>
               </div>
             </div>
             <div class="form-group">
-              <input type="email" placeholder="Email" class="form-control">
+              <input type="email" placeholder="Email" class="form-control" name="email" value="{{ @session()->get('user')['email'] }}">
               <span>Kirim bukti donasi dan kabar perkembangan program melalui email saya.</span>
             </div>
             <div class="form-group">
-              <input type="number" placeholder="Nomor Telepon" class="form-control">
+              <input type="number" placeholder="Nomor Telepon" class="form-control" name="phone" value="{{ @session()->get('user')['phone'] }}">
             </div>
             <div class="form-group">
               <textarea 
-                name="doa" 
+                name="message" 
                 class="form-control"
                 placeholder="Tulis doa atau dukungan untuk program donasi ini" 
                 rows="7"></textarea>
@@ -103,6 +104,7 @@
             <button class="btn py-2 btn-green w-100">Lanjut Pembayaran</button>
           </div>
         </div>
+      {!! Form::close() !!}
       </div>
     </div>
   </div>

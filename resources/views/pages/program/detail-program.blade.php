@@ -66,8 +66,8 @@
                     @empty
                       <div class="empty-state">
                         <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                        <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                        <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                        <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                        <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
                       </div>
                     @endforelse
                   </div>
@@ -84,8 +84,8 @@
                       @empty
                         <div class="empty-state">
                           <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                          <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                          <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                          <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                          <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
                         </div>
                       @endforelse
                     </div>
@@ -131,9 +131,9 @@
                   <div class="progress-bar bg-success" role="progressbar" style="width: {{ $program->donate_sum_total_donate/$program->target_dana*100 }}%" aria-valuenow="{{ $program->donate_sum_total_donate/$program->target_dana*100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="d-center mt-2 justify-content-between">
-                  <div class="d-flex mr-2">
+                  <div class="mr-2 mb-3">
                     <h6 class="clr-green">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
-                    <span class="text-xs clr-grey font-semibold ml-2">Terkumpul dari {{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
+                    <span class="text-xs clr-grey font-semibold">Terkumpul dari {{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
                   </div>
                   <div class="text-right">
                     <span class="text-xs clr-grey">Sisa Hari</span>
@@ -154,10 +154,11 @@
                     </a>
                   </div>
                 </div>
-                <form class="form-donatur mt-3">
+                  {!! Form::open(['route' => 'program.payment', 'class' => 'form-donatur mt-3']) !!}
                   <div class="form-group">
                     <label for="nominal">Masukan Nominal Donasi</label>
-                    <input type="number" class="form-control">
+                    <input type="text" class="form-control currency" name="nominal">
+                    <input type="hidden" class="form-control currency" name="program" value="{{ $program->id }}">
                   </div>
                   <div class="form-group mb-0 d-center justify-content-between">
                     <label class="mb-0" for="hide-name">Sembunyikan nama saya (Anonim)</label>
@@ -167,9 +168,13 @@
                     </label>
                   </div>
                   <div class="form-group mb-0">
-                    <button class="btn w-100 btn-green mt-5 py-2">Lanjut Pembayaran</button>
+                    {{-- @if($program->count_day > 0) --}}
+                      <button class="btn w-100 btn-green mt-5 py-2" type="submit">Lanjut Pembayaran</button>
+                    {{-- @else
+                      <button class="btn w-100 btn-green mt-5 py-2" disabled>Lanjut Pembayaran</button>
+                    @endif --}}
                   </div>
-                </form>
+                  {!! Form::close() !!}
               </div>
             </div>
           </div>
@@ -198,6 +203,7 @@
             @forelse($programs as $key => $program)
               <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-3">
                 <div class="card-thumbnail">
+                  <a href="{{ route('program.detail', $program->slug) }}">
                   <div class="thumb-pict">
                     <img class="w-100" src="{{ asset('storage/' . $program->image) }}" alt="{{ $program->title }}">
                   </div>
@@ -235,13 +241,14 @@
                       <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
                     @endif
                   </div>
+                  </a>
                 </div>
               </div>
             @empty
               <div class="empty-state">
                 <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                <h4 class="mt-4 font-semibold">Data Not Found</h4>
-                <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
               </div>
             @endforelse
           </div>

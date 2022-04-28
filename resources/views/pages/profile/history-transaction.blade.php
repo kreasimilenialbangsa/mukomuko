@@ -31,8 +31,8 @@
               @empty
                 <div class="empty-state">
                   <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
-                  <h5 class="mt-4 font-semibold">Data Not Found</h5>
-                  <p class="font-medium">Sorry, the data you were looking for could not be found</p>
+                  <h5 class="mt-4 font-semibold">Data Tidak Ditemukan</h5>
+                  <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
                 </div>
               @endforelse
             </div>

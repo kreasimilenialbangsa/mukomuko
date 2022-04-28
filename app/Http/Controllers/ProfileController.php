@@ -69,12 +69,10 @@ class ProfileController extends Controller
 
     public function show($id, Request $request)
     {
-        return 'hello';
-    }
+        $member = User::with('profile', 'desa', 'role_user')->whereId($id)->first();
 
-    public function verification(Request $request)
-    {
-        return view('pages.profile.verification-member');
+        return view('pages.profile.verification-member')
+            ->with('member', $member);
     }
 
 
