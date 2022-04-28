@@ -34,7 +34,7 @@
             <div class="box-search">
               <div class="wrap-select">
                 <select class="form-control select-cat" name="category">
-                  <option value="" selected>Semua Kategori Berita</option>
+                  <option value="" selected>Pilih Kategori</option>
                   @foreach($categories as $category)
                     <option value="{{ $category->id }}" {{ @app('request')->input('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                   @endforeach

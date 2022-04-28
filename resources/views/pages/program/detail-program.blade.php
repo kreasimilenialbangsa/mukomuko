@@ -133,7 +133,7 @@
                 <div class="d-center mt-2 justify-content-between">
                   <div class="d-flex mr-2">
                     <h6 class="clr-green">{{ "Rp " . number_format($program->donate_sum_total_donate,0,",",".") }}</h6>
-                    <span class="text-xs clr-grey font-semibold ml-2">{{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
+                    <span class="text-xs clr-grey font-semibold ml-2">Terkumpul dari {{ "Rp " . number_format($program->target_dana,0,",",".") }}</span>
                   </div>
                   <div class="text-right">
                     <span class="text-xs clr-grey">Sisa Hari</span>
@@ -188,7 +188,7 @@
         </section> -->
         <section class="col-12 mt-5 sec-regist">
           <div class="banner-regist">
-            <h4 class="banner-title mr-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
+            <h4 class="banner-title mr-lg-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
             <a href="" class="btn btn-green btn-regist">Daftar Sekarang Gratis</a>
           </div>
         </section>

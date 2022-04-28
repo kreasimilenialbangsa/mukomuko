@@ -182,4 +182,10 @@
   .programdetail-page .thumb-headline img{
     height: 300px;
   }
+  .programdetail-page .sec-regist .banner-regist {
+    flex-direction: column;
+  }
+  .programdetail-page .sec-regist .btn-regist{
+    margin-top: 20px;
+  }
 }
