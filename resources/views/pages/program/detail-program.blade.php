@@ -193,7 +193,7 @@
         </section> -->
         <section class="col-12 mt-5 sec-regist">
           <div class="banner-regist">
-            <h4 class="banner-title mr-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
+            <h4 class="banner-title mr-lg-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
             <a href="" class="btn btn-green btn-regist">Daftar Sekarang Gratis</a>
           </div>
         </section>
