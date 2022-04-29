@@ -218,6 +218,12 @@
   .home-page .slider-headline .slide-title {
     width: 100%;
   } 
+  .home-page .sec-regist .banner-regist {
+    flex-direction: column;
+  }
+  .home-page .sec-regist .btn-regist{
+    margin-top: 18px;
+  }
 }
 
 @media only screen and (max-width: 767px){

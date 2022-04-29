@@ -238,7 +238,7 @@
                     @if($program->count_day > 0)
                       <a href="{{ route('program.detail', $program->slug) }}" class="mt-2 py-2 btn btn-green w-100">Ikut Donasi</a>
                     @else
-                      <button class="mt-2 py-2 btn btn-green w-100" disabled>Ikut Donasi</button>
+                      <button class="mt-2 py-2 btn btn-secondary w-100" disabled>Ikut Donasi</button>
                     @endif
                   </div>
                 </a>
@@ -309,7 +309,7 @@
         </section>
         <section class="col-12 mt-5 pt-3 sec-regist">
           <div class="banner-regist">
-            <h4 class="banner-title mr-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
+            <h4 class="banner-title mr-md-3 mb-0">Yuk! Daftar untuk Mulai Ber - Donasi Membantu Sesama!</h4>
             <a href="" class="btn btn-green btn-regist">Daftar Sekarang Gratis</a>
           </div>
         </section>
