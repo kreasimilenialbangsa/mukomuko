@@ -446,6 +446,77 @@
     display: inline-block;
 }
 
+/* The container */
+.custom-check-radio {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  color: #65696F;
+  font-weight: 400;
+  font-size: 0.875rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.custom-check-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.custom-check-radio  .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 2px;
+  height: 16px;
+  top: 2px;
+  width: 16px;
+  background-color: #ccc;
+}
+
+/* On mouse-over, add a grey background color */
+.custom-check-radio:hover input ~ .checkmark {
+  background-color: #45BF7C;
+}
+
+/* When the checkbox is checked, add a blue background */
+.custom-check-radio input:checked ~ .checkmark {
+  background-color: #45BF7C;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.custom-check-radio  .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.custom-check-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-check-radio .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 /* enter , tab visible */
 .pre-wrap {
     overflow-wrap: break-word;

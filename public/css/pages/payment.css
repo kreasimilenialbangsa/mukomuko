@@ -2,3 +2,33 @@
     background: #FFFFFF;
     border: 1px solid #CED4D9;
 }
+
+.payment-page .logo-payment{
+    height: 60px;
+    width: 60px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.payment-page .box-green{
+    background: #45BF7C;
+    border-radius: 4px 0px 0px 4px;
+    width: 44px;
+    height: 39px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.payment-page .method-payment .card-header{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #CED4D9;
+}
+
+.payment-page .method-payment .card{
+    border: none;
+    border-bottom: 1px solid #CED4D9;
+}

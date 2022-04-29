@@ -147,6 +147,11 @@ input:checked + .slider:before {
   box-shadow: 0 0 0 0.1rem rgb(0 123 255 / 25%);
 }
 
+.form-group ::placeholder{
+      color: #C5C5C5;
+    font-weight: 400;
+}
+
 
 /* Rounded sliders */
 .slider.round {
