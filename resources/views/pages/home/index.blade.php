@@ -100,7 +100,16 @@
                   Coba masukkan jumlah hartamu dan kalkulator kami akan menghitung jumlah zakatnya.
                 </p>
                 <div class="form-group">
-                  <label class="text-sm" for="total">Kekayaan 1 Tahun</label>
+                  <div class="d-center mb-2 justify-content-between">
+                    <label class="text-sm" for="total">Kekayaan 1 Tahun</label>
+                    <div class="d-center">
+                      <span class="mr-2">Isi sendiri</span>
+                      <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
                   <input type="text" value="0" class="form-control total-input currency" id="zakat-input">
                   <input type="hidden" class="form-control total-input" name="nominal" id="zakat-send">
                 </div>
