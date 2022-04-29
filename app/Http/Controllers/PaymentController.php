@@ -27,11 +27,11 @@ class PaymentController extends Controller
 
     public function detail(Request $request)
     {
-        $paymentUrl = $this->midtrans('TESTZISWAF', 12000, 1);
+        // $paymentUrl = $this->midtrans('TESTZISWAF', 12000, 1);
         // $paymentUrl = $this->xenditEWallet('TESTZISWAF', 12000, 1);
         // $paymentUrl = $this->xenditVA();
 
-        dd($paymentUrl);
+        // dd($paymentUrl);
 
         return view('pages.payment.detail-payment');
     }
