@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Xendit\EWallets;
@@ -18,6 +19,11 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
+        if(!isset($request->session()->get('donate')['type'])){
+            Session::flash('error', 'Pilih program atau ziswaf terlebih dahulu');
+            return redirect()->route('home');
+        }
+        
         $type = $request->session()->get('donate')['type'];
         $donate = $type::find($request->session()->get('donate')['type_id']);
 
