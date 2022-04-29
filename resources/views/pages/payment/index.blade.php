@@ -77,7 +77,7 @@
                     <div class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
-                          <input type="radio" name="payment">
+                          <input type="radio" name="s">
                           <span class="checkmark"></span>
                         </label>
                         <img class="logo-payment" src="{{ asset('img/dana.png') }}" alt="">
