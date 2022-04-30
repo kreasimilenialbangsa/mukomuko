@@ -147,6 +147,7 @@
                         title: 'Berhasil',
                         text: res.message,
                         width: 300,
+                        confirmButtonColor: '#45BF7C',
                     }).then(function() {
                         location.reload();
                     }));
