@@ -32,3 +32,21 @@
     border: none;
     border-bottom: 1px solid #CED4D9;
 }
+
+.payment-page .method-payment .card-body{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.payment-page .method-payment .item-payment:not(:last-child){
+    border-bottom: 1px solid #CED4D9;
+    padding-bottom: 20px;
+}
+
+.payment-page .method-payment .ic-arr{
+    transition: .3s linear all;
+}
+
+.payment-page .method-payment button[aria-expanded="true"] .ic-arr{
+    transform: rotate(90deg);
+}

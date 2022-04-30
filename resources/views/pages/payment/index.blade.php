@@ -62,17 +62,20 @@
                 <p class="text-base clr-grey">Pilih metode pembayaran dibawah ini untuk melanjutkan Donasi</p>
               </div>
             </div>
-            <div class="accordion method-payment" id="accordionExample">
+            <div class="accordion method-payment" id="method-payment">
               <div class="card">
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
-                    <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Dompet Digital <br>
-                      <span class="clr-grey">Pembayaran dengan dompet digital.<span>
+                    <button class="btn d-center w-100 justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      <div>
+                        Dompet Digital <br>
+                        <span class="clr-grey">Pembayaran dengan dompet digital.<span>
+                      </div>
+                      <ion-icon class="text-base ic-arr" name="chevron-forward-outline"></ion-icon>
                     </button>
                   </h2>
                 </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
@@ -106,9 +109,12 @@
               <div class="card">
                 <div class="card-header" id="headingTwo">
                   <h2 class="mb-0">
-                    <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Virtual Account <br>
-                      <span  class="clr-grey">Bayar di ATM atau Internet Banking </span>
+                    <button class="btn d-center w-100 justify-content-between text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <div>
+                        Virtual Account <br>
+                        <span  class="clr-grey">Bayar di ATM atau Internet Banking </span>
+                      </div>
+                      <ion-icon class="text-base ic-arr" name="chevron-forward-outline"></ion-icon>
                     </button>
                   </h2>
                 </div>
