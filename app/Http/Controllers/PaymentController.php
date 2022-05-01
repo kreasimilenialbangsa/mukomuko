@@ -51,6 +51,16 @@ class PaymentController extends Controller
             ->with('donate', $donate);
     }
 
+    public function callback_payment(Request $request)
+    {
+        if(!isset($request->order_id)) {
+            Session::flash('error', 'Pilih ziswaf terlebih dahulu');
+            return redirect()->route('home');
+        }
+
+        return redirect()->route('payment.detail', $request->order_id);
+    }
+    
     public function process_payment(Request $request)
     {
         $validated = $request->validate([

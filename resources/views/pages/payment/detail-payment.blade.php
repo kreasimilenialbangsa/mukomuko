@@ -43,7 +43,7 @@
             <p class="clr-grey text-base font-medium">Bayar donasi Anda sebelum <b>{{ $donate->end_payment }} WIB</b> atau donasi Anda otomatis dibatalkan oleh sistem.</p>
           </div>
           <div class="wrap-button mt-4">
-            <a href="{{ $donate->order_url }}" target="_blank" class="btn w-100 py-2 btn-green">Bayar Sekarang</a>
+            <a href="{{ $donate->order_url }}" target="_blank" class="btn w-100 py-2 btn-green">{{ $donate->is_confirm == 0 ? 'Bayar Sekarang' : 'Cek Status Pembayaran' }}</a>
           </div>
         </div>
       </div>
