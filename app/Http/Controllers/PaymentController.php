@@ -186,14 +186,14 @@ class PaymentController extends Controller
 
         $ewalletChargeParams = [
             'reference_id' => $orderID,
-            "name" => $input['is_anonim'] == 0 ? $input['userName'] : 'Hamba Allah',
+            'name' => $input['is_anonim'] == 0 ? $input['userName'] : 'Hamba Allah',
             'currency' => 'IDR',
             'amount' => (int) $input['totalDonate'],
             'checkout_method' => 'ONE_TIME_PAYMENT',
             'channel_code' => $input['paymentChannel'],
             "expiration_date" => Carbon::now()->addMinutes(1),
             'channel_properties' => [
-                "mobile_number" => $input['userPhone'],
+                "mobile_number" => '+62'.$input['userPhone'],
                 'success_redirect_url' => route('payment.detail', $orderID),
                 'failure_redirect_url' => route('payment.detail', $orderID)
             ],

@@ -10,12 +10,12 @@
   <meta name="author" content="NU CARE-LAZISNU">
   <meta name="description" content="NU CARE-LAZISNU adalah situs resmi Lembaga Amil Zakat, Infaq dan Shadaqah Nahdlatul Ulama yang dikelola oleh PC NU Care-LAZISNU Kabupaten Mukomuko">
   <meta name="keywords" content="NU Care LAZISNU">
-  <link rel="shortcut icon" type="image/x-icon" href="">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
   <!-- Twitter -->
   <meta name="twitter:site" content="">
   <meta name="twitter:creator" content="">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="">
+  <meta name="twitter:image" content="{{ asset('img/favicon.png') }}">
   <!-- Facebook & Whatsapp -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="">
