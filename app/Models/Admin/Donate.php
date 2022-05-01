@@ -38,6 +38,8 @@ class Donate extends Model
 
     public $fillable = [
         'user_id',
+        'order_id',
+        'order_url',
         'type',
         'type_id',
         'location_id',
@@ -47,7 +49,8 @@ class Donate extends Model
         'message',
         'total_donate',
         'is_anonim',
-        'is_confirm'
+        'is_confirm',
+        'is_payment'
     ];
 
     /**

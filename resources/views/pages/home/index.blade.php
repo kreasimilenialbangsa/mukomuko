@@ -105,7 +105,7 @@
                     <div class="d-center">
                       <span class="mr-2">Isi sendiri</span>
                       <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="zakat-check">
                         <span class="slider round"></span>
                       </label>
                     </div>
@@ -483,24 +483,44 @@
                 i : 0;
     };
 
+    var check = false;
+    var result = 0;
+    var name = 'Pilih';
+
+    $('#zakat-check').on('click', function() {
+      check = $(this).is(":checked");
+    });
+
     $('#zakat').on('change', function() {
-      var name = $('#zakat option:selected').text();
+      name = $('#zakat option:selected').text();
 
       if(name == 'Pilih') {
         $('#zakat-name').html('');
         $('#zakat-nominal').html('');
       } else {
-        $('#zakat-name').html(name + ' Kamu');
-        $('#zakat-nominal').html('Rp 0');
+        $('#zakat-input').val(0);
+
+        if(check == true) {
+          $('#zakat-name').html('');
+          $('#zakat-nominal').html('');
+        } else {
+          $('#zakat-name').html(name + ' Kamu');
+          $('#zakat-nominal').html(result > 0 ? rupiah(result) : 'Rp 0');
+        }
       }
 
       $('#zakat-input').on('keyup', function() {
         var nominal = $(this).val();
-        var result = nominal.replaceAll('.', '') * (2.5/100);
+        result = nominal.replaceAll('.', '') * (2.5/100);
 
-        $('#zakat-send').val(result);
-
-        $('#zakat-nominal').html( rupiah(result));
+        if(check == false && name != 'Pilih') {
+          $('#zakat-send').val(result);
+          $('#zakat-nominal').html( rupiah(result)); 
+        } else {
+          $('#zakat-send').val(nominal.replaceAll('.', ''));
+          $('#zakat-name').html('');
+          $('#zakat-nominal').html('');
+        }
       });
     });
   </script>

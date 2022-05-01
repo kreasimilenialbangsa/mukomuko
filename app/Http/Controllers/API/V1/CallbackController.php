@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Mail\TestMail;
+use App\Models\Admin\Donate;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class CallbackController extends Controller
         $fraud = $notification->fraud_status;
         $order_id = $notification->order_id;
 
-        $transaction = Transaction::where('order_id', $order_id)->first();
+        $transaction = Donate::where('order_id', $order_id)->first();
 
         if ($status == 'capture') {
             if ($fraud == 'challenge') {
@@ -78,7 +79,7 @@ class CallbackController extends Controller
     {
         // return $request;
 
-        $transaction = Transaction::where('order_id', $request->data['reference_id'])->first(); //$request->data['reference_id']);
+        $transaction = Donate::where('order_id', $request->data['reference_id'])->first(); //$request->data['reference_id']);
 
         if ($request->data['status'] == 'SUCCEEDED') {
 

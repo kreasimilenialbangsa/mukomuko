@@ -7,9 +7,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>NU CARE-LAZISNU</title>
-  <meta name="author" content="">
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <meta name="author" content="NU CARE-LAZISNU">
+  <meta name="description" content="NU CARE-LAZISNU adalah situs resmi Lembaga Amil Zakat, Infaq dan Shadaqah Nahdlatul Ulama yang dikelola oleh PC NU Care-LAZISNU Kabupaten Mukomuko">
+  <meta name="keywords" content="NU Care LAZISNU">
   <link rel="shortcut icon" type="image/x-icon" href="">
   <!-- Twitter -->
   <meta name="twitter:site" content="">

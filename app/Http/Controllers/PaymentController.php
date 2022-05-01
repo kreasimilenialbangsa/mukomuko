@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TestMail;
+use App\Models\Admin\Donate;
 use App\Models\Admin\Ziswaf;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -23,27 +24,52 @@ class PaymentController extends Controller
             Session::flash('error', 'Pilih program atau ziswaf terlebih dahulu');
             return redirect()->route('home');
         }
-        
+
         $type = $request->session()->get('donate')['type'];
         $donate = $type::find($request->session()->get('donate')['type_id']);
+
+        if(empty($donate)) {
+            Session::flash('error', 'Pilih ziswaf terlebih dahulu');
+            return redirect()->route('home');
+        }
 
         return view('pages.payment.index')
             ->with('donate', $donate);
     }
 
-    public function detail(Request $request)
+    public function detail(Request $request, $orderId)
     {
-        // $paymentUrl = $this->midtrans('TESTZISWAF', 12000, 1);
-        // $paymentUrl = $this->xenditEWallet('TESTZISWAF', 12000, 1);
-        // $paymentUrl = $this->xenditVA();
+        $donate = Donate::whereOrderId($orderId)->firstOrFail();
 
-        // dd($paymentUrl);
+        $donate->end_payment = Carbon::parse( $donate->created_at)->addMinutes(30)->isoFormat('dddd, D MMMM Y - H:m');
+        $donate->date = Carbon::parse( $donate->created_at)->isoFormat('dddd, D MMMM Y');
+        
+        $type = $donate->type::find($donate->type_id);
 
-        return view('pages.payment.detail-payment');
+        return view('pages.payment.detail-payment')
+            ->with('type', $type)
+            ->with('donate', $donate);
     }
 
     public function process_payment(Request $request)
     {
+        $validated = $request->validate([
+            'nominal' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'channel' => 'required',
+            'agreement' => 'required'
+        ]);
+
+        if($request->session()->get('donate')['nominal'] != $request->nominal) {
+            session(['donate' => [
+                'type' => $request->session()->get('donate')['type'],
+                'type_id' => $request->session()->get('donate')['type_id'],
+                'nominal' => str_replace('.', '', $request->nominal)
+            ]]);
+        }
+
         $input = [
             'type' => $request->session()->get('donate')['type'] == '\App\Models\Admin\Ziswaf' ? 'ZISWAF-' : 'PROGRAM-',
             'type_id' => $request->session()->get('donate')['type_id'],
@@ -54,11 +80,11 @@ class PaymentController extends Controller
             'userPhone' => isset($request->session()->get('user')['phone']) ? $request->session()->get('user')['phone'] : $request->phone,
             'is_anonim' => isset($request->is_anonim) ? 1 : 0,
             'message' => !empty($request->message) ? $request->message : '',
-            'paymentChannel' => $request->paymentChannel
+            'paymentChannel' => $request->channel
         ];
 
-        // $url = $this->_midtrans($input);
-        $url = $this->_xenditEWallet($input);
+        $orderID = $this->_midtrans($input);
+        // $url = $this->_xenditEWallet($input);
 
 
         // if($input['paymentChannel'] == '') {
@@ -67,7 +93,7 @@ class PaymentController extends Controller
         //     $url = $this->_xenditEWallet($input);
         // }
 
-        return redirect($url);
+        return redirect()->route('payment.detail', $orderID);
     }
 
     private function _midtrans($input)
@@ -97,11 +123,11 @@ class PaymentController extends Controller
                 "name" => $donate->title
             ),),
             'customer_details' => array(
-                'first_name' => $input['is_anonim'] == 1 ? $input['userName'] : 'Hamba Allah',
+                'first_name' => $input['is_anonim'] == 0 ? $input['userName'] : 'Hamba Allah',
                 'email' => $input['userEmail'],
                 'phone' => $input['userPhone'],
             ),
-            'enabled_payments' => array('shopeepay'),
+            'enabled_payments' => array($input['paymentChannel']),
             'vtweb' => array()
         );
 
@@ -111,6 +137,7 @@ class PaymentController extends Controller
 
         $data = [
             'order_id' => $orderID,
+            'order_url' => $paymentUrl,
             'type' => $type,
             'type_id' => $input['type_id'],
             'user_id' => $input['userId'],
@@ -120,11 +147,14 @@ class PaymentController extends Controller
             'message' => $input['message'],
             'total_donate' => $input['totalDonate'],
             'is_anonim' => $input['is_anonim'],
+            'location_id' => 0,
+            'is_confirm' => 0,
+            'is_payment' => 1,
         ];
 
-        Transaction::create($data);
+        Donate::create($data);
 
-        return $paymentUrl;
+        return $orderID;
     }
 
     private function _xenditEWallet($input)
