@@ -89,7 +89,7 @@ class PaymentController extends Controller
             'userEmail' => isset($request->session()->get('user')['email']) ? $request->session()->get('user')['email'] : $request->email,
             'userPhone' => isset($request->session()->get('user')['phone']) ? $request->session()->get('user')['phone'] : $request->phone,
             'is_anonim' => isset($request->is_anonim) ? 1 : 0,
-            'message' => !empty($request->message) ? $request->message : '',
+            'message' => !empty($request->message) ? $request->message : null,
             'paymentChannel' => $request->channel
         ];
 
@@ -186,7 +186,7 @@ class PaymentController extends Controller
 
         $ewalletChargeParams = [
             'reference_id' => $orderID,
-            "name" => $input['userName'],
+            "name" => $input['is_anonim'] == 0 ? $input['userName'] : 'Hamba Allah',
             'currency' => 'IDR',
             'amount' => (int) $input['totalDonate'],
             'checkout_method' => 'ONE_TIME_PAYMENT',

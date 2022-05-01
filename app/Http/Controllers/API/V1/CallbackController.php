@@ -81,7 +81,7 @@ class CallbackController extends Controller
 
         $transaction = Donate::where('order_id', $request->data['reference_id'])->first(); //$request->data['reference_id']);
 
-        if ($transaction == null) {
+        if (empty($transaction)) {
             return response()->json([
                 'message' => 'Donate Not Found',
                 'data' => $request,
