@@ -69,9 +69,10 @@ class ProgramContoller extends Controller
             ->with('category')
             ->withSum('donate', 'total_donate')
             ->where('id', '<>', $program->id)
-            ->whereDate('end_date', '<=', date('Y-m-d'))
+            ->whereDate('end_date', '>', date('Y-m-d'))
             ->whereIsActive(1)
             ->limit(4)
+            ->inRandomOrder()
             ->get();
             
         foreach($programs as $row) {

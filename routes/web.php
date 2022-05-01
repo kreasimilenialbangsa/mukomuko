@@ -62,7 +62,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
 // Payment
 Route::get('/payment', [\App\Http\Controllers\PaymentController::class, 'index'])->name('payment.index');
 Route::post('/payment', [\App\Http\Controllers\PaymentController::class, 'process_payment'])->name('payment.process');
-Route::get('/payment/detail', [\App\Http\Controllers\PaymentController::class, 'detail'])->name('payment.detail');
+Route::get('/payment/callback', [\App\Http\Controllers\PaymentController::class, 'callback_payment'])->name('payment.callback');
+Route::get('/payment/{order_id}', [\App\Http\Controllers\PaymentController::class, 'detail'])->name('payment.detail');
 
 // Galery
 Route::get('/galeri', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');

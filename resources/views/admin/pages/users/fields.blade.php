@@ -106,10 +106,10 @@
                 }
             });
 
-            @if(isset($user->kecamatan->name))
+            @if(@$user->kecamatan->name))
                 var newOption1 = new Option('{{ @$user->kecamatan->name }}', {{@$user->location_id }}, true, true);
                 $('.select2-user').append(newOption1).trigger('change');
-            @else
+            @elseif(@$user->desa->name)
                 var newOption1 = new Option('{{ @$user->desa->name }}', {{@$user->location_id }}, true, true);
                 $('.select2-user').append(newOption1).trigger('change');
             @endif

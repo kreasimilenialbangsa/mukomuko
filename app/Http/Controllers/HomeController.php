@@ -46,6 +46,7 @@ class HomeController extends Controller
             ->with('category')
             ->withSum('donate', 'total_donate')
             ->whereIsActive(1)
+            ->whereDate('end_date', '>', date('Y-m-d'))
             ->orderBy('created_at', 'desc')
             ->limit(8)
             ->get();
