@@ -115,6 +115,45 @@
                         <p class="mb-0">Pembayaran melalui ShopeePay</p>
                       </div>
                     </label>
+                    <label for="ID_DANA" class="d-center item-payment mb-3">
+                      <div class="d-center mr-3">
+                        <label class="custom-check-radio">
+                          <input type="radio" name="channel" value="ID_DANA" id="ID_DANA">
+                          <span class="checkmark"></span>
+                        </label>
+                        <img class="logo-payment" src="{{ asset('img/payment/dana.webp') }}" alt="">
+                      </div>
+                      <div class="detail">
+                        <h6>DANA</h6>
+                        <p class="mb-0">Pembayaran melalui DANA</p>
+                      </div>
+                    </label>
+                    <label for="ID_OVO" class="d-center item-payment mb-3">
+                      <div class="d-center mr-3">
+                        <label class="custom-check-radio">
+                          <input type="radio" name="channel" value="ID_OVO" id="ID_OVO">
+                          <span class="checkmark"></span>
+                        </label>
+                        <img class="logo-payment" src="{{ asset('img/payment/ovo.webp') }}" alt="">
+                      </div>
+                      <div class="detail">
+                        <h6>OVO</h6>
+                        <p class="mb-0">Pembayaran melalui OVO</p>
+                      </div>
+                    </label>
+                    <label for="ID_LINKAJA" class="d-center item-payment mb-3">
+                      <div class="d-center mr-3">
+                        <label class="custom-check-radio">
+                          <input type="radio" name="channel" value="ID_LINKAJA" id="ID_LINKAJA">
+                          <span class="checkmark"></span>
+                        </label>
+                        <img class="logo-payment" src="{{ asset('img/payment/link-aja.webp') }}" alt="">
+                      </div>
+                      <div class="detail">
+                        <h6>LINK AJA</h6>
+                        <p class="mb-0">Pembayaran melalui LINK AJA</p>
+                      </div>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -158,7 +197,7 @@
                         <p class="mb-0">Bayar di ATM BCA atau Internet Banking</p>
                       </div>
                     </label>
-                    <label for="mandiri_clickpay" class="d-center item-payment mb-3">
+                    {{-- <label for="mandiri_clickpay" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
                           <input type="radio" name="channel" value="mandiri_clickpay" id="mandiri_clickpay">
@@ -170,7 +209,7 @@
                         <h6>Virtual Account Mandiri</h6>
                         <p class="mb-0">Bayar di ATM Mandiri atau Internet Banking</p>
                       </div>
-                    </label>
+                    </label> --}}
                     <label for="bni_va" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">

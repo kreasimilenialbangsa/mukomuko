@@ -93,15 +93,11 @@ class PaymentController extends Controller
             'paymentChannel' => $request->channel
         ];
 
-        $orderID = $this->_midtrans($input);
-        // $url = $this->_xenditEWallet($input);
-
-
-        // if($input['paymentChannel'] == '') {
-        //     $url = $this->_midtrans($input);
-        //     } else {
-        //     $url = $this->_xenditEWallet($input);
-        // }
+        if($input['paymentChannel'] == 'ID_DANA' || $input['paymentChannel'] == 'ID_OVO' || $input['paymentChannel'] == 'ID_LINKAJA') {            
+            $orderID = $this->_xenditEWallet($input);
+        } else {
+            $orderID = $this->_midtrans($input);
+        }
 
         return redirect()->route('payment.detail', $orderID);
     }
@@ -123,17 +119,17 @@ class PaymentController extends Controller
                 'order_id' => $orderID,
                 'gross_amount' => (int) $input['totalDonate'],
             ),
-            "callbacks" => array(
-                "finish" => "https://tokoecommerce.com/my_custom_finish/?name=Customer01"
-            ),
-            "expiry" => array(
-                "start_time" => "2020-04-13 18:11:08 +0700",
-                "unit" => "minutes",
-                "duration" => 180
-            ),
+            // "callbacks" => array(
+            //     "finish" => "https://to koecommerce.com/my_custom_finish/?name=Customer01"
+            // ),
+            // "expiry" => array(
+            //     "start_time" => "2020-04-13 18:11:08 +0700",
+            //     "unit" => "minutes",
+            //     "duration" => 180
+            // ),
             "gopay" => array(
                 "enable_callback" => true,
-                "callback_url" => "https://tokoecommerce.com/gopay_finish"
+                "callback_url" => route('payment.detail', $orderID)
             ),
             'credit_card' => array(
                 'secure' => true
@@ -194,12 +190,12 @@ class PaymentController extends Controller
             'currency' => 'IDR',
             'amount' => (int) $input['totalDonate'],
             'checkout_method' => 'ONE_TIME_PAYMENT',
-            'channel_code' => 'ID_DANA',
-            "expiration_date" => Carbon::now()->addMinutes(4)->subSeconds(30),
+            'channel_code' => $input['paymentChannel'],
+            "expiration_date" => Carbon::now()->addMinutes(1),
             'channel_properties' => [
-                "mobile_number" => '+62' . $input['userPhone'],
-                'success_redirect_url' => 'http://bba8-139-228-135-89.ngrok.io',
-                'failure_redirect_url' => 'http://bba8-139-228-135-89.ngrok.io',
+                "mobile_number" => $input['userPhone'],
+                'success_redirect_url' => route('payment.detail', $orderID),
+                'failure_redirect_url' => route('payment.detail', $orderID)
             ],
             'basket' => array(
                 array(
@@ -223,6 +219,7 @@ class PaymentController extends Controller
 
         $data = [
             'order_id' => $orderID,
+            'order_url' => $createEWalletCharge['actions']['desktop_web_checkout_url'],
             'type' => $type,
             'type_id' => $input['type_id'],
             'user_id' => $input['userId'],
@@ -232,11 +229,14 @@ class PaymentController extends Controller
             'message' => $input['message'],
             'total_donate' => $input['totalDonate'],
             'is_anonim' => $input['is_anonim'],
+            'location_id' => 0,
+            'is_confirm' => 0,
+            'is_payment' => 2,
         ];
 
-        Transaction::create($data);
+        Donate::create($data);
 
-        return $createEWalletCharge['actions']['desktop_web_checkout_url'];
+        return $orderID;
     }
 
     // public function xenditVA()
