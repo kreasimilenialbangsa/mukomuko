@@ -82,6 +82,8 @@ class CallbackController extends Controller
         $transaction = Donate::where('order_id', $request->data['reference_id'])->first(); //$request->data['reference_id']);
 
         if (empty($transaction)) {
+            Mail::to('adam2802002@gmail.com')->send(new TestMail($request->data['reference_id']));
+
             return response()->json([
                 'message' => 'Donate Not Found',
                 'data' => $request->data,
