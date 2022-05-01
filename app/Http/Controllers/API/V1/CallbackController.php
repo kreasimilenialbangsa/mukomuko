@@ -84,7 +84,7 @@ class CallbackController extends Controller
         if (empty($transaction)) {
             return response()->json([
                 'message' => 'Donate Not Found',
-                'data' => $request,
+                'data' => $request->data,
             ]);
         }
 
@@ -105,7 +105,7 @@ class CallbackController extends Controller
 
         return response()->json([
             'message' => 'Success',
-            'data' => $request,
+            'data' => $request->data,
         ]);
     }
 }
