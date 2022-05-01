@@ -44,7 +44,8 @@
   padding-left: 0;
 }
 
-.main-footer .nav-link:hover{
+.main-footer .nav-link:hover, 
+.main-footer .nav-link.active{
   color: #45BF7C;
 }
 
