@@ -14,7 +14,7 @@
     background: #45BF7C;
     border-radius: 4px 0px 0px 4px;
     width: 44px;
-    height: 39px;
+    height: 38px;
     color: white;
     display: flex;
     align-items: center;
@@ -49,4 +49,10 @@
 
 .payment-page .method-payment button[aria-expanded="true"] .ic-arr{
     transform: rotate(90deg);
+}
+
+.payment-page .wrapper-left{
+  position: sticky;
+  top: 100px;
+  left: 0;
 }
