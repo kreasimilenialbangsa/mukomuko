@@ -16,25 +16,28 @@
             <h5>Riwayat Transaksi</h5>
             <div class="list-history">
               @forelse($donates as $donate)
-                <div class="d-center border-bottom py-4 justify-content-between">
+                <a href="{{ route('payment.detail', $donate->order_id) }}" class="d-center border-bottom py-4 justify-content-between">
                   <div class="type">
                     <h6>{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</h6>
                     <div class="date-price">
-                      <span class="clr-grey">{{ date('d M Y', strtotime($donate->created_at)) }} |</span>
+                      <span class="clr-grey">{{ \Carbon\Carbon::parse($donate->created_at)->isoFormat('dddd, D MMMM Y - H:mm') }} WIB |</span>
                       <span class="clr-green">{{ "Rp " . number_format($donate->total_donate,0,",",".") }}</span>
                     </div>
                   </div>
                   <div class="pill-status {{ $donate->is_confirm == 0 ? 'yellow' : ($donate->is_confirm == 1 ? 'green' : 'gray') }}">
                     {{ $donate->is_confirm == 0 ? 'Pending' : ($donate->is_confirm == 1 ? 'Sukses' : 'Kedaluwarsa') }}
                   </div>
-                </div>
-              @empty
+                </a>
+                @empty
                 <div class="empty-state">
                   <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
                   <h5 class="mt-4 font-semibold">Data Tidak Ditemukan</h5>
                   <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
                 </div>
-              @endforelse
+                @endforelse
+                <div class="d-flex mt-3 justify-content-center">
+                  {{ $donates->links('vendor.pagination.bootstrap-4') }}
+                </div>
             </div>
           </div>
         </div>

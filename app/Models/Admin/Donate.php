@@ -60,6 +60,8 @@ class Donate extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
+        'order_id' => 'string',
+        'order_url' => 'string',
         'type' => 'string',
         'type_id' => 'integer',
         'location_id' => 'integer',
@@ -69,7 +71,8 @@ class Donate extends Model
         'message' => 'string',
         'total_donate' => 'integer',
         'is_anonim' => 'integer',
-        'is_confirm' => 'integer'
+        'is_confirm' => 'integer',
+        'is_payment' => 'integer'
     ];
 
     /**
