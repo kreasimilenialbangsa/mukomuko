@@ -20,7 +20,7 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-        if(!isset($request->session()->get('donate')['type'])){
+        if (!isset($request->session()->get('donate')['type'])) {
             Session::flash('error', 'Pilih program atau ziswaf terlebih dahulu');
             return redirect()->route('home');
         }
@@ -28,7 +28,7 @@ class PaymentController extends Controller
         $type = $request->session()->get('donate')['type'];
         $donate = $type::find($request->session()->get('donate')['type_id']);
 
-        if(empty($donate)) {
+        if (empty($donate)) {
             Session::flash('error', 'Pilih ziswaf terlebih dahulu');
             return redirect()->route('home');
         }
@@ -41,9 +41,9 @@ class PaymentController extends Controller
     {
         $donate = Donate::whereOrderId($orderId)->firstOrFail();
 
-        $donate->end_payment = Carbon::parse( $donate->created_at)->addMinutes(30)->isoFormat('dddd, D MMMM Y - H:m');
-        $donate->date = Carbon::parse( $donate->created_at)->isoFormat('dddd, D MMMM Y');
-        
+        $donate->end_payment = Carbon::parse($donate->created_at)->addMinutes(30)->isoFormat('dddd, D MMMM Y - H:m');
+        $donate->date = Carbon::parse($donate->created_at)->isoFormat('dddd, D MMMM Y');
+
         $type = $donate->type::find($donate->type_id);
 
         return view('pages.payment.detail-payment')
@@ -62,7 +62,7 @@ class PaymentController extends Controller
             'agreement' => 'required'
         ]);
 
-        if($request->session()->get('donate')['nominal'] != $request->nominal) {
+        if ($request->session()->get('donate')['nominal'] != $request->nominal) {
             session(['donate' => [
                 'type' => $request->session()->get('donate')['type'],
                 'type_id' => $request->session()->get('donate')['type_id'],
@@ -112,6 +112,18 @@ class PaymentController extends Controller
             'transaction_details' => array(
                 'order_id' => $orderID,
                 'gross_amount' => (int) $input['totalDonate'],
+            ),
+            "callbacks" => array(
+                "finish" => "https://tokoecommerce.com/my_custom_finish/?name=Customer01"
+            ),
+            "expiry" => array(
+                "start_time" => "2020-04-13 18:11:08 +0700",
+                "unit" => "minutes",
+                "duration" => 180
+            ),
+            "gopay" => array(
+                "enable_callback" => true,
+                "callback_url" => "https://tokoecommerce.com/gopay_finish"
             ),
             'credit_card' => array(
                 'secure' => true
