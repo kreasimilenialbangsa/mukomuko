@@ -10,7 +10,7 @@
       {!! Form::open(['route' => 'payment.process']) !!}
       <div class="row">
         <div class="col-lg-6 mx-auto">
-          <div class="box-white">
+          <div class="box-white wrapper-left">
             <div class="d-flex">
               <img width="26" height="26" src="{{ asset('img/rp-icon.svg') }}" alt="">
               <div class="title-zakat ml-2">
@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="col-lg-6 mt-lg-0 mt-4">
-          <div class="box-white">
+          <div class="box-white wrapper-right">
             <div class="d-flex">
               <img width="26" height="26" src="{{ asset('img/rp-icon.svg') }}" alt="">
               <div class="title-zakat ml-2">

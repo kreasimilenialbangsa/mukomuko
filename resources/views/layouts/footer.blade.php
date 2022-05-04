@@ -99,23 +99,23 @@
     </div>
     <div class="shortcut-footer d-lg-none d-block">
       <div class="d-flex justify-content-between">
-        <a class="wrap-shortcut nav-link" href="{{ route('home') }}">
+        <a class="wrap-shortcut nav-link {{ Request::is('/') ? 'active' : '' }}"  href="{{ route('home') }}">
           <ion-icon class="h4" name="home"></ion-icon>
           <span>Home</span>
         </a>
-        <a class="wrap-shortcut nav-link" href="{{ route('program.index') }}">
+        <a class="wrap-shortcut nav-link {{ Request::is('program') ? 'active' : '' }}" href="{{ route('program.index') }}">
           <ion-icon class="h4" name="pie-chart"></ion-icon>
           <span>Program</span>
         </a>
-        <a class="wrap-shortcut nav-link" href="{{ route('news.index') }}">
+        <a class="wrap-shortcut nav-link {{ Request::is('berita') ? 'active' : '' }}" href="{{ route('news.index') }}">
           <ion-icon class="h4" name="newspaper"></ion-icon>
           <span>Berita</span>
         </a>
-        <a class="wrap-shortcut nav-link" href="{{ route('donatur.index') }}">
+        <a class="wrap-shortcut nav-link {{ Request::is('donatur') ? 'active' : '' }}" href="{{ route('donatur.index') }}">
           <ion-icon class="h4" name="people"></ion-icon>
           <span>Donatur</span>
         </a>
-        <a class="wrap-shortcut nav-link" href="{{ route('user.profile') }}">
+        <a class="wrap-shortcut nav-link {{ Request::is('profile*') ? 'active' : '' }}" href="{{ route('user.profile') }}">
           <ion-icon class="h4" name="person-sharp"></ion-icon>
           <span>Akun</span>
         </a>
