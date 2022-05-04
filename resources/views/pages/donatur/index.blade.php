@@ -12,7 +12,7 @@
       <div class="row">
         <section class="col-12 mb-4 sec-filter">
           <h4 class="text-center">Donatur</h4>
-          <form class="d-center mt-md-5 mt-4 row justify-content-md-between">
+          <form class="d-center mt-md-5 mt-4 row justify-content-md-between" action="{{ route('donatur.index') }}" method="GET">
             <div class="col-md-6 col-12">
               <div class="group-select row">
                 {{-- <div class="btn btn-green ml-3 col-md-3 col">
@@ -40,9 +40,9 @@
                   </select>
                 </div>--}}
                 <div class="btn btn-green mx-3 col-md-3 col">
-                  <select class="form-control select-cat">
-                    <option selected>Terbaru</option>
-                    <option value="latest">Terlama</option>
+                  <select class="form-control select-cat" name="order">
+                    <option value="desc" {{ @request()->get('order') == 'desc' ? 'selected' : '' }}>Terbaru</option>
+                    <option value="asc" {{ @request()->get('order') == 'asc' ? 'selected' : '' }}>Terlama</option>
                   </select>
                 </div>
               </div>
@@ -87,7 +87,7 @@
 @section('scripts')
   <script>
     $(document).ready(function() {
-      $('select[name=category]').on('change', function() {
+      $('select[name=order]').on('change', function() {
         $(this).closest('form').submit();
       })
     });

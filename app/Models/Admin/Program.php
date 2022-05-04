@@ -78,7 +78,7 @@ class Program extends Model
     public static $rules = [
         'title' => 'required',
         'location' => 'required',
-        'target_dana' => 'required',
+        'target_dana' => 'required|min:6',
         'end_date' => 'required',
         'category_id' => 'required',
         'description' => 'required',

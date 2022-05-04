@@ -63,6 +63,9 @@ class PaymentController extends Controller
     
     public function process_payment(Request $request)
     {
+        Session::flash('error', 'Fitur masih dalam pengembangan');
+        return redirect()->route('payment.index');
+
         $validated = $request->validate([
             'nominal' => 'required',
             'name' => 'required',
@@ -83,7 +86,7 @@ class PaymentController extends Controller
         $input = [
             'type' => $request->session()->get('donate')['type'] == '\App\Models\Admin\Ziswaf' ? 'ZISWAF-' : 'PROGRAM-',
             'type_id' => $request->session()->get('donate')['type_id'],
-            'totalDonate' => $request->session()->get('donate')['nominal'],
+            'totalDonate' => str_replace('.', '', $request->session()->get('donate')['nominal']),
             'userId' => isset($request->session()->get('user')['id']) ? $request->session()->get('user')['id'] : 0,
             'userName' => isset($request->session()->get('user')['name']) ? $request->session()->get('user')['name'] : $request->name,
             'userEmail' => isset($request->session()->get('user')['email']) ? $request->session()->get('user')['email'] : $request->email,
@@ -93,7 +96,7 @@ class PaymentController extends Controller
             'paymentChannel' => $request->channel
         ];
 
-        if($input['paymentChannel'] == 'ID_DANA' || $input['paymentChannel'] == 'ID_OVO' || $input['paymentChannel'] == 'ID_LINKAJA') {            
+        if($input['paymentChannel'] == 'ID_DANA' || $input['paymentChannel'] == 'ID_OVO' || $input['paymentChannel'] == 'ID_LINKAJA') {       
             $orderID = $this->_xenditEWallet($input);
         } else {
             $orderID = $this->_midtrans($input);
@@ -127,10 +130,6 @@ class PaymentController extends Controller
             //     "unit" => "minutes",
             //     "duration" => 180
             // ),
-            "gopay" => array(
-                "enable_callback" => true,
-                "callback_url" => route('payment.detail', $orderID)
-            ),
             'credit_card' => array(
                 'secure' => true
             ),
@@ -148,6 +147,13 @@ class PaymentController extends Controller
             'enabled_payments' => array($input['paymentChannel']),
             'vtweb' => array()
         );
+
+        if($input['paymentChannel'] == 'gopay') {
+            $midtrans += array("gopay" => array(
+                "enable_callback" => true,
+                "callback_url" => route('payment.detail', $orderID)
+            ));
+        }
 
         $paymentUrl = Snap::getSnapUrl($midtrans);
 

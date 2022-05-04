@@ -74,9 +74,9 @@ class NewsDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
             'title' => ['title' => 'Nama'],
             'image' => ['searchable' => false, 'orderable' => false, 'className' => 'text-center', 'title' => 'Gambar'],
-            'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
             'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category_id', 'title' => 'Kategori'],
             'is_highlight' => ['className' => 'text-center', 'title' => 'Highlight'],
             'is_active' => ['className' => 'text-center', 'title' => 'Aktif']

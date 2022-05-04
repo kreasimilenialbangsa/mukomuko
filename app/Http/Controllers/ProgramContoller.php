@@ -63,6 +63,15 @@ class ProgramContoller extends Controller
             ->whereType('\App\Models\Admin\Program')
             ->whereTypeId($program->id)
             ->whereIsConfirm(1)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $doa = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim', 'message')
+            ->whereType('\App\Models\Admin\Program')
+            ->whereTypeId($program->id)
+            ->whereIsConfirm(1)
+            ->whereNotNull('message')
+            ->orderBy('id', 'desc')
             ->get();
 
         $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at')
@@ -84,6 +93,7 @@ class ProgramContoller extends Controller
 
         return view('pages.program.detail-program')
                 ->with('donates', $donates)
+                ->with('doa', $doa)
                 ->with('program', $program)
                 ->with('programs', $programs);
     }

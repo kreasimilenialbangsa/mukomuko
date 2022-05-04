@@ -26,10 +26,10 @@ class DonaturController extends Controller
 
         $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
             ->whereIsConfirm(1)
-            ->when(isset($request->program), function($q) use($request) {
-                return $q->orWhereCategoryId($request->category);
-            })
-            ->orderBy('id', 'desc')
+            // ->when(isset($request->order), function($q) use($request) {
+            //     return $q->orderBy('id', $request->order);
+            // })
+            ->orderBy('id', isset($request->order) ? $request->order : 'desc')
             ->paginate(12);
         
         return view('pages.donatur.index')

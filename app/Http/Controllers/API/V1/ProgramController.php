@@ -75,6 +75,12 @@ class ProgramController extends Controller
 
         $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
 
+        $program->description = str_replace('/storage/', env('APP_URL').'/storage/', $program->description);
+
+        foreach($program->news as $news) {
+            $news['description'] = $news['description'] = str_replace('/storage/', env('APP_URL').'/storage/', $news['description']);
+        }
+
         return response()->json([
             'status' => true,
             'success' => 'success',

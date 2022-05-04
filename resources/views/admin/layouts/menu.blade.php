@@ -26,7 +26,7 @@
 
 @role('SuperAdmin|Kabupaten')
 <li class="side-menus {{ Request::is('admin/outcomes*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.outcomes.index') }}"><i class="fas fa-building"></i><span>Pengularan</span></a>
+    <a class="nav-link" href="{{ route('admin.outcomes.index') }}"><i class="fas fa-building"></i><span>Pengeluaran</span></a>
 </li>
 @endrole
 
@@ -46,8 +46,10 @@
     <ul class="dropdown-menu">
         <li class="{{ Request::is('admin/approval/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.program.index') }}">Donasi Program</a></li>
         <li class="{{ Request::is('admin/approval/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ziswaf.index') }}">Donasi Ziswaf</a></li>
+        @role('SuperAdmin|Kabupaten')
         <li class="{{ Request::is('admin/approval/ambulan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ambulan.index') }}">Pengajuan Ambulan</a></li>
         <li class="{{ Request::is('admin/approval/dana*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.dana.index') }}">Pengajuan Dana</a></li>
+        @endrole
     </ul>
 </li>
 @endrole

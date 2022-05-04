@@ -134,6 +134,10 @@ class SupportServiceController extends AppBaseController
      */
     public function update($id, UpdateSupportServiceRequest $request)
     {
+        $request->validate([
+            'nominal' => 'required|digits:5',
+        ]);
+
         $supportService = $this->supportServiceRepository->find($id);
 
         if (empty($supportService)) {
@@ -146,8 +150,8 @@ class SupportServiceController extends AppBaseController
             'user_id' => Auth::user()->id,
             'category_id' => $request->category_id,
             'reason' => $request->reason,
-            'nominal' => 0,
-            'is_confirm' => 0,
+            'nominal' => $request->nominal,
+            'is_confirm' => 1,
         ];
 
         $supportService = $this->supportServiceRepository->update($input, $id);

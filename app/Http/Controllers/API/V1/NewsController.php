@@ -57,6 +57,8 @@ class NewsController extends Controller
             ], 404); 
         }
 
+        $news->content = str_replace('/storage/', env('APP_URL').'/storage/', $news->content);
+
         $latestNews = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'created_at')
             ->with(['user', 'category', 'images'])
             ->where('id', '<>', $news->id)

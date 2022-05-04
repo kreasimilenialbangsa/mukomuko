@@ -33,7 +33,7 @@ return [
     'date' => 'Isian :attribute bukan tanggal yang valid.',
     'date_format' => 'Isian :attribute tidak cocok dengan format :format.',
     'different' => 'Isian :attribute dan :other harus berbeda.',
-    'digits' => 'Isian :attribute harus berupa angka :digits.',
+    'digits' => 'Isian :attribute harus minimal :digits digit.',
     'digits_between' => 'Isian :attribute harus antara angka :min dan :max.',
     'dimensions' => 'Bagian :attribute tidak memiliki dimensi gambar yang valid.',
     'distinct' => 'Bagian isian :attribute memiliki nilai yang duplikat.',

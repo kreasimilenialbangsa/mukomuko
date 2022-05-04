@@ -212,6 +212,10 @@ class ApprovalController extends AppBaseController
 
     public function approve_dana(Request $request, $id)
     {
+        $request->validate([
+            'nominal' => 'required|digits:5',
+        ]);
+        
         $service = SupportService::find($id);
 
         if (empty($service)) {

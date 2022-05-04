@@ -80,6 +80,10 @@ class ZiswafDonateController extends AppBaseController
      */
     public function store($id, CreateDonateRequest $request)
     {
+        $request->validate([
+            'phone' => 'required|digits:10',
+        ]);
+
         $input = [
             'user_id' => Auth::user()->id,
             'type' => '\App\Models\Admin\Ziswaf',
@@ -174,6 +178,10 @@ class ZiswafDonateController extends AppBaseController
      */
     public function update($type_id, $id, UpdateDonateRequest $request)
     {
+        $request->validate([
+            'phone' => 'required|digits:10',
+        ]);
+        
         $donate = $this->donateRepository->find($id);
 
         if (empty($donate)) {

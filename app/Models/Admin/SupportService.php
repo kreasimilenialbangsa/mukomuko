@@ -58,7 +58,7 @@ class SupportService extends Model
      */
     public static $rules = [
         'reason' => 'required',
-        'nominal' => 'required'
+        // 'nominal' => 'required'
     ];
 
     public function user()

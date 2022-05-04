@@ -113,11 +113,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::get('program', [App\Http\Controllers\Admin\ApprovalController::class, 'program_index'])->name('admin.approval.program.index');
             Route::get('ziswaf', [App\Http\Controllers\Admin\ApprovalController::class, 'ziswaf_index'])->name('admin.approval.ziswaf.index');
             Route::patch('update/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve'])->name('admin.approval.update');
-            Route::get('ambulan', [App\Http\Controllers\Admin\ApprovalController::class, 'ambulan_index'])->name('admin.approval.ambulan.index');
-            Route::patch('ambulan/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve_ambulan'])->name('admin.approval.ambulan.update');
-            Route::get('dana', [App\Http\Controllers\Admin\ApprovalController::class, 'dana_index'])->name('admin.approval.dana.index');
-            Route::get('dana/{id}/edit', [App\Http\Controllers\Admin\ApprovalController::class, 'dana_edit'])->name('admin.approval.dana.edit');
-            Route::patch('dana/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve_dana'])->name('admin.approval.dana.update');
+            Route::group(['middleware' => ['role:SuperAdmin|Kecamatan']], function() {
+                Route::get('ambulan', [App\Http\Controllers\Admin\ApprovalController::class, 'ambulan_index'])->name('admin.approval.ambulan.index');
+                Route::patch('ambulan/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve_ambulan'])->name('admin.approval.ambulan.update');
+                Route::get('dana', [App\Http\Controllers\Admin\ApprovalController::class, 'dana_index'])->name('admin.approval.dana.index');
+                Route::get('dana/{id}/edit', [App\Http\Controllers\Admin\ApprovalController::class, 'dana_edit'])->name('admin.approval.dana.edit');
+                Route::patch('dana/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve_dana'])->name('admin.approval.dana.update');
+            });
         });
     });
 

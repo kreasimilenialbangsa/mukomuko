@@ -19,8 +19,10 @@ class ProgramDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.programs.datatables_actions')
+            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
             ->editColumn('target_dana', '{{ "Rp " . number_format($target_dana,0,",",".") }}')
             ->editColumn('is_urgent', 'admin.layouts.toggle_urgent')
+            ->editColumn('end_date', '{{ date("d/M/Y", strtotime($end_date)) }}')
             ->editColumn('is_active', 'admin.layouts.toggle_active')
             ->rawColumns(['is_active', 'is_urgent', 'target_dana', 'action']);
     }
@@ -70,6 +72,7 @@ class ProgramDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'created_at' => ['title' => 'Tgl Pembuatan'],
             'title' => ['title' => 'Nama'],
             'location' => ['className' => 'text-center', 'title' => 'Lokasi'],
             'target_dana' => ['className' => 'text-center'],

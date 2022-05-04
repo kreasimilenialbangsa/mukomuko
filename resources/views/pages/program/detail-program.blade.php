@@ -92,17 +92,23 @@
                   </div>  
                   <div class="tab-pane fade" id="doatab" role="tabpanel" aria-labelledby="doa-tab">
                     <div class="row px-2">
+                      @forelse ($doa as $data_doa)
                       <a class="col-lg-4 col-sm-6 col-12 p-2 wblock">
                         <div class="card-simple">
-                          <h6 class="text-sm">Febyna Putri</h6>
+                          <h6 class="text-sm">{{ $data_doa->is_anonim == 1 ? 'Hamba Allah' : $data_doa->name }}</h6>
                           <div class="d-center text-xxs">
-                            <span class="clr-green text-truncate">Sedekah Bantu Saukuu</span>
-                            <span class="mini-bullet mx-2"></span>
-                            <span class="w-50">4 menit yang lalu</span>
+                            <span class="w-50">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
                           </div>
-                          <p class="text-xs clr-grey mb-0 mt-2 font-medium">Semoga diberikan kemudahan dan berkah untuk semua </p>
+                          <p class="text-xs clr-grey mb-0 mt-2 font-medium">{{ $data_doa->message }}</p>
                         </div>
                       </a>
+                      @empty
+                      <div class="empty-state">
+                        <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                        <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                        <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
+                      </div>
+                      @endforelse
                     </div>
                   </div>  
                 </div>
