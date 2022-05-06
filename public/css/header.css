@@ -19,6 +19,7 @@
   justify-content: center;
   font-size: 1rem;
   font-weight: 600;
+  padding: 10px;
 }
 
 .slider-header.slick-dotted.slick-slider{
@@ -178,7 +179,6 @@
   .slider-header .bg-green{
     font-size: 0.8rem;
   }
-
   .slider-header .bg-green .headline {
     font-size: 14px;
   }

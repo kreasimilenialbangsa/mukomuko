@@ -77,9 +77,6 @@
 }
 
 @media only screen and (max-width: 767px){
-  .ziswaf-page .wrapper-summary{
-    padding: 30px;
-  }
   .ziswaf-page .wrapper-handout .tab-content{
     padding: 25px 30px;
   }
@@ -93,5 +90,8 @@
   }
   .ziswaf-page .wrapper-handout .bg-quote {
     padding: 15px;
+  }
+  .ziswaf-page .wrapper-handout .title-ziwaf{
+    font-size: 1.25rem;
   }
 }
