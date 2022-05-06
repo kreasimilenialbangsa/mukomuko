@@ -87,7 +87,7 @@
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="zakat" role="tabpanel" aria-labelledby="zakat-tab">
               {!! Form::open(['route' => 'ziswaf.payment']) !!}
-                <h4>Ayo hitung zakat kamu!</h4>
+                <h4 class="mb-3 title-ziwaf">Ayo hitung zakat kamu!</h4>
                 <div class="cat-select mb-3">
                   <select class="form-control" name="ziswaf" id="zakat">
                     <option>Pilih</option>
@@ -122,7 +122,7 @@
               </div>
               <div class="tab-pane fade" id="infak" role="tabpanel" aria-labelledby="infak-tab">
                 {!! Form::open(['route' => 'ziswaf.payment']) !!}
-                <h4>Ayo mulai infak!</h4>
+                <h4 class="mb-3 title-ziwaf">Ayo mulai infak!</h4>
                 <div class="cat-select mb-3">
                   <select class="form-control" name="ziswaf">
                     <option>Pilih</option>
@@ -145,7 +145,7 @@
               </div>
               <div class="tab-pane fade" id="wakaf" role="tabpanel" aria-labelledby="wakaf-tab">
                 {!! Form::open(['route' => 'ziswaf.payment']) !!}
-                <h4>Ayo mulai wakaf!</h4>
+                <h4 class="mb-3 title-ziwaf">Ayo mulai wakaf!</h4>
                 <div class="cat-select mb-3">
                   <select class="form-control" name="ziswaf">
                     <option>Pilih</option>
