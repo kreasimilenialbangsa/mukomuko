@@ -31,6 +31,12 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('login', [App\Http\Controllers\API\V1\AuthController::class, 'login']);
     Route::post('register', [App\Http\Controllers\API\V1\AuthController::class, 'register']);
 
+    // Information
+    Route::get('information/total', [App\Http\Controllers\API\V1\InformationController::class, 'total']);
+    Route::get('information/goziswaf', [App\Http\Controllers\API\V1\InformationController::class, 'totalGoZiswaf'])->middleware('auth:sanctum');
+    Route::get('information/scanqr/{user_id}', [App\Http\Controllers\API\V1\InformationController::class, 'scanQR'])->middleware('auth:sanctum');
+
+
     // News
     Route::get('news', [App\Http\Controllers\API\V1\NewsController::class, 'all']);
     Route::get('news/detail/{id}', [App\Http\Controllers\API\V1\NewsController::class, 'detail']);
@@ -63,5 +69,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('profile', [App\Http\Controllers\API\V1\ProfileController::class, 'profile']);
         Route::put('profile/update', [App\Http\Controllers\API\V1\ProfileController::class, 'update']);
         Route::post('logout', [App\Http\Controllers\API\V1\AuthController::class, 'logout']);
+
+        Route::post('donates/admin', [App\Http\Controllers\API\V1\DonateController::class, 'getDonateByAdmin']);
+        Route::post('donates', [App\Http\Controllers\API\V1\DonateController::class, 'store']);
     });
 });

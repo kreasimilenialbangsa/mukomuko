@@ -182,4 +182,73 @@ class DonateController extends Controller
             'data' => $donates
         ]);
     }
+
+
+    //private API
+    public function getDonateByAdmin(Request $request)
+    {
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+            ->with('program', 'ziswaf')
+            ->whereUserId(auth()->user()->id)
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $donates
+        ]);
+        
+    }
+    
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'nominal' => 'required|digits:5',
+        ]);
+
+        $input = [
+            'user_id' => auth()->user()->id,
+            'type' => '\App\Models\Admin\Ziswaf',
+            'type_id' => $request->type_id,
+            'location_id' => auth()->user()->location_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+            'total_donate' => str_replace('.', '', $request->total_donate),
+            'is_anonim' => 0,
+            'is_confirm' => 0
+        ];
+
+        $donate = Donate::create($input);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $donate
+        ]);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $donate = Donate::find($id);
+
+        if(empty($donate)){
+            return response()->json([
+                'status' => false,
+                'message' => 'data not found'
+            ], 404);
+        }
+
+        Donate::whereId($doante->id)->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success'
+        ]);
+    }
 }
