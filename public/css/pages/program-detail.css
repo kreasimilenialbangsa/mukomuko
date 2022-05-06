@@ -31,7 +31,7 @@
 
 .programdetail-page .thumb-headline img{
   height: 484px;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 
