@@ -167,6 +167,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
         Route::group(['prefix' => 'account'], function () {
             Route::resource('members', App\Http\Controllers\UserController::class, ["as" => 'admin.account']);
             Route::resource('users', App\Http\Controllers\UserController::class, ["as" => 'admin.account']);
+            Route::post('qrcode', [App\Http\Controllers\UserController::class, 'qrCode'])->name('admin.account.qrcode');
         });
 
         // Toggle Update

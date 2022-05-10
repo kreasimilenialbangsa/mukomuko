@@ -74,7 +74,7 @@ class ReportController extends AppBaseController
                 ->editColumn('col2', '{{ "Rp " . number_format($col2,0,",",".") }}')
                 ->editColumn('col3', '{{ "Rp " . number_format($col3,0,",",".") }}')
                 ->editColumn('col4', '{{ "Rp " . number_format($col4,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
                 ->make(true);
         }
         

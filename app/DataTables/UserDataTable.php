@@ -22,8 +22,8 @@ class UserDataTable extends DataTable
         return $dataTable->addColumn('action', 'admin.pages.users.datatables_actions')
             ->addIndexColumn()
             ->editColumn('is_active', 'admin.layouts.toggle_active')
-            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
-            ->addColumn('qrcode', '{!! $is_member == 1 ? QrCode::size(75)->generate(route("profile.show", $id)) : "-" !!}')
+            ->editColumn('created_at', '{{ date("d/m/Y", strtotime($created_at)) }}')
+            // ->addColumn('qrcode', '{!! $is_member == 1 ? QrCode::size(75)->generate(route("profile.show", $id)) : "-" !!}')
             ->rawColumns(['is_active', 'qrcode', 'action']);
     }
 
@@ -80,7 +80,7 @@ class UserDataTable extends DataTable
             'desa.name' => ['defaultContent' => 'Not set', 'title' => 'Wilayah', 'name'=> 'desa.name', 'data' => 'desa.name', 'className' => 'text-center'],
             'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
             'is_active' => ['className' => 'text-center', 'title' => 'Aktif'],
-            'qrcode' => ['className' => 'text-center', 'title' => 'QRcode']
+            // 'qrcode' => ['className' => 'text-center', 'title' => 'QRcode']
         ];
     }
 

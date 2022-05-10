@@ -19,7 +19,7 @@ class OutcomeDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.outcomes.datatables_actions')
-            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+            ->editColumn('created_at', '{{ date("d/m/Y", strtotime($created_at)) }}')
             ->editColumn('nominal', '{{ "Rp " . number_format($nominal,0,",",".") }}');
     }
 

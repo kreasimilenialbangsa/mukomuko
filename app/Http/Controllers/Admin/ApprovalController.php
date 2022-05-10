@@ -39,15 +39,18 @@ class ApprovalController extends AppBaseController
         if($request->ajax()) {
             $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
                 ->with(['user', 'program', 'location'])
-                ->whereRelation('location', 'parent_id', Auth::user()->location_id)
+                ->when(Auth::user()->id > 1, function($q) {
+                    $q->whereRelation('location', 'parent_id', Auth::user()->location_id);
+                })
                 ->whereType('\App\Models\Admin\Program')
                 ->whereIsConfirm(0)
+                ->whereIsPayment(0)
                 ->get();
 
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.approvals.program.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
                 ->make(true);
         }
         
@@ -65,15 +68,18 @@ class ApprovalController extends AppBaseController
         if($request->ajax()) {
             $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
                 ->with(['user', 'ziswaf', 'location'])
-                ->whereRelation('location', 'parent_id', Auth::user()->location_id)
+                ->when(Auth::user()->id > 1, function($q) {
+                    $q->whereRelation('location', 'parent_id', Auth::user()->location_id);
+                })
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereIsConfirm(0)
+                ->whereIsPayment(0)
                 ->get();
 
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.approvals.ziswaf.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
                 ->make(true);
         }
         
@@ -96,7 +102,7 @@ class ApprovalController extends AppBaseController
 
             return DataTables::of($services)
                 ->addColumn('action', 'admin.pages.approvals.ambulan.datatables_actions')
-                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
                 ->editColumn('book_date', '{{ date("d/M/Y", strtotime($book_date)) }}')
                 ->make(true);
         }
@@ -120,7 +126,7 @@ class ApprovalController extends AppBaseController
 
             return DataTables::of($services)
                 ->addColumn('action', 'admin.pages.approvals.dana.datatables_actions')
-                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
                 ->make(true);
         }
         

@@ -19,7 +19,7 @@ class SupportServiceDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.support_services.datatables_actions')
-            ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+            ->editColumn('created_at', '{{ date("d/m/Y", strtotime($created_at)) }}')
             ->editColumn('nominal', '{{ "Rp " . number_format($nominal,0,",",".") }}')
             ->editColumn('is_confirm', function($q) {
                 $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';

@@ -17,6 +17,7 @@ use Flash;
 use Response;
 use Hash;
 use Illuminate\Support\Facades\Session;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends AppBaseController
 {
@@ -51,10 +52,24 @@ class UserController extends AppBaseController
 
         if($request->ajax()) {
             if($request->type == '3') {
-                $location = Kecamatan::select('id', 'name')->whereParentId(0)->orderBy('id', 'asc')->get();
+                $location = Kecamatan::select('id', 'name')
+                    ->whereParentId(0)
+                    ->when(isset($request->term), function($q) use($request) {
+                        $q->where('name', 'LIKE', '%'.$request->term.'%');
+                    })
+                    ->orderBy('id', 'asc')
+                    ->get();
+
                 return response()->json($location);
             } else {
-                $location = Desa::select('id', 'name')->where('parent_id', '>', 0)->orderBy('id', 'asc')->get();
+                $location = Desa::select('id', 'name')
+                ->where('parent_id', '>', 0)
+                ->when(isset($request->term), function($q) use($request) {
+                    $q->where('name', 'LIKE', '%'.$request->term.'%');
+                })
+                ->orderBy('id', 'asc')
+                ->get();
+                
                 return response()->json($location);
             }
         }
@@ -242,5 +257,27 @@ class UserController extends AppBaseController
             'success' => true,
             'message' => 'Data berhasil diubah'
         ], 200);
+    }
+
+    public function qrCode(Request $request)
+    {
+        if($request->ajax()) {
+            $user = $this->userRepository->find($request->id);
+               
+            if (empty($user)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'data not found'
+                ], 404);
+            }
+
+            if($user->is_member > 0) {
+                $qrCode = QrCode::size(250)->generate(route("profile.show", $user->id));
+            } else {
+                $qrCode = QrCode::size(250)->generate(env('APP_URL').'/api/v1/info/scanqr/'.$user->id);
+            }
+            
+            return $qrCode;
+        }
     }
 }

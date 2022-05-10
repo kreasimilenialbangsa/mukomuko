@@ -20,20 +20,41 @@
         @include('flash::message')
         <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">Program Berjalan</a>
+                <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#list" role="tab" aria-controls="form" aria-selected="true">Program Berjalan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="images-tab2" data-toggle="tab" href="#images2" role="tab" aria-controls="images" aria-selected="false">Riwayat Donasi</a>
+                <a class="nav-link" id="images-tab2" data-toggle="tab" href="#history" role="tab" aria-controls="images" aria-selected="false">Riwayat Donasi</a>
             </li>
         </ul>
        <div class="card border border-top-0">
             <div class="card-body">
                 <div class="tab-content" id="myTab3Content">
-                    <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
+                    <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="form-tab2">
                         @include('admin.pages.program_donates.table')
                     </div>
-                    <div class="tab-pane fade" id="images2" role="tabpanel" aria-labelledby="images-tab2">
-                        Riwayat
+                    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="images-tab2">
+                        <div class="row">
+                            @forelse ($donateHistory as $history)
+                            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
+                                <div class="card border">
+                                    <div class="card-body">
+                                        <h6 class="clr-green text-sm">{{ $history->is_anonim == 1 ? 'Hamba Allah' : $history->name }}</h6>
+                                        <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($history->total_doante,0,",",".") }}</p>
+                                        <span class="text-xxs">{{ \Carbon\Carbon::parse($history->created_at)->diffForHumans() }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                            @empty
+                            <div class="empty-state">
+                                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                                <h4 class="mt-4 font-semibold">Data Tidak Ditemukan</h4>
+                                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
+                            </div>
+                            @endforelse
+                        </div>
+                        <div class="d-flex mt-4 justify-content-center">
+                            {{ $donateHistory->links('vendor.pagination.bootstrap-4') }}
+                          </div>
                     </div>
                 </div>
             </div>
@@ -42,4 +63,20 @@
     
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(function(){
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+            $('.nav-tabs a').click(function (e) {
+                $(this).tab('show');
+                var scrollmem = $('body').scrollTop();
+                window.location.hash = this.hash;
+                $('html,body').scrollTop(scrollmem);
+            });
+        });
+    </script>
+@endpush
 

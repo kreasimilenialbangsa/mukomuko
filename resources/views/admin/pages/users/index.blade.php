@@ -26,5 +26,42 @@
    </div>
     
     </section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content pb-4">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <h4 class="mb-4">Scan QR Code</h4>
+            <div class="qr-code-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
+@push('script')
+  <script>
+      $(document).on('click','.qr-code',function(e){
+        e.preventDefault();
+        let id = $(this).data('id');
+
+        $.ajax({
+            url: "{{ route('admin.account.qrcode') }}",
+            type: "POST",
+            data: {
+              "_token": "{{ csrf_token() }}",
+              "id": id
+            },
+            success: function(res){
+              $('.qr-code-content').html(res);
+            }
+        })
+      });
+  </script>
+@endpush

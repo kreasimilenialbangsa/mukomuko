@@ -17,7 +17,12 @@ class ProgramContoller extends Controller
             ->withSum('donate', 'total_donate')
             ->whereIsActive(1)
             ->when(isset($request->category), function($q) use($request) {
-                return $q->whereCategoryId($request->category);
+                $cat = ProgramCategory::whereSlug($request->category)->first();
+                if(!empty($cat)) {
+                    return $q->whereCategoryId($cat->id);
+                } else {
+                    return;
+                }
             })
             ->orderBy('is_urgent', 'desc')
             ->orderBy('id', 'desc')
@@ -30,7 +35,7 @@ class ProgramContoller extends Controller
             $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
         }
 
-        $categories = ProgramCategory::select('name', 'id')
+        $categories = ProgramCategory::select('name', 'slug')
             ->get();
 
         

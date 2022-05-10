@@ -20,9 +20,9 @@
               <form class="d-flex" action="{{ route('program.index') }}" method="GET">
               <div class="btn btn-green mr-2">
                 <select class="form-control select-cat" name="category">
-                  <option selected>Pilih Kategori</option>
+                  <option value='' selected>Pilih Kategori</option>
                   @foreach($categories as $row)
-                  <option value="{{ $row->id }}">{{ $row->name }}</option>
+                  <option value="{{ $row->slug }}" {{  @Request::get('category') == $row->slug ? 'selected' : '' }}>{{ $row->name }}</option>
                   @endforeach
                 </select>
               </div>

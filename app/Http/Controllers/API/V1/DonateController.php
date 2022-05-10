@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Program;
 use App\Models\Admin\Ziswaf;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DonateController extends Controller
@@ -188,10 +189,23 @@ class DonateController extends Controller
     public function getDonateByAdmin(Request $request)
     {
         $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
-            ->with('program', 'ziswaf')
             ->whereUserId(auth()->user()->id)
             ->orderBy('id', 'desc')
-            ->paginate(5);
+            ->paginate(isset($request->limit) ? $request->limit : 10);
+
+        if(empty($donates)) {
+            return response()->json([
+                'status' => false,
+                'success' => 'data not found',
+                'data' => []
+            ], 404); 
+        }
+
+        foreach($donates as $donate) {
+            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
+            $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
+        }
 
         return response()->json([
             'status' => true,
@@ -201,7 +215,7 @@ class DonateController extends Controller
         
     }
     
-    public function store(Request $request)
+    public function donateJipzisnu(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -210,16 +224,18 @@ class DonateController extends Controller
             'nominal' => 'required|digits:5',
         ]);
 
+        $type = $request->type == 'program' ? '\App\Models\Admin\Programs' : '\App\Models\Admin\Ziswaf';
+
         $input = [
             'user_id' => auth()->user()->id,
-            'type' => '\App\Models\Admin\Ziswaf',
+            'type' => $type,
             'type_id' => $request->type_id,
             'location_id' => auth()->user()->location_id,
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'message' => $request->message,
-            'total_donate' => str_replace('.', '', $request->total_donate),
+            'message' => isset($request->message) ? $request->message : null,
+            'total_donate' => $request->total_donate,
             'is_anonim' => 0,
             'is_confirm' => 0
         ];

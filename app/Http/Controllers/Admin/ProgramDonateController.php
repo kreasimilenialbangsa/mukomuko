@@ -53,11 +53,16 @@ class ProgramDonateController extends AppBaseController
             return $result = DataTables::of($programs)
                 ->addColumn('action', 'admin.pages.program_donates.datatables_actions')
                 ->editColumn('donate_sum_total_donate', '{{ "Rp " . number_format($donate_sum_total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y", strtotime($created_at)) }}')
                 ->make(true);
         }
+
+        $donateHistory = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
+            ->whereUserId(Auth::user()->id)
+            ->paginate(2);
         
-        return view('admin.pages.program_donates.index');
+        return view('admin.pages.program_donates.index')
+            ->with('donateHistory', $donateHistory);
     }
 
     /**
@@ -132,7 +137,7 @@ class ProgramDonateController extends AppBaseController
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.program_donates.donatur.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
                 ->editColumn('is_confirm', function($q) {
                     $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
                     return $status;

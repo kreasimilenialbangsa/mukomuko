@@ -18,27 +18,28 @@ class DashboardController extends Controller
     public function index()
     {
         $total_ziswaf = [
-            'pending' => Donate::whereIsConfirm(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Ziswaf')->count(),
-            'complete' => Donate::whereIsConfirm(1)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Ziswaf')->count(),
-            'total' => Donate::whereType('\App\Models\Admin\Ziswaf')->whereUserId(Auth::user()->id)->count(),
+            'pending' => Donate::whereIsConfirm(0)->whereIsPayment(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Ziswaf')->count(),
+            'complete' => Donate::whereIsConfirm(1)->whereIsPayment(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Ziswaf')->count(),
+            'total' => Donate::whereType('\App\Models\Admin\Ziswaf')->whereIsPayment(0)->whereUserId(Auth::user()->id)->count(),
         ];
 
         $total_program = [
-            'pending' => Donate::whereIsConfirm(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Program')->count(),
-            'complete' => Donate::whereIsConfirm(1)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Program')->count(),
-            'total' => Donate::whereType('\App\Models\Admin\Program')->whereUserId(Auth::user()->id)->count(),
+            'pending' => Donate::whereIsConfirm(0)->whereIsPayment(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Program')->count(),
+            'complete' => Donate::whereIsConfirm(1)->whereIsPayment(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Program')->count(),
+            'total' => Donate::whereType('\App\Models\Admin\Program')->whereIsPayment(0)->whereUserId(Auth::user()->id)->count(),
         ];
 
         $penghimpunan = [
-            'ziswaf' => Donate::whereIsConfirm(1)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Ziswaf')->sum('total_donate'),
-            'program' => Donate::whereIsConfirm(1)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Program')->sum('total_donate'),
-            'total' => Donate::whereIsConfirm(1)->whereUserId(Auth::user()->id)->sum('total_donate')
+            'ziswaf' => Donate::whereIsConfirm(1)->whereIsPayment(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Ziswaf')->sum('total_donate'),
+            'program' => Donate::whereIsConfirm(1)->whereIsPayment(0)->whereUserId(Auth::user()->id)->whereType('\App\Models\Admin\Program')->sum('total_donate'),
+            'total' => Donate::whereIsConfirm(1)->whereIsPayment(0)->whereUserId(Auth::user()->id)->sum('total_donate')
         ];
 
         $donates_ziswaf = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
             ->with('program', 'ziswaf')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereUserId(Auth::user()->id)
+            ->whereIsPayment(0)
             ->orderBy('id', 'desc')
             ->limit('5')
             ->get();
@@ -47,6 +48,7 @@ class DashboardController extends Controller
             ->with('program', 'ziswaf')
             ->whereType('\App\Models\Admin\Program')
             ->whereUserId(Auth::user()->id)
+            ->whereIsPayment(0)
             ->orderBy('id', 'desc')
             ->limit('5')
             ->get();

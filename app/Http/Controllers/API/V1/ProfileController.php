@@ -13,7 +13,7 @@ class ProfileController extends Controller
     {
         $user_id = auth()->user()->id;
         
-        $result = User::with(['desa', 'profile:id,user_id,image,telp,birth_day,address,bio'])
+        $result = User::with(['profile:id,user_id,image,telp,birth_day,address,bio'])
             ->whereId($user_id)
             ->first();
 

@@ -136,7 +136,7 @@ class ZiswafDonateController extends AppBaseController
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.ziswaf_donates.donatur.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/M/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
                 ->editColumn('is_confirm', function($q) {
                     $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
                     return $status;

@@ -31,6 +31,12 @@
                 <a class="nav-link" id="shadaqah-tab" data-toggle="tab" href="#shadaqah" role="tab" aria-controls="shadaqah" aria-selected="false">Shadaqah</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" id="fidya-tab" data-toggle="tab" href="#fidya" role="tab" aria-controls="fidya" aria-selected="false">Fidya</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="amil-tab" data-toggle="tab" href="#amil" role="tab" aria-controls="amil" aria-selected="false">Dana Amil</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" id="riwayat-tab" data-toggle="tab" href="#riwayat" role="tab" aria-controls="riwayat" aria-selected="false">Riwayat Donasi</a>
             </li>
         </ul>
@@ -48,6 +54,14 @@
                     </div>
                     <div class="tab-pane fade" id="shadaqah" role="tabpanel" aria-labelledby="shadaqah-tab2">
                         @include('admin.pages.ziswaf_donates.table_shadaqah')
+                    </div>
+                    <div class="tab-pane fade" id="fidya" role="tabpanel" aria-labelledby="fidya-tab2">
+                        {{-- @include('admin.pages.ziswaf_donates.table_fidya') --}}
+                        fidya
+                    </div>
+                    <div class="tab-pane fade" id="amil" role="tabpanel" aria-labelledby="amil-tab2">
+                        {{-- @include('admin.pages.ziswaf_donates.table_amil') --}}
+                        amil
                     </div>
                     <div class="tab-pane fade" id="riwayat" role="tabpanel" aria-labelledby="riwayat-tab2">
                         Riwayat

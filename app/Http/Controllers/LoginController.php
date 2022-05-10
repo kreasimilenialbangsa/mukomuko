@@ -112,7 +112,7 @@ class LoginController extends Controller
         try {
             $user = User::create($data);
             UserProfile::create(['user_id' => $user->id, 'telp' => $input['phone']]);
-            $user->syncRoles(4);
+            $user->syncRoles(5);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

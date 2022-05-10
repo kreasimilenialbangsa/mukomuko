@@ -56,8 +56,8 @@
           <li class="nav-actions py-3 d-lg-none d-block">
             <div class="account-login">
               <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
-              <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
-              <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
+              <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk | Daftar</button>
+              {{-- <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button> --}}
             </div>
           </li>
         @else
@@ -74,8 +74,8 @@
       @if(@!Auth::user()->name)
         <div class="account-login">
           <!-- <a href="{{ route('login') }}" class="btn px-3 btn-outline-green mr-2">Masuk</a> -->
-          <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk</button>
-          <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button>
+          <button class="btn px-3 btn-outline-green mr-2" data-toggle="modal" data-target="#authmodal">Masuk | Daftar</button>
+          {{-- <button class="btn px-3 btn-green" data-toggle="modal" data-target="#authmodal">Daftar</button> --}}
         </div>
       @else
         <div class="nav-item dropdown {{ Request::is('layanan*') ? 'active' : '' }}">

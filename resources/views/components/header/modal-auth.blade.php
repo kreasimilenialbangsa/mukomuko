@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer pt-0">
+      {{-- <div class="modal-footer pt-0">
         <div class="d-center">
           <span class="line-grey"></span>
           atau masuk dengan
@@ -88,7 +88,7 @@
             <span class="w-100">Masuk</span>
           </button>
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
 </div>
