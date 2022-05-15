@@ -34,12 +34,12 @@
                     url: "{!!  route('admin.donatur.ziswaf.list', Request::segment(4)) !!}",
                 },
                 columns: [
+                    { data: 'created_at', name: 'created_at', className: 'text-center' },
                     { data: 'ziswaf.title', name: 'ziswaf.title', className: 'text-center' },
                     { data: 'name', name: 'name', className: 'text-center' },
                     { data: 'email', name: 'email', className: 'text-center' },
                     { data: 'phone', name: 'phone', className: 'text-center' },
                     { data: 'total_donate', name: 'total_donate', className: 'text-center' },
-                    { data: 'created_at', name: 'created_at', className: 'text-center' },
                     { data: 'is_confirm', name: 'is_confirm', className: 'text-center' },
                     { data: 'action', name: 'action', className: 'text-center' },
                 ]

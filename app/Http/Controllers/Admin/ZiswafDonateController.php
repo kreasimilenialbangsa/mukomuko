@@ -10,6 +10,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Ziswaf;
+use App\Models\Admin\ZiswafCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -44,6 +45,9 @@ class ZiswafDonateController extends AppBaseController
                 ->withCount(['donate' => function($query) {
                     $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
                 }])
+                ->withCount(['my_donates' => function($query) {
+                    $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
+                }])
                 ->get();
 
             return DataTables::of($ziswaf)
@@ -52,8 +56,13 @@ class ZiswafDonateController extends AppBaseController
                 ->make(true);
 
         }
+
+        $ziswafCategories = ZiswafCategory::select('id', 'name', 'slug', 'created_at')
+            ->whereIsActive(1)
+            ->get();
         
-        return view('admin.pages.ziswaf_donates.index');
+        return view('admin.pages.ziswaf_donates.index')
+            ->with('ziswafCategories', $ziswafCategories);
     }
 
     /**
@@ -81,7 +90,7 @@ class ZiswafDonateController extends AppBaseController
     public function store($id, CreateDonateRequest $request)
     {
         $request->validate([
-            'phone' => 'required|digits:10',
+            'phone' => 'required|min:10',
         ]);
 
         $input = [

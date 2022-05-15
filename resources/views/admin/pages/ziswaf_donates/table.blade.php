@@ -3,10 +3,10 @@
 @endpush
 
 <div>
-    <table class="table table-striped" id="table_wakaf" width="100%">
+    <table class="table table-striped" id="table_{{ $ziswaf->slug }}" width="100%">
         <thead>
             <tr>
-                <th>Jenis Wakaf</th>
+                <th>Jenis {{ $ziswaf->name }}</th>
                 <th>Total Donatur</th>
                 <th>Total Donasi</th>
                 <th>Aksi</th>
@@ -22,12 +22,12 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#table_wakaf').DataTable({
+            var table = $('#table_{{ $ziswaf->slug}}').DataTable({
                 // dom: "<'row mb-1'<'col-sm'><'col-sm-3'<'fusername'>><'col-sm-4'<'fdate'>><'col-sm-2'<'bexport'>>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.donatur.ziswaf.index', ['category' => 3]) !!}",
+                    url: "{!!  route('admin.donatur.ziswaf.index', ['category' => $ziswaf->id]) !!}",
                 },
                 columns: [
                     { data: 'title', name: 'title', className: "text-center" },

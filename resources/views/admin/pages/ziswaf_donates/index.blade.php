@@ -18,10 +18,11 @@
         </div>
     <div class="section-body">
         <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
+            @foreach($ziswafCategories as $key => $ziswafCat)
             <li class="nav-item">
-                <a class="nav-link active" id="zakat-tab" data-toggle="tab" href="#zakat" role="tab" aria-controls="zakat" aria-selected="true">Zakat</a>
+                <a class="nav-link {{ $key == 0 ? 'active' : ''}}" id="{{$ziswafCat->slug}}-tab" data-toggle="tab" href="#{{$ziswafCat->slug}}" role="tab" aria-controls="{{$ziswafCat->slug}}" aria-selected="true">{{$ziswafCat->name}}</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" id="infaq-tab" data-toggle="tab" href="#infaq" role="tab" aria-controls="infaq" aria-selected="false">Infaq</a>
             </li>
             <li class="nav-item">
@@ -31,22 +32,25 @@
                 <a class="nav-link" id="shadaqah-tab" data-toggle="tab" href="#shadaqah" role="tab" aria-controls="shadaqah" aria-selected="false">Shadaqah</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="fidya-tab" data-toggle="tab" href="#fidya" role="tab" aria-controls="fidya" aria-selected="false">Fidya</a>
+                <a class="nav-link" id="fidyah-tab" data-toggle="tab" href="#fidyah" role="tab" aria-controls="fidyah" aria-selected="false">Fidyah</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="amil-tab" data-toggle="tab" href="#amil" role="tab" aria-controls="amil" aria-selected="false">Dana Amil</a>
-            </li>
+            </li> --}}
+            @endforeach
             <li class="nav-item">
                 <a class="nav-link" id="riwayat-tab" data-toggle="tab" href="#riwayat" role="tab" aria-controls="riwayat" aria-selected="false">Riwayat Donasi</a>
             </li>
         </ul>
-       <div class="card border border-top-0">
+        <div class="card border border-top-0">
             <div class="card-body">
                 <div class="tab-content" id="myTab3Content">
-                    <div class="tab-pane fade show active" id="zakat" role="tabpanel" aria-labelledby="zakat-tab2">
-                        @include('admin.pages.ziswaf_donates.table_zakat')
+                    @foreach($ziswafCategories as $key => $ziswafCat)
+                    <div class="tab-pane fade {{ $key == 0 ? 'show active' : ''}}" id="{{$ziswafCat->slug}}" role="tabpanel" aria-labelledby="{{$ziswafCat->slug}}-tab2">
+                        @include('admin.pages.ziswaf_donates.table', ['ziswaf' => $ziswafCat])
                     </div>
-                    <div class="tab-pane fade" id="infaq" role="tabpanel" aria-labelledby="infaq-tab2">
+                    @endforeach
+                    {{-- <div class="tab-pane fade" id="infaq" role="tabpanel" aria-labelledby="infaq-tab2">
                         @include('admin.pages.ziswaf_donates.table_infaq')
                     </div>
                     <div class="tab-pane fade" id="wakaf" role="tabpanel" aria-labelledby="wakaf-tab2">
@@ -55,14 +59,12 @@
                     <div class="tab-pane fade" id="shadaqah" role="tabpanel" aria-labelledby="shadaqah-tab2">
                         @include('admin.pages.ziswaf_donates.table_shadaqah')
                     </div>
-                    <div class="tab-pane fade" id="fidya" role="tabpanel" aria-labelledby="fidya-tab2">
-                        {{-- @include('admin.pages.ziswaf_donates.table_fidya') --}}
-                        fidya
+                    <div class="tab-pane fade" id="fidyah" role="tabpanel" aria-labelledby="fidyah-tab2">
+                        @include('admin.pages.ziswaf_donates.table_fidyah')
                     </div>
                     <div class="tab-pane fade" id="amil" role="tabpanel" aria-labelledby="amil-tab2">
-                        {{-- @include('admin.pages.ziswaf_donates.table_amil') --}}
-                        amil
-                    </div>
+                        @include('admin.pages.ziswaf_donates.table_amil')
+                    </div> --}}
                     <div class="tab-pane fade" id="riwayat" role="tabpanel" aria-labelledby="riwayat-tab2">
                         Riwayat
                     </div>
