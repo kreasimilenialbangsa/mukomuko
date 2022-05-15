@@ -14,6 +14,12 @@
       </a>
     </li>
     <li class="mt-4">
+      <a class="profile-link d-center {{ Request::is('user/change-password') ? 'active' : '' }}" href="{{ route('user.changePassword') }}">
+        <img class="ic-side" src="{{ asset('img/profile-ic.svg') }}" alt="">
+        Ubah Password
+      </a>
+    </li>
+    <li class="mt-4">
       <a class="profile-link d-center {{ Request::is('user/profile/history-transaction') ? 'active' : '' }}" href="{{ route('user.history') }}">
         <img class="ic-side" src="{{ asset('img/transaction-ic.svg') }}" alt="">
         Riwayat Transaksi

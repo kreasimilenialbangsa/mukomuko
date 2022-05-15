@@ -1,5 +1,28 @@
 @extends('layouts.app')
 
+@section('title')
+  {{ $program->title }}
+@endsection
+
+@section('meta')
+  <meta name="title" content="{{ $program->title }} - NU CARE">
+  <meta name="description" content="Ayo mulai berdonasi untuk membantu teman kita yang membutuhkan!">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ Request::url() }}">
+  <meta property="og:title" content="{{ $program->title }} - NU CARE">
+  <meta property="og:description" content="Ayo mulai berdonasi untuk membantu teman kita yang membutuhkan!">
+  <meta property="og:image" content="{{ asset('storage/' . $program->image) }}">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{ Request::url() }}">
+  <meta property="twitter:title" content="{{ $program->title }} - NU CARE">
+  <meta property="twitter:description" content="Ayo mulai berdonasi untuk membantu teman kita yang membutuhkan!">
+  <meta property="twitter:image" content="{{ asset('storage/' . $program->image) }}">
+@endsection
+
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/pages/program-detail.css') }}">
 @endsection
@@ -149,13 +172,13 @@
                 <div class="wrap-share pb-2">
                   <span class="text-xs clr-grey">Bagikan agar target lebih cepat terkumpul:</span>
                   <div class="d-flex mt-2">
-                    <a class="clr-grey h5 mr-2">
+                    <a href="#" class="clr-grey h5 mr-2" onClick="fbShare('{{ Request::url() }}', '{{ $program->title }}', '{{ $program->image }}', 420, 250)">
                       <ion-icon class="ic-sosmed" name="logo-facebook"></ion-icon>
                     </a>
-                    <a class="clr-grey h5 mr-2">
+                    <a href="#" class="clr-grey h5 mr-2" onClick="twShare('{{ Request::url() }}', '{{ $program->title }}', 420, 250)">
                       <ion-icon class="ic-sosmed" name="logo-twitter"></ion-icon>
                     </a>
-                    <a class="clr-grey h5 mr-2">
+                    <a href="#" class="clr-grey h5 mr-2" onClick="waShare('{{ Request::url() }}', '{{ $program->title }}', 420, 250)">
                       <ion-icon class="ic-sosmed" name="logo-whatsapp"></ion-icon>
                     </a>
                   </div>
@@ -266,5 +289,23 @@
 
 @section('scripts')
   <script>
+
+    function fbShare(url, title, image, winWidth, winHeight) {
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+    }
+
+    function waShare(url, title, winWidth, winHeight) {
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('whatsapp://send?text="'+ title + ' - ' + url +'" data-action="share/whatsapp/share"', 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+    }
+
+    function twShare(url, title, winWidth, winHeight) {
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('https://twitter.com/intent/tweet?text='+ title + ' - ' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+    }
   </script>
 @endsection

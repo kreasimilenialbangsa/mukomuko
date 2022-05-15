@@ -126,4 +126,9 @@ class LoginController extends Controller
             'message' => 'Anda berhasil mendaftar'
         ], 200);
     }
+
+    public function forgotPassword(Request $request)
+    {
+        return view('pages.forgot-password.index');
+    }
 }

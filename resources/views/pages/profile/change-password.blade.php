@@ -28,7 +28,7 @@
 @endsection
 
 @section('content')
-  <div class="notification-page">
+  <div class="historytrans-page">
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -36,33 +36,36 @@
         </div>
         <div class="col-md-9">
           <div class="box-white h-100 p-4">
-            <h5>Notifikasi</h5>
-            <div class="list-notifs row custom-scrollbar" style="max-height: 800px">
-              <div class="col-lg-6 mt-3">
-                <div class="item-notif">
-                  <div class="d-flex mb-2">
-                    <div class="mr-2">
-                      <h6 class="mb-1">Rp 1.000 Bisa Buat Donasi, Lho!</h6>
-                      <b class="d-block font-medium">Berbuat kebaikan tanpa halangan. Yuk, rutinkan berdonasi lewat apikasi Lazisnu</b>
-                    </div>
-                    <span class="text-xs w-50 text-right clr-grey">2 menit lalu</span>
-                  </div>
-                  <img class="thumb-img w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
+            <h5>Ubah Password</h5>
+            {!! Form::open(['route' => ['user.changePassword.process'], 'method' => 'post']) !!}
+            @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-              </div>
-              <div class="col-lg-6 mt-3">
-                <div class="item-notif new-notif">
-                  <div class="d-flex mb-2">
-                    <div class="mr-2">
-                      <h6 class="mb-1">Rp 1.000 Bisa Buat Donasi, Lho!</h6>
-                      <b class="d-block font-medium">Berbuat kebaikan tanpa halangan. Yuk, rutinkan berdonasi lewat apikasi Lazisnu</b>
-                    </div>
-                    <span class="text-xs w-50 text-right clr-grey">2 menit lalu</span>
+            @endif
+              <div class="row mt-4">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="password">Password Baru</label>
+                    <input type="password" placeholder="Ketikan password baru" required class="form-control" name="password">
                   </div>
-                  <img class="thumb-img w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
+                  <div class="form-group">
+                    <label for="phone-number">Konfirmasi Password</label>
+                    <input type="password" placeholder="Ulangi password" required class="form-control" name="password_confirmation">
+                  </div>
                 </div>
-              </div>
             </div>
+            <div class="row">    
+                <div class="col-md-8 mt-3">
+                    <button type="submit" class="w-100 btn btn-green py-2">Simpan</button>
+                </div>
+            </div>
+            {!! Form::close() !!}
           </div>
         </div>
       </div>

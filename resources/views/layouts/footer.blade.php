@@ -94,7 +94,7 @@
     </div>
     <div class="copyright">
       <p class="mb-0">
-        Copyright © 2017-{{ date('Y') }} — NU CARE-LAZISNU MUKOMUKO — All Right Reserved
+        Copyright © 2017-{{ date('Y') }} - NU CARE-LAZISNU MUKOMUKO — All Right Reserved
       </p>
     </div>
     <div class="shortcut-footer d-lg-none d-block">

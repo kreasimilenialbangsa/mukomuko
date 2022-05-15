@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class ProfileController extends Controller
@@ -42,6 +43,28 @@ class ProfileController extends Controller
         Session::flash('success', 'Data berhasil diubah');
 
         return redirect(route('user.profile'));
+    }
+
+    public function changePassword(Request $request)
+    {
+        return view('pages.profile.change-password');
+    }
+
+    public function processChangePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed|min:8'
+        ]);
+
+        $data = [
+            'password' => Hash::make($request->password)
+        ];
+
+        User::whereId(Auth::user()->id)->update($data);
+
+        Session::flash('success', 'Password berhasil diubah');
+
+        return redirect(route('user.changePassword'));
     }
 
     public function history(Request $request)

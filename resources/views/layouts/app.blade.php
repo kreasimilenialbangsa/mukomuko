@@ -6,23 +6,12 @@
   <meta http-equiv="Content-Language" content="id">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>NU CARE-LAZISNU</title>
+  <title>@yield('title') - NU CARE</title>
   <meta name="author" content="NU CARE-LAZISNU">
-  <meta name="description" content="NU CARE-LAZISNU adalah situs resmi Lembaga Amil Zakat, Infaq dan Shadaqah Nahdlatul Ulama yang dikelola oleh PC NU Care-LAZISNU Kabupaten Mukomuko">
   <meta name="keywords" content="NU Care LAZISNU">
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
-  <!-- Twitter -->
-  <meta name="twitter:site" content="">
-  <meta name="twitter:creator" content="">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="{{ asset('img/favicon.png') }}">
-  <!-- Facebook & Whatsapp -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="{{ asset('img/favicon.png') }}" />
-  <meta property="og:image:width" content="300" />
-  <meta property="og:image:height" content="300" />
-  <meta property="og:image:alt" content="" />
+
+  @yield('meta')
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap"
@@ -75,6 +64,15 @@
   <script src="{{ asset('js/fancybox.js') }}"></script>
   <script src="{{ asset('js/slick.min.js') }}"></script>
   <script src="{{ asset('vendor/jquery-maskmoney/jquery-maskmoney.js') }}"></script>
+
+  <script src="https://www.googletagmanager.com/gtag/js?id=G-E5104KMR54"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E5104KMR54');
+  </script>
+
   <script>
     Fancybox.bind('[data-fancybox="video-gallery"]', {
       Toolbar: {

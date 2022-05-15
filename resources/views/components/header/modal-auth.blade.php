@@ -19,12 +19,12 @@
               @csrf
               <h4 class="mb-3">Masuk</h4>
               <div class="form-group">
-                <label for="email">Alamat Surel</label>
-                <input type="email" placeholder="Alamat Surel" required class="form-control" name="email">
+                <label for="email">Email</label>
+                <input type="email" placeholder="Email" required class="form-control" name="email">
               </div>
               <div class="form-group">
-                <label for="password">Kata Sandi</label>
-                <input type="password" placeholder="Kata Sandi" required class="form-control" name="password">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Password" required class="form-control" name="password">
                 <span class="text-xs">Lupa Password?</span>
               </div>
               <div class="form-group mb-0">
@@ -47,19 +47,19 @@
                 <div class="invalid-feedback">Nomor Telepon wajib diisi</div>
               </div>
               <div class="form-group">
-                <label for="email">Alamat Surel</label>
-                <input type="email" placeholder="Alamat Surel" required class="form-control" name="email" required>
-                <div class="invalid-feedback">Alamat Surel wajib diisi</div>
+                <label for="email">Email</label>
+                <input type="email" placeholder="Email" required class="form-control" name="email" required>
+                <div class="invalid-feedback">Email wajib diisi</div>
               </div>
               <div class="form-group">
-                <label for="password">Kata Sandi</label>
-                <input type="password" placeholder="Kata Sandi" required class="form-control" name="password" required>
-                <div class="invalid-feedback">Kata Sandi wajib diisi</div>
+                <label for="password">Password</label>
+                <input type="password" placeholder="Password" required class="form-control" name="password" required>
+                <div class="invalid-feedback">Password wajib diisi</div>
               </div>
               <div class="form-group">
-                <label for="re-password">Konfirmasi Kata Sandi</label>
-                <input type="password" placeholder="Konfirmasi Kata Sandi" required class="form-control" name="re-password" required>
-                <div class="invalid-feedback">Konfirmasi Kata Sandi wajib diisi</div>
+                <label for="re-password">Konfirmasi Password</label>
+                <input type="password" placeholder="Konfirmasi Password" required class="form-control" name="re-password" required>
+                <div class="invalid-feedback">Konfirmasi Password wajib diisi</div>
               </div>
               <div class="form-group mb-0">
                 <button type="submit" class="btn py-2 btn-green w-100 daftar">Daftar</button>

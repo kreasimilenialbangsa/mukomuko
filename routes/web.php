@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login-user', [\App\Http\Controllers\LoginController::class, 'login'])->name('login-user');
 Route::post('/register-user', [\App\Http\Controllers\LoginController::class, 'register'])->name('register-user');
 
+Route::get('/forgot-password', [\App\Http\Controllers\LoginController::class, 'forgotPassword'])->name('forgot-password');
+
 // Home
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -54,6 +56,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     // Profile
     Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('user.profile');
     Route::post('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('user.update');
+    Route::get('/change-password', [\App\Http\Controllers\ProfileController::class, 'changePassword'])->name('user.changePassword');
+    Route::post('/change-password', [\App\Http\Controllers\ProfileController::class, 'processChangePassword'])->name('user.changePassword.process');
     Route::get('/profile/history-transaction', [\App\Http\Controllers\ProfileController::class, 'history'])->name('user.history');
     Route::get('/profile/inbox', [\App\Http\Controllers\ProfileController::class, 'inbox'])->name('user.inbox');
     Route::get('/profile/notification', [\App\Http\Controllers\ProfileController::class, 'notification'])->name('user.notification');

@@ -1,5 +1,28 @@
 @extends('layouts.app')
 
+@section('title')
+  {{ $news->title }}
+@endsection
+
+@section('meta')
+  <meta name="title" content="{{ $news->title }} - NU CARE">
+  <meta name="description" content="{{ str_replace('<p>', '', $news->content) }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ Request::url() }}">
+  <meta property="og:title" content="{{ $news->title }} - NU CARE">
+  <meta property="og:description" content="{{ str_replace('<p>', '', $news->content) }}">
+  <meta property="og:image" content="{{ asset('storage/' . $news->images[0]->file) }}">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{ Request::url() }}">
+  <meta property="twitter:title" content="{{ $news->title }} - NU CARE">
+  <meta property="twitter:description" content="{{ str_replace('<p>', '', $news->content) }}">
+  <meta property="twitter:image" content="{{ asset('storage/' . $news->images[0]->file) }}">
+@endsection
+
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/pages/news-detail.css') }}">
 @endsection
@@ -25,13 +48,13 @@
             <div class="col-md-2 order-md-1 order-2 mt-md-0 mt-4">
               <div class="wrap-share d-md-block d-flex">
                 <h6 class="font-medium mb-3">Bagikan</h6>
-                <div class="clr-grey h4 ml-md-0 ml-3">
+                <div onClick="fbShare('{{ Request::url() }}', '{{ $news->title }}', '{{ $news->images[0]->file }}', 420, 250)" class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-facebook"></ion-icon>
                 </div>
-                <div class="clr-grey h4 ml-md-0 ml-3">
+                <div onClick="twShare('{{ Request::url() }}', '{{ $news->title }}', 420, 250)" class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-twitter"></ion-icon>
                 </div>
-                <div class="clr-grey h4 ml-md-0 ml-3">
+                <div onClick="waShare('{{ Request::url() }}', '{{ $news->title }}', 420, 250)" class="clr-grey h4 ml-md-0 ml-3">
                   <ion-icon class="ic-ion ic-sosmed" name="logo-whatsapp"></ion-icon>
                 </div>
               </div>
@@ -110,5 +133,23 @@
       autoplay: true,
       autoplaySpeed: 5000
     });
+
+    function fbShare(url, title, image, winWidth, winHeight) {
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+    }
+
+    function waShare(url, title, winWidth, winHeight) {
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('whatsapp://send?text="'+ title + ' - ' + url +'" data-action="share/whatsapp/share"', 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+    }
+
+    function twShare(url, title, winWidth, winHeight) {
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('https://twitter.com/intent/tweet?text='+ title + ' - ' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+    }
   </script>
 @endsection

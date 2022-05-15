@@ -1,5 +1,6 @@
 <div>
   <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+  <a class="dropdown-item" href="{{ route('user.changePassword') }}">Ubah Password</a>
   <a class="dropdown-item" href="{{ route('user.history') }}">Riwayat transaksi</a>
   <a class="dropdown-item" href="{{ route('user.inbox') }}">Inbox</a>
   <a class="dropdown-item" href="{{ route('user.notification') }}">Notifikasi</a>
