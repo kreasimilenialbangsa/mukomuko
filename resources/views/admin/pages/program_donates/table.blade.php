@@ -41,7 +41,7 @@
                     { data: 'count_day', name: 'count_day', className: "text-center" },
                     { data: 'action', name: 'action', className: "text-center", orderable: false },
                 ]
-            });
+            }).order( [ 5, 'desc' ] ).draw();
         });
 
     </script>

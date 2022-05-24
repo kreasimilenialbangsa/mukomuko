@@ -39,18 +39,33 @@
             <h5>Riwayat Transaksi</h5>
             <div class="list-history">
               @forelse($donates as $donate)
-                <a href="{{ route('payment.detail', $donate->order_id) }}" class="d-center border-bottom py-4 justify-content-between">
-                  <div class="type">
-                    <h6>{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</h6>
-                    <div class="date-price">
-                      <span class="clr-grey">{{ \Carbon\Carbon::parse($donate->created_at)->isoFormat('dddd, D MMMM Y - H:mm') }} WIB |</span>
-                      <span class="clr-green">{{ "Rp " . number_format($donate->total_donate,0,",",".") }}</span>
-                    </div>
+              @if(@$donate->order_id)
+              <a href="{{ route('payment.detail', $donate->order_id) }}" class="d-center border-bottom py-4 justify-content-between">
+                <div class="type">
+                  <h6>{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</h6>
+                  <div class="date-price">
+                    <span class="clr-grey">{{ \Carbon\Carbon::parse($donate->created_at)->isoFormat('dddd, D MMMM Y - H:mm') }} WIB |</span>
+                    <span class="clr-green">{{ "Rp " . number_format($donate->total_donate,0,",",".") }}</span>
                   </div>
-                  <div class="pill-status {{ $donate->is_confirm == 0 ? 'yellow' : ($donate->is_confirm == 1 ? 'green' : 'gray') }}">
-                    {{ $donate->is_confirm == 0 ? 'Pending' : ($donate->is_confirm == 1 ? 'Sukses' : 'Kedaluwarsa') }}
+                </div>
+                <div class="pill-status {{ $donate->is_confirm == 0 ? 'yellow' : ($donate->is_confirm == 1 ? 'green' : 'gray') }}">
+                  {{ $donate->is_confirm == 0 ? 'Pending' : ($donate->is_confirm == 1 ? 'Sukses' : 'Kedaluwarsa') }}
+                </div>
+              </a>
+              @else
+              <div class="d-center border-bottom py-4 justify-content-between">
+                <div class="type">
+                  <h6>{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</h6>
+                  <div class="date-price">
+                    <span class="clr-grey">{{ \Carbon\Carbon::parse($donate->created_at)->isoFormat('dddd, D MMMM Y - H:mm') }} WIB |</span>
+                    <span class="clr-green">{{ "Rp " . number_format($donate->total_donate,0,",",".") }}</span>
                   </div>
-                </a>
+                </div>
+                <div class="pill-status {{ $donate->is_confirm == 0 ? 'yellow' : ($donate->is_confirm == 1 ? 'green' : 'gray') }}">
+                  {{ $donate->is_confirm == 0 ? 'Pending' : ($donate->is_confirm == 1 ? 'Sukses' : 'Kedaluwarsa') }}
+                </div>
+              </div>
+              @endif
                 @empty
                 <div class="empty-state">
                   <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">

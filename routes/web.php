@@ -111,13 +111,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
     });
 
     // Role Kecamatan
-    Route::group(['middleware' => ['role:SuperAdmin|Kecamatan']], function() {
+    Route::group(['middleware' => ['role:SuperAdmin|Kecamatan|Kabupaten']], function() {
         // Approval
         Route::group(['prefix' => 'approval'], function () {
-            Route::get('program', [App\Http\Controllers\Admin\ApprovalController::class, 'program_index'])->name('admin.approval.program.index');
-            Route::get('ziswaf', [App\Http\Controllers\Admin\ApprovalController::class, 'ziswaf_index'])->name('admin.approval.ziswaf.index');
-            Route::patch('update/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve'])->name('admin.approval.update');
             Route::group(['middleware' => ['role:SuperAdmin|Kecamatan']], function() {
+                Route::get('program', [App\Http\Controllers\Admin\ApprovalController::class, 'program_index'])->name('admin.approval.program.index');
+                Route::get('ziswaf', [App\Http\Controllers\Admin\ApprovalController::class, 'ziswaf_index'])->name('admin.approval.ziswaf.index');
+                Route::patch('update/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve'])->name('admin.approval.update');
+            });
+            Route::group(['middleware' => ['role:SuperAdmin|Kabupaten']], function() {
                 Route::get('ambulan', [App\Http\Controllers\Admin\ApprovalController::class, 'ambulan_index'])->name('admin.approval.ambulan.index');
                 Route::patch('ambulan/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve_ambulan'])->name('admin.approval.ambulan.update');
                 Route::get('dana', [App\Http\Controllers\Admin\ApprovalController::class, 'dana_index'])->name('admin.approval.dana.index');
@@ -143,7 +145,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::get('ziswaf/{id}/list', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'show'])->name('admin.donatur.ziswaf.list');
         });
     });
-    Route::group(['middleware' => ['role:SuperAdmin|Desa']], function() {
+    Route::group(['middleware' => ['role:SuperAdmin|Kecamatan|Desa']], function() {
         Route::group(['prefix' => 'permohonan'], function () {
             Route::resource('ambulan', App\Http\Controllers\Admin\SupportAmbulanceController::class, ["as" => 'admin.service']);
             Route::resource('dana', App\Http\Controllers\Admin\SupportServiceController::class, ["as" => 'admin.service']);

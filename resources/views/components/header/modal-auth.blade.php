@@ -25,7 +25,7 @@
               <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" placeholder="Password" required class="form-control" name="password">
-                <span class="text-xs">Lupa Password?</span>
+                <a href="{{ route('forgot-password') }}" class="text-xs text-dark">Lupa Password?</a>
               </div>
               <div class="form-group mb-0">
                 <button type="submit" class="btn py-2 btn-green w-100">Masuk</button>

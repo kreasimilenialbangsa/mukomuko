@@ -30,7 +30,7 @@
 </li>
 @endrole
 
-@role('SuperAdmin|Desa')
+@role('SuperAdmin|Kecamatan|Desa')
 <li class="nav-item dropdown {{ Request::is('admin/permohonan*') ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Permohonan Bantuan</span></a>
     <ul class="dropdown-menu">
@@ -40,12 +40,14 @@
 </li>
 @endrole
 
-@role('SuperAdmin|Kecamatan')
+@role('SuperAdmin|Kecamatan|Kabupaten')
 <li class="nav-item dropdown {{ Request::is('admin/approval*') ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Approval</span></a>
     <ul class="dropdown-menu">
+        @role('SuperAdmin|Kecamatan')
         <li class="{{ Request::is('admin/approval/program*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.program.index') }}">Donasi Program</a></li>
         <li class="{{ Request::is('admin/approval/ziswaf*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ziswaf.index') }}">Donasi Ziswaf</a></li>
+        @endrole
         @role('SuperAdmin|Kabupaten')
         <li class="{{ Request::is('admin/approval/ambulan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.ambulan.index') }}">Pengajuan Ambulan</a></li>
         <li class="{{ Request::is('admin/approval/dana*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.approval.dana.index') }}">Pengajuan Dana</a></li>

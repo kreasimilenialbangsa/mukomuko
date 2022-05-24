@@ -70,7 +70,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::put('profile/update', [App\Http\Controllers\API\V1\ProfileController::class, 'update']);
         Route::post('logout', [App\Http\Controllers\API\V1\AuthController::class, 'logout']);
         
-        Route::get('donates/bylogin ', [App\Http\Controllers\API\V1\DonateController::class, 'getDonateByAdmin']);
+        Route::get('donates/bylogin/admin ', [App\Http\Controllers\API\V1\DonateController::class, 'getDonateByAdmin']);
+        Route::get('donates/bylogin/user', [App\Http\Controllers\API\V1\DonateController::class, 'getDonateByUser']);
         Route::post('donates/jipzisnu', [App\Http\Controllers\API\V1\DonateController::class, 'donateJipzisnu']);
+        Route::delete('donates/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'destroy']);
     });
 });

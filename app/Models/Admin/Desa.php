@@ -66,4 +66,9 @@ class Desa extends Model
     {
         return $this->hasMany(\App\Models\Admin\Donate::class, 'location_id', 'id')->whereType('\App\Models\Admin\Ziswaf');
     }
+
+    public function desa()
+    {
+        return $this->hasMany(\App\Models\Admin\SupportAmbulance::class, 'user_id', 'id');
+    }
 }

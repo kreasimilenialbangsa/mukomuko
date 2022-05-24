@@ -3,6 +3,7 @@
 namespace App\DataTables\Admin;
 
 use App\Models\Admin\SupportAmbulance;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -19,7 +20,7 @@ class SupportAmbulanceDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.support_ambulances.datatables_actions')
-            ->editColumn('book_date', '{{ date("d/M/Y", strtotime($book_date)) }}')
+            ->editColumn('book_date', '{{ date("d/m/Y", strtotime($book_date)) }}')
             ->editColumn('is_confirm', function($q) {
                 $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
                 return $status;
@@ -35,7 +36,8 @@ class SupportAmbulanceDataTable extends DataTable
      */
     public function query(SupportAmbulance $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->whereUserId(Auth::user()->id);
     }
 
     /**

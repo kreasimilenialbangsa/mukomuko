@@ -8,6 +8,7 @@
             <tr>
                 <th>Tanggal</th>
                 <th>Nama Anggota</th>
+                <th>Wilayah</th>
                 <th>Tanggal Pengajuan</th>
                 <th>Alasan Pengajuan</th>
                 <th>Aksi</th>
@@ -33,6 +34,7 @@
                 columns: [
                     { data: 'created_at', name: 'created_at', className: 'text-center' },
                     { data: 'user.name', name: 'user.name', className: 'text-center' },
+                    { data: 'location', name: 'location', className: 'text-center' },
                     { data: 'book_date', name: 'book_date', className: 'text-center' },
                     { data: 'reason', name: 'reason', className: 'text-center' },
                     { data: 'action', name: 'action', className: 'text-center', orderable: false },

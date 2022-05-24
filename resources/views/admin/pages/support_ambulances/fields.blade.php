@@ -2,7 +2,7 @@
     <!-- Book Date Field -->
     <div class="form-group">
         {!! Form::label('book_date', 'Tanggal Pengajuan:') !!}
-        {!! Form::date('book_date', null, ['class' => 'form-control']) !!}
+        {!! Form::date('book_date', null, ['class' => 'form-control', 'min' => date('Y-m-d')]) !!}
     </div>
 
     <!-- Book Date Field -->

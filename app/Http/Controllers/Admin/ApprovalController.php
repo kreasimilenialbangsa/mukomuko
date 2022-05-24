@@ -42,6 +42,9 @@ class ApprovalController extends AppBaseController
                 ->when(Auth::user()->id > 1, function($q) {
                     $q->whereRelation('location', 'parent_id', Auth::user()->location_id);
                 })
+                ->whereHas('user', function($que) {
+                    $que->whereNull('deleted_at');
+                })
                 ->whereType('\App\Models\Admin\Program')
                 ->whereIsConfirm(0)
                 ->whereIsPayment(0)
@@ -71,6 +74,9 @@ class ApprovalController extends AppBaseController
                 ->when(Auth::user()->id > 1, function($q) {
                     $q->whereRelation('location', 'parent_id', Auth::user()->location_id);
                 })
+                ->whereHas('user', function($que) {
+                    $que->whereNull('deleted_at');
+                })
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereIsConfirm(0)
                 ->whereIsPayment(0)
@@ -96,14 +102,25 @@ class ApprovalController extends AppBaseController
     {
         if($request->ajax()) {
             $services = SupportAmbulance::select('id', 'user_id', 'book_date', 'reason', 'is_confirm', 'created_at')
-                ->with('user')
+                ->with('user.desa')
+                ->whereHas('user', function($que) {
+                    $que->whereNull('deleted_at');
+                })
                 ->whereIsConfirm(0)
                 ->get();
+
+            foreach($services as $service) {
+                if(isset($service->user->desa)) {
+                    $service->location = $service->user->desa->parent_id == 0 ? 'Kecamatan ' . $service->user->desa->name : 'Desa ' . $service->user->desa->name;
+                } else {
+                    $service->location = 'Not set';
+                }
+            }
 
             return DataTables::of($services)
                 ->addColumn('action', 'admin.pages.approvals.ambulan.datatables_actions')
                 ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
-                ->editColumn('book_date', '{{ date("d/M/Y", strtotime($book_date)) }}')
+                ->editColumn('book_date', '{{ date("d/m/Y", strtotime($book_date)) }}')
                 ->make(true);
         }
         
@@ -120,9 +137,20 @@ class ApprovalController extends AppBaseController
     {
         if($request->ajax()) {
             $services = SupportService::select('id', 'user_id', 'category_id', 'reason', 'is_confirm', 'created_at')
-                ->with(['user', 'category'])
+                ->with(['user.desa', 'category'])
+                ->whereHas('user', function($que) {
+                    $que->whereNull('deleted_at');
+                })
                 ->whereIsConfirm(0)
                 ->get();
+
+            foreach($services as $service) {
+                if(isset($service->user->desa)) {
+                    $service->location = $service->user->desa->parent_id == 0 ? 'Kecamatan ' . $service->user->desa->name : 'Desa ' . $service->user->desa->name;
+                } else {
+                    $service->location = 'Not set';
+                }
+            }
 
             return DataTables::of($services)
                 ->addColumn('action', 'admin.pages.approvals.dana.datatables_actions')
@@ -219,7 +247,7 @@ class ApprovalController extends AppBaseController
     public function approve_dana(Request $request, $id)
     {
         $request->validate([
-            'nominal' => 'required|digits:5',
+            'nominal' => 'required|min:5',
         ]);
         
         $service = SupportService::find($id);

@@ -3,6 +3,7 @@
 namespace App\DataTables\Admin;
 
 use App\Models\Admin\SupportService;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -37,6 +38,7 @@ class SupportServiceDataTable extends DataTable
     public function query(SupportService $model)
     {
         return $model->newQuery()
+            ->whereUserId(Auth::user()->id)
             ->with('category');
     }
 

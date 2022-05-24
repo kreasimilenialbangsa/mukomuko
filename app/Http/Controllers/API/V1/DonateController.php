@@ -188,7 +188,10 @@ class DonateController extends Controller
     //private API
     public function getDonateByAdmin(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'created_at', 'is_anonim', 'is_confirm')
+            ->when(isset($request->type), function($q) use($request){
+                return $q->whereType($request->type == 'program' ? '\App\Models\Admin\Program' : '\App\Models\Admin\Ziswaf');
+            })
             ->whereUserId(auth()->user()->id)
             ->orderBy('id', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 10);
@@ -202,7 +205,49 @@ class DonateController extends Controller
         }
 
         foreach($donates as $donate) {
-            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
+            if($donate->type == '\App\Models\Admin\Program') {
+                $donate->event = $donate->type::select('id', 'user_id', 'title', 'image')->find($donate->type_id);
+            } else {
+                $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
+                $donate->event->image = null;
+            }
+            $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $donates
+        ]);
+        
+    }
+
+    public function getDonateByUser(Request $request)
+    {
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'created_at', 'is_anonim', 'is_confirm')
+            ->when(isset($request->type), function($q) use($request){
+                return $q->whereType($request->type == 'program' ? '\App\Models\Admin\Program' : '\App\Models\Admin\Ziswaf');
+            })
+            ->Where('email', auth()->user()->email)
+            ->orderBy('id', 'desc')
+            ->paginate(isset($request->limit) ? $request->limit : 10);
+
+        if(empty($donates)) {
+            return response()->json([
+                'status' => false,
+                'success' => 'data not found',
+                'data' => []
+            ], 404); 
+        }
+
+        foreach($donates as $donate) {
+            if($donate->type == '\App\Models\Admin\Program') {
+                $donate->event = $donate->type::select('id', 'user_id', 'title', 'image')->find($donate->type_id);
+            } else {
+                $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
+                $donate->event->image = null;
+            }
             $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
             $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
         }
@@ -221,10 +266,10 @@ class DonateController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'nominal' => 'required|digits:5',
+            'total_donate' => 'required|min:5',
         ]);
 
-        $type = $request->type == 'program' ? '\App\Models\Admin\Programs' : '\App\Models\Admin\Ziswaf';
+        $type = $request->type == 'program' ? '\App\Models\Admin\Program' : '\App\Models\Admin\Ziswaf';
 
         $input = [
             'user_id' => auth()->user()->id,
@@ -260,7 +305,7 @@ class DonateController extends Controller
             ], 404);
         }
 
-        Donate::whereId($doante->id)->delete();
+        Donate::whereId($donate->id)->delete();
 
         return response()->json([
             'status' => true,
