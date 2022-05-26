@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Str;
 
 class LoginController extends Controller
 {
@@ -129,6 +130,69 @@ class LoginController extends Controller
 
     public function forgotPassword(Request $request)
     {
-        return view('pages.forgot-password.index');
+        return view('pages.auth.forgot-password');
+    }
+
+    public function postForgotPassword(Request $request)
+    { 
+        $request->validate([
+            'email' => 'required'
+        ]);
+        
+        $user = User::whereEmail($request->email)->first();
+
+        if(empty($user)) {
+            Session::flash('error', 'Email tidak ditemukan!');
+            return redirect()->route('home');
+        }
+        
+        $data = [
+            'token' => Str::random(32)
+        ];
+
+        \Mail::to($user->email)->send(new \App\Mail\ForgotPassword($data));
+        
+        User::whereId($user->id)->update($data);
+        
+        Session::flash('success', 'Link atur ulang password sudah dikirim melalui email, silahkan periksa email Anda');
+        return redirect()->route('home');
+    }
+    
+    public function resetPassword(Request $request, $token)
+    {
+        $user = User::whereToken($token)->first();
+
+        if(empty($user)) {
+            Session::flash('error', 'Token tidak ditemukan!');
+            return redirect()->route('home');
+        }
+
+        return view('pages.auth.reset-password')
+            ->with('user', $user);
+    }
+
+    public function postResetPassword(Request $request, $token)
+    {
+        
+        $request->validate([
+            'password' => 'required|confirmed|min:8'
+        ]);
+        
+        $user = User::whereToken($token)->first();
+
+        if(empty($user)) {
+            Session::flash('error', 'Token tidak ditemukan!');
+            return redirect()->route('home');
+        }
+        
+        $data = [
+            'password' => Hash::make($request->password),
+            'token' => null
+        ];
+        
+        User::whereId($user->id)->update($data);
+        
+        Session::flash('success', 'Password berhasil diperbarui, silahkan login kembali');
+        return redirect()->route('home');
     }
 }

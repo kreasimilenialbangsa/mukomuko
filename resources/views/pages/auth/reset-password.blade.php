@@ -30,16 +30,35 @@
   <div class="about-page">
     <div class="container">
       <div class="cus-breadcrumb">
-        <span>Beranda</span> / <span class="current">Lupa Password</span>
+        <span>Beranda</span> / <span class="current">Atur Ulang Password</span>
       </div>
       <div class="row justify-content-center align-items-center" style="height: 55vh">
         <section class="col-6">
-          <div class="wrapper-boxtext">
-            <h4 class="mb-3">Lupa Password</h4>
-            <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
+            
+            <div class="wrapper-boxtext">
+
+            <h4 class="mb-3">Atur Ulang Password</h4>
+            <h6 class="mb-3">{{ $user->email }}</h6>
+
+            @if ($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('reset-password.update', Request::segment(2)) }}" class="needs-validation" novalidate="">
+                @csrf
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" placeholder="Ketik email Anda" required class="form-control" name="email">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Ketik password baru Anda" required class="form-control" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmation">Konfirmasi Password</label>
+                    <input type="password" placeholder="Konfirmasi password Anda" required class="form-control" name="password_confirmation">
                 </div>
                 <div class="form-group mb-0">
                     <button type="submit" class="btn py-2 btn-green w-100">Kirim</button>

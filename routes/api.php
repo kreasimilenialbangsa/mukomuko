@@ -30,6 +30,7 @@ Route::group(['prefix' => 'v1'], function () {
     // Auth
     Route::post('login', [App\Http\Controllers\API\V1\AuthController::class, 'login']);
     Route::post('register', [App\Http\Controllers\API\V1\AuthController::class, 'register']);
+    Route::post('forgot-password', [App\Http\Controllers\API\V1\AuthController::class, 'forgotPassword']);
 
     // Information
     Route::get('info/total', [App\Http\Controllers\API\V1\InformationController::class, 'total']);
@@ -68,6 +69,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('profile', [App\Http\Controllers\API\V1\ProfileController::class, 'profile']);
         Route::put('profile/update', [App\Http\Controllers\API\V1\ProfileController::class, 'update']);
+        Route::post('change-password', [App\Http\Controllers\API\V1\AuthController::class, 'changePassword']);
         Route::post('logout', [App\Http\Controllers\API\V1\AuthController::class, 'logout']);
         
         Route::get('donates/bylogin/admin ', [App\Http\Controllers\API\V1\DonateController::class, 'getDonateByAdmin']);

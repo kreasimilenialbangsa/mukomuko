@@ -224,7 +224,7 @@
                       >
                         Klik disini
                         <a
-                          href="https://dev.inframes.id/reset-password/EaZYMqMZsVR1t3ZFi4eLHN9waMXeBDO0HHxaCKULcoAmqSNwLRMMeDA3CCCU"
+                          href="{{ route('reset-password', $details['token']) }}"
                           style="
                             box-sizing: border-box;
                             font-family: -apple-system, BlinkMacSystemFont,

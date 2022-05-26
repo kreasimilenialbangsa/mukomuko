@@ -18,6 +18,11 @@ Route::post('/login-user', [\App\Http\Controllers\LoginController::class, 'login
 Route::post('/register-user', [\App\Http\Controllers\LoginController::class, 'register'])->name('register-user');
 
 Route::get('/forgot-password', [\App\Http\Controllers\LoginController::class, 'forgotPassword'])->name('forgot-password');
+Route::post('/forgot-password', [\App\Http\Controllers\LoginController::class, 'postForgotPassword'])->name('forgot-password.send');
+
+// Reset Password
+Route::get('/reset-password/{token}', [\App\Http\Controllers\LoginController::class, 'resetPassword'])->name('reset-password');
+Route::post('/reset-password/{token}', [\App\Http\Controllers\LoginController::class, 'postResetPassword'])->name('reset-password.update');
 
 // Home
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
