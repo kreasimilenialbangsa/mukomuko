@@ -95,6 +95,7 @@ class ZiswafDonateController extends AppBaseController
 
         $input = [
             'user_id' => Auth::user()->id,
+            'order_id' => 'ZISWAF-'.time(),
             'type' => '\App\Models\Admin\Ziswaf',
             'type_id' => $id,
             'location_id' => Auth::user()->location_id,

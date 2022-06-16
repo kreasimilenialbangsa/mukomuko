@@ -100,6 +100,7 @@ class ProgramDonateController extends AppBaseController
     {
         $input = [
             'user_id' => Auth::user()->id,
+            'order_id' => 'PROGRAM-'.time(),
             'type' => '\App\Models\Admin\Program',
             'type_id' => $id,
             'location_id' => Auth::user()->location_id,

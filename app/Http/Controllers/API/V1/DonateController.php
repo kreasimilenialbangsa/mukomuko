@@ -273,6 +273,7 @@ class DonateController extends Controller
 
         $input = [
             'user_id' => auth()->user()->id,
+            'order_id' => strtoupper($request->type).'-'.time(),
             'type' => $type,
             'type_id' => $request->type_id,
             'location_id' => auth()->user()->location_id,
