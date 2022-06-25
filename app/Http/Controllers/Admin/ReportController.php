@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\Excel\LaporanKalengNuExport;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Donate;
 use Yajra\DataTables\DataTables;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use Response;
 
 class ReportController extends AppBaseController
@@ -193,5 +195,12 @@ class ReportController extends AppBaseController
         }
 
         return view('admin.pages.reports.annual.show');
+    }
+
+    public function exportKalengNu(Request $request)
+    {
+        $data = Donate::get();
+        
+        return Excel::download(new LaporanKalengNuExport($data), 'test.xlsx');
     }
 }
