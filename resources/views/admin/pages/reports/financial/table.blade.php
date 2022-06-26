@@ -134,7 +134,7 @@
                 }
             });
 
-            $("div.bexport").html(`<a href="#" target="_blank" class="btn btn-primary btn-sm btn-block export-button"><i class="fa fa-file-excel"></i> Export</a>`);
+            $("div.bexport").html(`<a href="{{ route('admin.report.keuangan.export') }}" target="_blank" class="btn btn-primary btn-sm btn-block export-button"><i class="fa fa-file-excel"></i> Export</a>`);
 
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">

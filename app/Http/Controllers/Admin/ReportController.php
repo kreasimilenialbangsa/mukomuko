@@ -199,8 +199,51 @@ class ReportController extends AppBaseController
 
     public function exportKalengNu(Request $request)
     {
-        $data = Donate::get();
-        
-        return Excel::download(new LaporanKalengNuExport($data), 'test.xlsx');
+        $incomes = Income::select('id', 'name', 'precent')->get();
+
+        $data = User::select('users.id', 'users.location_id', 'users.name', 'users.created_at')
+            ->join('locations', 'locations.id', 'users.location_id')
+            ->when(!empty($request->kecamatan), function($q) use($request) {
+                $q->where('locations.parent_id', $request->kecamatan);
+            })
+            ->when(!empty($request->desa), function($q) use($request) {
+                $q->where('locations.id', $request->desa);
+            })
+            ->with(['role_user', 'desa'])
+            ->withCount(['donate' => function($q) use($request) {
+                if(isset($request->from_date) && isset($request->to_date)) {
+                    $q->whereBetween('created_at', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                } else {
+                    $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                }
+            }])
+            ->withSum(['donate' => function($q) use($request) {
+                if(isset($request->from_date) && isset($request->to_date)) {
+                    $q->whereBetween('created_at', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                } else {
+                    $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                }
+            }], 'total_donate')
+            ->whereRelation('role_user', 'role_id', 4)
+            ->get();
+
+        $result = [];
+        foreach($data as $key => $row) {
+            $result[] = [
+                "No" => $key+1,
+                "Kecamatan" => $row->desa->kecamatan->name,
+                "Desa" => $row->desa->name,
+                "JIPZISNU" => $row->name,
+                "Total Donatur" => 100000,
+                "Jumlah Donasi" => !empty($row->donate_sum_total_donate) ? $row->donate_sum_total_donate : 0,
+                "MUJAMI" => ($row->donate_sum_total_donate * $incomes[0]->precent)/100,
+                "UPZIS RANTING" => ($row->donate_sum_total_donate * $incomes[1]->precent)/100,
+                "UPZIS KEC (MWC)" => ($row->donate_sum_total_donate * $incomes[2]->precent)/100,
+                "LAZISNU" => ($row->donate_sum_total_donate * $incomes[3]->precent)/100,
+                "Jumlah" => !empty($row->donate_sum_total_donate) ? $row->donate_sum_total_donate : 0,
+            ];
+        };
+
+        return Excel::download(new LaporanKalengNuExport($result), 'test.xlsx');
     }
 }
