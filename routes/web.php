@@ -24,6 +24,10 @@ Route::post('/forgot-password', [\App\Http\Controllers\LoginController::class, '
 Route::get('/reset-password/{token}', [\App\Http\Controllers\LoginController::class, 'resetPassword'])->name('reset-password');
 Route::post('/reset-password/{token}', [\App\Http\Controllers\LoginController::class, 'postResetPassword'])->name('reset-password.update');
 
+// Register
+Route::get('/daftar', [\App\Http\Controllers\RegiterController::class, 'index'])->name('register.index');
+Route::post('/daftar', [\App\Http\Controllers\RegiterController::class, 'store'])->name('register.store');
+
 // Home
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
