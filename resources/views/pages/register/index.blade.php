@@ -49,16 +49,18 @@
           <div class="wrapper-boxtext px-3">
             <div class="text-center mb-5">
                 <h3>Pendaftaran Anggota</h3>
-                <h4>{{ @Request::get('type') == 'kecamatan' ? 'Kecamatan' : 'Desa' }}</h4>
+                <h4>{{ @Request::segment(2) == 'kecamatan' ? 'Kecamatan' : 'Desa' }}</h4>
             </div>
 
-            {!! Form::open(['route' => 'register.store']) !!}
+            {!! Form::open(['route' => 'register.store', 'class' => 'form']) !!}
+            {!! Form::hidden('role', @Request::segment(2) == 'kecamatan' ? 3 : 4, ['class' => 'form-control', 'placeholder' => 'Ketik disini']) !!}
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="row">
-                        <div class="form-group col-md-12">
-                            {!! Form::label('location', (@Request::get('type') == 'kecamatan' ? 'Kecamatan*' : 'Desa*')) !!}
+                        <div class="form-group col-md-6">
+                            {!! Form::label('location', (@Request::segment(2) == 'kecamatan' ? 'Kecamatan*' : 'Desa*')) !!}
                             {!! Form::select('location', @$locations, null, ['class' => 'form-control select2']) !!}
+                            <small class="text-danger">{{ $errors->first('location') }}</small>
                         </div>
                     </div>
 
@@ -66,16 +68,18 @@
                         <div class="form-group col-md-6">
                             {!! Form::label('name', 'Nama*') !!}
                             {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ketik disini']) !!}
+                            <small class="text-danger">{{ $errors->first('name') }}</small>
                         </div>
     
                         <div class="form-group col-md-6">
                             {!! Form::label('email', 'Email*') !!}
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Ketik disini']) !!}
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2">@lazisnumukomuko.id</span>
                                 </div>
-                            </div>
+                              </div>
+                            <small class="text-danger">{{ $errors->first('email') }}</small>
                         </div>
                     </div>
     
@@ -83,6 +87,7 @@
                         <div class="form-group col-md-4">
                             {!! Form::label('telp', 'No. HP*') !!}
                             {!! Form::number('telp', null, ['class' => 'form-control', 'placeholder' => 'Ketik disini']) !!}
+                            <small class="text-danger">{{ $errors->first('telp') }}</small>
                         </div>
 
                         <div class="form-group col-md-4">
@@ -99,7 +104,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             {!! Form::label('birth_place', 'Tempat Lahir') !!}
-                            {!! Form::number('birth_place', null, ['class' => 'form-control', 'placeholder' => 'Ketik disini']) !!}
+                            {!! Form::text('birth_place', null, ['class' => 'form-control', 'placeholder' => 'Ketik disini']) !!}
                         </div>
     
                         <div class="form-group col-md-6">
@@ -115,7 +120,7 @@
                         </div>  
 
                         <div class="col-md-12 mt-3">
-                            {!! Form::submit('Simpan', ['class' => 'btn btn-primary btn-block']) !!}
+                            {!! Form::submit('Simpan', ['class' => 'btn btn-primary btn-block save']) !!}
                         </div>
                     </div>
                 </div>
@@ -135,6 +140,26 @@
     $(document).ready(function() {
       $('.select2').select2({
           theme: 'bootstrap4'
+      });
+
+      $('.save').on('click', function(e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: "Apakah Anda yakin data sudah benar?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#45BF7C',
+            cancelButtonColor: '#B9B2B2',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Simpan',
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).attr('disabled', true);
+                $('.form').submit();
+            }
+        });
       });
     });
   </script>
