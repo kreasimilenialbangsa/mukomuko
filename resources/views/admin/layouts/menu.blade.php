@@ -122,4 +122,5 @@
         <li class="{{ Request::is('admin/account/user*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.account.users.index') }}">User</a></li>
     </ul>
 </li>
+<li class="menu-header pb-5"></li>
 @endrole

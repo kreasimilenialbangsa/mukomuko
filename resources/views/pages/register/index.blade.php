@@ -120,7 +120,7 @@
                         </div>  
 
                         <div class="col-md-12 mt-3">
-                            {!! Form::submit('Simpan', ['class' => 'btn btn-primary btn-block save']) !!}
+                            {!! Form::submit('Simpan', ['class' => 'btn btn-green btn-block save']) !!}
                         </div>
                     </div>
                 </div>

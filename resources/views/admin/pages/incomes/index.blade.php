@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('admin.report.incomes.create')}}" class="btn btn-primary form-btn"><i class="fas fa-plus"></i> Perolehan</a>
+                {{-- <a href="{{ route('admin.report.incomes.create')}}" class="btn btn-primary form-btn"><i class="fas fa-plus"></i> Perolehan</a> --}}
             </div>
         </div>
     <div class="section-body">

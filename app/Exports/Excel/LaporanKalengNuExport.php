@@ -2,12 +2,14 @@
 
 namespace App\Exports\Excel;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LaporanKalengNuExport implements FromCollection, WithHeadings, WithColumnFormatting
+class LaporanKalengNuExport implements FromView, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -21,40 +23,35 @@ class LaporanKalengNuExport implements FromCollection, WithHeadings, WithColumnF
         $this->data = $data;
     }
 
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public function view(): View
     {
-        return collect($this->data);
+        return view('admin.exports.excel.laporan_kaleng_nu', $this->data);
     }
 
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function headings(): array
+    public function styles(Worksheet $sheet): array
     {
-        return [
-            'No',
-            'Kecamatan',
-            'Desa',
-            'JIPZISNU',
-            'Total Donatur',
-            'Jumlah Donasi',
-            'MUJAMI',
-            'UPZIS RANTING',
-            'UPZIS KEC (MWC)',
-            'LAZISNU',
-            'Jumlah',
+        $config = [
+            6 => [
+                    "borders" => [
+                        "allBorders" => [
+                            "borderStyle" => Border::BORDER_THIN,
+                            "color" => ["rgb" => "000000"],
+                    ],
+                ],
+            ],
         ];
-    }
 
-    public function columnFormats(): array
-    {
-        return [
-            'E' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-        ];
+        for ($i=5; $i < count($this->data['result'])+7; $i++) { 
+            $config[$i] = [
+                "borders" => [
+                    "allBorders" => [
+                        "borderStyle" => Border::BORDER_THIN,
+                        "color" => ["rgb" => "000000"],
+                    ],
+                ],
+            ];
+        }
+
+        return $config;
     }
 }

@@ -39,6 +39,7 @@
                 <th width="250px">{{$incomes[1]['name']}} {{$incomes[1]['precent']}}%</th>
                 <th width="300px">{{$incomes[2]['name']}} {{$incomes[2]['precent']}}%</th>
                 <th width="250px">{{$incomes[3]['name']}} {{$incomes[3]['precent']}}%</th>
+                <th width="250px">{{$incomes[4]['name']}} {{$incomes[4]['precent']}}%</th>
                 <th width="250px">Jumlah</th>
             </tr>
         </thead>
@@ -54,6 +55,7 @@
                 <th>8</th>
                 <th>9</th>
                 <th>10</th>
+                <th>11</th>
             </tr>
         </tfoot>
     </table>
@@ -93,6 +95,7 @@
                     { data: 'col2', name: 'col2', className: 'text-center' },
                     { data: 'col3', name: 'col3', className: 'text-center' },
                     { data: 'col4', name: 'col4', className: 'text-center' },
+                    { data: 'col5', name: 'col5', className: 'text-center' },
                     { data: 'donate_sum_total_donate', name: 'donate_sum_total_donate', className: 'text-center' }
                 ],
                 footerCallback: function ( row, data, start, end, display ) {
@@ -122,6 +125,7 @@
                     total4 = api.column( 8 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
                     total5 = api.column( 9 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
                     total6 = api.column( 10 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total7 = api.column( 11 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
         
                     // Update footer
                     $( api.column( 4 ).footer() ).html(totalDonatur);
@@ -131,10 +135,11 @@
                     $( api.column( 8 ).footer() ).html(rupiah(total4));
                     $( api.column( 9 ).footer() ).html(rupiah(total5));
                     $( api.column( 10 ).footer() ).html(rupiah(total6));
+                    $( api.column( 11 ).footer() ).html(rupiah(total7));
                 }
             });
 
-            $("div.bexport").html(`<a href="{{ route('admin.report.keuangan.export') }}" target="_blank" class="btn btn-primary btn-sm btn-block export-button"><i class="fa fa-file-excel"></i> Export</a>`);
+            $("div.bexport").html(`<button type="button" class="btn btn-primary btn-block export-button modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
 
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">
@@ -195,7 +200,7 @@
 
 
             $("div.fkecamatan").html(`
-                <select class="form-control form-control-sm select2" name="kecamatan">
+                <select class="form-control form-control-sm fselect2" name="kecamatan">
                     <option value="">Semua Kecamatan</option>
                     @foreach($kecamatan as $row)
                         <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
@@ -208,7 +213,7 @@
             });
 
             $("div.fdesa").html(`
-                <select class="form-control form-control-sm select2" name="desa">
+                <select class="form-control form-control-sm fselect2" name="desa">
                     <option value="">Semua Desa</option>
                     @foreach($desa as $row)
                         <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
@@ -220,7 +225,7 @@
                 table.draw();
             });
 
-            $('.select2').select2({
+            $('.fselect2').select2({
                 theme: 'bootstrap4',
             });
         });

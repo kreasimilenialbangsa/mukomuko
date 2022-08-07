@@ -110,7 +110,7 @@
                 }
             });
 
-            $("div.bexport").html(`<a href="#" target="_blank" class="btn btn-primary btn-block export-button"><i class="fa fa-file-excel"></i> Export</a>`);
+            $("div.bexport").html(`<button type="button" class="btn btn-primary btn-block export-button modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
 
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">
