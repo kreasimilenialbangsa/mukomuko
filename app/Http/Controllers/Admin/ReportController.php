@@ -31,11 +31,13 @@ class ReportController extends AppBaseController
         $kecamatan = Kecamatan::select('id', 'name')
             ->whereParentId(0)
             ->whereIsActive(1)
+            ->orderBy('name', 'asc')
             ->get();
         
         $desa = Kecamatan::select('id', 'name')
             ->where('parent_id', '<>', 0)
             ->whereIsActive(1)
+            ->orderBy('name', 'asc')
             ->get();
 
         $incomes = Income::select('id', 'name', 'precent')->get();
@@ -62,16 +64,16 @@ class ReportController extends AppBaseController
                 ->with(['role_user', 'desa'])
                 ->withCount(['donate' => function($q) use($request) {
                     if(isset($request->from_date) && isset($request->to_date)) {
-                        $q->whereBetween('created_at', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                        $q->whereBetween('date_donate', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
                     } else {
-                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                        $q->whereBetween('date_donate', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
                     }
                 }])
                 ->withSum(['donate' => function($q) use($request) {
                     if(isset($request->from_date) && isset($request->to_date)) {
-                        $q->whereBetween('created_at', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                        $q->whereBetween('date_donate', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
                     } else {
-                        $q->whereBetween('created_at', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                        $q->whereBetween('date_donate', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
                     }
                 }], 'total_donate')
                 ->whereRelation('role_user', 'role_id', 4)
@@ -124,8 +126,8 @@ class ReportController extends AppBaseController
 
             foreach($months as $key => $row) {
                 $income = DB::table('donates')
-                    ->select(DB::raw("DATE_FORMAT(created_at, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
-                    ->where(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"), $row['month'])
+                    ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+                    ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
                     ->whereNull('deleted_at')
                     ->whereType('\App\Models\Admin\Ziswaf')
                     ->whereIsConfirm(1)
@@ -137,8 +139,8 @@ class ReportController extends AppBaseController
                 }
 
                 $outcome = DB::table('outcomes')
-                    ->select(DB::raw("DATE_FORMAT(created_at, '%m-%Y') as month"), DB::raw("SUM(nominal) as total"))
-                    ->where(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"), $row['month'])
+                    ->select(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y') as month"), DB::raw("SUM(nominal) as total"))
+                    ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $row['month'])
                     ->whereNull('deleted_at')
                     ->groupBy('month')
                     ->first();
@@ -160,7 +162,7 @@ class ReportController extends AppBaseController
         }
 
         $year = DB::table('donates')
-            ->select(DB::raw("DATE_FORMAT(created_at, '%Y') as year"))
+            ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"))
             ->groupBy('year')
             ->get();
         
@@ -187,7 +189,7 @@ class ReportController extends AppBaseController
             if($request->type == 'income') {
                 $detail = Donate::select('type_id', DB::raw("SUM(total_donate) as total_donate"))
                     ->with('ziswaf')
-                    ->where(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"), $date)
+                    ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $date)
                     ->whereType('\App\Models\Admin\Ziswaf')
                     ->whereIsConfirm(1)
                     ->groupBy('type_id')
@@ -195,7 +197,7 @@ class ReportController extends AppBaseController
                 } else {   
                 $detail = Outcome::select('category_id', DB::raw("SUM(nominal) as total_donate"))
                     ->with('category')
-                    ->where(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"), $date)
+                    ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $date)
                     ->groupBy('category_id')
                     ->get();
             }
@@ -227,10 +229,10 @@ class ReportController extends AppBaseController
                 })
                 ->with(['role_user', 'desa'])
                 ->withCount(['donate' => function($q) use($from_date, $to_date) {
-                    $q->whereBetween('created_at', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+                    $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
                 }])
                 ->withSum(['donate' => function($q) use($from_date, $to_date) {
-                    $q->whereBetween('created_at', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+                    $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
                 }], 'total_donate')
                 ->whereRelation('role_user', 'role_id', 4)
                 ->get();

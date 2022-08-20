@@ -101,7 +101,7 @@
                           <div class="card-simple">
                             <h6 class="clr-green text-sm">{{ $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name }}</h6>
                             <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($donate->total_donate,0,",",".") }}</p>
-                            <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
+                            <span class="text-xxs">{{ \Carbon\Carbon::parse($donate->date_donate)->diffForHumans() }}</span>
                           </div>
                         </a>
                       @empty
@@ -120,7 +120,7 @@
                         <div class="card-simple">
                           <h6 class="text-sm">{{ $data_doa->is_anonim == 1 ? 'Hamba Allah' : $data_doa->name }}</h6>
                           <div class="d-center text-xxs">
-                            <span class="w-50">{{ \Carbon\Carbon::parse($donate->created_at)->diffForHumans() }}</span>
+                            <span class="w-50">{{ \Carbon\Carbon::parse($donate->date_donate)->diffForHumans() }}</span>
                           </div>
                           <p class="text-xs clr-grey mb-0 mt-2 font-medium">{{ $data_doa->message }}</p>
                         </div>
@@ -183,6 +183,7 @@
                     </a>
                   </div>
                 </div>
+                @if($program->count_day > 0)
                   {!! Form::open(['route' => 'program.payment', 'class' => 'form-donatur mt-3']) !!}
                   <div class="form-group">
                     <label for="nominal">Masukan Nominal Donasi</label>
@@ -196,14 +197,11 @@
                       <span class="slider round"></span>
                     </label>
                   </div> --}}
-                  <div class="form-group mb-0">
-                    @if($program->count_day > 0)
+                    <div class="form-group mb-0">
                       <button class="btn w-100 btn-green mt-3 py-2" type="submit">Lanjut Pembayaran</button>
-                    @else
-                      <button class="btn w-100 btn-secondary mt-3 py-2" disabled>Lanjut Pembayaran</button>
-                    @endif
-                  </div>
-                  {!! Form::close() !!}
+                    </div>
+                    {!! Form::close() !!}
+                @endif
               </div>
             </div>
           </div>

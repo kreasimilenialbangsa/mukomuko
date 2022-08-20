@@ -35,7 +35,7 @@
                     url: "{!!  route('admin.approval.program.index') !!}",
                 },
                 columns: [
-                    { data: 'created_at', name: 'created_at', className: 'text-center' },
+                    { data: 'date_donate', name: 'date_donate', className: 'text-center' },
                     { data: 'user.name', name: 'user.name', className: 'text-center' },
                     { data: 'location.name', name: 'location.name', defaultContent: '-', className: 'text-center' },
                     { data: 'program.title', name: 'program.title', defaultContent: '<strong>(Program telah dihapus)</strong>', className: 'text-center' },

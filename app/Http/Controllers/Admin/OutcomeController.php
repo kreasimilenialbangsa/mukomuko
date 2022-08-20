@@ -61,12 +61,19 @@ class OutcomeController extends AppBaseController
      */
     public function store(CreateOutcomeRequest $request)
     {
+        $request->validate([
+            'nominal' => 'min:4',
+        ],[
+            'nominal.min' => 'Minimal nominal adalah Rp 10.000',
+        ]);
+
         $input = [
             'user_id' => Auth::user()->id,
             'desa_id' => $request->desa_id,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'nominal' => str_replace('.', '', $request->nominal)
+            'nominal' => str_replace('.', '', $request->nominal),
+            'date_outcome' => $request->date_outcome . ' ' . date('H:i:s')
         ];
 
         $outcome = $this->outcomeRepository->create($input);
@@ -145,7 +152,8 @@ class OutcomeController extends AppBaseController
             'desa_id' => $request->desa_id,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'nominal' => str_replace('.', '', $request->nominal)
+            'nominal' => str_replace('.', '', $request->nominal),
+            'date_outcome' => $request->date_outcome . ' ' . date('H:i:s')
         ];
 
         $outcome = $this->outcomeRepository->update($input, $id);

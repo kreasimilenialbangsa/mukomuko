@@ -35,7 +35,8 @@ class Outcome extends Model
         'desa_id',
         'category_id',
         'description',
-        'nominal'
+        'nominal',
+        'date_outcome'
     ];
 
     /**
@@ -48,7 +49,8 @@ class Outcome extends Model
         'desa_id' => 'integer',
         'category_id' => 'integer',
         'description' => 'string',
-        'nominal' => 'integer'
+        'nominal' => 'integer',
+        'date_outcome' => 'string'
     ];
 
     /**
@@ -57,8 +59,6 @@ class Outcome extends Model
      * @var array
      */
     public static $rules = [
-        'description' => 'required',
-        'nominal' => 'required'
     ];
 
     public function category()

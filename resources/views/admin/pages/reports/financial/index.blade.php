@@ -39,7 +39,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="month">Bulan</label>
-                                <select class="form-control select2" month name="month">
+                                <select class="form-control select2-modal" month name="month">
                                     @foreach($months as $month)
                                         <option value="{{ $month['number'] }}" {{ $month['number'] == date('m') ? 'selected' : '' }}>{{ $month['text'] }}</option>
                                     @endforeach
@@ -49,7 +49,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="year">Tahun</label>
-                                <select class="form-control select2" id="year" name="year">
+                                <select class="form-control select2-modal" id="year" name="year">
                                     @foreach($years as $year)
                                         <option value="{{ $year }}" {{ $year == date('m') ? 'selected' : '' }}>{{ $year }}</option>
                                     @endforeach
@@ -59,7 +59,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="desa">Desa</label>
-                                <select class="form-control select2" id="desa" name="desa">
+                                <select class="form-control select2-modal" id="desa" name="desa">
                                     <option value="">Semua Desa</option>
                                     @foreach($desa as $row)
                                         <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>

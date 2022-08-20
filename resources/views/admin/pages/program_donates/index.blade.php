@@ -35,12 +35,12 @@
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="images-tab2">
                         <div class="row">
                             @forelse ($donateHistory as $history)
-                            <a class="col-lg-3 col-md-4 col-6 p-2 wblock">
+                            <a class="col-lg-3 col-md-4 col-6 wblock">
                                 <div class="card border">
                                     <div class="card-body">
                                         <h6 class="clr-green text-sm">{{ $history->is_anonim == 1 ? 'Hamba Allah' : $history->name }}</h6>
-                                        <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($history->total_doante,0,",",".") }}</p>
-                                        <span class="text-xxs">{{ \Carbon\Carbon::parse($history->created_at)->diffForHumans() }}</span>
+                                        <p class="text-xs mb-2 font-medium">Berdonasi sebesar {{ "Rp " . number_format($history->total_donate,0,",",".") }}</p>
+                                        <span class="text-xxs">{{ \Carbon\Carbon::parse($history->date_donate)->diffForHumans() }}</span>
                                     </div>
                                 </div>
                             </a>

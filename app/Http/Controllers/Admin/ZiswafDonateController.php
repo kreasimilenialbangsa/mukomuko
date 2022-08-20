@@ -90,7 +90,16 @@ class ZiswafDonateController extends AppBaseController
     public function store($id, CreateDonateRequest $request)
     {
         $request->validate([
+            'name' => 'required',
+            'email' => 'required',
             'phone' => 'required|min:10',
+            'total_donate' => 'min:4',
+            'date_donate' => 'required'
+        ],[
+            'name.required' => 'Bagian isian nama wajib diisi.',
+            'phone.required' => 'Bagian isian telepon wajib diisi.',
+            'total_donate.min' => 'Minimal donasi adalah Rp 10.000',
+            'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
         ]);
 
         $input = [
@@ -104,6 +113,7 @@ class ZiswafDonateController extends AppBaseController
             'phone' => $request->phone,
             'message' => $request->message,
             'total_donate' => str_replace('.', '', $request->total_donate),
+            'date_donate' => $request->date_donate . ' ' . date('H:i:s'),
             'is_anonim' => isset($request->is_anonim) ? $request->is_anonim : 0,
             'is_confirm' => 0
         ];
@@ -136,7 +146,7 @@ class ZiswafDonateController extends AppBaseController
     public function show(Request $request, $id)
     {
         if($request->ajax()) {
-            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
+            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_confirm', 'created_at')
                 ->with('ziswaf')
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereTypeId($id)
@@ -146,7 +156,7 @@ class ZiswafDonateController extends AppBaseController
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.ziswaf_donates.donatur.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('date_donate', '{{ date("d/m/Y H:i", strtotime($date_donate)) }}')
                 ->editColumn('is_confirm', function($q) {
                     $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
                     return $status;

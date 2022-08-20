@@ -14,6 +14,12 @@
         </label>
     </div>
 
+    <!-- Donate Date Field -->
+    <div class="form-group">
+      {!! Form::label('date_donate', 'Tanggal Donasi:') !!}
+      {!! Form::date('date_donate', date('Y-m-d'), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}
+    </div>
+
     <!-- Email Field -->
     <div class="form-group">
         {!! Form::label('email', 'Email:') !!}

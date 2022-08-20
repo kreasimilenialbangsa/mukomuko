@@ -69,12 +69,12 @@ class ProfileController extends Controller
 
     public function history(Request $request)
     {
-        $donates = Donate::select('id', 'order_id', 'type', 'type_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
+        $donates = Donate::select('id', 'order_id', 'type', 'type_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_confirm', 'created_at')
             ->with('program', 'ziswaf')
             // ->whereType('\App\Models\Admin\Ziswaf')
             ->whereEmail(Auth::user()->email)
             ->orWhere('user_id', Auth::user()->id)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->paginate(5);
 
         return view('pages.profile.history-transaction')

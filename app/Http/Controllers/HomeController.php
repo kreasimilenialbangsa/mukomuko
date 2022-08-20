@@ -37,10 +37,10 @@ class HomeController extends Controller
         //     'donatur' => Donate::whereIsConfirm(1)->count()
         // ];
 
-        $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'name', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereIsConfirm(1)
-            ->limit(12) 
-            ->orderBy('id', 'desc')
+            ->limit(9) 
+            ->orderBy('date_donate', 'desc')
             ->get();
 
         $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at', 'is_urgent')

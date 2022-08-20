@@ -13,12 +13,12 @@ class DonateController extends Controller
 {
     public function all(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->when(isset($request->user_id), function($q) use($request){
                 return $q->whereUserId($request->user_id);
             })
             ->whereIsConfirm(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
 
         if(empty($donates)) {
@@ -44,7 +44,7 @@ class DonateController extends Controller
 
     public function detailById(Request $request, $id)
     {
-        $donate = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donate = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereId($id)
             ->whereIsConfirm(1)
             ->first();
@@ -70,10 +70,10 @@ class DonateController extends Controller
 
     public function allPrograms(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Program')
             ->whereIsConfirm(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
 
         if(empty($donates)) {
@@ -99,10 +99,11 @@ class DonateController extends Controller
 
     public function detailByProgram(Request $request, $id)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Program')
             ->whereTypeId($id)
             ->whereIsConfirm(1)
+            ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
 
         if(empty($donates)) {
@@ -128,10 +129,10 @@ class DonateController extends Controller
 
     public function allZiswaf(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereIsConfirm(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
 
         if(empty($donates)) {
@@ -157,10 +158,11 @@ class DonateController extends Controller
 
     public function detailByZiswaf(Request $request, $id)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereTypeId($id)
             ->whereIsConfirm(1)
+            ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
 
         if(empty($donates)) {
@@ -188,12 +190,12 @@ class DonateController extends Controller
     //private API
     public function getDonateByAdmin(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'created_at', 'is_anonim', 'is_confirm')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim', 'is_confirm')
             ->when(isset($request->type), function($q) use($request){
                 return $q->whereType($request->type == 'program' ? '\App\Models\Admin\Program' : '\App\Models\Admin\Ziswaf');
             })
             ->whereUserId(auth()->user()->id)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 10);
 
         if(empty($donates)) {
@@ -225,12 +227,12 @@ class DonateController extends Controller
 
     public function getDonateByUser(Request $request)
     {
-        $donates = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'created_at', 'is_anonim', 'is_confirm')
+        $donates = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim', 'is_confirm')
             ->when(isset($request->type), function($q) use($request){
                 return $q->whereType($request->type == 'program' ? '\App\Models\Admin\Program' : '\App\Models\Admin\Ziswaf');
             })
             ->Where('email', auth()->user()->email)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 10);
 
         if(empty($donates)) {
@@ -282,6 +284,7 @@ class DonateController extends Controller
             'phone' => $request->phone,
             'message' => isset($request->message) ? $request->message : null,
             'total_donate' => $request->total_donate,
+            'date_donate' => isset($request->date_donate) ? $request->date_donate : date('Y-m-d') . ' ' . date('H:i:s'),
             'is_anonim' => 0,
             'is_confirm' => 0
         ];

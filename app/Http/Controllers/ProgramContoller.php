@@ -39,7 +39,7 @@ class ProgramContoller extends Controller
             ->get();
 
         
-        $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'name', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereDate('created_at', Carbon::today())
             ->whereIsConfirm(1)
             ->get();
@@ -64,19 +64,19 @@ class ProgramContoller extends Controller
 
         $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
 
-        $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'name', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereType('\App\Models\Admin\Program')
             ->whereTypeId($program->id)
             ->whereIsConfirm(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->get();
 
-        $doa = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim', 'message')
+        $doa = Donate::select('id', 'name', 'total_donate', 'date_donate', 'created_at', 'is_anonim', 'message')
             ->whereType('\App\Models\Admin\Program')
             ->whereTypeId($program->id)
             ->whereIsConfirm(1)
             ->whereNotNull('message')
-            ->orderBy('id', 'desc')
+            ->orderBy('date_donate', 'desc')
             ->get();
 
         $programs = Program::select('id', 'user_id', 'title', 'slug', 'location', 'end_date', 'image', 'target_dana', 'category_id', 'created_at')

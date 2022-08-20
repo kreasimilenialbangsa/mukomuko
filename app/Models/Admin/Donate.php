@@ -19,9 +19,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $email
  * @property string $phone
  * @property string $message
+ * @property string $date_donate,
  * @property integer $total_donate
  * @property integer $is_anonim
- * @property integer $is_confirm
+ * @property integer $is_confir
  */
 class Donate extends Model
 {
@@ -48,6 +49,7 @@ class Donate extends Model
         'phone',
         'message',
         'total_donate',
+        'date_donate',
         'is_anonim',
         'is_confirm',
         'is_payment'
@@ -70,6 +72,7 @@ class Donate extends Model
         'phone' => 'string',
         'message' => 'string',
         'total_donate' => 'integer',
+        'date_donate' => 'string',
         'is_anonim' => 'integer',
         'is_confirm' => 'integer',
         'is_payment' => 'integer'
@@ -81,8 +84,7 @@ class Donate extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required',
-        'total_donate' => 'required'
+        
     ];
 
     public function user()

@@ -34,7 +34,7 @@
                     url: "{!!  route('admin.donatur.program.list', Request::segment(4)) !!}",
                 },
                 columns: [
-                    { data: 'created_at', name: 'created_at', className: 'text-center' },
+                    { data: 'date_donate', name: 'date_donate', defaultContent: '-', className: 'text-center' },
                     { data: 'program.title', name: 'program.title', className: 'text-center' },
                     { data: 'name', name: 'name', className: 'text-center' },
                     { data: 'email', name: 'email', className: 'text-center' },

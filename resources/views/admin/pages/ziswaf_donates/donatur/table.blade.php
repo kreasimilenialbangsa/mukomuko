@@ -6,12 +6,12 @@
     <table class="table table-striped" id="table">
         <thead>
             <tr>
+                <th>Tanggal</th>
                 <th>Jenis Ziswaf</th>
                 <th>Nama Donatur</th>
                 <th>Email</th>
                 <th>Telepon</th>
                 <th>Jumlah Donasi</th>
-                <th>Tanggal</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -34,7 +34,7 @@
                     url: "{!!  route('admin.donatur.ziswaf.list', Request::segment(4)) !!}",
                 },
                 columns: [
-                    { data: 'created_at', name: 'created_at', className: 'text-center' },
+                    { data: 'date_donate', name: 'date_donate', defaultContent: '-', className: 'text-center' },
                     { data: 'ziswaf.title', name: 'ziswaf.title', className: 'text-center' },
                     { data: 'name', name: 'name', className: 'text-center' },
                     { data: 'email', name: 'email', className: 'text-center' },

@@ -35,7 +35,7 @@
                     url: "{!!  route('admin.approval.ziswaf.index') !!}",
                 },
                 columns: [
-                    { data: 'created_at', name: 'created_at', className: 'text-center' },
+                    { data: 'date_donate', name: 'date_donate', className: 'text-center' },
                     { data: 'user.name', name: 'user.name', className: 'text-center' },
                     { data: 'location.name', name: 'location.name', defaultContent: '-', className: 'text-center' },
                     { data: 'ziswaf.title', name: 'ziswaf.title', defaultContent: '<strong>(Ziswaf telah dihapus)</strong>', className: 'text-center' },

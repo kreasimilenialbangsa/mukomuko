@@ -19,7 +19,7 @@ class OutcomeDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'admin.pages.outcomes.datatables_actions')
-            ->editColumn('created_at', '{{ date("d/m/Y", strtotime($created_at)) }}')
+            ->editColumn('date_outcome', '{{ date("d/m/Y H:i", strtotime($date_outcome)) }}')
             ->editColumn('nominal', '{{ "Rp " . number_format($nominal,0,",",".") }}');
     }
 
@@ -68,7 +68,7 @@ class OutcomeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'created_at' => ['title' => 'Tanggal', 'className' => 'text-center',],
+            'date_outcome' => ['title' => 'Tanggal', 'className' => 'text-center',],
             'desa.name' => ['title' => 'Desa', 'data' => 'desa.name', 'name' => 'desa.name', 'className' => 'text-center',],
             'category.name' => ['title' => 'Kategori', 'data' => 'category.name', 'name' => 'category.name', 'className' => 'text-center',],
             'description' => ['title' => 'Deskripsi'],

@@ -24,12 +24,12 @@ class DonaturController extends Controller
         ->whereIsActive(1)
         ->get();
 
-        $donates = Donate::select('id', 'name', 'total_donate', 'created_at', 'is_anonim')
+        $donates = Donate::select('id', 'name', 'total_donate', 'date_donate', 'created_at', 'is_anonim')
             ->whereIsConfirm(1)
             // ->when(isset($request->order), function($q) use($request) {
             //     return $q->orderBy('id', $request->order);
             // })
-            ->orderBy('id', isset($request->order) ? $request->order : 'desc')
+            ->orderBy('date_donate', isset($request->order) ? $request->order : 'desc')
             ->paginate(12);
         
         return view('pages.donatur.index')

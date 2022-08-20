@@ -10,6 +10,12 @@
         {!! Form::label('category_id', 'Kategori:') !!}
         {!! Form::select('category_id', $categories, null, ['class' => 'form-control select2']) !!}
     </div>
+
+    <!-- Date Field -->
+    <div class="form-group">
+        {!! Form::label('date_outcome', 'Tanggal:') !!}
+        {!! Form::date('date_outcome', (isset($outcome->date_outcome) ? date('Y-m-d', strtotime($outcome->date_outcome)) : date('Y-m-d')), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}
+      </div>
 </div>
     
 <div class="col-sm-6">

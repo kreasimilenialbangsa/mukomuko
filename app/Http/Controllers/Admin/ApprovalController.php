@@ -37,7 +37,7 @@ class ApprovalController extends AppBaseController
     public function program_index(Request $request)
     {
         if($request->ajax()) {
-            $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
+            $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_confirm', 'created_at')
                 ->with(['user', 'program', 'location'])
                 ->when(Auth::user()->id > 1, function($q) {
                     $q->whereRelation('location', 'parent_id', Auth::user()->location_id);
@@ -53,7 +53,7 @@ class ApprovalController extends AppBaseController
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.approvals.program.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('date_donate', '{{ date("d/m/Y H:i", strtotime($date_donate)) }}')
                 ->make(true);
         }
         
@@ -69,7 +69,7 @@ class ApprovalController extends AppBaseController
     public function ziswaf_index(Request $request)
     {
         if($request->ajax()) {
-            $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'is_confirm', 'created_at')
+            $donatur = Donate::select('id', 'user_id', 'type_id', 'location_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_confirm', 'created_at')
                 ->with(['user', 'ziswaf', 'location'])
                 ->when(Auth::user()->id > 1, function($q) {
                     $q->whereRelation('location', 'parent_id', Auth::user()->location_id);
@@ -85,7 +85,7 @@ class ApprovalController extends AppBaseController
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.approvals.ziswaf.datatables_actions')
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
-                ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+                ->editColumn('date_donate', '{{ date("d/m/Y H:i", strtotime($date_donate)) }}')
                 ->make(true);
         }
         
