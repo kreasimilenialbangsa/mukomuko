@@ -36,7 +36,9 @@
         <section class="col-12">
           <div class="wrapper-boxtext">
             <h1 class="box-title">{{ $service->title }}</h1>
-            {!! $service->description !!}
+            <div class="box-detail">
+              {!! $service->description !!}
+            </div>
           </div>
         </section>
       </div>

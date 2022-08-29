@@ -291,7 +291,7 @@
               <a href="{{ route('news.detail', $row->slug) }}" class="col-lg-3 col-md-4 col-sm-6 col-12 p-3 wblock">
                 <div class="card-thumbnail">
                   <div class="thumb-pict">
-                    <img class="w-100" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
+                    <img class="w-100" src="{{ @asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
                     <span class="tag-cat tag-abs">{{ $row->category->name }}</span>
                   </div>
                   <div class="card-detail">

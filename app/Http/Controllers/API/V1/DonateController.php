@@ -285,7 +285,7 @@ class DonateController extends Controller
             'message' => isset($request->message) ? $request->message : null,
             'total_donate' => $request->total_donate,
             'date_donate' => isset($request->date_donate) ? $request->date_donate : date('Y-m-d') . ' ' . date('H:i:s'),
-            'is_anonim' => 0,
+            'is_anonim' => $request->anonym == true ? 1 : 0 ,
             'is_confirm' => 0
         ];
 

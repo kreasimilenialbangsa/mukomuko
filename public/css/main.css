@@ -272,6 +272,7 @@
 
 .wrapper-boxtext .box-detail {
     margin-bottom: 1.5rem;
+    font-size: 1rem !important;
 }
 
 .wrapper-boxtext .box-detail ul,

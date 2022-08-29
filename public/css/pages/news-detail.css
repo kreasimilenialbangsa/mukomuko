@@ -44,6 +44,9 @@
   object-fit: contain;
   object-position: center;
 }
+.newsdetail-page .wrapper-detail {
+  font-size: 1.1rem !important;
+}
 
 .newsdetail-page .wrap-share{
   position: sticky;
@@ -55,5 +58,9 @@
 @media only screen and (max-width: 767px){
   .newsdetail-page .slider-headline .slider-img{
     height: 230px;
+  }
+
+  .newsdetail-page .wrapper-detail {
+    font-size: 16px !important;
   }
 }

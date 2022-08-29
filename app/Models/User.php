@@ -69,6 +69,6 @@ class User extends Authenticatable
 
     public function donate()
     {
-        return $this->hasMany(\App\Models\Admin\Donate::class, 'user_id', 'id')->whereType('\App\Models\Admin\Ziswaf')->whereIsConfirm(1)->whereIsPayment(0);
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'user_id', 'id')->whereType('\App\Models\Admin\Ziswaf')->whereIsConfirm(1)->whereIsPayment(0)->whereTypeId(2);
     }
 }

@@ -7,7 +7,7 @@
             <th style="text-align: center;" colspan="14"><b>LAZISNU KABUPATEN MUKOMUKO</b></th>
         </tr>
         <tr>
-            <th style="text-align: center;" colspan="14"><b>BULAN {{ strtoupper($date['month']) }} TAHUN {{ $date['year'] }}</b></th>
+            <th style="text-align: center;" colspan="14"><b>TANGGAL {{ strtoupper(\Carbon\Carbon::parse($date['from_date'])->isoFormat('DD MMM YYYY')) }} SAMPAI {{ strtoupper(\Carbon\Carbon::parse($date['to_date'])->isoFormat('DD MMM YYYY')) }}</b></th>
         </tr>
     </thead>
 </table>
@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($result as $key => $item)
+        @forelse ($result as $key => $item)
         <tr>
             <td style="text-align: center;">{{ $key+1 }}</td>
             <td style="background-color: #FFFF00;">{{ $item['desa']['kecamatan']['name'] }}</td>
@@ -44,7 +44,11 @@
             <td>{{ number_format($item['donate_sum_total_donate'],0,",",",") }}</td>
             <td style="text-align: center;">-</td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="13" style="text-align: center;">Data tidak ada</td>
+        </tr>
+        @endforelse
     </tbody>
     <tfoot>
         <tr>

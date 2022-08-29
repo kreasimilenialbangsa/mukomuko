@@ -10,32 +10,13 @@
           <div class="col-lg-4 col-md-4 col-sm-12">
             <div class="card card-statistic-2">
               <div class="card-stats">
-                <div class="card-stats-title">Ziswaf 
-                  {{-- <div class="dropdown d-inline">
-                    <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a>
-                    <ul class="dropdown-menu dropdown-menu-sm">
-                      <li class="dropdown-title">Select Month</li>
-                      <li><a href="#" class="dropdown-item">January</a></li>
-                      <li><a href="#" class="dropdown-item">February</a></li>
-                      <li><a href="#" class="dropdown-item">March</a></li>
-                      <li><a href="#" class="dropdown-item">April</a></li>
-                      <li><a href="#" class="dropdown-item">May</a></li>
-                      <li><a href="#" class="dropdown-item">June</a></li>
-                      <li><a href="#" class="dropdown-item">July</a></li>
-                      <li><a href="#" class="dropdown-item active">August</a></li>
-                      <li><a href="#" class="dropdown-item">September</a></li>
-                      <li><a href="#" class="dropdown-item">October</a></li>
-                      <li><a href="#" class="dropdown-item">November</a></li>
-                      <li><a href="#" class="dropdown-item">December</a></li>
-                    </ul>
-                  </div> --}}
-                </div>
-                <div class="card-stats-items justify-content-center">
-                  <div class="card-stats-item">
+                <div class="card-stats-title">Ziswaf</div>
+                <div>
+                  <div class="card-stats-item text-left">
                     <div class="card-stats-item-count">{{ $total_ziswaf['pending'] }}</div>
                     <div class="card-stats-item-label">Pending</div>
                   </div>
-                  <div class="card-stats-item">
+                  <div class="card-stats-item text-left">
                     <div class="card-stats-item-count">{{ $total_ziswaf['complete'] }}</div>
                     <div class="card-stats-item-label">Approve</div>
                   </div>
@@ -58,32 +39,13 @@
           <div class="col-lg-4 col-md-4 col-sm-12">
             <div class="card card-statistic-2">
               <div class="card-stats">
-                <div class="card-stats-title">Program
-                  {{-- <div class="dropdown d-inline">
-                    <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a>
-                    <ul class="dropdown-menu dropdown-menu-sm">
-                      <li class="dropdown-title">Select Month</li>
-                      <li><a href="#" class="dropdown-item">January</a></li>
-                      <li><a href="#" class="dropdown-item">February</a></li>
-                      <li><a href="#" class="dropdown-item">March</a></li>
-                      <li><a href="#" class="dropdown-item">April</a></li>
-                      <li><a href="#" class="dropdown-item">May</a></li>
-                      <li><a href="#" class="dropdown-item">June</a></li>
-                      <li><a href="#" class="dropdown-item">July</a></li>
-                      <li><a href="#" class="dropdown-item active">August</a></li>
-                      <li><a href="#" class="dropdown-item">September</a></li>
-                      <li><a href="#" class="dropdown-item">October</a></li>
-                      <li><a href="#" class="dropdown-item">November</a></li>
-                      <li><a href="#" class="dropdown-item">December</a></li>
-                    </ul>
-                  </div> --}}
-                </div>
-                <div class="card-stats-items justify-content-center">
-                  <div class="card-stats-item">
+                <div class="card-stats-title">Program</div>
+                <div>
+                  <div class="card-stats-item text-left">
                     <div class="card-stats-item-count">{{ $total_program['pending'] }}</div>
                     <div class="card-stats-item-label">Pending</div>
                   </div>
-                  <div class="card-stats-item">
+                  <div class="card-stats-item text-left">
                     <div class="card-stats-item-count">{{ $total_program['complete'] }}</div>
                     <div class="card-stats-item-label">Approve</div>
                   </div>
@@ -106,32 +68,13 @@
           <div class="col-lg-4 col-md-4 col-sm-12">
             <div class="card card-statistic-2">
               <div class="card-stats">
-                <div class="card-stats-title">Penghimpunan Dana
-                  {{-- <div class="dropdown d-inline">
-                    <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a>
-                    <ul class="dropdown-menu dropdown-menu-sm">
-                      <li class="dropdown-title">Select Month</li>
-                      <li><a href="#" class="dropdown-item">January</a></li>
-                      <li><a href="#" class="dropdown-item">February</a></li>
-                      <li><a href="#" class="dropdown-item">March</a></li>
-                      <li><a href="#" class="dropdown-item">April</a></li>
-                      <li><a href="#" class="dropdown-item">May</a></li>
-                      <li><a href="#" class="dropdown-item">June</a></li>
-                      <li><a href="#" class="dropdown-item">July</a></li>
-                      <li><a href="#" class="dropdown-item active">August</a></li>
-                      <li><a href="#" class="dropdown-item">September</a></li>
-                      <li><a href="#" class="dropdown-item">October</a></li>
-                      <li><a href="#" class="dropdown-item">November</a></li>
-                      <li><a href="#" class="dropdown-item">December</a></li>
-                    </ul>
-                  </div> --}}
-                </div>
-                <div class="card-stats-items justify-content-center">
-                  <div class="card-stats-item">
+                <div class="card-stats-title">Penghimpunan Dana</div>
+                <div>
+                  <div class="card-stats-item text-left">
                     <div class="card-stats-item-count">{{ "Rp " . number_format($penghimpunan['ziswaf'],0,",",".") }}</div>
                     <div class="card-stats-item-label">Ziswaf</div>
                   </div>
-                  <div class="card-stats-item">
+                  <div class="card-stats-item  text-left">
                     <div class="card-stats-item-count">{{ "Rp " . number_format($penghimpunan['program'],0,",",".") }}</div>
                     <div class="card-stats-item-label">Program</div>
                   </div>
@@ -154,168 +97,200 @@
         </div>
 
         <div class="row">
-          @role('SuperAdmin|Kabupaten')
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4>Statistik Donasi</h4>
-                        <div class="d-flex align-items-center">
-                          {{-- <span style="width: 155px;">Filter Tanggal:</span> --}}
-                          <input type="text" class="form-control form-control-sm" name="range_date" placeholder="Filter Tanggal" value="" autocomplete="off" style="cursor: pointer;">
-                          <input type="hidden" name="from_date"><input type="hidden" name="to_date">
-                          <button class="btn btn-primary btn-block export ml-3"><i class="fa fa-arrow-circle-down"></i> Download</button>
+          <div class="col-md-8">
+            <div class="row">
+              @role('SuperAdmin|Kabupaten')
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h4>Statistik Donasi</h4>
+                            <div class="d-flex align-items-center">
+                              {{-- <span style="width: 155px;">Filter Tanggal:</span> --}}
+                              <div class="filter-date">
+                                <input type="text" class="form-control form-control-sm" name="range_date" placeholder="Filter Tanggal" value="" autocomplete="off" style="cursor: pointer; width: 200px;">
+                                <input type="hidden" name="from_date"><input type="hidden" name="to_date">
+                              </div>
+                              <button class="btn btn-primary btn-block export ml-3"><i class="fa fa-arrow-circle-down"></i> Download</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                          <div id="barChart" style="width: 100%"></div>
                         </div>
                     </div>
-                    <div class="card-body">
-                      <div id="barChart" style="width: 100%"></div>
-                    </div>
                 </div>
-            </div>
-          @endrole
+              @endrole
 
-          @role('SuperAdmin|Kecamatan|Desa')
-            <div class="col-md-4">
-              <div class="card card-hero">
-                <div class="card-header">
-                  <div class="card-icon">
-                    <i class="far fa-question-circle"></i>
-                  </div>
-                  <h4>14</h4>
-                  <div class="card-description">Customers need help</div>
-                </div>
-                <div class="card-body p-0">
-                  <div class="tickets-list">
-                    <a href="#" class="ticket-item">
-                      <div class="ticket-title">
-                        <h4>My order hasn't arrived yet</h4>
-                      </div>
-                      <div class="ticket-info">
-                        <div>Laila Tazkiah</div>
-                        <div class="bullet"></div>
-                        <div class="text-primary">1 min ago</div>
-                      </div>
-                    </a>
-                    <a href="#" class="ticket-item">
-                      <div class="ticket-title">
-                        <h4>Please cancel my order</h4>
-                      </div>
-                      <div class="ticket-info">
-                        <div>Rizal Fakhri</div>
-                        <div class="bullet"></div>
-                        <div>2 hours ago</div>
-                      </div>
-                    </a>
-                    <a href="#" class="ticket-item">
-                      <div class="ticket-title">
-                        <h4>Do you see my mother?</h4>
-                      </div>
-                      <div class="ticket-info">
-                        <div>Syahdan Ubaidillah</div>
-                        <div class="bullet"></div>
-                        <div>6 hours ago</div>
-                      </div>
-                    </a>
-                    <a href="features-tickets.html" class="ticket-item ticket-more">
-                      View All <i class="fas fa-chevron-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          @endrole
+              @role('SuperAdmin|Desa')
+                <div class="col-md-12">
+                  <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">Ziswaf</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" id="images-tab2" data-toggle="tab" href="#images2" role="tab" aria-controls="images" aria-selected="false">Program</a>
+                      </li>
+                  </ul>
 
-          @role('SuperAdmin|Desa')
-            <div class="col-md-8">
-              <ul class="nav nav-tabs" id="myTab2" role="tablist">
-                  <li class="nav-item">
-                      <a class="nav-link active" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form" aria-selected="true">Ziswaf</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" id="images-tab2" data-toggle="tab" href="#images2" role="tab" aria-controls="images" aria-selected="false">Program</a>
-                  </li>
-              </ul>
-
-              <div class="card">
-                <div class="card-body border border-top-0">
-                  <div class="tab-content" id="myTab3Content">
-                    <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
-                      <div class="card mb-0">
-                        <div class="card-header">
-                          <h4>List Donasi</h4>
-                          <div class="card-header-action">
-                            <a href="{{ route('admin.donatur.ziswaf.index') }}" class="btn btn-danger">Lihat Lebih Banyak <i class="fas fa-chevron-right"></i></a>
+                  <div class="card">
+                    <div class="card-body border border-top-0">
+                      <div class="tab-content" id="myTab3Content">
+                        <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
+                          <div class="card mb-0">
+                            <div class="card-header">
+                              <h4>List Donasi</h4>
+                              <div class="card-header-action">
+                                <a href="{{ route('admin.donatur.ziswaf.index') }}" class="btn btn-danger">Lihat Lebih Banyak <i class="fas fa-chevron-right"></i></a>
+                              </div>
+                            </div>
+                            <div class="card-body p-0">
+                              <div class="table-responsive table-invoice">
+                                <table class="table table-striped">
+                                  <tbody>
+                                    <tr>
+                                      <th>Nama Ziswaf</th>
+                                      <th>Nama Donatur</th>
+                                      <th>Status</th>
+                                      <th>Tanggal</th>
+                                    </tr>
+                                    @forelse($donates_ziswaf as $donate)
+                                    <tr>
+                                      <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</td>
+                                      <td class="font-weight-600">{{ $donate->name }}</td>
+                                      <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
+                                      <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                      <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                    @endforelse
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="card-body p-0">
-                          <div class="table-responsive table-invoice">
-                            <table class="table table-striped">
-                              <tbody>
-                                <tr>
-                                  <th>Nama Ziswaf</th>
-                                  <th>Nama Donatur</th>
-                                  <th>Status</th>
-                                  <th>Tanggal</th>
-                                </tr>
-                                @forelse($donates_ziswaf as $donate)
-                                <tr>
-                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</td>
-                                  <td class="font-weight-600">{{ $donate->name }}</td>
-                                  <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
-                                  <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
-                                </tr>
-                                @empty
-                                <tr>
-                                  <td colspan="5" class="text-center">Data tidak ditemukan</td>
-                                </tr>
-                                @endforelse
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="images2" role="tabpanel" aria-labelledby="images-tab2">
-                      <div class="card mb-0">
-                        <div class="card-header">
-                          <h4>List Donasi</h4>
-                          <div class="card-header-action">
-                            <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-danger">Lihat Lebih Banyak <i class="fas fa-chevron-right"></i></a>
-                          </div>
-                        </div>
-                        <div class="card-body p-0">
-                          <div class="table-responsive table-invoice">
-                            <table class="table table-striped">
-                              <tbody>
-                                <tr>
-                                  <th>Nama Program</th>
-                                  <th>Nama Donatur</th>
-                                  <th>Status</th>
-                                  <th>Tanggal</th>
-                                </tr>
-                                @forelse($donates_program as $donate)
-                                <tr>
-                                  <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</td>
-                                  <td class="font-weight-600">{{ $donate->name }}</td>
-                                  <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
-                                  <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
-                                </tr>
-                                @empty
-                                <tr>
-                                  <td colspan="5" class="text-center">Data tidak ditemukan</td>
-                                </tr>
-                                @endforelse
-                              </tbody>
-                            </table>
+                        <div class="tab-pane fade" id="images2" role="tabpanel" aria-labelledby="images-tab2">
+                          <div class="card mb-0">
+                            <div class="card-header">
+                              <h4>List Donasi</h4>
+                              <div class="card-header-action">
+                                <a href="{{ route('admin.donatur.program.index') }}" class="btn btn-danger">Lihat Lebih Banyak <i class="fas fa-chevron-right"></i></a>
+                              </div>
+                            </div>
+                            <div class="card-body p-0">
+                              <div class="table-responsive table-invoice">
+                                <table class="table table-striped">
+                                  <tbody>
+                                    <tr>
+                                      <th>Nama Program</th>
+                                      <th>Nama Donatur</th>
+                                      <th>Status</th>
+                                      <th>Tanggal</th>
+                                    </tr>
+                                    @forelse($donates_program as $donate)
+                                    <tr>
+                                      <td class="font-weight-600">{{ $donate->type == '\App\Models\Admin\Ziswaf' ? @$donate->ziswaf->title :  @$donate->program->title }}</td>
+                                      <td class="font-weight-600">{{ $donate->name }}</td>
+                                      <td>{!! $donate->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
+                                      <td>{{ date('d/M/Y H:i:s', strtotime($donate->created_at)) }}</td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                      <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                    @endforelse
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              @endrole
             </div>
-          @endrole
-          
+          </div>
+
+          <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-hero">
+                    <div class="card-header">
+                      <div class="card-icon">
+                        <i class="fas fa-ambulance"></i>
+                      </div>
+                      <h4>{{ count($ambulance) }}</h4>
+                      <div class="card-description">Permohonan Ambulan</div>
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="tickets-list">
+                        @forelse ($ambulance as $item)
+                          <a href="{{ $isAdmin == true ? '#' : route('admin.service.ambulan.edit', $item->id) }}" class="ticket-item">
+                            <div class="ticket-title">
+                              <h4>Permohonan Ambulan - {{ date('d/m/Y', strtotime($item->book_date)) }}</h4>
+                            </div>
+                            <div class="ticket-info">
+                              <div>{{ $item->user->name }}</div>
+                              <div class="bullet"></div>
+                              <div class="text-primary">{{ \Carbon\Carbon::parse($item->book_date)->diffForHumans() }}</div>
+                            </div>
+                          </a>
+                        @empty
+                          <a href="#" class="ticket-item">
+                            <div class="ticket-title">
+                              <h4>Tidak ada permohonan</h4>
+                            </div>
+                          </a>
+                        @endforelse
+                        <a href="{{ $isAdmin == true ? route('admin.approval.ambulan.index') : route('admin.service.ambulan.index') }}" class="ticket-item ticket-more">
+                          Lihat Semuanya <i class="fas fa-chevron-right"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="card card-hero">
+                    <div class="card-header">
+                      <div class="card-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                      </div>
+                      <h4>{{ count($service) }}</h4>
+                      <div class="card-description">Permohonan Dana</div>
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="tickets-list">
+                        @forelse ($service as $item)
+                        <a href="{{ $isAdmin == true ? route('admin.approval.dana.edit', $item->id) : route('admin.service.dana.edit', $item->id) }}" class="ticket-item">
+                          <div class="ticket-title">
+                            <h4>{{ $item->category->name }}</h4>
+                          </div>
+                          <div class="ticket-info">
+                            <div>{{ $item->user->name }}</div>
+                            <div class="bullet"></div>
+                            <div class="text-primary">{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</div>
+                          </div>
+                        </a>
+                        @empty
+                        <a href="#" class="ticket-item">
+                          <div class="ticket-title">
+                            <h4>Tidak ada permohonan</h4>
+                          </div>
+                        </a>
+                        @endforelse
+                        <a href="{{ $isAdmin == true ? route('admin.approval.dana.index') : route('admin.service.dana.index') }}" class="ticket-item ticket-more">
+                          Lihat Semuanya <i class="fas fa-chevron-right"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
         </div>
     </section>
 @endsection
@@ -345,6 +320,9 @@
               showDropdowns: true,
               alwaysShowCalendars: true,
               maxDate: new Date(),
+              maxSpan: {
+                  days: 10
+              },
               locale: {
                   "cancelLabel": "Clear",
                   "customRangeLabel": "Kustom Tanggal",
@@ -360,14 +338,14 @@
                       "Sab"
                   ],
               },
-              ranges: {
-                  'Hari Ini': [moment(), moment()],
-                  'Kemarin': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                  '7 Hari Lalu': [moment().subtract(6, 'days'), moment()],
-                  '30 Hari Lalu': [moment().subtract(29, 'days'), moment()],
-                  'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
-                  'Bulan Lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-              }
+              // ranges: {
+              //     'Hari Ini': [moment(), moment()],
+              //     'Kemarin': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+              //     '7 Hari Lalu': [moment().subtract(6, 'days'), moment()],
+              //     '30 Hari Lalu': [moment().subtract(29, 'days'), moment()],
+              //     'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+              //     'Bulan Lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              // }
           });
 
           chart();
@@ -402,9 +380,9 @@
               };
 
               $.ajax({
-                  url: "",
+                  url: "{{ url()->current() }}",
                   data: param,
-                  success: function(data) {
+                  success: function(res) {
                       charts = new Highcharts.Chart({
                           exporting: {
                               enabled: false
@@ -423,20 +401,7 @@
                               text: ''
                           },
                           xAxis: {
-                            categories: [
-                                'Jan',
-                                'Feb',
-                                'Mar',
-                                'Apr',
-                                'May',
-                                'Jun',
-                                'Jul',
-                                'Aug',
-                                'Sep',
-                                'Oct',
-                                'Nov',
-                                'Dec'
-                            ],
+                            categories: res.data.date,
                               crosshair: true
                           },
                           yAxis: {
@@ -465,12 +430,11 @@
                           ],
                           series: [{
                               name: 'Ziswaf',
-                              data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                              data: res.data.ziswaf
 
                           }, {
                               name: 'Program',
-                              data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
+                              data: res.data.program
                           }]
                       });
 

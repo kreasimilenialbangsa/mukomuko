@@ -158,7 +158,7 @@ class ProgramDonateController extends AppBaseController
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
                 ->editColumn('date_donate', '{{ date("d/m/Y H:i", strtotime($date_donate)) }}')
                 ->editColumn('is_confirm', function($q) {
-                    $status = $q->is_confirm == 1 ? '<span class="badge badge-primary">Approve</span>' : '<span class="badge badge-warning">Pending</span>';
+                    $status = $q->is_confirm == 1 ?'<span class="badge badge-primary">Disetujui</span>' : ($status = $q->is_confirm == 2 ?'<span class="badge badge-danger">Ditolak</span>' : '<span class="badge badge-warning">Pending</span>') ;
                     return $status;
                 })
                 ->rawColumns(['is_confirm', 'action'])

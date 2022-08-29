@@ -113,8 +113,20 @@ class ReportController extends AppBaseController
      */
     public function annualReport(Request $request)
     {
+        // $lastYear = DB::table('donates')
+        //     ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+        //     ->where(DB::raw("DATE_FORMAT(date_donate, '%Y')"), date('Y'))
+        //     ->whereNull('deleted_at')
+        //     ->whereType('\App\Models\Admin\Ziswaf')
+        //     ->whereIsConfirm(1)
+        //     ->groupBy('month')
+        //     ->get();
+        
+        // dd($lastYear->toArray());
+        
         if($request->ajax()) {
             $months = [];
+
             for ($i=1; $i <= 12; $i++) { 
                 $months[] = [
                     'month' => str_pad($i, 2, '0', STR_PAD_LEFT).'-'.(isset($request->year) ? $request->year : date('Y')),
@@ -152,6 +164,14 @@ class ReportController extends AppBaseController
                 $months[$key]['month_text'] = Carbon::parse('01-'.$row['month'])->isoFormat('MMMM');
                 $months[$key]['status'] = date('m-Y') == $row['month'] ? 'Sedang Berjalan' : (date('m-Y') < $row['month'] ? 'Belum' : 'Selesai');
             }
+
+            array_unshift($months, [
+                'month' => date('Y')-1,
+                'month_text' => 'Saldo Akhir Tahun '.date('Y')-1,
+                'income' => 0,
+                'outcome' => 0,
+                'status' => 'Selesai'
+            ]);
 
             return DataTables::of($months)
                 ->addColumn('action', 'admin.pages.reports.annual.datatables_actions')
@@ -213,9 +233,93 @@ class ReportController extends AppBaseController
 
     public function exportKalengNu(Request $request)
     {
-        $month = str_pad($request->month, 2, '0', STR_PAD_LEFT);
-        $from_date = Carbon::parse($request->year.'-'.$month.'-01')->startOfMonth()->format('Y-m-d');
-        $to_date = Carbon::parse($request->year.'-'.$month.'-01')->endOfMonth()->format('Y-m-d');        
+        // $month = str_pad($request->month, 2, '0', STR_PAD_LEFT);
+        // $from_date = Carbon::parse($request->year.'-'.$month.'-01')->startOfMonth()->format('Y-m-d');
+        // $to_date = Carbon::parse($request->year.'-'.$month.'-01')->endOfMonth()->format('Y-m-d');        
+
+        $incomes = Income::select('id', 'name', 'precent')->get();
+
+        $donatur = User::select('users.id', 'users.location_id', 'users.name', 'users.created_at')
+            ->join('locations', 'locations.id', 'users.location_id')
+            ->when(!empty($request->kecamatan), function($q) use($request) {
+                $q->where('locations.parent_id', $request->kecamatan);
+            })
+            ->when(!empty($request->desa), function($q) use($request) {
+                $q->where('locations.id', $request->desa);
+            })
+            ->with(['role_user', 'desa'])
+            // ->withCount(['donate' => function($q) use($from_date, $to_date) {
+            //     $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+            // }])
+            // ->withSum(['donate' => function($q) use($from_date, $to_date) {
+            //     $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+            // }], 'total_donate')
+            ->withCount(['donate' => function($q) use($request) {
+                if(isset($request->from_date) && isset($request->to_date)) {
+                    $q->whereBetween('date_donate', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                } else {
+                    $q->whereBetween('date_donate', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                }
+            }])
+            ->withSum(['donate' => function($q) use($request) {
+                if(isset($request->from_date) && isset($request->to_date)) {
+                    $q->whereBetween('date_donate', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                } else {
+                    $q->whereBetween('date_donate', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                }
+            }], 'total_donate')
+            ->whereRelation('role_user', 'role_id', 4)
+            ->get();
+        
+        $total = [
+            "donatur" => 0,
+            "donate1" => 0,
+            "col1" => 0,
+            "col2" => 0,
+            "col3" => 0,
+            "col4" => 0,
+            "col5" => 0,
+            "donate2" => 0,
+        ];
+        foreach($donatur as $key => $row) {
+            foreach($incomes as $no => $income) {
+                $row->{'col'. strval($no+1)} = ($row['donate_sum_total_donate'] * $income->precent)/100;
+            }
+
+            $total['donatur'] += intval($row->donate_count);
+            $total['donate1'] += intval($row->donate_sum_total_donate);
+            $total['col1'] += intval($row->col1);
+            $total['col2'] += intval($row->col2);
+            $total['col3'] += intval($row->col3);
+            $total['col4'] += intval($row->col4);
+            $total['col5'] += intval($row->col5);
+            $total['donate2'] += intval($row->donate_sum_total_donate);
+        }
+
+        $data = [
+            "result" => $donatur->toArray(),
+            "incomes" => $incomes->toArray(),
+            "total" => $total,
+            // "date" => [
+            //     "month" => Carbon::parse('01-'.$month.'-'.$request->year)->isoFormat('MMMM'),
+            //     "year" => $request->year
+            // ]
+            "date" => [
+                "from_date" => date('Y-m-d', strtotime($request->from_date)),
+                "to_date" => date('Y-m-d', strtotime($request->to_date))
+            ]
+        ];
+
+        $filename = 'REKAPITULASI HASIL PEROLEHAN KALENG NU_'. date('d-m-Y', strtotime($request->from_date)) . '_' . date('d-m-Y', strtotime($request->to_date)) .'.xlsx';
+
+        return Excel::download(new LaporanKalengNuExport($data), $filename);
+    }
+
+    public function exportLaporanTahunan(Request $request)
+    {
+        // $month = str_pad($request->month, 2, '0', STR_PAD_LEFT);
+        // $from_date = Carbon::parse($request->year.'-'.$month.'-01')->startOfMonth()->format('Y-m-d');
+        // $to_date = Carbon::parse($request->year.'-'.$month.'-01')->endOfMonth()->format('Y-m-d');        
 
         $incomes = Income::select('id', 'name', 'precent')->get();
 
@@ -228,11 +332,25 @@ class ReportController extends AppBaseController
                     $q->where('locations.id', $request->desa);
                 })
                 ->with(['role_user', 'desa'])
-                ->withCount(['donate' => function($q) use($from_date, $to_date) {
-                    $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+                // ->withCount(['donate' => function($q) use($from_date, $to_date) {
+                //     $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+                // }])
+                // ->withSum(['donate' => function($q) use($from_date, $to_date) {
+                //     $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+                // }], 'total_donate')
+                ->withCount(['donate' => function($q) use($request) {
+                    if(isset($request->from_date) && isset($request->to_date)) {
+                        $q->whereBetween('date_donate', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                    } else {
+                        $q->whereBetween('date_donate', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                    }
                 }])
-                ->withSum(['donate' => function($q) use($from_date, $to_date) {
-                    $q->whereBetween('date_donate', [$from_date . ' 00:59:00', $to_date . ' 23:59:00']);
+                ->withSum(['donate' => function($q) use($request) {
+                    if(isset($request->from_date) && isset($request->to_date)) {
+                        $q->whereBetween('date_donate', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                    } else {
+                        $q->whereBetween('date_donate', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                    }
                 }], 'total_donate')
                 ->whereRelation('role_user', 'role_id', 4)
                 ->get();
@@ -266,13 +384,17 @@ class ReportController extends AppBaseController
             "result" => $donatur->toArray(),
             "incomes" => $incomes->toArray(),
             "total" => $total,
+            // "date" => [
+            //     "month" => Carbon::parse('01-'.$month.'-'.$request->year)->isoFormat('MMMM'),
+            //     "year" => $request->year
+            // ]
             "date" => [
-                "month" => Carbon::parse('01-'.$month.'-'.$request->year)->isoFormat('MMMM'),
-                "year" => $request->year
+                "from_date" => date('Y-m-d', strtotime($request->from_date)),
+                "to_date" => date('Y-m-d', strtotime($request->to_date))
             ]
         ];
 
-        $filename = 'REKAPITULASI HASIL PEROLEHAN KALENG NU '. strtoupper($data['date']['month']) . ' ' . $data['date']['year'] .'.xlsx';
+        $filename = 'REKAPITULASI HASIL PEROLEHAN KALENG NU_'. date('d-m-Y', strtotime($request->from_date)) . '_' . date('d-m-Y', strtotime($request->to_date)) .'.xlsx';
 
         return Excel::download(new LaporanKalengNuExport($data), $filename);
     }

@@ -144,7 +144,7 @@
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">
                     <span style="width: 155px;">Filter Tanggal:</span>
-                    <input type="text" class="form-control form-control-sm" name="range_date" placeholder="Filter Tanggal" value="" autocomplete="off" style="cursor: pointer;">
+                    <input type="text" class="form-control form-control-sm" name="range_date" placeholder="{{ \Carbon\Carbon::now()->startOfMonth()->format('d/m/Y') }} - {{ \Carbon\Carbon::now()->format('d/m/Y') }}" value="" autocomplete="off" style="cursor: pointer;">
                     <input type="hidden" name="from_date"><input type="hidden" name="to_date">
                 </label>
             `);
@@ -155,7 +155,6 @@
                 alwaysShowCalendars: true,
                 maxDate: new Date(),
                 locale: {
-                    "cancelLabel": "Clear",
                     "customRangeLabel": "Kustom Tanggal",
                     "applyLabel": "Terapkan",
                     "cancelLabel": "Kosongkan",
@@ -183,9 +182,6 @@
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
                 $('input[name="from_date"]').val(picker.startDate.format('YYYY-MM-DD'))
                 $('input[name="to_date"]').val(picker.endDate.format('YYYY-MM-DD'))
-
-                $('.export-button').attr('href', "#?from=" + picker.startDate.format('YYYY-MM-DD') + '&to=' + picker.endDate.format('YYYY-MM-DD') + '&user=' + $('select[name="username"]').val());
-
                 table.draw();
             });
 
@@ -193,8 +189,6 @@
                 $(this).val('');
                 $('input[name="from_date"]').val('')
                 $('input[name="to_date"]').val('')
-
-                $('.export-button').attr('href', "#?user=" + $('select[name="username"]').val());
                 table.draw();
             });
 

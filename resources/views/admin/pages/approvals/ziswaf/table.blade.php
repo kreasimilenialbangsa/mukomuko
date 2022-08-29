@@ -51,14 +51,14 @@
         $(document).on('click','.approve',function(e){
             e.preventDefault();
             Swal.fire({
-                title: 'Approve Donasi',
+                title: 'Setujui Donasi',
                 icon: 'warning',
-                text: "Anda yakin untuk approve donasi ini?",
+                text: "Anda yakin untuk setujui donasi ini?",
                 showCancelButton: true,
                 confirmButtonColor: '#45BF7C',
                 cancelButtonColor: '#B9B2B2',
                 cancelButtonText: 'Batal',
-                confirmButtonText: 'Approve',
+                confirmButtonText: 'Setujui',
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $(this).submit();
@@ -66,5 +66,22 @@
             });
         });
 
+        $(document).on('click','.reject',function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: 'Tolak Donasi',
+                icon: 'warning',
+                text: "Anda yakin untuk tolak donasi ini?",
+                showCancelButton: true,
+                confirmButtonColor: '#fc544b',
+                cancelButtonColor: '#B9B2B2',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Tolak',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).submit();
+                }
+            });
+        });
     </script>
 @endpush

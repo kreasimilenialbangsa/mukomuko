@@ -110,7 +110,7 @@
                 <!-- Image Field -->
                 <div class="form-group">
                     {!! Form::label('images', 'Gambar:') !!}
-                    <input type="file" class="dropify" name="images[${key}][file]" data-height="300" data-allowed-file-extensions="jpeg png jpg" "data-show-remove"="false", accept=".png, .jpg, .jpeg" data-max-file-size="2M">
+                    <input type="file" class="dropify" name="images[${key}][file]" data-height="300" data-allowed-file-extensions="jpeg png jpg" "data-show-remove"="false", accept=".png, .jpg, .jpeg" data-max-file-size="1M">
                 </div>
             </div>
         `);

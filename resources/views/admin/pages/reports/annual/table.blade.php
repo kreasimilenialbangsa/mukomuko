@@ -1,6 +1,5 @@
 @push('style')
     @include('admin.layouts.datatables_css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <style>
         .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
             line-height: calc(1em + .75rem);
@@ -56,9 +55,6 @@
 @push('script')
     @include('admin.layouts.datatables_js')
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
     <script>
         $(document).ready(function() {
             var table = $('#table').DataTable({
@@ -110,7 +106,7 @@
                 }
             });
 
-            $("div.bexport").html(`<button type="button" class="btn btn-primary btn-block export-button modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
+            $("div.bexport").html(`<button type="button" class="btn btn-primary btn-block export-button export-button modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
 
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">

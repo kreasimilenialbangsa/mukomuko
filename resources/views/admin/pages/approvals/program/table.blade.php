@@ -66,5 +66,23 @@
                 }
             });
         });
+
+        $(document).on('click','.reject',function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: 'Tolak Donasi',
+                icon: 'warning',
+                text: "Anda yakin untuk tolak donasi ini?",
+                showCancelButton: true,
+                confirmButtonColor: '#fc544b',
+                cancelButtonColor: '#B9B2B2',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Tolak',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).submit();
+                }
+            });
+        });
     </script>
 @endpush

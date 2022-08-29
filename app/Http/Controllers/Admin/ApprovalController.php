@@ -184,7 +184,7 @@ class ApprovalController extends AppBaseController
      *
      * @return Response
      */
-    public function approve($id)
+    public function update($type, $id)
     {
         $donate = $this->donateRepository->find($id);
 
@@ -195,17 +195,45 @@ class ApprovalController extends AppBaseController
         }
 
         $input = [
-            'is_confirm' => 1
+            'is_confirm' => $type == 'approve' ? 1 : 2
         ];
 
         $donate = $this->donateRepository->update($input, $id);
 
-        Session::flash('success', 'Donasi berhasil diapprove');
+        Session::flash('success', 'Donasi berhasil di'.$type);
 
         if($donate->type == '\App\Models\Admin\Program') {
             return redirect(route('admin.approval.program.index'));
         } else {
             return redirect(route('admin.approval.ziswaf.index'));
+        }
+    }
+
+     /**
+     * Remove the specified Donate from storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function destroy($type, $id)
+    {
+        $donate = $this->donateRepository->find($id);
+
+        if (empty($donate)) {
+            Session::flash('error', 'Data tidak ditemukan');
+
+            return redirect(route('admin.approval.dana.index'));
+        }
+
+        $this->donateRepository->delete($id);
+
+        Session::flash('success', 'Data berhasil dihapus');
+
+        if($type == 'ziswaf') {
+            return redirect(route('admin.approval.ziswaf.index'));
+        } else {
+            return redirect(route('admin.approval.program.index'));
         }
 
     }
@@ -225,7 +253,7 @@ class ApprovalController extends AppBaseController
         ];
 
         $startDate = date('Y').'-01-01';
-        $endDate = date('Y').'-12-01';
+        $endDate = date('Y').'-12-30';
 
         $checkQuota = SupportAmbulance::select('user_id')
             ->whereUserId($service->user_id)

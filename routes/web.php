@@ -109,6 +109,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             
             Route::group(['prefix' => 'export'], function () {
                 Route::get('kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'exportKalengNu'])->name('admin.report.keuangan.export');
+                Route::get('laporan-tahunan', [App\Http\Controllers\Admin\ReportController::class, 'exportLaporanTahunan'])->name('admin.report.annual.export');
             });
         });
         
@@ -132,7 +133,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::group(['middleware' => ['role:SuperAdmin|Kecamatan']], function() {
                 Route::get('program', [App\Http\Controllers\Admin\ApprovalController::class, 'program_index'])->name('admin.approval.program.index');
                 Route::get('ziswaf', [App\Http\Controllers\Admin\ApprovalController::class, 'ziswaf_index'])->name('admin.approval.ziswaf.index');
-                Route::patch('update/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'approve'])->name('admin.approval.update');
+                Route::patch('update/{type}/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'update'])->name('admin.approval.update');
+                Route::delete('delete/{type}/{id}', [App\Http\Controllers\Admin\ApprovalController::class, 'destroy'])->name('admin.approval.destroy');
             });
             Route::group(['middleware' => ['role:SuperAdmin|Kabupaten']], function() {
                 Route::get('ambulan', [App\Http\Controllers\Admin\ApprovalController::class, 'ambulan_index'])->name('admin.approval.ambulan.index');
