@@ -36,11 +36,21 @@
             </div>
             <div class="modal-body content-export">
                     <div class="row">
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <div class="form-group">
                                 <label for="range_date">Tanggal</label>
                                 <input type="text" class="form-control form-control-sm" name="range_date" id="range_date" placeholder="Filter Tanggal" value="" autocomplete="off" style="cursor: pointer;" required>
                                 <input type="hidden" name="from_date" id="from_date"><input type="hidden" name="to_date" id="to_date">
+                            </div>
+                        </div> --}}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="period">Periode</label>
+                                <select class="form-control select2-modal" id="period" name="period">
+                                    <option value="">Semester 1</option>
+                                    <option value="">Semester 2</option>
+                                    <option value="">Akhir Tahun</option>
+                                </select>
                             </div>
                         </div>
                     </div>
