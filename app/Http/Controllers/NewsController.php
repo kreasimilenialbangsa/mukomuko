@@ -10,16 +10,16 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $highlight = News::select('id', 'user_id', 'title', 'slug', 'content', 'category_id', 'created_at')
+        $highlight = News::select('id', 'user_id', 'title', 'slug', 'content', 'category_id', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->whereIsActive(1)
             ->whereIsHighlight(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_news', 'desc')
             ->get();
 
         $categories = NewsCategory::select('name', 'id')->get();
         
-        $news = News::select('id', 'user_id', 'title', 'slug', 'content', 'category_id', 'created_at')
+        $news = News::select('id', 'user_id', 'title', 'slug', 'content', 'category_id', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->when(isset($request->category), function($q) use($request) {
                 return $q->whereCategoryId($request->category);
@@ -28,7 +28,7 @@ class NewsController extends Controller
                 return $q->where('title', 'LIKE', '%'.$request->search.'%');
             })
             ->whereIsActive(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_news', 'desc')
             ->paginate(12);
 
         return view('pages.news.index')
@@ -39,13 +39,13 @@ class NewsController extends Controller
 
     public function detail($slug)
     {
-        $news = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'content', 'created_at')
+        $news = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'content', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->whereSlug($slug)
             ->whereIsActive(1)
             ->firstOrFail();
 
-        $latestNews = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'created_at')
+        $latestNews = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->where('id', '<>', $news->id)
             ->whereIsActive(1)

@@ -3,13 +3,13 @@
 @endpush
 
 <div>
-    <table class="table table-striped table-responsive-sm" id="table" width="100%">
+    <table class="table table-striped" id="table" width="1500px">
         <thead>
             <tr>
                 <th>Tanggal</th>
                 <th>JIPZISNU</th>
                 <th>Desa</th>
-                <th>Nama Program</th>
+                <th width="150px">Nama Program</th>
                 <th>Nama Donatur</th>
                 <th>Email</th>
                 <th>Telepon</th>
@@ -31,6 +31,7 @@
                 // dom: "<'row mb-1'<'col-sm'><'col-sm-3'<'fusername'>><'col-sm-4'<'fdate'>><'col-sm-2'<'bexport'>>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
+                scrollX: true,
                 ajax: {
                     url: "{!!  route('admin.approval.program.index') !!}",
                 },

@@ -59,10 +59,10 @@ class HomeController extends Controller
             $program->count_day = $program->end_date < date('Y-m-d') ? 0 : $date->diffInDays($now);
         }
 
-        $news = News::select('id', 'user_id', 'title', 'slug', 'category_id', 'created_at')
+        $news = News::select('id', 'user_id', 'title', 'slug', 'category_id', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->whereIsActive(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_news', 'desc')
             ->limit(8)
             ->get();
 

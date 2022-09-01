@@ -76,12 +76,16 @@ class DashboardController extends Controller
             'pending' => Donate::whereIsConfirm(0)
                 ->whereIsPayment(0)
                 ->whereType('\App\Models\Admin\Ziswaf')
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('ziswaf', 'deleted_at', null)
                 ->when($isAdmin == false, function($q) {
                     $q->whereUserId(Auth::user()->id);
                 })
                 ->count(),
             'complete' => Donate::whereIsConfirm(1)
                 ->whereIsPayment(0)
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('ziswaf', 'deleted_at', null)
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->when($isAdmin == false, function($q) {
                     $q->whereUserId(Auth::user()->id);
@@ -89,6 +93,9 @@ class DashboardController extends Controller
                 ->count(),
             'total' => Donate::whereType('\App\Models\Admin\Ziswaf')
                 ->whereIsPayment(0)
+                ->where('is_confirm', '<', 2)
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('ziswaf', 'deleted_at', null)
                 ->when($isAdmin == false, function($q) {
                     $q->whereUserId(Auth::user()->id);
                 })
@@ -99,6 +106,8 @@ class DashboardController extends Controller
             'pending' => Donate::whereIsConfirm(0)
                 ->whereIsPayment(0)
                 ->whereType('\App\Models\Admin\Program')
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('program', 'deleted_at', null)
                 ->when($isAdmin == false, function($q) {
                     $q->whereUserId(Auth::user()->id);
                 })
@@ -106,12 +115,17 @@ class DashboardController extends Controller
             'complete' => Donate::whereIsConfirm(1)
                 ->whereIsPayment(0)
                 ->whereType('\App\Models\Admin\Program')
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('program', 'deleted_at', null)
                 ->when($isAdmin == false, function($q) {
                     $q->whereUserId(Auth::user()->id);
                 })
                 ->count(),
             'total' => Donate::whereType('\App\Models\Admin\Program')
                 ->whereIsPayment(0)
+                ->where('is_confirm', '<', 2)
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('program', 'deleted_at', null)
                 ->when($isAdmin == false, function($q) {
                     $q->whereUserId(Auth::user()->id);
                 })

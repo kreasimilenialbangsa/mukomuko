@@ -146,7 +146,7 @@ class ProgramDonateController extends AppBaseController
     {
 
         if($request->ajax()) {
-            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_confirm', 'created_at')
+            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_anonim', 'is_confirm', 'created_at')
                 ->with('program')
                 ->whereType('\App\Models\Admin\Program')
                 ->whereTypeId($id)
@@ -155,6 +155,9 @@ class ProgramDonateController extends AppBaseController
 
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.program_donates.donatur.datatables_actions')
+                ->editColumn('name', function($q) {
+                    return $q->is_anonim == 1 ? 'Hamba Allah' : $q->name;
+                })
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
                 ->editColumn('date_donate', '{{ date("d/m/Y H:i", strtotime($date_donate)) }}')
                 ->editColumn('is_confirm', function($q) {
@@ -233,7 +236,7 @@ class ProgramDonateController extends AppBaseController
 
         $input = [
             'user_id' => Auth::user()->id,
-            'order_id' => 'PROGRAM-'.time(),
+            // 'order_id' => 'PROGRAM-'.time(),
             'type' => '\App\Models\Admin\Program',
             'type_id' => $donate->type_id,
             'location_id' => Auth::user()->location_id,

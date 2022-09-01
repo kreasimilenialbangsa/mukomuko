@@ -62,7 +62,7 @@
             <div class="col-md-10 order-md-2 order-1">
               <div class="title-news">
                 <h3 class="font-semibold">{{ $news->title }}</h3>
-                <span class="clr-grey">By <b>{{ $news->user->name }}</b> | {{ date('d/m/Y - H:i', strtotime($news->created_at)) }} WIB</span>
+                <span class="clr-grey">By <b>{{ $news->user->name }}</b> | {{ date('d/m/Y - H:i', strtotime($news->date_news)) }} WIB</span>
               </div>
               <div class="wrapper-detail mt-4">
                 {!! $news->content !!}
@@ -112,7 +112,7 @@
                     </div>
                     <div class="d-flex calendar mt-2">
                       <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                      <span class="text-xs">{{ date('d/m/Y', strtotime($last->created_at)) }}</span>
+                      <span class="text-xs">{{ date('d/m/Y', strtotime($last->date_news)) }}</span>
                     </div>
                   </div>
                 </div>

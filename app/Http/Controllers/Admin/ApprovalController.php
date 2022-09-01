@@ -46,6 +46,8 @@ class ApprovalController extends AppBaseController
                     $que->whereNull('deleted_at');
                 })
                 ->whereType('\App\Models\Admin\Program')
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('program', 'deleted_at', null)
                 ->whereIsConfirm(0)
                 ->whereIsPayment(0)
                 ->get();
@@ -78,6 +80,8 @@ class ApprovalController extends AppBaseController
                     $que->whereNull('deleted_at');
                 })
                 ->whereType('\App\Models\Admin\Ziswaf')
+                ->whereRelation('user', 'deleted_at', null)
+                ->whereRelation('ziswaf', 'deleted_at', null)
                 ->whereIsConfirm(0)
                 ->whereIsPayment(0)
                 ->get();
