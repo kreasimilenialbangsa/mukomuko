@@ -46,10 +46,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="period">Periode</label>
-                                <select class="form-control select2-modal" id="period" name="period">
+                                <select class="form-control select2" id="period" name="period">
                                     <option value="">Semester 1</option>
                                     <option value="">Semester 2</option>
                                     <option value="">Akhir Tahun</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="year">Tahun</label>
+                                <select class="form-control select2" id="year" name="year">
+                                    <option value="">2022</option>
                                 </select>
                             </div>
                         </div>

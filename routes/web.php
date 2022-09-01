@@ -152,6 +152,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::get('program', [App\Http\Controllers\Admin\ProgramDonateController::class, 'index'])->name('admin.donatur.program.index');
             Route::get('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'create'])->name('admin.donatur.program.create');
             Route::post('program/{id}/create', [App\Http\Controllers\Admin\ProgramDonateController::class, 'store'])->name('admin.donatur.program.store');
+            Route::get('program/{id}/edit', [App\Http\Controllers\Admin\ProgramDonateController::class, 'edit'])->name('admin.donatur.program.edit');
+            Route::patch('program/{id}/edit', [App\Http\Controllers\Admin\ProgramDonateController::class, 'update'])->name('admin.donatur.program.update');
             Route::delete('program/{type}/list/{id}', [App\Http\Controllers\Admin\ProgramDonateController::class, 'destroy'])->name('admin.donatur.program.destroy');
             Route::get('program/{id}/list', [App\Http\Controllers\Admin\ProgramDonateController::class, 'show'])->name('admin.donatur.program.list');
             
@@ -172,6 +174,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
     // Role SuperAdmin
     Route::group(['middleware' => ['role:SuperAdmin']], function() {
         // Master Data
+
+        // Donate Histories
+        Route::get('donate-histories', [\App\Http\Controllers\Admin\DonateHistoryController::class, 'index'])->name('admin.donate_histories.index');
+        Route::post('donate-histories/{id}', [\App\Http\Controllers\Admin\DonateHistoryController::class, 'update'])->name('admin.donate_histories.update');
+
+        // Category
         Route::group(['prefix' => 'category'], function () {
             Route::resource('news', App\Http\Controllers\Admin\NewsCategoryController::class, ["as" => 'admin.category']);
             Route::resource('program', App\Http\Controllers\Admin\ProgramCategoryController::class, ["as" => 'admin.category']);
@@ -184,7 +192,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
         Route::group(['prefix' => 'location'], function () {
             Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class, ["as" => 'admin.location']);
             Route::resource('desa', App\Http\Controllers\Admin\DesaController::class, ["as" => 'admin.location']);
-        });    
+        });
 
         // User
         Route::group(['prefix' => 'account'], function () {

@@ -41,7 +41,13 @@
                                     <span class="custom-switch-indicator"></span>
                                 </label>
                             </div>
-                
+                        </div>
+                        <div class="col-md-6">
+                            <!-- News Date Field -->
+                            <div class="form-group">
+                                {!! Form::label('date_news', 'Tanggal Berita:') !!}
+                                {!! Form::date('date_news', @$news->date_news ? date('Y-m-d', strtotime($news->date_news)) : date('Y-m-d'), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}
+                            </div>
                         </div>
                     </div>
 

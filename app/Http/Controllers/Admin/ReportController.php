@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\Excel\LaporanKalengNuExport;
 use App\Exports\Excel\LaporanTahunanExport;
+use App\Exports\Excel\LaporanTahunanMultiWorksheet;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Donate;
 use Yajra\DataTables\DataTables;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Kecamatan;
 use App\Models\Admin\Income;
 use App\Models\Admin\Outcome;
+use App\Models\Admin\OutcomeCategory;
+use App\Models\Admin\Ziswaf;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -78,6 +81,7 @@ class ReportController extends AppBaseController
                     }
                 }], 'total_donate')
                 ->whereRelation('role_user', 'role_id', 4)
+                ->orderBy('locations.parent_id', 'asc')
                 ->get();
 
             foreach($donatur as $key => $row) {
@@ -157,7 +161,7 @@ class ReportController extends AppBaseController
 
             $lastYearIncome = DB::table('donates')
                 ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"), DB::raw("SUM(total_donate) as total"))
-                ->where(DB::raw("DATE_FORMAT(date_donate, '%Y')"), intval(date('Y')-1))
+                ->whereBetween(DB::raw("DATE_FORMAT(date_donate, '%Y')"), [intval('2021'), intval(date('Y')-1)])
                 ->whereNull('deleted_at')
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereIsConfirm(1)
@@ -166,7 +170,7 @@ class ReportController extends AppBaseController
 
             $lastYearOutcome = DB::table('outcomes')
                 ->select(DB::raw("DATE_FORMAT(date_outcome, '%Y') as year"), DB::raw("SUM(nominal) as total"))
-                ->where(DB::raw("DATE_FORMAT(date_outcome, '%Y')"), intval(date('Y')-1))
+                ->whereBetween(DB::raw("DATE_FORMAT(date_outcome, '%Y')"), [intval('2021'), intval(date('Y')-1)])
                 ->whereNull('deleted_at')
                 ->groupBy('year')
                 ->first();
@@ -210,22 +214,40 @@ class ReportController extends AppBaseController
             return redirect()->route('admin.report.annual.index');
         }
 
+        $ziswafCat = Ziswaf::select('id', 'title', 'created_at')->orderBy('title', 'asc')->get();
+        $outcomeCat = OutcomeCategory::select('id', 'name', 'created_at')->orderBy('name', 'asc')->get();
+        
         if($request->ajax()) {
+            $detail = [];
 
             if($request->type == 'income') {
-                $detail = Donate::select('type_id', DB::raw("SUM(total_donate) as total_donate"))
-                    ->with('ziswaf')
-                    ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $date)
-                    ->whereType('\App\Models\Admin\Ziswaf')
-                    ->whereIsConfirm(1)
-                    ->groupBy('type_id')
-                    ->get();
-                } else {   
-                $detail = Outcome::select('category_id', DB::raw("SUM(nominal) as total_donate"))
-                    ->with('category')
-                    ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $date)
-                    ->groupBy('category_id')
-                    ->get();
+                foreach($ziswafCat as $item) {
+                    $totalIncome = Donate::select('type_id', DB::raw("SUM(total_donate) as total_donate"))
+                        ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $date)
+                        ->whereType('\App\Models\Admin\Ziswaf')
+                        ->whereTypeId($item->id)
+                        ->whereIsConfirm(1)
+                        ->groupBy('type_id')
+                        ->first();
+        
+                    array_push($detail, [
+                        'title' => $item->title,
+                        'total_donate' => !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0
+                    ]);
+        
+                }
+            } else {
+                foreach($outcomeCat as $item) {
+                    $totalOutcome = Outcome::select('category_id', DB::raw("SUM(nominal) as total_donate"))
+                        ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $date)
+                        ->whereCategoryId($item->id)
+                        ->groupBy('category_id')
+                        ->first();
+                    array_push($detail, [
+                        'title' => $item->name,
+                        'total_donate' => !empty($totalOutcome->total_donate) ? $totalOutcome->total_donate : 0
+                    ]);
+                }
             }
 
             return DataTables::of($detail)
@@ -275,6 +297,7 @@ class ReportController extends AppBaseController
                 }
             }], 'total_donate')
             ->whereRelation('role_user', 'role_id', 4)
+            ->orderBy('locations.parent_id', 'asc')
             ->get();
         
         $total = [
@@ -323,6 +346,9 @@ class ReportController extends AppBaseController
 
     public function exportLaporanTahunan(Request $request)
     {
+        $ziswafCat = Ziswaf::select('id', 'title', 'created_at')->orderBy('title', 'asc')->get();
+        $outcomeCat = OutcomeCategory::select('id', 'name', 'created_at')->orderBy('name', 'asc')->get();
+
         $months = [];
 
         for ($i=1; $i <= 12; $i++) { 
@@ -335,6 +361,7 @@ class ReportController extends AppBaseController
         }
 
         foreach($months as $key => $row) {
+            // Income
             $income = DB::table('donates')
                 ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
                 ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
@@ -343,11 +370,29 @@ class ReportController extends AppBaseController
                 ->whereIsConfirm(1)
                 ->groupBy('month')
                 ->first();
-
+            
             if($row['month'] == !empty($income->month) ? $income->month : null) {
                 $months[$key]['income'] = $income->total;
             }
+            // Detail Income
+            $detailIncome = [];
+            foreach($ziswafCat as $item) {
+                $totalIncome = Donate::select('type_id', DB::raw("SUM(total_donate) as total_donate"))
+                    ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
+                    ->whereType('\App\Models\Admin\Ziswaf')
+                    ->whereTypeId($item->id)
+                    ->whereIsConfirm(1)
+                    ->groupBy('type_id')
+                    ->first();                    
 
+                array_push($detailIncome, [
+                    'title' => $item->title,
+                    'total_donate' => !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0
+                ]);
+            }
+            $months[$key]['income_detail'] = $detailIncome;
+
+            // Outcome
             $outcome = DB::table('outcomes')
                 ->select(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y') as month"), DB::raw("SUM(nominal) as total"))
                 ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $row['month'])
@@ -359,22 +404,41 @@ class ReportController extends AppBaseController
                 $months[$key]['outcome'] = $outcome->total;
             }
 
+            // Detail Outcome
+            $detailOutcome = [];
+            foreach($outcomeCat as $item) {
+                $totalOutcome = Outcome::select('category_id', DB::raw("SUM(nominal) as total_donate"))
+                    ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $row['month'])
+                    ->whereCategoryId($item->id)
+                    ->groupBy('category_id')
+                    ->first();
+
+                array_push($detailOutcome, [
+                    'title' => $item->name,
+                    'total_donate' => !empty($totalOutcome->total_donate) ? $totalOutcome->total_donate : 0
+                ]);
+            }
+            $months[$key]['outcome_detail'] = $detailOutcome;
+
+            // Other
             $months[$key]['month_text'] = Carbon::parse('01-'.$row['month'])->isoFormat('MMMM');
             $months[$key]['status'] = date('m-Y') == $row['month'] ? 'Sedang Berjalan' : (date('m-Y') < $row['month'] ? 'Belum' : 'Selesai');
         }
 
+        // Last Year Income
         $lastYearIncome = DB::table('donates')
             ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"), DB::raw("SUM(total_donate) as total"))
-            ->where(DB::raw("DATE_FORMAT(date_donate, '%Y')"), intval(date('Y')-1))
+            ->whereBetween(DB::raw("DATE_FORMAT(date_donate, '%Y')"), [intval('2021'), intval(date('Y')-1)])
             ->whereNull('deleted_at')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereIsConfirm(1)
             ->groupBy('year')
             ->first();
 
+        // Last Year Outcome
         $lastYearOutcome = DB::table('outcomes')
             ->select(DB::raw("DATE_FORMAT(date_outcome, '%Y') as year"), DB::raw("SUM(nominal) as total"))
-            ->where(DB::raw("DATE_FORMAT(date_outcome, '%Y')"), intval(date('Y')-1))
+            ->whereBetween(DB::raw("DATE_FORMAT(date_outcome, '%Y')"), [intval('2021'), intval(date('Y')-1)])
             ->whereNull('deleted_at')
             ->groupBy('year')
             ->first();
@@ -387,13 +451,24 @@ class ReportController extends AppBaseController
             'status' => 'Selesai'
         ]);
 
-        $data = [
-            "result" => $months,
-            // "total" => $total,
+        $total = [
+            'total_income' => 0,
+            'total_outcome' => 0
         ];
 
-        $filename = 'LAPORAN TAHUNAN 2022.xlsx';
+        foreach($months as $item) {
+            $total['total_income'] += intval($item['income']);
+            $total['total_outcome'] += intval($item['outcome']);
+        }
 
-        return Excel::download(new LaporanTahunanExport($data), $filename);
+        $data = [
+            "result" => $months,
+            "total" => $total,
+            "year" => isset($request->year) ? $request->year : date('Y')
+        ];
+
+        $filename = 'LAPORAN TAHUNAN '.$data['year'].'.xlsx';
+
+        return Excel::download(new LaporanTahunanMultiWorksheet($data), $filename);
     }
 }

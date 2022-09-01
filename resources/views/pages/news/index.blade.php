@@ -29,25 +29,27 @@
 
 @section('content')
   <div class="news-page">
+    <div class="container">
     <section class="slider-headline">
       @foreach($highlight as $key => $row)
         <div>
           <img class="slider-img" src="{{ asset('storage/' . $row->images[0]->file) }}" alt="{{ $row->title }}">
           <div class="slider-detail">
             <a class="btn btn-green mb-3" href="">{{ $row->category->name }}</a>
-            <h3 class="slide-title">{{ $row->title }}</h3>
-            <div class="slide-text">
-              @if(strlen($row->content) > 100)
-                {!! substr($row->content, 0, 100) . '...' !!}
-              @else
-                {!! $row->content !!}
-              @endif
-            </div>
+            <a href="{{ route('news.detail', $row->slug) }}">
+              <h3 class="slide-title">{{ $row->title }}</h3>
+              <div class="slide-text">
+                @if(strlen($row->content) > 100)
+                  {!! substr($row->content, 0, 100) . '...' !!}
+                @else
+                  {!! $row->content !!}
+                @endif
+              </div>
+            </a>
           </div>
         </div>
       @endforeach
     </section>
-    <div class="container">
       <div class="cus-breadcrumb mt-4">
         <span>Beranda</span> / <span class="current">Berita</span>
       </div>

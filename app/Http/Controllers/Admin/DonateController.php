@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\Admin\DonateDataTable;
-use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateDonateRequest;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;

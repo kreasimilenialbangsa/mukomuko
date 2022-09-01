@@ -30,7 +30,7 @@
                 },
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center' },
-                    { data: 'ziswaf.title', name: 'ziswaf.title', className: 'text-center' },
+                    { data: 'title', name: 'title', className: 'text-center' },
                     { data: 'total_donate', name: 'total_donate', className: 'text-center' },
                 ],
                 footerCallback: function ( row, data, start, end, display ) {

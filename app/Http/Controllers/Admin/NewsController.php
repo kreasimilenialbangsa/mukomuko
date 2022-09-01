@@ -69,7 +69,8 @@ class NewsController extends AppBaseController
             'content' => $request->content,
             'category_id' => $request->category_id,
             'is_active' => isset($request->is_active) ? $request->is_active : 0,
-            'is_highlight' => isset($request->is_highlight) ? $request->is_highlight : 0
+            'is_highlight' => isset($request->is_highlight) ? $request->is_highlight : 0,
+            'date_news' => $request->date_news . ' ' . date('H:i:s'),
         ];
 
         $news = $this->newsRepository->create($input);
@@ -164,7 +165,8 @@ class NewsController extends AppBaseController
             'content' => $request->content,
             'category_id' => $request->category_id,
             'is_active' => isset($request->is_active) ? $request->is_active : 0,
-            'is_highlight' => isset($request->is_highlight) ? $request->is_highlight : 0
+            'is_highlight' => isset($request->is_highlight) ? $request->is_highlight : 0,
+            'date_news' => $request->date_news . ' ' . date('H:i:s'),
         ];
 
         $news = $this->newsRepository->update($input, $id);

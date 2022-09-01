@@ -39,7 +39,8 @@ class News extends Model
         'content',
         'category_id',
         'is_active',
-        'is_highlight'
+        'is_highlight',
+        'date_news'
     ];
 
     /**
@@ -54,7 +55,8 @@ class News extends Model
         'content' => 'string',
         'category_id' => 'integer',
         'is_active' => 'integer',
-        'is_highlight' => 'integer'
+        'is_highlight' => 'integer',
+        'date_news' => 'string'
     ];
 
     /**
@@ -65,7 +67,8 @@ class News extends Model
     public static $rules = [
         'title' => 'required',
         'content' => 'required',
-        'category_id' => 'required'
+        'category_id' => 'required',
+        'date_news' => 'required'
     ];
 
     public function images()

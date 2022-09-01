@@ -106,5 +106,10 @@ class Donate extends Model
     {
         return $this->belongsTo(\App\Models\Admin\Kecamatan::class, 'location_id')->with('desa');
     }
+
+    public function desa()
+    {
+        return $this->belongsTo(\App\Models\Admin\Desa::class, 'location_id');
+    }
     
 }

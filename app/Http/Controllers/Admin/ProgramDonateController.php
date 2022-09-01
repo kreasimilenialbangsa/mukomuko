@@ -132,7 +132,7 @@ class ProgramDonateController extends AppBaseController
 
         Session::flash('success', 'Data berhasil ditambah');
 
-        return redirect(route('admin.donatur.program.index', $id));
+        return redirect(route('admin.donatur.program.list', $donate->type_id));
     }
 
     /**
@@ -179,13 +179,25 @@ class ProgramDonateController extends AppBaseController
     {
         $donate = $this->donateRepository->find($id);
 
-        if (empty($donate)) {
+        if (empty($donate) || $donate->is_confirm == 1) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donatur.program.list', $id));
+            return redirect(route('admin.donatur.program.list', $donate->type_id));
         }
 
-        return view('admin.pages.program_donates.edit')->with('donate', $donate);
+        $program = Program::whereId($donate->type_id)
+            ->with('category')
+            ->withSum('donate', 'total_donate')
+            ->firstOrFail();
+    
+        $date = Carbon::parse($program->end_date . ' 23:59:00');
+        $now = Carbon::now();
+
+        $program->count_day = $date->diffInDays($now);
+
+        return view('admin.pages.program_donates.edit')
+            ->with('program', $program)
+            ->with('donate', $donate);
     }
 
     /**
@@ -203,14 +215,43 @@ class ProgramDonateController extends AppBaseController
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donatur.program.list'));
+            return redirect(route('admin.donatur.program.list', $donate->type_id));
         }
 
-        $donate = $this->donateRepository->update($request->all(), $id);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required|min:10',
+            'total_donate' => 'min:4',
+            'date_donate' => 'required'
+        ],[
+            'name.required' => 'Bagian isian nama wajib diisi.',
+            'phone.required' => 'Bagian isian telepon wajib diisi.',
+            'total_donate.min' => 'Minimal donasi adalah Rp 10.000',
+            'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
+        ]);
+
+        $input = [
+            'user_id' => Auth::user()->id,
+            'order_id' => 'PROGRAM-'.time(),
+            'type' => '\App\Models\Admin\Program',
+            'type_id' => $donate->type_id,
+            'location_id' => Auth::user()->location_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+            'total_donate' => str_replace('.', '', $request->total_donate),
+            'date_donate' => $request->date_donate . ' ' . date('H:i:s'),
+            'is_anonim' => isset($request->is_anonim) ? $request->is_anonim : 0,
+            'is_confirm' => 0
+        ];
+
+        $this->donateRepository->update($input, $id);
 
         Session::flash('success', 'Data berhasil diubah');
 
-        return redirect(route('admin.donatur.program.list', $id));
+        return redirect(route('admin.donatur.program.list', $donate->type_id));
     }
 
     /**

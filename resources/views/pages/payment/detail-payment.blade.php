@@ -28,7 +28,7 @@
               </tr>
               <tr>
                 <td class="text-left pb-3">Pembayaran</td>
-                <td class="text-right pb-3">{{ $type->title }}</td>
+                <td class="text-right pb-3">{{ @$type->title ? $type->title : 'Pembayaran Tidak Ditemukan'  }}</td>
               </tr>
               <tr>
                 <td class="text-left">Waktu Transaksi</td>

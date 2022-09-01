@@ -21,7 +21,7 @@ class NewsDataTable extends DataTable
 
         return $dataTable->addColumn('action', 'admin.pages.news.datatables_actions')
             ->editColumn('image', '<img src="{{ $images ? asset("storage".$images[0]["file"]) : asset("img/no_image.jpg") }}" height="120px"/>')
-            ->editColumn('created_at', '{{ date("d/m/Y", strtotime($created_at)) }}')
+            ->editColumn('date_news', '{{ date("d/m/Y H:i", strtotime($date_news)) }}')
             ->editColumn('is_active', 'admin.layouts.toggle_active')
             ->editColumn('is_highlight', 'admin.layouts.toggle_highlight')
             ->rawColumns(['is_active', 'is_highlight', 'image','action'])
@@ -74,7 +74,7 @@ class NewsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'created_at' => ['className' => 'text-center', 'title' => 'Tgl Pembuatan'],
+            'date_news' => ['className' => 'text-center', 'title' => 'Tgl Dibuat'],
             'title' => ['title' => 'Nama'],
             'image' => ['searchable' => false, 'orderable' => false, 'className' => 'text-center', 'title' => 'Gambar'],
             'category_id' => ['className' => 'text-center', 'data' => 'category.name', 'name' => 'category_id', 'title' => 'Kategori'],

@@ -96,6 +96,11 @@
 
 @role('SuperAdmin')
 <li class="menu-header">Master Data</li>
+
+<li class="side-menus {{ Request::is('admin/donate-histories*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.donate_histories.index') }}"><i class="fas fa-building"></i><span>Riwayat Donasi</span></a>
+</li>
+
 <li class="nav-item dropdown {{ Request::is('admin/category*') ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>Kategori</span></a>
     <ul class="dropdown-menu">
