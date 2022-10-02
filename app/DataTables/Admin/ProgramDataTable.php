@@ -61,6 +61,7 @@ class ProgramDataTable extends DataTable
                     ['extend' => 'print', 'className' => 'btn btn-primary no-corner',],
                     ['extend' => 'reload', 'className' => 'btn btn-primary no-corner',],
                 ],
+                'scrollX' => true
             ]);
     }
 

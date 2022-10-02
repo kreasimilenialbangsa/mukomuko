@@ -1,46 +1,44 @@
 <table>
     <thead>
         <tr>
-            <th style="text-align: center;" colspan="5"><b>LAPORAN PENGELUARAN DANA TAHUNAN BERDASARKAN PROGRAM</b></th>
+            <th style="text-align: center;" colspan="6"><b>LAPORAN PENGELUARAN DANA</b></th>
         </tr>
         <tr>
-            <th style="text-align: center;" colspan="5"><b>LAZISNU KABUPATEN MUKOMUKO</b></th>
+            <th style="text-align: center;" colspan="6"><b>LAZISNU KABUPATEN MUKOMUKO</b></th>
         </tr>
         <tr>
-            <th style="text-align: center;" colspan="5"><b>TAHUN {{ $year }}</b></th>
+            <th style="text-align: center;" colspan="6"><b>TANGGAL {{ strtoupper(\Carbon\Carbon::parse($date['from_date'])->isoFormat('DD MMM YYYY')) }} SAMPAI {{ strtoupper(\Carbon\Carbon::parse($date['to_date'])->isoFormat('DD MMM YYYY')) }}</b></th>
         </tr>
     </thead>
 </table>
 
-@forelse($result as $key => $row)
-    @if($key > 0)
-    <table>
-        <thead>
-            <tr>
-                <th colspan="5" style="text-align: center;"><b>BULAN {{ strtoupper($row['month_text']) }} {{ $year }}</b></th>
-            </tr>
-            <tr>
-                <th width="50px" style="text-align: center; background-color: #00B050;"><b>No</b></th>
-                <th colspan="3" width="250px" style="text-align: center; background-color: #00B050;"><b>Pengeluaran Dana</b></th>
-                <th width="160px" style="text-align: center; background-color: #00B050;"><b>Jumlah</b></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($row['outcome_detail'] as $no => $outcome)
-            <tr>
-                <td style="text-align: center;">{{ $no+1 }}</td>
-                <td colspan="3">{{ $outcome['title'] }}</td>
-                <td>{{ number_format($outcome['total_donate'],0,",",",") }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4" style="text-align: center; background-color: #FFC000;">Total</td>
-                <td style="background-color: #FFC000;">{{ number_format($row['outcome'],0,",",",") }}</td>
-            </tr>
-        </tfoot>
-    </table>
-    @endif
-@empty
-@endforelse
+<table>
+    <thead>
+        <tr>
+            <th width="50px" style="text-align: center; background-color: #00B050;"><b>No</b></th>
+            <th width="160px" style="text-align: center; background-color: #00B050;"><b>Tanggal</b></th>
+            <th width="160px" style="text-align: center; background-color: #00B050;"><b>Desa</b></th>
+            <th width="160px" style="text-align: center; background-color: #00B050;"><b>Kategori</b></th>
+            <th width="350px" style="text-align: center; background-color: #00B050;"><b>Deskripsi</b></th>
+            <th width="200px" style="text-align: center; background-color: #00B050;"><b>Nominal</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($result as $no => $outcome)
+        <tr>
+            <td style="text-align: center;">{{ $no+1 }}</td>
+            <td style="text-align: center;">{{ date("d/m/Y H:i", strtotime($outcome['date_outcome'])) }}</td>
+            <td style="text-align: center;">{{ $outcome['desa']['name'] }}</td>
+            <td style="text-align: center;">{{ $outcome['category']['name'] }}</td>
+            <td>{{ $outcome['description'] }}</td>
+            <td style="text-align: right;">{{ number_format($outcome['nominal'],0,",",",") }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" style="text-align: center; background-color: #FFC000;"><strong>Total</strong></td>
+            <td style="text-align: right; background-color: #FFC000;">{{ number_format($total,0,",",",") }}</td>
+        </tr>
+    </tfoot>
+</table>

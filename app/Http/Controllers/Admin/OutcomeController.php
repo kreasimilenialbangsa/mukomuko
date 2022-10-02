@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\Admin\OutcomeDataTable;
-use App\Http\Requests\Admin;
+use App\Exports\Excel\LaporanPengeluaranDanaExport;
 use App\Http\Requests\Admin\CreateOutcomeRequest;
 use App\Http\Requests\Admin\UpdateOutcomeRequest;
 use App\Repositories\Admin\OutcomeRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Desa;
+use App\Models\Admin\Kecamatan;
+use App\Models\Admin\Outcome;
 use App\Models\Admin\OutcomeCategory;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use Response;
+use Yajra\DataTables\DataTables;
 
 class OutcomeController extends AppBaseController
 {
@@ -32,9 +39,49 @@ class OutcomeController extends AppBaseController
      *
      * @return Response
      */
-    public function index(OutcomeDataTable $outcomeDataTable)
+    public function index(Request $request)
     {
-        return $outcomeDataTable->render('admin.pages.outcomes.index');
+        $kecamatan = Kecamatan::select('id', 'name')
+            ->whereParentId(0)
+            ->whereIsActive(1)
+            ->orderBy('name', 'asc')
+            ->get();
+        
+        $desa = Kecamatan::select('id', 'name')
+            ->where('parent_id', '<>', 0)
+            ->whereIsActive(1)
+            ->orderBy('name', 'asc')
+            ->get();
+
+        if($request->ajax()) {
+            $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+                ->join('locations', 'locations.id', 'outcomes.desa_id')
+                ->with(['category', 'desa'])
+                ->when(!empty($request->kecamatan), function($q) use($request) {
+                    $q->where('locations.parent_id', $request->kecamatan);
+                })
+                ->when(!empty($request->desa), function($q) use($request) {
+                    $q->where('locations.id', $request->desa);
+                })
+                ->when(true, function($q) use ($request) {
+                    if(isset($request->from_date) && isset($request->to_date)) {
+                        $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                    } else {
+                        $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                    }
+                })
+                ->get();
+
+            return DataTables::of($outcomes)
+                ->addColumn('action', 'admin.pages.outcomes.datatables_actions')
+                ->editColumn('date_outcome', '{{ date("d/m/Y H:i", strtotime($date_outcome)) }}')
+                ->editColumn('nominal', '{{ "Rp " . number_format($nominal,0,",",".") }}')
+                ->make(true);
+        }
+            
+        return view('admin.pages.outcomes.index')
+            ->with('kecamatan', $kecamatan)
+            ->with('desa', $desa);
     }
 
     /**
@@ -185,5 +232,44 @@ class OutcomeController extends AppBaseController
         Session::flash('success', 'Data berhasil dihapus');
 
         return redirect(route('admin.outcomes.index'));
+    }
+
+    public function export(Request $request)
+    {   
+        $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+            ->join('locations', 'locations.id', 'outcomes.desa_id')
+            ->with(['category', 'desa'])
+            ->when(!empty($request->kecamatan), function($q) use($request) {
+                $q->where('locations.parent_id', $request->kecamatan);
+            })
+            ->when(!empty($request->desa), function($q) use($request) {
+                $q->where('locations.id', $request->desa);
+            })
+            ->when(true, function($q) use ($request) {
+                if(isset($request->from_date) && isset($request->to_date)) {
+                    $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                } else {
+                    $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                }
+            })
+            ->get();
+
+        $total['total_outcome'] = 0;
+        foreach($outcomes as $key => $outcome) {
+            $total['total_outcome'] += intval($outcome['nominal']);
+        }
+
+        $data = [
+            "result" => $outcomes->toArray(),
+            "total" => $total['total_outcome'],
+            "date" => [
+                "from_date" => date('Y-m-d', strtotime($request->from_date)),
+                "to_date" => date('Y-m-d', strtotime($request->to_date))
+            ]
+        ];
+
+        $filename = 'REKAPITULASI PENGELUARAN DANA_'. date('d-m-Y', strtotime($request->from_date)) . '_' . date('d-m-Y', strtotime($request->to_date)) .'.xlsx';
+
+        return Excel::download(new LaporanPengeluaranDanaExport($data), $filename);
     }
 }

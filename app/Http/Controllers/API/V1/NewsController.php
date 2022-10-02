@@ -11,7 +11,7 @@ class NewsController extends Controller
 {
     public function all(Request $request)
     {
-        $news = News::select('id', 'user_id', 'title', 'slug', 'content', 'category_id', 'created_at')
+        $news = News::select('id', 'user_id', 'title', 'slug', 'content', 'category_id', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->when(isset($request->category), function($q) use($request) {
                 return $q->whereCategoryId($request->category);
@@ -23,7 +23,7 @@ class NewsController extends Controller
                 return $q->where('title', 'LIKE', '%'.$request->search.'%');
             })
             ->whereIsActive(1)
-            ->orderBy('id', 'desc')
+            ->orderBy('date_news', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
 
         if(empty($news)) {
@@ -43,7 +43,7 @@ class NewsController extends Controller
 
     public function detail(Request $request, $id)
     {
-        $news = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'content', 'created_at')
+        $news = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'content', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->whereId($id)
             ->whereIsActive(1)

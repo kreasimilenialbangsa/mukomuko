@@ -1,4 +1,4 @@
-<div class='text-center d-flex'>
+<div class='text-center d-flex justify-content-center'>
     {{-- <a href="{{ route('admin.outcomes.show', $id) }}" class='btn btn-primary btn-xs'>
         <i class="fa fa-eye"></i>
     </a> --}}

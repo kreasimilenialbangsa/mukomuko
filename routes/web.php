@@ -110,10 +110,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::group(['prefix' => 'export'], function () {
                 Route::get('kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'exportKalengNu'])->name('admin.report.keuangan.export');
                 Route::get('laporan-tahunan', [App\Http\Controllers\Admin\ReportController::class, 'exportLaporanTahunan'])->name('admin.report.annual.export');
+                Route::get('laporan-tahunan-detail/{date}', [App\Http\Controllers\Admin\ReportController::class, 'exportLaporanTahunanDetail'])->name('admin.report.annual.deatil.export');
             });
         });
         
         // Outcome
+        Route::get('outcomes/export', [App\Http\Controllers\Admin\OutcomeController::class, 'export'])->name('admin.outcomes.export');
         Route::resource('outcomes', App\Http\Controllers\Admin\OutcomeController::class, ["as" => 'admin']);
         
         // Content

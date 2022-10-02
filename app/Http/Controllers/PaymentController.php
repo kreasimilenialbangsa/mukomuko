@@ -63,8 +63,8 @@ class PaymentController extends Controller
     
     public function process_payment(Request $request)
     {
-        Session::flash('error', 'Fitur masih dalam pengembangan');
-        return redirect()->route('payment.index');
+        // Session::flash('error', 'Fitur masih dalam pengembangan');
+        // return redirect()->route('payment.index');
 
         $validated = $request->validate([
             'nominal' => 'required',

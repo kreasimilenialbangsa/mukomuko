@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\Excel\LaporanKalengNuExport;
+use App\Exports\Excel\LaporanTahunanDetail;
 use App\Exports\Excel\LaporanTahunanExport;
 use App\Exports\Excel\LaporanTahunanMultiWorksheet;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\Desa;
 use App\Models\Admin\Donate;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
@@ -214,6 +216,19 @@ class ReportController extends AppBaseController
             return redirect()->route('admin.report.annual.index');
         }
 
+        $kecamatan = Kecamatan::select('id', 'name')
+            ->whereParentId(0)
+            ->whereIsActive(1)
+            ->orderBy('name', 'asc')
+            ->get();
+        
+        $desa = Kecamatan::select('id', 'name')
+            ->where('parent_id', '<>', 0)
+            ->whereIsActive(1)
+            ->orderBy('name', 'asc')
+            ->get();
+            
+
         $ziswafCat = Ziswaf::select('id', 'title', 'created_at')->orderBy('title', 'asc')->get();
         $outcomeCat = OutcomeCategory::select('id', 'name', 'created_at')->orderBy('name', 'asc')->get();
         
@@ -256,7 +271,9 @@ class ReportController extends AppBaseController
                 ->make(true);
         }
 
-        return view('admin.pages.reports.annual.show');
+        return view('admin.pages.reports.annual.show')
+            ->with('desa', $desa)
+            ->with('kecamatan', $kecamatan);
     }
 
     public function exportKalengNu(Request $request)
@@ -383,7 +400,7 @@ class ReportController extends AppBaseController
                     ->whereTypeId($item->id)
                     ->whereIsConfirm(1)
                     ->groupBy('type_id')
-                    ->first();                    
+                    ->first();
 
                 array_push($detailIncome, [
                     'title' => $item->title,
@@ -470,5 +487,97 @@ class ReportController extends AppBaseController
         $filename = 'LAPORAN TAHUNAN '.$data['year'].'.xlsx';
 
         return Excel::download(new LaporanTahunanMultiWorksheet($data), $filename);
+    }
+
+    public function exportLaporanTahunanDetail($month, Request $request)
+    {
+        $ziswafCat = Ziswaf::select('id', 'title', 'created_at')->orderBy('title', 'asc')->get();
+        $outcomeCat = OutcomeCategory::select('id', 'name', 'created_at')->orderBy('name', 'asc')->get();
+
+        $result = [];
+        // Detail Income
+        $detailIncome = [];
+        foreach($ziswafCat as $item) {
+            $totalIncome = Donate::select('donates.type_id', DB::raw("SUM(donates.total_donate) as total_donate"))
+                ->leftJoin('locations', 'locations.id', 'donates.location_id')
+                ->when(!empty($request->kecamatan), function($q) use($request) {
+                    $q->where('locations.parent_id', $request->kecamatan);
+                })
+                ->when(!empty($request->desa), function($q) use($request) {
+                    $q->where('locations.id', $request->desa);
+                })
+                ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $month)
+                ->where('donates.type', '\App\Models\Admin\Ziswaf')
+                ->where('donates.type_id', $item->id)
+                ->where('donates.is_confirm', 1)
+                ->groupBy('donates.type_id')
+                ->first();
+
+            array_push($detailIncome, [
+                'title' => $item->title,
+                'total_donate' => !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0
+            ]);
+        }
+        $result['income_detail'] = $detailIncome;
+
+        // Detail Outcome
+        $detailOutcome = [];
+        foreach($outcomeCat as $item) {
+            $totalOutcome = Outcome::select('outcomes.category_id', DB::raw("SUM(outcomes.nominal) as total_donate"))
+                ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
+                ->when(!empty($request->kecamatan), function($q) use($request) {
+                    $q->where('locations.parent_id', $request->kecamatan);
+                })
+                ->when(!empty($request->desa), function($q) use($request) {
+                    $q->where('locations.id', $request->desa);
+                })
+                ->where(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%m-%Y')"), $month)
+                ->where('outcomes.category_id', $item->id)
+                ->groupBy('outcomes.category_id')
+                ->first();
+
+            array_push($detailOutcome, [
+                'title' => $item->name,
+                'total_donate' => !empty($totalOutcome->total_donate) ? $totalOutcome->total_donate : 0
+            ]);
+        }
+        $result['outcome_detail'] = $detailOutcome;
+
+        $total = [
+            'total_income' => 0,
+            'total_outcome' => 0
+        ];
+
+        foreach($result['income_detail'] as $item) {
+            $total['total_income'] += intval($item['total_donate']);
+        }
+
+        foreach($result['outcome_detail'] as $item) {
+            $total['total_outcome'] += intval($item['total_donate']);
+        }
+
+        $location = [];
+        if(isset($request->kecamatan) && isset($request->desa)) {
+            $location = Desa::with('kecamatan', 'desa')->whereId($request->kecamatan)->first();
+        } elseif(isset($request->kecamatan)) {
+            $location = Desa::with('kecamatan', 'desa')->whereId($request->kecamatan)->first();
+        } elseif(isset($request->desa)) {
+            $location = Desa::with('kecamatan', 'desa')->whereId($request->desa)->first();
+        }
+
+        $data = [
+            "result" => $result,
+            "total" => $total,
+            "location" => empty($location) ? $location->toArray() : 'Tidak Diketahui',
+            "month" => date('Y-m-d', strtotime('01-'.$month)),
+            "year" => isset($request->year) ? $request->year : date('Y')
+        ];
+
+        
+        $filename = 'LAPORAN DANA PENERIMAAN & PENGELUARAN BULAN ' . strtoupper(Carbon::parse($data['month'])->isoFormat('MMMM')) . ' TAHUN ' . $data['year'] . '.xlsx';
+        
+        // dd($data);
+
+        return Excel::download(new LaporanTahunanDetail($data), $filename);
     }
 }

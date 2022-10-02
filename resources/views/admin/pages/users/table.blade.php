@@ -2,7 +2,9 @@
     @include('admin.layouts.datatables_css')
 @endpush
 
+<div class="table-responsive">
 {!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped']) !!}
+</div>
 
 @push('script')
     @include('admin.layouts.datatables_js')

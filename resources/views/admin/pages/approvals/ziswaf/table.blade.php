@@ -2,15 +2,15 @@
     @include('admin.layouts.datatables_css')
 @endpush
 
-<div>
-    <table class="table table-striped table-responsive-sm" id="table" width="100%">
+<div class="table-responsive">
+    <table class="table table-striped" id="table" width="170%">
         <thead>
             <tr>
                 <th>Tanggal</th>
-                <th>JIPZISNU</th>
+                <th width="150px">JIPZISNU</th>
                 <th>Desa</th>
-                <th>Nama Ziswaf</th>
-                <th>Nama Donatur</th>
+                <th width="200px">Nama Ziswaf</th>
+                <th width="150px">Nama Donatur</th>
                 <th>Email</th>
                 <th>Telepon</th>
                 <th>Jumlah Donasi</th>
@@ -31,6 +31,7 @@
                 // dom: "<'row mb-1'<'col-sm'><'col-sm-3'<'fusername'>><'col-sm-4'<'fdate'>><'col-sm-2'<'bexport'>>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
+                scrollX: true,
                 ajax: {
                     url: "{!!  route('admin.approval.ziswaf.index') !!}",
                 },

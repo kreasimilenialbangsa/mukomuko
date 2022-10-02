@@ -86,8 +86,8 @@
                 },
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center' },
-                    { data: 'desa.kecamatan.name', name: 'desa.kecamatan.name', className: 'text-center' },
-                    { data: 'desa.name', name: 'desa.name', className: 'text-center' },
+                    { data: 'desa.kecamatan.name', name: 'desa.kecamatan.name', defaultContent: '-', className: 'text-center' },
+                    { data: 'desa.name', name: 'desa.name', defaultContent: '-', className: 'text-center' },
                     { data: 'name', name: 'name', className: 'text-center' },
                     { data: 'donate_count', name: 'donate_count', className: 'text-center' },
                     { data: 'donate_sum_total_donate', name: 'donate_sum_total_donate', className: 'text-center' },
@@ -223,6 +223,5 @@
                 theme: 'bootstrap4',
             });
         });
-
     </script>
 @endpush

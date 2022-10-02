@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LaporanPenerimaanDanaExport implements FromView, ShouldAutoSize, WithStyles, WithTitle
+class LaporanTahunanPenerimaanDanaExport implements FromView, ShouldAutoSize, WithStyles, WithTitle
 {
     protected $data;
 
@@ -26,7 +26,7 @@ class LaporanPenerimaanDanaExport implements FromView, ShouldAutoSize, WithStyle
 
     public function view(): View
     {
-        return view('admin.exports.excel.laporan_penerimaan_dana', $this->data);
+        return view('admin.exports.excel.laporan_tahunan_penerimaan_dana', $this->data);
     }
 
     public function styles(Worksheet $sheet): array

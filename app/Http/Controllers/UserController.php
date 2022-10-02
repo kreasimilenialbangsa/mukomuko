@@ -48,7 +48,7 @@ class UserController extends AppBaseController
      */
     public function create(Request $request)
     {
-        $role = Role::where('id', '<>', 1)->orderBy('id', 'asc')->pluck('name', 'id');
+        $role = Role::where('id', '<>', 1)->where('id', '<>', 5)->orderBy('id', 'asc')->pluck('name', 'id');
 
         if($request->ajax()) {
             if($request->type == '3') {
@@ -159,7 +159,8 @@ class UserController extends AppBaseController
             return redirect(route('admin.account.'.request()->segment(3).'.index'));
         }
 
-        $role = Role::where('id', '<>', 1)->orderBy('id', 'asc')->pluck('name', 'id');
+        $role = Role::where('id', '<>', 1)->where('id', '<>', 5)->orderBy('id', 'asc')->pluck('name', 'id');
+        
         return view('admin.pages.users.edit')->with('user', $user)
             ->with('role', $role);
     }

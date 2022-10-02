@@ -22,8 +22,8 @@ class LaporanTahunanMultiWorksheet implements WithMultipleSheets
     {
         $sheets = [
             'Rekap' => new LaporanTahunanExport($this->data),
-            'Penerimaan Dana' => new LaporanPenerimaanDanaExport($this->data),
-            'Pengeluaran Dana' => new LaporanPengeluaranDanaExport($this->data),
+            'Penerimaan Dana' => new LaporanTahunanPenerimaanDanaExport($this->data),
+            'Pengeluaran Dana' => new LaporanTahunanPengeluaranDanaExport($this->data),
         ];
 
         return $sheets;

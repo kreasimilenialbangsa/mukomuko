@@ -41,14 +41,14 @@ class CallbackController extends Controller
             if ($fraud == 'challenge') {
                 // TODO set transaction status on your database to 'challenge'
                 // and response with 200 OK
-                Mail::to('adam2802002@gmail.com')->send(new TestMail('challenge'));
+                Mail::to('batas1204@gmail.com')->send(new TestMail('challenge'));
             } else if ($fraud == 'accept') {
                 // TODO set transaction status on your database to 'success'
                 // and response with 200 OK
                 $transaction->is_confirm = 1;
                 $transaction->save();
 
-                Mail::to('adam2802002@gmail.com')->send(new TestMail('accept'));
+                Mail::to('batas1204@gmail.com')->send(new TestMail('accept'));
             }
         } else if ($status == 'settlement') {
             // TODO set transaction status on your database to 'success'
@@ -56,7 +56,7 @@ class CallbackController extends Controller
             $transaction->is_confirm = 1;
             $transaction->save();
 
-            Mail::to('adam2802002@gmail.com')->send(new TestMail('settlement'));
+            Mail::to('batas1204@gmail.com')->send(new TestMail('settlement'));
         } else if (
             $status == 'cancel' ||
             $status == 'deny' ||
@@ -67,11 +67,11 @@ class CallbackController extends Controller
             $transaction->is_confirm = 2;
             $transaction->save();
 
-            Mail::to('adam2802002@gmail.com')->send(new TestMail('failure'));
+            Mail::to('batas1204@gmail.com')->send(new TestMail('failure'));
         } else if ($status == 'pending') {
             // TODO set transaction status on your database to 'pending' / waiting payment
             // and response with 200 OK
-            Mail::to('adam2802002@gmail.com')->send(new TestMail('pending'));
+            Mail::to('batas1204@gmail.com')->send(new TestMail('pending'));
         }
     }
 
@@ -82,7 +82,7 @@ class CallbackController extends Controller
         $transaction = Donate::where('order_id', $request->data['reference_id'])->first(); //$request->data['reference_id']);
 
         if (empty($transaction)) {
-            Mail::to('adam2802002@gmail.com')->send(new TestMail($request->data['reference_id']));
+            Mail::to('batas1204@gmail.com')->send(new TestMail($request->data['reference_id']));
 
             return response()->json([
                 'message' => 'Donate Not Found',
@@ -95,14 +95,14 @@ class CallbackController extends Controller
             $transaction->is_confirm = 1;
             $transaction->save();
 
-            Mail::to('adam2802002@gmail.com')->send(new TestMail($request->data['reference_id']));
+            Mail::to('batas1204@gmail.com')->send(new TestMail($request->data['reference_id']));
         } else if ($request->data['status'] == 'PENDING') {
-            Mail::to('adam2802002@gmail.com')->send(new TestMail($request->data['status']));
+            Mail::to('batas1204@gmail.com')->send(new TestMail($request->data['status']));
         } else {
             $transaction->is_confirm = 2;
             $transaction->save();
 
-            Mail::to('adam2802002@gmail.com')->send(new TestMail($request->data['status']));
+            Mail::to('batas1204@gmail.com')->send(new TestMail($request->data['status']));
         }
 
         return response()->json([
