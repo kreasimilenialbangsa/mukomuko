@@ -568,7 +568,7 @@ class ReportController extends AppBaseController
         $data = [
             "result" => $result,
             "total" => $total,
-            "location" => empty($location) ? $location->toArray() : 'Tidak Diketahui',
+            "location" => !empty($location) ? $location->toArray() : 'Tidak Diketahui',
             "month" => date('Y-m-d', strtotime('01-'.$month)),
             "year" => isset($request->year) ? $request->year : date('Y')
         ];
