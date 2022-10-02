@@ -9,7 +9,7 @@
     <div class="form-group">
         <div class="control-label">Sembunyikan nama (Hamba Allah):</div>
         <label class="custom-switch mt-2 pl-0">
-            <input type="checkbox" name="is_anonim" value="1" class="custom-switch-input">
+            <input type="checkbox" name="is_anonim" value="1" class="custom-switch-input" {{ @$donate->is_anonim == 1 ? 'checked' : '' }}>
             <span class="custom-switch-indicator"></span>
         </label>
     </div>
@@ -17,7 +17,7 @@
     <!-- Donate Date Field -->
     <div class="form-group">
       {!! Form::label('date_donate', 'Tanggal Donasi:') !!}
-      {!! Form::date('date_donate', date('Y-m-d'), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}
+      {!! Form::date('date_donate', @$donate->date_donate ? date('Y-m-d', strtotime($donate->date_donate)) : date('Y-m-d'), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}
     </div>
 
     <!-- Email Field -->

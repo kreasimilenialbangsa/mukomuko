@@ -308,7 +308,7 @@
                     </div>
                     <div class="d-flex calendar mt-2">
                       <img class="mr-2" src="{{ asset('img/calendar.svg') }}" alt="">
-                      <span class="text-xs">{{ date('d/m/Y', strtotime($row->created_at)) }}</span>
+                      <span class="text-xs">{{ date('d/m/Y', strtotime($row->date_news)) }}</span>
                     </div>
                   </div>
                 </div>

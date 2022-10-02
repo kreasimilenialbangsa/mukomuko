@@ -162,6 +162,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::get('ziswaf', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'index'])->name('admin.donatur.ziswaf.index');
             Route::get('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'create'])->name('admin.donatur.ziswaf.create');
             Route::post('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'store'])->name('admin.donatur.ziswaf.store');
+            Route::get('ziswaf/{id}/edit', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'edit'])->name('admin.donatur.ziswaf.edit');
+            Route::patch('ziswaf/{id}/edit', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'update'])->name('admin.donatur.ziswaf.update');
             Route::delete('ziswaf/{type}/list/{id}', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'destroy'])->name('admin.donatur.ziswaf.destroy');
             Route::get('ziswaf/{id}/list', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'show'])->name('admin.donatur.ziswaf.list');
         });

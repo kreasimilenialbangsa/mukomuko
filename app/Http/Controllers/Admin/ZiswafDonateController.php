@@ -146,7 +146,7 @@ class ZiswafDonateController extends AppBaseController
     public function show(Request $request, $id)
     {
         if($request->ajax()) {
-            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_confirm', 'created_at')
+            $donatur = Donate::select('id', 'type_id', 'name', 'email', 'phone', 'total_donate', 'date_donate', 'is_anonim', 'is_confirm', 'created_at')
                 ->with('ziswaf')
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereTypeId($id)
@@ -155,6 +155,9 @@ class ZiswafDonateController extends AppBaseController
 
             return DataTables::of($donatur)
                 ->addColumn('action', 'admin.pages.ziswaf_donates.donatur.datatables_actions')
+                ->editColumn('name', function($q) {
+                    return $q->is_anonim == 1 ? 'Hamba Allah' : $q->name;
+                })
                 ->editColumn('total_donate', '{{ "Rp " . number_format($total_donate,0,",",".") }}')
                 ->editColumn('date_donate', '{{ date("d/m/Y H:i", strtotime($date_donate)) }}')
                 ->editColumn('is_confirm', function($q) {
@@ -175,7 +178,7 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($type_id, $id)
+    public function edit($id)
     {
         $donate = $this->donateRepository->find($id);
 
@@ -196,25 +199,50 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function update($type_id, $id, UpdateDonateRequest $request)
-    {
-        $request->validate([
-            'phone' => 'required|digits:10',
-        ]);
-        
+    public function update($id, UpdateDonateRequest $request)
+    {   
         $donate = $this->donateRepository->find($id);
 
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donatur.ziswaf.list', $type_id));
+            return redirect(route('admin.donatur.ziswaf.list', $donate->type_id));
         }
 
-        $donate = $this->donateRepository->update($request->all(), $id);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required|min:10',
+            'total_donate' => 'min:4',
+            'date_donate' => 'required'
+        ],[
+            'name.required' => 'Bagian isian nama wajib diisi.',
+            'phone.required' => 'Bagian isian telepon wajib diisi.',
+            'total_donate.min' => 'Minimal donasi adalah Rp 10.000',
+            'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
+        ]);
+
+        $input = [
+            'user_id' => Auth::user()->id,
+            // 'order_id' => 'ZISWAF-'.time(),
+            'type' => '\App\Models\Admin\Ziswaf',
+            'type_id' => $donate->type_id,
+            'location_id' => Auth::user()->location_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+            'total_donate' => str_replace('.', '', $request->total_donate),
+            'date_donate' => $request->date_donate . ' ' . date('H:i:s'),
+            'is_anonim' => isset($request->is_anonim) ? $request->is_anonim : 0,
+            'is_confirm' => 0
+        ];
+
+        $this->donateRepository->update($input, $id);
 
         Session::flash('success', 'Data berhasil diubah');
 
-        return redirect(route('admin.donatur.ziswaf.list', $type_id));
+        return redirect(route('admin.donatur.ziswaf.list', $donate->type_id));
     }
 
     /**

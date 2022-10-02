@@ -59,7 +59,7 @@ class NewsController extends Controller
 
         $news->content = str_replace('/storage/', env('APP_URL').'/storage/', $news->content);
 
-        $latestNews = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'created_at')
+        $latestNews = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])
             ->where('id', '<>', $news->id)
             ->whereIsActive(1)
