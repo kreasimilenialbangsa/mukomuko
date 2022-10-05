@@ -7,7 +7,7 @@
             <th style="text-align: center;" colspan="5"><b>LAZISNU KABUPATEN MUKOMUKO</b></th>
         </tr>
         <tr>
-            <th style="text-align: center;" colspan="5"><b>TAHUN {{ $year }}</b></th>
+            <th style="text-align: center;" colspan="5"><b>{{ $text_period }} {{ $year }}</b></th>
         </tr>
     </thead>
 </table>

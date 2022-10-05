@@ -47,9 +47,9 @@
                             <div class="form-group">
                                 <label for="period">Periode</label>
                                 <select class="form-control select2" id="period" name="period">
-                                    <option value="">Semester 1</option>
-                                    <option value="">Semester 2</option>
-                                    <option value="">Akhir Tahun</option>
+                                    <option value="1">Semester 1</option>
+                                    <option value="2">Semester 2</option>
+                                    <option value="3">Akhir Tahun</option>
                                 </select>
                             </div>
                         </div>
@@ -57,7 +57,9 @@
                             <div class="form-group">
                                 <label for="year">Tahun</label>
                                 <select class="form-control select2" id="year" name="year">
-                                    <option value="">2022</option>
+                                    @foreach($year as $row)
+                                        <option value="{{ $row->year }}" {{ $row->year == date('Y') ? 'selected' : '' }}>{{ $row->year }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -363,12 +363,27 @@ class ReportController extends AppBaseController
 
     public function exportLaporanTahunan(Request $request)
     {
+        
         $ziswafCat = Ziswaf::select('id', 'title', 'created_at')->orderBy('title', 'asc')->get();
         $outcomeCat = OutcomeCategory::select('id', 'name', 'created_at')->orderBy('name', 'asc')->get();
-
+        
+        if($request->period == 1) {
+            $startMonth = 1;
+            $endMonth = 6;
+            $textPeriod = "SEMESTER 1 TAHUN ";
+        } elseif($request->period == 2) {
+            $startMonth = 7;
+            $endMonth = 12;
+            $textPeriod = "SEMESTER 2 TAHUN ";
+        } else {
+            $startMonth = 1;
+            $endMonth = 12;
+            $textPeriod = "AKHIR TAHUN ";
+        }
+        
         $months = [];
 
-        for ($i=1; $i <= 12; $i++) { 
+        for ($i=$startMonth; $i <= $endMonth; $i++) { 
             $months[] = [
                 'month' => str_pad($i, 2, '0', STR_PAD_LEFT).'-'.(isset($request->year) ? $request->year : date('Y')),
                 'month_text' => str_pad($i, 2, '0', STR_PAD_LEFT).'-'.(isset($request->year) ? $request->year : date('Y')),
@@ -481,10 +496,11 @@ class ReportController extends AppBaseController
         $data = [
             "result" => $months,
             "total" => $total,
+            "text_period" => $textPeriod,
             "year" => isset($request->year) ? $request->year : date('Y')
         ];
 
-        $filename = 'LAPORAN TAHUNAN '.$data['year'].'.xlsx';
+        $filename = 'LAPORAN ' . $textPeriod . $data['year'].'.xlsx';
 
         return Excel::download(new LaporanTahunanMultiWorksheet($data), $filename);
     }

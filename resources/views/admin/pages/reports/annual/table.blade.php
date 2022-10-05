@@ -106,7 +106,7 @@
                 }
             });
 
-            $("div.bexport").html(`<a href="{{ route('admin.report.annual.export') }}" target="_blank" class="btn btn-primary btn-block"><i class="fa fa-file-excel"></i> Export</a>`);
+            $("div.bexport").html(`<button class="btn btn-primary btn-block modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
 
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">
