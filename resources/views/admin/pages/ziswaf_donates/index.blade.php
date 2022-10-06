@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
+
 @section('title')
     Donasi Ziswaf
 @endsection
+
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -76,7 +78,13 @@
     </section>
 @endsection
 
+@push('style')
+    @include('admin.layouts.datatables_css')
+@endpush
+
 @push('script')
+    @include('admin.layouts.datatables_js')
+
     <script>
         $(function(){
         var hash = window.location.hash;

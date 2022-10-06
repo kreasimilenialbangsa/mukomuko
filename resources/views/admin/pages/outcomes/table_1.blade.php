@@ -1,33 +1,5 @@
-@push('style')
-    @include('admin.layouts.datatables_css')
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-    <style>
-        .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
-            line-height: calc(1em + .75rem);
-        }
-        .select2-container--bootstrap4 .select2-selection--single {
-            height: 31px !important;
-        }
-        .select2-container .select2-selection--multiple, .select2-container .select2-selection--single {
-            min-height: unset !important;
-        }
-        .table:not(.table-sm) tfoot th {
-            border-bottom: none;
-            background-color: rgba(0, 0, 0, 0.04);
-            color: #666;
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-        table.dataTable tfoot th {
-            border-top: 1px solid #ddd !important;
-            border-bottom: 1px solid #ddd !important;
-        }
-    </style>
-@endpush
-
-<table class="table table-striped" id="table" width="100%">
+<table class="table table-striped" id="table1" width="100%">
     <thead>
         <tr>
             <th>Tanggal</th>
@@ -50,25 +22,23 @@
 </table>
 
 @push('script')
-    @include('admin.layouts.datatables_js')
-
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            var table = $('#table').DataTable({
+            var table1 = $('#table1').DataTable({
                 // dom: "<'row justify-content-between px-3 mb-2'<<'fdate'>><<'bexport'>>><'row justify-content-between px-3 mb-1'<'row px-0 col-12 col-md-4'<'col-12 col-md-6'<'fkecamatan'>><'col-12 col-md-6'<'fdesa'>>><f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                dom: "<'row justify-content-between px-3 mb-2'<<'fdate'>><<'bexport'>>><'row justify-content-between px-3 mb-1'<'row px-0 col-12 col-md-4'<'col-12 col-md-6'<'fkecamatan'>><'col-12 col-md-6'<'fdesa'>>><f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                dom: "<'row justify-content-between px-3 mb-2'<<'fdate1'>><<'bexport1'>>><'row justify-content-between px-3 mb-1'<'row px-0 col-12 col-md-4'<'col-12 col-md-6'<'fkecamatan'>><'col-12 col-md-6'<'fdesa'>>><f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 pageLength: 50,
                 processing: true,
                 serverSide: true,
-                scrollX: true,
                 ajax: {
                     url: "{!!  route('admin.outcomes.index') !!}",
                     data: function(d) {
-                        d.from_date = $('input[name="from_date"]').val(),
-                        d.to_date = $('input[name="to_date"]').val(),
+                        d.type = "1",
+                        d.from_date = $('.ftable1 input[name="from_date"]').val(),
+                        d.to_date = $('.ftable1 input[name="to_date"]').val(),
                         d.kecamatan = $('select[name="kecamatan"]').val(),
                         d.desa = $('select[name="desa"]').val()
                     }
@@ -108,17 +78,17 @@
                 }
             });
 
-            $("div.bexport").html(`<button type="button" class="btn btn-primary btn-block export-button modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
+            $("div.bexport1").html(`<button type="button" class="btn btn-primary btn-block export-button1 modal-export1"><i class="fa fa-file-excel"></i> Export</button>`);
 
-            $("div.fdate").html(`
-                <label class="d-flex align-items-center">
+            $("div.fdate1").html(`
+                <label class="d-flex align-items-center ftable1">
                     <span style="width: 155px;">Filter Tanggal:</span>
                     <input type="text" class="form-control form-control-sm" name="range_date" placeholder="{{ \Carbon\Carbon::now()->startOfMonth()->format('d/m/Y') }} - {{ \Carbon\Carbon::now()->format('d/m/Y') }}" value="" autocomplete="off" style="cursor: pointer;">
                     <input type="hidden" name="from_date"><input type="hidden" name="to_date">
                 </label>
             `);
 
-            $('input[name="range_date"]').daterangepicker({
+            $('.ftable1 input[name="range_date"]').daterangepicker({
                 autoUpdateInput: false,
                 showDropdowns: true,
                 alwaysShowCalendars: true,
@@ -147,18 +117,18 @@
                 }
             });
 
-            $('input[name="range_date"]').on('apply.daterangepicker', function(ev, picker) {
+            $('.ftable1 input[name="range_date"]').on('apply.daterangepicker', function(ev, picker) {
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-                $('input[name="from_date"]').val(picker.startDate.format('YYYY-MM-DD'))
-                $('input[name="to_date"]').val(picker.endDate.format('YYYY-MM-DD'))
-                table.draw();
+                $('.ftable1 input[name="from_date"]').val(picker.startDate.format('YYYY-MM-DD'))
+                $('.ftable1 input[name="to_date"]').val(picker.endDate.format('YYYY-MM-DD'))
+                table1.draw();
             });
 
-            $('input[name="range_date"]').on('cancel.daterangepicker', function(ev, picker) {
+            $('.ftable1 input[name="range_date"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
-                $('input[name="from_date"]').val('')
-                $('input[name="to_date"]').val('')
-                table.draw();
+                $('.ftable1 input[name="from_date"]').val('')
+                $('.ftable1 input[name="to_date"]').val('')
+                table1.draw();
             });
 
             $("div.fkecamatan").html(`
@@ -171,7 +141,7 @@
             `);
 
             $('select[name="kecamatan"]').on('change', function(){
-                table.draw();
+                table1.draw();
             });
 
             $("div.fdesa").html(`
@@ -184,7 +154,7 @@
             `);
 
             $('select[name="desa"]').on('change', function(){
-                table.draw();
+                table1.draw();
             });
 
             $('.fselect2').select2({

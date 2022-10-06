@@ -1,7 +1,3 @@
-@push('style')
-    @include('admin.layouts.datatables_css')
-@endpush
-
 <div>
     <table class="table table-striped" id="table_{{ $ziswaf->slug }}" width="100%">
         <thead>
@@ -17,9 +13,7 @@
     </table>
 </div>
 
-@push('script')
-    @include('admin.layouts.datatables_js')
-
+@push('script')    
     <script>
         $(document).ready(function() {
             var table = $('#table_{{ $ziswaf->slug}}').DataTable({

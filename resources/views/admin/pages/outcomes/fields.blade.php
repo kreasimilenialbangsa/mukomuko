@@ -1,14 +1,14 @@
 <div class="col-sm-6">
-    <!-- Desa Id Field -->
-    <div class="form-group">
-        {!! Form::label('desa_id', 'Desa:') !!}
-        {!! Form::select('desa_id', $desa, null, ['class' => 'form-control select2']) !!}
-    </div>
-    
     <!-- Category Id Field -->
     <div class="form-group">
         {!! Form::label('category_id', 'Kategori:') !!}
         {!! Form::select('category_id', $categories, null, ['class' => 'form-control select2']) !!}
+    </div>
+
+    <!-- Desa Id Field -->
+    <div class="form-group form_desa {{ @$outcome->category_id == 6 ? 'd-none' : '' }}">
+        {!! Form::label('desa_id', 'Desa:') !!}
+        {!! Form::select('desa_id', $desa, null, ['class' => 'form-control select2']) !!}
     </div>
 
     <!-- Date Field -->
@@ -42,6 +42,18 @@
 
 @push('script')
   <script>
+    $(document).ready(function() {
+        $('#category_id').on('change', function() {
+            let type = $(this).val();
+
+            if(type == 6) {
+                $('.form_desa').addClass('d-none');
+            } else {
+                $('.form_desa').removeClass('d-none');
+            }
+        });
+    });
+
     $(document).on('click','.save',function(e){
         e.preventDefault();
         Swal.fire({

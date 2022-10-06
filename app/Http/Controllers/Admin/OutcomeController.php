@@ -54,23 +54,39 @@ class OutcomeController extends AppBaseController
             ->get();
 
         if($request->ajax()) {
-            $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
-                ->join('locations', 'locations.id', 'outcomes.desa_id')
-                ->with(['category', 'desa'])
-                ->when(!empty($request->kecamatan), function($q) use($request) {
-                    $q->where('locations.parent_id', $request->kecamatan);
-                })
-                ->when(!empty($request->desa), function($q) use($request) {
-                    $q->where('locations.id', $request->desa);
-                })
-                ->when(true, function($q) use ($request) {
-                    if(isset($request->from_date) && isset($request->to_date)) {
-                        $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
-                    } else {
-                        $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
-                    }
-                })
-                ->get();
+            if($request->type == 1) {
+                $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+                    ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
+                    ->with(['category', 'desa'])
+                    ->where('outcomes.category_id', '<>', 6)
+                    ->when(!empty($request->kecamatan), function($q) use($request) {
+                        $q->where('locations.parent_id', $request->kecamatan);
+                    })
+                    ->when(!empty($request->desa), function($q) use($request) {
+                        $q->where('locations.id', $request->desa);
+                    })
+                    ->when(true, function($q) use ($request) {
+                        if(isset($request->from_date) && isset($request->to_date)) {
+                            $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                        } else {
+                            $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                        }
+                    })
+                    ->get();
+            } else {
+                $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+                    ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
+                    ->with('category')
+                    ->where('outcomes.category_id', 6)
+                    ->when(true, function($q) use ($request) {
+                        if(isset($request->from_date) && isset($request->to_date)) {
+                            $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                        } else {
+                            $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                        }
+                    })
+                    ->get();
+            }   
 
             return DataTables::of($outcomes)
                 ->addColumn('action', 'admin.pages.outcomes.datatables_actions')
@@ -116,7 +132,7 @@ class OutcomeController extends AppBaseController
 
         $input = [
             'user_id' => Auth::user()->id,
-            'desa_id' => $request->desa_id,
+            'desa_id' => $request->category_id == 6 ? 0 : $request->desa_id,
             'category_id' => $request->category_id,
             'description' => $request->description,
             'nominal' => str_replace('.', '', $request->nominal),
@@ -196,7 +212,7 @@ class OutcomeController extends AppBaseController
 
         $input = [
             'user_id' => Auth::user()->id,
-            'desa_id' => $request->desa_id,
+            'desa_id' => $request->category_id == 6 ? 0 : $request->desa_id,
             'category_id' => $request->category_id,
             'description' => $request->description,
             'nominal' => str_replace('.', '', $request->nominal),
