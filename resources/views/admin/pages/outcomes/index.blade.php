@@ -81,6 +81,7 @@
                 <h5 class="modal-title">Export Laporan Pengeluaran</h5>
             </div>
             <div class="modal-body content-export">
+                    <input type="hidden" name="type" value="1">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group fmodal1">
@@ -125,11 +126,12 @@
 <div class="modal fade" id="exportModal2" tabindex="-1" aria-labelledby="exportModal2Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-        {{-- <form action="{{ route('admin.outcomes.export') }}" method="get"> --}}
+        <form action="{{ route('admin.outcomes.export') }}" method="get">
             <div class="modal-header">
                 <h5 class="modal-title">Export Laporan Pengeluaran Infak Tidak Terikat</h5>
             </div>
             <div class="modal-body content-export">
+                    <input type="hidden" name="type" value="2">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group fmodal2">
@@ -144,7 +146,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                 <button type="submit" class="btn btn-primary">Export</button>
             </div>
-        {{-- </form> --}}
+        </form>
         </div>
     </div>
 </div>

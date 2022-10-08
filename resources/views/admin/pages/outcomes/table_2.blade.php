@@ -28,7 +28,7 @@
         $(document).ready(function() {
             var table2 = $('#table2').DataTable({
                 // dom: "<'row justify-content-between px-3 mb-2'<<'fdate'>><<'bexport'>>><'row justify-content-between px-3 mb-1'<'row px-0 col-12 col-md-4'<'col-12 col-md-6'<'fkecamatan'>><'col-12 col-md-6'<'fdesa'>>><f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                dom: "<'row'<'col-md-5'<'fdate'>><'col'><'col-md-4'<f>><'col-md-2'<'bexport2'>>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                dom: "<'row'<'col-md-3'<'fdate2'>><'col'><'col-md-4'<f>><'col-md-2'<'bexport2'>>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 pageLength: 50,
                 processing: true,
                 serverSide: true,

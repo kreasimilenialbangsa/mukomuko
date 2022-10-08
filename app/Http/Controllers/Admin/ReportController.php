@@ -142,8 +142,18 @@ class ReportController extends AppBaseController
                     ->groupBy('month')
                     ->first();
 
+                $program = DB::table('donates')
+                    ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+                    ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
+                    ->whereNull('deleted_at')
+                    ->whereType('\App\Models\Admin\Program')
+                    ->whereIsConfirm(1)
+                    ->groupBy('month')
+                    ->first();
+
                 if($row['month'] == !empty($income->month) ? $income->month : null) {
-                    $months[$key]['income'] = $income->total;
+                    $program_total = !empty($program->total) ? $program->total : 0;
+                    $months[$key]['income'] = ($income->total + $program_total);
                 }
 
                 $outcome = DB::table('outcomes')
@@ -244,10 +254,29 @@ class ReportController extends AppBaseController
                         ->whereIsConfirm(1)
                         ->groupBy('type_id')
                         ->first();
+
+                    $total_income = !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0;
+
+                    if($item->id == 7) {
+                        $program = DB::table('donates')
+                            ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+                            ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $date)
+                            ->whereNull('deleted_at')
+                            ->whereType('\App\Models\Admin\Program')
+                            ->whereIsConfirm(1)
+                            ->groupBy('month')
+                            ->first();
+
+                            
+                        $program_total = !empty($program->total) ? $program->total : 0;
+                        $total_donate = ($total_income + $program_total);
+                    } else {
+                        $total_donate = $total_income;
+                    }
         
                     array_push($detail, [
                         'title' => $item->title,
-                        'total_donate' => !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0
+                        'total_donate' => $total_donate
                     ]);
         
                 }
@@ -402,10 +431,21 @@ class ReportController extends AppBaseController
                 ->whereIsConfirm(1)
                 ->groupBy('month')
                 ->first();
+
+            $program = DB::table('donates')
+                ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+                ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
+                ->whereNull('deleted_at')
+                ->whereType('\App\Models\Admin\Program')
+                ->whereIsConfirm(1)
+                ->groupBy('month')
+                ->first();
             
             if($row['month'] == !empty($income->month) ? $income->month : null) {
-                $months[$key]['income'] = $income->total;
+                $program_total = !empty($program->total) ? $program->total : 0;
+                $months[$key]['income'] = ($income->total + $program_total);
             }
+
             // Detail Income
             $detailIncome = [];
             foreach($ziswafCat as $item) {
@@ -417,9 +457,27 @@ class ReportController extends AppBaseController
                     ->groupBy('type_id')
                     ->first();
 
+                $total_income = !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0;
+
+                if($item->id == 7) {
+                    $program = DB::table('donates')
+                        ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+                        ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $date)
+                        ->whereNull('deleted_at')
+                        ->whereType('\App\Models\Admin\Program')
+                        ->whereIsConfirm(1)
+                        ->groupBy('month')
+                        ->first();  
+                        
+                    $program_total = !empty($program->total) ? $program->total : 0;
+                    $total_donate = ($total_income + $program_total);
+                } else {
+                    $total_donate = $total_income;
+                }
+
                 array_push($detailIncome, [
                     'title' => $item->title,
-                    'total_donate' => !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0
+                    'total_donate' => $total_donate
                 ]);
             }
             $months[$key]['income_detail'] = $detailIncome;
@@ -529,9 +587,34 @@ class ReportController extends AppBaseController
                 ->groupBy('donates.type_id')
                 ->first();
 
+            $total_income = !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0;
+
+            if($item->id == 7) {
+                $program = DB::table('donates')
+                    ->leftJoin('locations', 'locations.id', 'donates.location_id')
+                    ->when(!empty($request->kecamatan), function($q) use($request) {
+                        $q->where('locations.parent_id', $request->kecamatan);
+                    })
+                    ->when(!empty($request->desa), function($q) use($request) {
+                        $q->where('locations.id', $request->desa);
+                    })
+                    ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%m-%Y') as month"), DB::raw("SUM(donates.total_donate) as total"))
+                    ->where(DB::raw("DATE_FORMAT(donates.date_donate, '%m-%Y')"), $month)
+                    ->where('donates.deleted_at', NULL)
+                    ->where('donates.type', '\App\Models\Admin\Program')
+                    ->where('donates.is_confirm', 1)
+                    ->groupBy('month')
+                    ->first();  
+                    
+                $program_total = !empty($program->total) ? $program->total : 0;
+                $total_donate = ($total_income + $program_total);
+            } else {
+                $total_donate = $total_income;
+            }
+
             array_push($detailIncome, [
                 'title' => $item->title,
-                'total_donate' => !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0
+                'total_donate' => $total_donate
             ]);
         }
         $result['income_detail'] = $detailIncome;

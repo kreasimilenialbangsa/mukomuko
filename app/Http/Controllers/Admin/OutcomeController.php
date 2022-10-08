@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\Admin\OutcomeDataTable;
 use App\Exports\Excel\LaporanPengeluaranDanaExport;
+use App\Exports\Excel\LaporanPengeluaranInfaqTidakTerikatExport;
 use App\Http\Requests\Admin\CreateOutcomeRequest;
 use App\Http\Requests\Admin\UpdateOutcomeRequest;
 use App\Repositories\Admin\OutcomeRepository;
@@ -252,23 +253,43 @@ class OutcomeController extends AppBaseController
 
     public function export(Request $request)
     {   
-        $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
-            ->join('locations', 'locations.id', 'outcomes.desa_id')
-            ->with(['category', 'desa'])
-            ->when(!empty($request->kecamatan), function($q) use($request) {
-                $q->where('locations.parent_id', $request->kecamatan);
-            })
-            ->when(!empty($request->desa), function($q) use($request) {
-                $q->where('locations.id', $request->desa);
-            })
-            ->when(true, function($q) use ($request) {
-                if(isset($request->from_date) && isset($request->to_date)) {
-                    $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
-                } else {
-                    $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
-                }
-            })
-            ->get();
+        if($request->type == 1) {
+            $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+                ->join('locations', 'locations.id', 'outcomes.desa_id')
+                ->with(['category', 'desa'])
+                ->when(!empty($request->kecamatan), function($q) use($request) {
+                    $q->where('locations.parent_id', $request->kecamatan);
+                })
+                ->when(!empty($request->desa), function($q) use($request) {
+                    $q->where('locations.id', $request->desa);
+                })
+                ->when(true, function($q) use ($request) {
+                    if(isset($request->from_date) && isset($request->to_date)) {
+                        $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                    } else {
+                        $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                    }
+                })
+                ->get();
+
+            $text = 'REKAPITULASI PENGELUARAN DANA_';
+
+        } else {
+            $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+                ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
+                ->with('category')
+                ->where('outcomes.category_id', 6)
+                ->when(true, function($q) use ($request) {
+                    if(isset($request->from_date) && isset($request->to_date)) {
+                        $q->whereBetween('date_outcome', [$request->from_date . ' 00:59:00', $request->to_date . ' 23:59:00']);
+                    } else {
+                        $q->whereBetween('date_outcome', [Carbon::now()->startOfMonth()->format('Y-m-d') . ' 00:59:00', Carbon::now()->endOfMonth()->format('Y-m-d') . ' 23:59:00']);
+                    }
+                })
+                ->get();
+
+            $text = 'REKAPITULASI PENGELUARAN DANA INFAK TIDAK TERIKAT_';
+        }
 
         $total['total_outcome'] = 0;
         foreach($outcomes as $key => $outcome) {
@@ -284,8 +305,12 @@ class OutcomeController extends AppBaseController
             ]
         ];
 
-        $filename = 'REKAPITULASI PENGELUARAN DANA_'. date('d-m-Y', strtotime($request->from_date)) . '_' . date('d-m-Y', strtotime($request->to_date)) .'.xlsx';
+        $filename = $text. date('d-m-Y', strtotime($request->from_date)) . '_' . date('d-m-Y', strtotime($request->to_date)) .'.xlsx';
 
-        return Excel::download(new LaporanPengeluaranDanaExport($data), $filename);
+        if($request->type == 1) {
+            return Excel::download(new LaporanPengeluaranDanaExport($data), $filename);
+        } else {
+            return Excel::download(new LaporanPengeluaranInfaqTidakTerikatExport($data), $filename);
+        }
     }
 }
