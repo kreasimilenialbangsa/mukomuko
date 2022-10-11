@@ -64,7 +64,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('donates/ziswaf', [App\Http\Controllers\API\V1\DonateController::class, 'allZiswaf']);
     Route::get('donates/ziswaf/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByZiswaf']);
 
-
     // Private Api
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('profile', [App\Http\Controllers\API\V1\ProfileController::class, 'profile']);
@@ -76,5 +75,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('donates/bylogin/user', [App\Http\Controllers\API\V1\DonateController::class, 'getDonateByUser']);
         Route::post('donates/jipzisnu', [App\Http\Controllers\API\V1\DonateController::class, 'donateJipzisnu']);
         Route::delete('donates/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'destroy']);
+
+        // Payment
+        Route::post('payment-process', [App\Http\Controllers\API\V1\PaymentController::class, 'paymentProcess']);
     });
 });
