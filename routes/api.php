@@ -57,11 +57,13 @@ Route::group(['prefix' => 'v1'], function () {
     // Donate
     Route::get('donates', [App\Http\Controllers\API\V1\DonateController::class, 'all']);
     Route::get('donates/detail/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailById']);
+    Route::get('donates/order/{order_id}', [App\Http\Controllers\API\V1\DonateController::class, 'getDonateDetail']);
 
     Route::get('donates/programs', [App\Http\Controllers\API\V1\DonateController::class, 'allPrograms']);
     Route::get('donates/programs/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByProgram']);
 
     Route::get('donates/ziswaf', [App\Http\Controllers\API\V1\DonateController::class, 'allZiswaf']);
+    Route::get('donates/ziswaf/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByZiswaf']);
     Route::get('donates/ziswaf/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByZiswaf']);
 
     // Private Api
