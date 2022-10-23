@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateSupportServiceCategoryRequest;
 use App\Http\Requests\Admin\UpdateSupportServiceCategoryRequest;
 use App\Repositories\Admin\SupportServiceCategoryRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use Str;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;

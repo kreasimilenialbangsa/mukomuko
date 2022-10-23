@@ -6,9 +6,9 @@ use App\DataTables\Admin\DonateDataTable;
 use App\Http\Requests\Admin\CreateDonateRequest;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Session;
+use Laracasts\Flash\Flash;
 use Response;
 
 class DonateController extends AppBaseController

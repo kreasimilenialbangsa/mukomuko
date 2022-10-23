@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateKecamatanRequest;
 use App\Http\Requests\Admin\UpdateKecamatanRequest;
 use App\Repositories\Admin\KecamatanRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

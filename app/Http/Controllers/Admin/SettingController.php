@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateSettingRequest;
 use App\Http\Requests\Admin\UpdateSettingRequest;
 use App\Repositories\Admin\SettingRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 

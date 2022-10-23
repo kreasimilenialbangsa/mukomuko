@@ -8,7 +8,7 @@ use App\Exports\Excel\LaporanPengeluaranInfaqTidakTerikatExport;
 use App\Http\Requests\Admin\CreateOutcomeRequest;
 use App\Http\Requests\Admin\UpdateOutcomeRequest;
 use App\Repositories\Admin\OutcomeRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Desa;
 use App\Models\Admin\Kecamatan;

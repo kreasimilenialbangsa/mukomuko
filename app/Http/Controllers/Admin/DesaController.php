@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateDesaRequest;
 use App\Http\Requests\Admin\UpdateDesaRequest;
 use App\Repositories\Admin\DesaRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Kecamatan;
 use Illuminate\Http\Request;

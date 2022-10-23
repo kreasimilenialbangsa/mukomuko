@@ -10,7 +10,7 @@ use App\Repositories\Admin\NewsCategoryRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Str;
-use Flash;
+use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Session;
 use Response;
 

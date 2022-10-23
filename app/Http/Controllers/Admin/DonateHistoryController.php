@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\Admin\DonateHistoryDataTable;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Session;
 use Response;

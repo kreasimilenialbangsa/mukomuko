@@ -64,7 +64,6 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('donates/ziswaf', [App\Http\Controllers\API\V1\DonateController::class, 'allZiswaf']);
     Route::get('donates/ziswaf/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByZiswaf']);
-    Route::get('donates/ziswaf/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByZiswaf']);
 
     // Private Api
     Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -79,6 +78,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::delete('donates/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'destroy']);
 
         // Payment
-        Route::post('payment-process', [App\Http\Controllers\API\V1\PaymentController::class, 'paymentProcess']);
+        Route::post('payment/process', [App\Http\Controllers\API\V1\PaymentController::class, 'paymentProcess']);
+        Route::get('payment/list', [App\Http\Controllers\API\V1\PaymentController::class, 'paymentList']);
+        Route::get('payment/detail/{order_id}', [App\Http\Controllers\API\V1\PaymentController::class, 'paymentDetail']);
     });
 });

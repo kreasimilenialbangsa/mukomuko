@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateSupportAmbulanceRequest;
 use App\Http\Requests\Admin\UpdateSupportAmbulanceRequest;
 use App\Repositories\Admin\SupportAmbulanceRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\SupportAmbulance;
 use Illuminate\Support\Facades\Auth;

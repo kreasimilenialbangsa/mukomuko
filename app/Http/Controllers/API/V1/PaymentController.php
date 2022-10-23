@@ -33,18 +33,82 @@ class PaymentController extends Controller
             'is_anonim' => $request->anonym == true ? 1 : 0 ,
             'message' => !empty($request->message) ? $request->message : null,
             'paymentChannel' => $request->channel
-        ];  
+        ]; 
 
-        if($input['paymentChannel'] == 'ID_DANA' || $input['paymentChannel'] == 'ID_OVO' || $input['paymentChannel'] == 'ID_LINKAJA') {       
-            $data = $this->_xenditEWallet($input);
-        } else {
+        // if($input['paymentChannel'] == 'ID_DANA' || $input['paymentChannel'] == 'ID_OVO' || $input['paymentChannel'] == 'ID_LINKAJA') {       
+        //     $data = $this->_xenditEWallet($input);
+        // } else {
             $data = $this->_midtrans($input);
-        }
+        // }
 
         return response()->json([
             'status' => true,
             'message' => 'success',
             'data' => $data
+        ]);
+    }
+
+    public function paymentList(Request $request)
+    {
+        $donates = Donate::select('id', 'order_id', 'order_token', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim', 'is_confirm')
+            ->Where('user_id', auth()->user()->id)
+            ->orderBy('date_donate', isset($request->sort) ? $request->sort : 'desc')
+            ->paginate(isset($request->limit) ? $request->limit : 12);
+        
+        if(empty($donates)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'data not found',
+                'data' => []
+            ], 404);
+        }
+
+        foreach($donates as $key => $donate) {
+            if($donate->type == '\App\Models\Admin\Program') {
+                $donate->event = $donate->type::select('id', 'user_id', 'title', 'image')->find($donate->type_id);
+            } else {
+                $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
+                $donate->event->image = null;
+            }
+            $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
+            $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $donates
+        ]);
+    }
+
+    public function paymentDetail($order_id)
+    {
+        $donate = Donate::select('id', 'order_id', 'order_token', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim', 'is_confirm')
+            ->Where('user_id', auth()->user()->id)
+            ->whereOrderId($order_id)
+            ->first();
+        
+        if(empty($donate)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'data not found',
+                'data' => []
+            ], 404);
+        }
+
+        if($donate->type == '\App\Models\Admin\Program') {
+            $donate->event = $donate->type::select('id', 'user_id', 'title', 'image')->find($donate->type_id);
+        } else {
+            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
+            $donate->event->image = null;
+        }
+        $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
+        $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $donate
         ]);
     }
 

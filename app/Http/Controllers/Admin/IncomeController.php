@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateIncomeRequest;
 use App\Http\Requests\Admin\UpdateIncomeRequest;
 use App\Repositories\Admin\IncomeRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;

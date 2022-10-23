@@ -13,7 +13,7 @@ use App\Models\Admin\Role;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
-use Flash;
+use Laracasts\Flash\Flash;
 use Response;
 use Hash;
 use Illuminate\Support\Facades\Session;

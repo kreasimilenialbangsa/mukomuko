@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateZiswafRequest;
 use App\Http\Requests\Admin\UpdateZiswafRequest;
 use App\Repositories\Admin\ZiswafRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\ZiswafCategory;
 use Illuminate\Support\Facades\Auth;

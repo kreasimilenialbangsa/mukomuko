@@ -10,7 +10,7 @@ use App\Repositories\Admin\AboutRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Str;
-use Flash;
+use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Response;

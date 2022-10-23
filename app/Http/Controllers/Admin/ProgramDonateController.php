@@ -6,7 +6,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateDonateRequest;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Program;

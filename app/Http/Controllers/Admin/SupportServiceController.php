@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateSupportServiceRequest;
 use App\Http\Requests\Admin\UpdateSupportServiceRequest;
 use App\Repositories\Admin\SupportServiceRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\SupportServiceCategory;
 use App\Models\User;

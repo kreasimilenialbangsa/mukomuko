@@ -260,37 +260,6 @@ class DonateController extends Controller
             'data' => $donates
         ]);        
     }
-
-    public function getDonateDetail($order_id)
-    {
-        $donate = Donate::select('id', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim', 'is_confirm')
-            // ->Where('email', auth()->user()->email)
-            ->whereOrderId($order_id)
-            ->first();
-        
-        if(empty($donate)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'data not found',
-                'data' => []
-            ], 404);
-        }
-
-        if($donate->type == '\App\Models\Admin\Program') {
-            $donate->event = $donate->type::select('id', 'user_id', 'title', 'image')->find($donate->type_id);
-        } else {
-            $donate->event = $donate->type::select('id', 'user_id', 'title')->find($donate->type_id);
-            $donate->event->image = null;
-        }
-        $donate->type = $donate->type == '\App\Models\Admin\Program' ? 'program' : 'ziswaf';
-        $donate->name = $donate->is_anonim == 1 ? 'Hamba Allah' : $donate->name;
-
-        return response()->json([
-            'status' => true,
-            'message' => 'success',
-            'data' => $donate
-        ]);
-    }
     
     public function donateJipzisnu(Request $request)
     {

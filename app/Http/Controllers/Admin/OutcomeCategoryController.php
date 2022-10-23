@@ -7,7 +7,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateOutcomeCategoryRequest;
 use App\Http\Requests\Admin\UpdateOutcomeCategoryRequest;
 use App\Repositories\Admin\OutcomeCategoryRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;

@@ -35,8 +35,16 @@ class AuthController extends Controller
             ->whereEmail(str_replace(' ', '', $request['email']))
             ->first();
 
+        if(empty($user)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Email not registered'
+            ], 404);
+        }
+
         // Check Role
         $checkRole = RoleUser::whereModelId($user->id)->first();
+
         if($checkRole->role_id < 4) {
             return response()->json([
                 'status' => false,
