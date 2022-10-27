@@ -101,11 +101,11 @@ class Program extends Model
 
     public function donate()
     {
-        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Program')->whereIsConfirm(1)->whereIsPayment(0);
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Program')->whereIsConfirm(1);
     }
 
     public function my_donates()
     {
-        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Program')->whereIsPayment(0);
+        return $this->hasMany(\App\Models\Admin\Donate::class, 'type_id', 'id')->whereType('\App\Models\Admin\Program');
     }
 }

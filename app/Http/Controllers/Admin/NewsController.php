@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\Admin\NewsDataTable;
+use App\Helpers\FCM;
 use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateNewsRequest;
 use App\Http\Requests\Admin\UpdateNewsRequest;
@@ -87,8 +88,20 @@ class NewsController extends AppBaseController
                     'news_id' => $news->id
                 ];
 
-                NewsImage::create($dataImage);
+                $image = NewsImage::create($dataImage);
+
+                if($key == 0) {
+                    $thumbnail = $image;
+                }
             }
+        }
+
+        if($request->broadcast == 1) {
+            FCM::broadcast([
+                'title' => $news->title,
+                'body' => strip_tags($news->content),
+                'image' => isset($thumbnail) ? env('APP_URL') .'/storage'.$thumbnail->file : null
+            ]);
         }
 
         Session::flash('success', 'Data berhasil ditambah');

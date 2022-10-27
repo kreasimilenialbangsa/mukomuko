@@ -30,7 +30,7 @@ class PaymentController extends Controller
             'userName' => $request->name,
             'userEmail' => $request->email,
             'userPhone' => $request->phone,
-            'is_anonim' => $request->anonym == true ? 1 : 0 ,
+            'is_anonim' => $request->anonym == 'true' ? 1 : 0 ,
             'message' => !empty($request->message) ? $request->message : null,
             'paymentChannel' => $request->channel
         ]; 
@@ -50,8 +50,11 @@ class PaymentController extends Controller
 
     public function paymentList(Request $request)
     {
+        $type = $request->type == 'program' ? '\App\Models\Admin\Program' : '\App\Models\Admin\Ziswaf';
+
         $donates = Donate::select('id', 'order_id', 'order_token', 'type', 'type_id', 'name', 'email', 'phone', 'message', 'total_donate', 'date_donate', 'created_at', 'is_anonim', 'is_confirm')
             ->Where('user_id', auth()->user()->id)
+            ->whereType($type)
             ->orderBy('date_donate', isset($request->sort) ? $request->sort : 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
         

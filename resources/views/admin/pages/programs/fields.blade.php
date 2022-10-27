@@ -116,6 +116,16 @@
 @endif
                 <!-- Submit Field -->
                 <div class="form-group">
+                    @if(!@$news)
+                        <div class="form-group">
+                            <div class="control-label">Broadcast Notif:</div>
+                            <label class="custom-switch mt-2 pl-0">
+                                <input type="checkbox" name="broadcast" value="1" class="custom-switch-input">
+                                <span class="custom-switch-indicator"></span>
+                            </label>
+                        </div>
+                    @endif
+                    
                     {!! Form::hidden('del', null, ['class' => 'form-control']) !!}
                     {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
                     <a href="{{ route('admin.programs.index') }}" class="btn btn-light">Batal</a>

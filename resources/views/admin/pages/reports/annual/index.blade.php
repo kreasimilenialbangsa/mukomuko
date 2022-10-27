@@ -43,7 +43,7 @@
                                 <input type="hidden" name="from_date" id="from_date"><input type="hidden" name="to_date" id="to_date">
                             </div>
                         </div> --}}
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="form-group">
                                 <label for="period">Periode</label>
                                 <select class="form-control select2" id="period" name="period">
@@ -52,8 +52,30 @@
                                     <option value="3">Akhir Tahun</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="from">Dari</label>
+                                <select class="form-control select2" id="from" name="from">
+                                    @foreach($months as $key => $month)
+                                    <option value="{{ $key+1 }}">{{ \Carbon\Carbon::parse('01-'.$month['month'])->isoFormat('MMMM') }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="to">Ke</label>
+                                <select class="form-control select2 select-to" id="to" name="to">
+                                    @foreach($months as $key => $month)
+                                    <option id="{{ $key+1 }}" value="{{ $key+1 }}">{{ \Carbon\Carbon::parse('01-'.$month['month'])->isoFormat('MMMM') }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="year">Tahun</label>
                                 <select class="form-control select2" id="year" name="year">
@@ -86,50 +108,8 @@
         $(document).ready(function() {
             $('.modal-export').on('click', function() {
                 $('#exportModal').modal('toggle');
-                $('#range_date').val('');
-                $('#from_date').val('');
-                $('#to_date').val('');
-            });
-
-            $('input[name="range_date"]').daterangepicker({
-                autoUpdateInput: false,
-                showDropdowns: true,
-                alwaysShowCalendars: true,
-                maxDate: new Date(),
-                locale: {
-                    "customRangeLabel": "Kustom Tanggal",
-                    "applyLabel": "Terapkan",
-                    "cancelLabel": "Kosongkan",
-                    "daysOfWeek": [
-                        "Min",
-                        "Sen",
-                        "Sel",
-                        "Rab",
-                        "Kam",
-                        "Jum",
-                        "Sab"
-                    ],
-                },
-                ranges: {
-                    'Hari Ini': [moment(), moment()],
-                    'Kemarin': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    '7 Hari Lalu': [moment().subtract(6, 'days'), moment()],
-                    '30 Hari Lalu': [moment().subtract(29, 'days'), moment()],
-                    'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
-                    'Bulan Lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                }
-            });
-
-            $('input[name="range_date"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-                $('input[name="from_date"]').val(picker.startDate.format('YYYY-MM-DD'));
-                $('input[name="to_date"]').val(picker.endDate.format('YYYY-MM-DD'));
-            });
-
-            $('input[name="range_date"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-                $('input[name="from_date"]').val('');
-                $('input[name="to_date"]').val('');
+                $('#from').val('');
+                $('#to').val('');
             });
         });
     </script>

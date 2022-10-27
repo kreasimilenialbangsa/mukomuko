@@ -142,6 +142,7 @@
                 success: function(res){
                   $('#editModal').modal('toggle').then(
                     Swal.fire({
+                        icon: 'success',
                         title: 'Berhasil',
                         text: res.message,
                         width: 300,
@@ -149,6 +150,16 @@
                     }).then(function() {
                         location.reload();
                     }));
+                },
+                error: function(jqXHR, exception) {
+                    var err = eval("(" + jqXHR.responseText + ")");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: err.message,
+                        width: 350,
+                        confirmButtonColor: '#45BF7C'
+                    })
                 }
             });
         }

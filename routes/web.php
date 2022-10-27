@@ -101,11 +101,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
         // Service
         Route::resource('programs', App\Http\Controllers\Admin\ProgramController::class, ["as" => 'admin']);
         Route::resource('ziswafs', App\Http\Controllers\Admin\ZiswafController::class, ["as" => 'admin']);
+        Route::resource('notifications', App\Http\Controllers\Admin\NotificationController::class, ["as" => 'admin']);
         Route::group(['prefix' => 'report'], function () {
             Route::get('perolehan-kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'financialReport'])->name('admin.report.keuangan.index');
             Route::get('laporan-tahunan', [App\Http\Controllers\Admin\ReportController::class, 'annualReport'])->name('admin.report.annual.index');
             Route::get('laporan-tahunan/{date}', [App\Http\Controllers\Admin\ReportController::class, 'annualReportShow'])->name('admin.report.annual.show');
-            Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);
+            Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);            
             
             Route::group(['prefix' => 'export'], function () {
                 Route::get('kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'exportKalengNu'])->name('admin.report.keuangan.export');

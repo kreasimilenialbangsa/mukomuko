@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\Admin\ProgramDataTable;
+use App\Helpers\FCM;
 use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateProgramRequest;
 use App\Http\Requests\Admin\UpdateProgramRequest;
@@ -92,6 +93,14 @@ class ProgramController extends AppBaseController
         }
 
         $program = $this->programRepository->create($input);
+
+        if($request->broadcast == 1) {
+            FCM::broadcast([
+                'title' => $program->title,
+                'body' => strip_tags($program->description),
+                'image' => isset($input['image']) ? env('APP_URL') .'/storage'.$input['image'] : null
+            ]);
+        }
 
         Session::flash('success', 'Data berhasil ditambah');
 

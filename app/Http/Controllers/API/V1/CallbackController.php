@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Helpers\FCM;
 use App\Http\Controllers\Controller;
 use App\Mail\TestMail;
 use App\Models\Admin\Donate;
 use App\Models\Transaction;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -36,19 +38,20 @@ class CallbackController extends Controller
         $order_id = $notification->order_id;
 
         $transaction = Donate::where('order_id', $order_id)->first();
+        $user = User::whereId($transaction->user_id)->first();
 
         if ($status == 'capture') {
             if ($fraud == 'challenge') {
                 // TODO set transaction status on your database to 'challenge'
                 // and response with 200 OK
-                Mail::to('batas1204@gmail.com')->send(new TestMail('challenge'));
+                // Mail::to('batas1204@gmail.com')->send(new TestMail('challenge'));
             } else if ($fraud == 'accept') {
                 // TODO set transaction status on your database to 'success'
                 // and response with 200 OK
                 $transaction->is_confirm = 1;
                 $transaction->save();
 
-                Mail::to('batas1204@gmail.com')->send(new TestMail('accept'));
+                // Mail::to('batas1204@gmail.com')->send(new TestMail('accept'));
             }
         } else if ($status == 'settlement') {
             // TODO set transaction status on your database to 'success'
@@ -56,22 +59,36 @@ class CallbackController extends Controller
             $transaction->is_confirm = 1;
             $transaction->save();
 
-            Mail::to('batas1204@gmail.com')->send(new TestMail('settlement'));
-        } else if (
-            $status == 'cancel' ||
-            $status == 'deny' ||
-            $status == 'expire'
-        ) {
+            if(!empty($user->fcm_token)) {
+                FCM::direct($user->fcm_token, [
+                    'title' => '❤️ Donasimu Rp '. number_format($transaction->total_donate,0,",",".") . ' berhasil',
+                    'body' => 'Terima kasih atas donasimu semoga menjadi pembuka pintu rezeki dan keberkahan untukmu 😇',
+                    'order_id' => $order_id,
+                    'status' => 'success'
+                ]);
+            }
+
+            // Mail::to('batas1204@gmail.com')->send(new TestMail('settlement'));
+        } else if ($status == 'cancel' || $status == 'deny' || $status == 'expire') {
             // TODO set transaction status on your database to 'failure'
             // and response with 200 OK
             $transaction->is_confirm = 2;
             $transaction->save();
 
-            Mail::to('batas1204@gmail.com')->send(new TestMail('failure'));
+            // if(!empty($user->fcm_token)) {
+            //     FCM::direct($user->fcm_token, [
+            //         'title' => '💔 Donasimu Rp '. number_format($transaction->total_donate,0,",",".") . ' gagal',
+            //         'body' => 'Gagal pembayaran ' . $type->title,
+            //         'order_id' => $order_id,
+            //         'status' => 'failed'
+            //     ]);
+            // }
+
+            // Mail::to('batas1204@gmail.com')->send(new TestMail('failure'));
         } else if ($status == 'pending') {
             // TODO set transaction status on your database to 'pending' / waiting payment
             // and response with 200 OK
-            Mail::to('batas1204@gmail.com')->send(new TestMail('pending'));
+            // Mail::to('batas1204@gmail.com')->send(new TestMail('pending'));
         }
     }
 

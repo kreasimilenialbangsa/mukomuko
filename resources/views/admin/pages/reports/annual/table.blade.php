@@ -10,6 +10,7 @@
         .select2-container .select2-selection--multiple, .select2-container .select2-selection--single {
             min-height: unset !important;
         }
+    
         .table:not(.table-sm) tfoot th {
             border-bottom: none;
             background-color: rgba(0, 0, 0, 0.04);

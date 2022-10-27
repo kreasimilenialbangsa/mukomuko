@@ -67,12 +67,14 @@ class PaymentController extends Controller
         // return redirect()->route('payment.index');
 
         $validated = $request->validate([
-            'nominal' => 'required',
+            'nominal' => 'required|min:6',
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
             'channel' => 'required',
-            'agreement' => 'required'
+            'agreement' => 'required',
+        ],[
+            'nominal.min' => 'Jumlah minimal donasi adalah Rp 10.000,-',
         ]);
 
         if ($request->session()->get('donate')['nominal'] != $request->nominal) {
@@ -96,11 +98,11 @@ class PaymentController extends Controller
             'paymentChannel' => $request->channel
         ];
 
-        if($input['paymentChannel'] == 'ID_DANA' || $input['paymentChannel'] == 'ID_OVO' || $input['paymentChannel'] == 'ID_LINKAJA') {       
-            $orderID = $this->_xenditEWallet($input);
-        } else {
+        // if($input['paymentChannel'] == 'ID_DANA' || $input['paymentChannel'] == 'ID_OVO' || $input['paymentChannel'] == 'ID_LINKAJA') {       
+        //     $orderID = $this->_xenditEWallet($input);
+        // } else {
             $orderID = $this->_midtrans($input);
-        }
+        // }
 
         return redirect()->route('payment.detail', $orderID);
     }
@@ -148,20 +150,21 @@ class PaymentController extends Controller
             'vtweb' => array()
         );
 
-        if($input['paymentChannel'] == 'gopay') {
-            $midtrans += array("gopay" => array(
-                "enable_callback" => true,
-                "callback_url" => route('payment.detail', $orderID)
-            ));
-        }
+        // if($input['paymentChannel'] == 'gopay') {
+        //     $midtrans += array("gopay" => array(
+        //         "enable_callback" => true,
+        //         "callback_url" => route('payment.detail', $orderID)
+        //     ));
+        // }
 
-        $paymentUrl = Snap::getSnapUrl($midtrans);
+        $transaction = Snap::createTransaction($midtrans);
 
         // Mail::to('adam2802002@gmail.com')->send(new TestMail($paymentUrl));
 
         $data = [
             'order_id' => $orderID,
-            'order_url' => $paymentUrl,
+            'order_token' => $transaction->token,
+            'order_url' => $transaction->redirect_url,
             'type' => $type,
             'type_id' => $input['type_id'],
             'user_id' => $input['userId'],
@@ -177,9 +180,9 @@ class PaymentController extends Controller
             'is_payment' => 1,
         ];
 
-        Donate::create($data);
+        $order = Donate::create($data);
 
-        return $orderID;
+        return $order->order_id;
     }
 
     private function _xenditEWallet($input)

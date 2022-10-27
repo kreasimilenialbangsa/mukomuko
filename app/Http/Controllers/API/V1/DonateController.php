@@ -17,6 +17,7 @@ class DonateController extends Controller
             ->when(isset($request->user_id), function($q) use($request){
                 return $q->whereUserId($request->user_id);
             })
+            ->whereNotNull('message')
             ->whereIsConfirm(1)
             ->orderBy('date_donate', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
@@ -26,7 +27,7 @@ class DonateController extends Controller
                 'status' => false,
                 'success' => 'data not found',
                 'data' => []
-            ], 404); 
+            ], 404);
         }
 
         foreach($donates as $donate) {
@@ -283,8 +284,8 @@ class DonateController extends Controller
             'phone' => $request->phone,
             'message' => isset($request->message) ? $request->message : null,
             'total_donate' => $request->total_donate,
-            'date_donate' => isset($request->date_donate) ? $request->date_donate : date('Y-m-d') . ' ' . date('H:i:s'),
-            'is_anonim' => $request->anonym == true ? 1 : 0 ,
+            'date_donate' => isset($request->date_donate) ? $request->date_donate . ' ' . date('H:i:s') : date('Y-m-d') . ' ' . date('H:i:s'),
+            'is_anonim' => $request->anonym == 'true' ? 1 : 0 ,
             'is_confirm' => 0
         ];
 

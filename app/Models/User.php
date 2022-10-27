@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'location_id',
+        'fcm_token',
         'is_active',
         'is_member',
         'token'

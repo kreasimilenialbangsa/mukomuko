@@ -65,6 +65,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('donates/ziswaf', [App\Http\Controllers\API\V1\DonateController::class, 'allZiswaf']);
     Route::get('donates/ziswaf/{id}', [App\Http\Controllers\API\V1\DonateController::class, 'detailByZiswaf']);
 
+    // Notification
+    Route::get('notifications/info', [App\Http\Controllers\API\V1\NotificationController::class, 'info']);
+    Route::get('notifications/broadcast', [App\Http\Controllers\API\V1\NotificationController::class, 'broadcast']);
+
     // Private Api
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('profile', [App\Http\Controllers\API\V1\ProfileController::class, 'profile']);

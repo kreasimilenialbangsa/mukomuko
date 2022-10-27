@@ -120,18 +120,18 @@ class ReportController extends AppBaseController
      */
     public function annualReport(Request $request)
     {   
+        $months = [];
+
+        for ($i=1; $i <= 12; $i++) { 
+            $months[] = [
+                'month' => str_pad($i, 2, '0', STR_PAD_LEFT).'-'.(isset($request->year) ? $request->year : date('Y')),
+                'month_text' => str_pad($i, 2, '0', STR_PAD_LEFT).'-'.(isset($request->year) ? $request->year : date('Y')),
+                'income' => 0,
+                'outcome' => 0
+            ];
+        }
+
         if($request->ajax()) {
-            $months = [];
-
-            for ($i=1; $i <= 12; $i++) { 
-                $months[] = [
-                    'month' => str_pad($i, 2, '0', STR_PAD_LEFT).'-'.(isset($request->year) ? $request->year : date('Y')),
-                    'month_text' => str_pad($i, 2, '0', STR_PAD_LEFT).'-'.(isset($request->year) ? $request->year : date('Y')),
-                    'income' => 0,
-                    'outcome' => 0
-                ];
-            }
-
             foreach($months as $key => $row) {
                 $income = DB::table('donates')
                     ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
@@ -208,7 +208,10 @@ class ReportController extends AppBaseController
             ->groupBy('year')
             ->get();
         
+        // dd($months);
+
         return view('admin.pages.reports.annual.index')
+            ->with('months', $months)
             ->with('year', $year);
     }
 

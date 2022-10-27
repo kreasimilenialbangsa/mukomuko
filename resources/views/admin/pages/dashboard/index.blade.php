@@ -257,7 +257,7 @@
                   <div class="card card-hero">
                     <div class="card-header">
                       <div class="card-icon">
-                        <i class="fas fa-money-bill-wave"></i>
+                        <i class="fas fa-money-bill-wave"></i> 
                       </div>
                       <h4>{{ count($service) }}</h4>
                       <div class="card-description">Permohonan Dana</div>

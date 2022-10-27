@@ -48,11 +48,11 @@
                 <input type="text" class="form-control currency" value="{{ isset(session()->get('donate')['nominal']) ? session()->get('donate')['nominal'] : 0 }}" name="nominal" style="border-radius: 0 .25rem .25rem 0rem">
               </div>
               <div class="mt-1">
-                <span class="text-danger d-block text-xs">Jumlah minimal donasi adalah Rp 10.000,-</span>
-                <span class="clr-grey font-italic d-block">Jumlah donasi harus lebih besar dari Rp 10.000,-</span>
               </div>
               @if($errors->has('nominal'))
-                  <div class="text-danger">{{ $errors->first('nominal') }}</div>
+                <div class="text-danger">{{ $errors->first('nominal') }}</div>
+              @else
+                <span class="clr-grey font-italic d-block">Jumlah donasi harus lebih besar dari Rp 10.000,-</span>
               @endif
             </div>
             <div class="form-group">
@@ -112,6 +112,7 @@
                 </div>
                 <div id="collapseOne" class="collapse show">
                   <div class="card-body">
+                    {{-- Gopay --}}
                     <label for="gopay" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
@@ -125,7 +126,9 @@
                         <p class="mb-0">Pembayaran melalui GoPay</p>
                       </div>
                     </label>
-                    <label for="shopeepay" class="d-center item-payment mb-3">
+
+                    {{-- Shopeepay --}}
+                    {{-- <label for="shopeepay" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
                           <input type="radio" name="channel" value="shopeepay" id="shopeepay">
@@ -137,8 +140,10 @@
                         <h6>ShopeePay</h6>
                         <p class="mb-0">Pembayaran melalui ShopeePay</p>
                       </div>
-                    </label>
-                    <label for="ID_DANA" class="d-center item-payment mb-3">
+                    </label> --}}
+
+                    {{-- DANA --}}
+                    {{-- <label for="ID_DANA" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
                           <input type="radio" name="channel" value="ID_DANA" id="ID_DANA">
@@ -150,8 +155,10 @@
                         <h6>DANA</h6>
                         <p class="mb-0">Pembayaran melalui DANA</p>
                       </div>
-                    </label>
-                    <label for="ID_OVO" class="d-center item-payment mb-3">
+                    </label> --}}
+
+                    {{-- OVO --}}
+                    {{-- <label for="ID_OVO" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
                           <input type="radio" name="channel" value="ID_OVO" id="ID_OVO">
@@ -163,8 +170,10 @@
                         <h6>OVO</h6>
                         <p class="mb-0">Pembayaran melalui OVO</p>
                       </div>
-                    </label>
-                    <label for="ID_LINKAJA" class="d-center item-payment mb-3">
+                    </label> --}}
+
+                    {{-- LINK --}}
+                    {{-- <label for="ID_LINKAJA" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
                           <input type="radio" name="channel" value="ID_LINKAJA" id="ID_LINKAJA">
@@ -176,7 +185,8 @@
                         <h6>LINK AJA</h6>
                         <p class="mb-0">Pembayaran melalui LINK AJA</p>
                       </div>
-                    </label>
+                    </label> --}}
+
                   </div>
                 </div>
               </div>
@@ -194,6 +204,8 @@
                 </div>
                 <div id="collapseTwo" class="collapse show">
                   <div class="card-body">
+
+                    {{-- BRI --}}
                     <label for="bri_va" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
@@ -207,7 +219,9 @@
                         <p class="mb-0">Bayar di ATM BRI atau Internet Banking</p>
                       </div>
                     </label>
-                    <label for="bca_va" class="d-center item-payment mb-3">
+
+                    {{-- BCA --}}
+                    {{-- <label for="bca_va" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
                           <input type="radio" name="channel" value="bca_va" id="bca_va">
@@ -219,11 +233,13 @@
                         <h6>Virtual Account BCA</h6>
                         <p class="mb-0">Bayar di ATM BCA atau Internet Banking</p>
                       </div>
-                    </label>
-                    {{-- <label for="mandiri_clickpay" class="d-center item-payment mb-3">
+                    </label> --}}
+
+                    {{-- Mandiri --}}
+                    <label for="echannel" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
-                          <input type="radio" name="channel" value="mandiri_clickpay" id="mandiri_clickpay">
+                          <input type="radio" name="channel" value="echannel" id="echannel">
                           <span class="checkmark"></span>
                         </label>
                         <img class="logo-payment" src="{{ asset('img/payment/logo-mandiri.webp') }}" alt="">
@@ -232,7 +248,9 @@
                         <h6>Virtual Account Mandiri</h6>
                         <p class="mb-0">Bayar di ATM Mandiri atau Internet Banking</p>
                       </div>
-                    </label> --}}
+                    </label>
+
+                    {{-- BNI --}}
                     <label for="bni_va" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
@@ -246,6 +264,8 @@
                         <p class="mb-0">Bayar di ATM BNI atau Internet Banking</p>
                       </div>
                     </label>
+
+                    {{-- Permata --}}
                     <label for="permata_va" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
@@ -259,7 +279,9 @@
                         <p class="mb-0">Bayar di ATM Permata atau Internet Banking</p>
                       </div>
                     </label>
-                    <label for="other_va" class="d-center item-payment mb-3">
+
+                    {{-- ATM Bersama --}}
+                    {{-- <label for="other_va" class="d-center item-payment mb-3">
                       <div class="d-center mr-3">
                         <label class="custom-check-radio">
                           <input type="radio" name="channel" value="other_va" id="other_va">
@@ -271,7 +293,8 @@
                         <h6>Jaringan ATM</h6>
                         <p class="mb-0">Bayar di ATM Bersama, Prima, Alto, dll</p>
                       </div>
-                    </label>
+                    </label> --}}
+
                   </div>
                 </div>
               </div>

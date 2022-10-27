@@ -97,9 +97,17 @@ class LoginController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'phone' => 'required',
-            'email'     => 'required|email|unique:users,email',
+            'email'     => 'required|email',
             'password' => 'required',
         ]);
+
+        $checkEmail = User::whereEmail($input['email'])->first();
+        if($checkEmail) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Email sudah dipakai, gunakan email lain!'
+            ], 400);
+        }
 
         $data = [
             'name' => $input['name'],

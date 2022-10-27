@@ -38,7 +38,7 @@ class DashboardController extends Controller
                         ->select(DB::raw("DATE_FORMAT(date_donate, '%d-%m') as date"), DB::raw("SUM(total_donate) as total"))
                         ->whereType('\App\Models\Admin\Ziswaf')
                         ->whereIsConfirm(1)
-                        ->whereIsPayment(0)
+                        // ->whereIsPayment(0)
                         ->whereNull('deleted_at')
                         ->when(true, function($q) use ($date) {
                             $q->whereBetween('date_donate', [$date->format('Y-m-d').' 00:00:00', $date->format('Y-m-d').' 23:59:00']);
@@ -51,7 +51,7 @@ class DashboardController extends Controller
                         ->select(DB::raw("DATE_FORMAT(date_donate, '%d-%m') as date"), DB::raw("SUM(total_donate) as total"))
                         ->whereType('\App\Models\Admin\Program')
                         ->whereIsConfirm(1)
-                        ->whereIsPayment(0)
+                        // ->whereIsPayment(0)
                         ->whereNull('deleted_at')
                         ->when(true, function($q) use ($date) {
                             $q->whereBetween('date_donate', [$date->format('Y-m-d').' 00:00:00', $date->format('Y-m-d').' 23:59:00']);

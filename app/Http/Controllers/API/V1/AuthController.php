@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         // Check email
         $user = User::with(['desa', 'profile:id,user_id,image,telp,birth_day,address,bio'])
-            ->whereEmail(str_replace(' ', '', $request['email']))
+            ->whereEmail(str_replace(' ', '', $request->email))
             ->first();
 
         if(empty($user)) {
@@ -53,7 +53,7 @@ class AuthController extends Controller
         }
 
         // Check password
-        if(!$user || !Hash::check($request['password'], $user->password)) {
+        if(!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                     'status' => false,
                     'message' => 'Incorrect email or password'
@@ -69,6 +69,10 @@ class AuthController extends Controller
 
         // Create token
         $token = $user->createToken('myapptoken')->plainTextToken;
+
+        if(isset($request->fcm_token)) {
+            User::whereId($user->id)->update(['fcm_token' => $request->fcm_token]);
+        }
 
         return response()->json([
             'status' => true,
@@ -86,31 +90,39 @@ class AuthController extends Controller
         $input = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required',
-            'email'     => 'required|email|unique:users,email',
+            'email'     => 'required|email',
             'password' => 'required',
         ]);
 
         // Error validate
         if($input->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status' => false,
                 'message' => $input->errors()
             ], 403);
         }
 
+        $checkEmail = User::whereEmail($request->email)->first();
+        if($checkEmail) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Email sudah dipakai, gunakan email lain!'
+            ], 400);
+        }
+
         $data = [
-            'name' => $request['name'],
+            'name' => $request->name,
             'location_id' => 0,
             'is_active' => 1,
             'is_member' => 0,
-            'email' => $request['email'],
-            'password' => Hash::make($request['password'])
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
         ];  
 
         try {
             $user = User::create($data);
-            UserProfile::create(['user_id' => $user->id, 'telp' => $request['phone']]);
-            $user->syncRoles(4);
+            UserProfile::create(['user_id' => $user->id, 'telp' => $request->phone]);
+            $user->syncRoles(5);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -150,7 +162,7 @@ class AuthController extends Controller
         }
 
         $data = [
-            'password' => Hash::make($request['password'])
+            'password' => Hash::make($request->password)
         ];
 
         User::whereId($user->id)->update($data);
@@ -164,7 +176,7 @@ class AuthController extends Controller
     public function forgotPassword(Request $request)
     {
         // Check user
-        $user = User::whereEmail($request['email'])->first();
+        $user = User::whereEmail($request->email)->first();
 
         if(empty($user)) {
             return response()->json([

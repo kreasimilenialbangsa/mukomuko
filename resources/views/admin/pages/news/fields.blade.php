@@ -11,10 +11,14 @@
         <div class="card-body border border-top-0">
             <div class="tab-content" id="myTab3Content">
                 <div class="tab-pane fade show active" id="form2" role="tabpanel" aria-labelledby="form-tab2">
-                    <!-- Title Field -->
-                    <div class="form-group">
-                        {!! Form::label('title', 'Nama:') !!}
-                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- Title Field -->
+                            <div class="form-group">
+                                {!! Form::label('title', 'Nama:') !!}
+                                {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -93,6 +97,16 @@
                     </div>
                 </div>
             </div>
+
+            @if(!@$news)
+                <div class="form-group">
+                    <div class="control-label">Broadcast Notif:</div>
+                    <label class="custom-switch mt-2 pl-0">
+                        <input type="checkbox" name="broadcast" value="1" class="custom-switch-input">
+                        <span class="custom-switch-indicator"></span>
+                    </label>
+                </div>
+            @endif
 
             <!-- Submit Field -->
             <div class="form-group">
