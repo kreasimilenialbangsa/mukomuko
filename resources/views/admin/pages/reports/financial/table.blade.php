@@ -71,7 +71,7 @@
         $(document).ready(function() {
             var table = $('#table').DataTable({
                 dom: "<'row justify-content-between px-3 mb-2'<<'fdate'>><<'bexport'>>><'row justify-content-between px-3 mb-1'<'row px-0 col-12 col-md-4'<'col-12 col-md-6'<'fkecamatan'>><'col-12 col-md-6'<'fdesa'>>><f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                pageLength: 100,
+                pageLength: 50,
                 processing: true,
                 serverSide: true,
                 scrollX: true,

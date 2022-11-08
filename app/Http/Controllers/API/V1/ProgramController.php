@@ -29,6 +29,7 @@ class ProgramController extends Controller
             ->when(isset($request->is_running), function ($q) use ($request) {
                 $q->whereDate('end_date', '>', date('Y-m-d'));
             })
+            ->orderBy('end_date', 'desc')
             ->orderBy('id', 'desc')
             ->paginate(isset($request->limit) ? $request->limit : 12);
 

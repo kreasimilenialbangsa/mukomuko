@@ -64,6 +64,7 @@ class NewsController extends Controller
             ->where('id', '<>', $news->id)
             ->whereIsActive(1)
             ->limit(4)
+            ->orderBy('date_news', 'desc')
             ->get();
 
         return response()->json([

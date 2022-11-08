@@ -64,10 +64,11 @@
 
 @role('SuperAdmin|Kabupaten')
 <li class="nav-item dropdown {{ Request::is('admin/report*') ? 'active' : '' }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-signature"></i> <span>Laporan</span></a>
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-signature"></i> <span>Laporan Keuangan</span></a>
     <ul class="dropdown-menu">
         <li class="{{ Request::is('admin/report/perolehan-kaleng-nu*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.keuangan.index') }}">Perolehan Kaleng NU</a></li>
-        <li class="{{ Request::is('admin/report/laporan-tahunan*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.annual.index') }}">Laporan Tahunan</a></li>
+        <li class="{{ Request::is('admin/report/laporan-jpzisnu*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.annual.index') }}">Laporan JPZISNU</a></li>
+        <li class="{{ Request::is('admin/report/laporan-midtrans*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.midtrans.index') }}">Laporan Midtrans</a></li>
         <li class="{{ Request::is('admin/report/incomes*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.report.incomes.index') }}">Atur Perolehan</a></li>
     </ul>
 </li>
@@ -103,8 +104,12 @@
 @role('SuperAdmin')
 <li class="menu-header">Master Data</li>
 
-<li class="side-menus {{ Request::is('admin/donate-histories*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.donate_histories.index') }}"><i class="fas fa-list"></i><span>Riwayat Donasi</span></a>
+<li class="nav-item dropdown {{ Request::is('admin/riwayat*') ? 'active' : '' }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i> <span>Riwayat Donasi</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ Request::is('admin/riwayat/donasi-jpzisnu*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.donate_histories_jpzisnu.index') }}">Transaksi JPZISNU</span></a></li>
+        <li class="{{ Request::is('admin/riwayat/donasi-midtrans*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.donate_histories_midtrans.index') }}">Transaksi Midtrans</span></a></li>
+    </ul>
 </li>
 
 <li class="nav-item dropdown {{ Request::is('admin/category*') ? 'active' : '' }}">

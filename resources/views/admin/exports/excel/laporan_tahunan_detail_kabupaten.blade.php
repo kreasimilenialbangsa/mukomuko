@@ -6,11 +6,6 @@
         <tr>
             <th style="text-align: center;" colspan="5"><b>LAZISNU KABUPATEN MUKOMUKO</b></th>
         </tr>
-        @if(isset($location['name']))
-            <tr>
-                <th style="text-align: center;" colspan="5"><b>{{ isset($location['kecamatan']) ? 'DESA ' . strtoupper($location['name']) : 'KECAMATAN ' . strtoupper($location['name']) }}</b></th>
-            </tr>
-        @endif
         <tr>    
             <th style="text-align: center;" colspan="5"><b>BULAN {{ strtoupper(\Carbon\Carbon::parse($month)->isoFormat('MMMM')) }} TAHUN {{ $year }}</b></th>
         </tr>
@@ -26,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($result['income_detail'] as $no => $income)
+        @foreach($kabupaten['result']['income_detail'] as $no => $income)
         <tr>
             <td style="text-align: center;">{{ $no+1 }}</td>
             <td colspan="3">{{ $income['title'] }}</td>
@@ -37,7 +32,7 @@
     <tfoot>
         <tr>
             <td colspan="4" style="text-align: center; background-color: #FFC000;">Total</td>
-            <td style="background-color: #FFC000; text-align: right;">{{ number_format($total['total_income'],0,",",",") }}</td>
+            <td style="background-color: #FFC000; text-align: right;">{{ number_format($kabupaten['total']['total_income'],0,",",",") }}</td>
         </tr>
     </tfoot>
 </table>
@@ -51,7 +46,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($result['outcome_detail'] as $no => $outcome)
+        @foreach($kabupaten['result']['outcome_detail'] as $no => $outcome)
         <tr>
             <td style="text-align: center;">{{ $no+1 }}</td>
             <td colspan="3">{{ $outcome['title'] }}</td>
@@ -62,7 +57,7 @@
     <tfoot>
         <tr>
             <td colspan="4" style="text-align: center; background-color: #FFC000;">Total</td>
-            <td style="background-color: #FFC000; text-align: right;">{{ number_format($total['total_outcome'],0,",",",") }}</td>
+            <td style="background-color: #FFC000; text-align: right;">{{ number_format($kabupaten['total']['total_outcome'],0,",",",") }}</td>
         </tr>
     </tfoot>
 </table>

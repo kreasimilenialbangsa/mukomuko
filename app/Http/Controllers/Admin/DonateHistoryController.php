@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\DonateHistoryDataTable;
+use App\DataTables\Admin\DonateHistoryJpzisnuDataTable;
+use App\DataTables\Admin\DonateHistoryMidtransDataTable;
 use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
 use Laracasts\Flash\Flash;
@@ -24,13 +25,13 @@ class DonateHistoryController extends AppBaseController
     /**
      * Display a listing of the Donate.
      *
-     * @param DonateHistoryDataTable $donateHistoryDataTable
+     * @param DonateHistoryJpzisnuDataTable $donateHistoryJpzisnuDataTable
      *
      * @return Response
      */
-    public function index(DonateHistoryDataTable $donateHistoryDataTable)
+    public function jpzisnu(DonateHistoryJpzisnuDataTable $donateHistoryJpzisnuDataTable)
     {
-        return $donateHistoryDataTable->render('admin.pages.donate_histories.index');
+        return $donateHistoryJpzisnuDataTable->render('admin.pages.donate_histories.jpzisnu.index');
     }
 
     /**
@@ -48,7 +49,7 @@ class DonateHistoryController extends AppBaseController
         if (empty($donate)) {
             Session::flash('error', 'Data tidak ditemukan');
 
-            return redirect(route('admin.donate_histories.index'));
+            return redirect(route('admin.donate_histories_jpzisnu.index'));
         }
 
         $param = [
@@ -59,6 +60,18 @@ class DonateHistoryController extends AppBaseController
 
         Session::flash('success', 'Donasi berhasil ditolak');
 
-        return redirect(route('admin.donate_histories.index'));
+        return redirect(route('admin.donate_histories_jpzisnu.index'));
+    }
+
+    /**
+     * Display a listing of the Donate.
+     *
+     * @param DonateHistoryMidtransDataTable $donateHistoryMidtransDataTable
+     *
+     * @return Response
+     */
+    public function midtrans(DonateHistoryMidtransDataTable $donateHistoryMidtransDataTable)
+    {
+        return $donateHistoryMidtransDataTable->render('admin.pages.donate_histories.midtrans.index');
     }
 }

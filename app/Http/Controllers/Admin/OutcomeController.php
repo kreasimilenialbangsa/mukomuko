@@ -108,7 +108,7 @@ class OutcomeController extends AppBaseController
      */
     public function create()
     {
-        $desa = Desa::where('parent_id', '>', 0)->pluck('name', 'id');
+        $desa = Desa::where('parent_id', '>', 0)->orderBy('name', 'asc')->pluck('name', 'id');
         $categories = OutcomeCategory::pluck('name', 'id');
 
         return view('admin.pages.outcomes.create')

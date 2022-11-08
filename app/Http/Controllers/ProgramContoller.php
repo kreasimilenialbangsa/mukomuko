@@ -23,8 +23,9 @@ class ProgramContoller extends Controller
                 } else {
                     return;
                 }
-            })
+            })  
             ->orderBy('is_urgent', 'desc')
+            ->orderBy('end_date', 'desc')
             ->orderBy('id', 'desc')
             ->paginate(12);
 

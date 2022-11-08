@@ -103,15 +103,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
         Route::resource('ziswafs', App\Http\Controllers\Admin\ZiswafController::class, ["as" => 'admin']);
         Route::resource('notifications', App\Http\Controllers\Admin\NotificationController::class, ["as" => 'admin']);
         Route::group(['prefix' => 'report'], function () {
-            Route::get('perolehan-kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'financialReport'])->name('admin.report.keuangan.index');
-            Route::get('laporan-tahunan', [App\Http\Controllers\Admin\ReportController::class, 'annualReport'])->name('admin.report.annual.index');
-            Route::get('laporan-tahunan/{date}', [App\Http\Controllers\Admin\ReportController::class, 'annualReportShow'])->name('admin.report.annual.show');
+            Route::get('perolehan-kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'kalengNuReport'])->name('admin.report.keuangan.index');
+            Route::get('laporan-jpzisnu', [App\Http\Controllers\Admin\ReportController::class, 'jpzisnuReport'])->name('admin.report.annual.index');
+            Route::get('laporan-jpzisnu/{date}', [App\Http\Controllers\Admin\ReportController::class, 'jpzisnuReportShow'])->name('admin.report.annual.show');
+            Route::get('laporan-midtrans', [App\Http\Controllers\Admin\ReportController::class, 'midtransReport'])->name('admin.report.midtrans.index');
+            Route::get('laporan-midtrans/{date}', [App\Http\Controllers\Admin\ReportController::class, 'midtransReportShow'])->name('admin.report.midtrans.show');
             Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);            
             
             Route::group(['prefix' => 'export'], function () {
                 Route::get('kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'exportKalengNu'])->name('admin.report.keuangan.export');
-                Route::get('laporan-tahunan', [App\Http\Controllers\Admin\ReportController::class, 'exportLaporanTahunan'])->name('admin.report.annual.export');
-                Route::get('laporan-tahunan-detail/{date}', [App\Http\Controllers\Admin\ReportController::class, 'exportLaporanTahunanDetail'])->name('admin.report.annual.deatil.export');
+                Route::get('laporan-jpzisnu', [App\Http\Controllers\Admin\ReportController::class, 'exportJpzisnu'])->name('admin.report.annual.export');
+                Route::get('laporan-jpzisnu-detail/{date}', [App\Http\Controllers\Admin\ReportController::class, 'exportJpzisnuDetail'])->name('admin.report.annual.deatil.export');
+                Route::get('laporan-midtrans', [App\Http\Controllers\Admin\ReportController::class, 'exportMidtrans'])->name('admin.report.midtrans.export');
             });
         });
         
@@ -181,8 +184,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
         // Master Data
 
         // Donate Histories
-        Route::get('donate-histories', [\App\Http\Controllers\Admin\DonateHistoryController::class, 'index'])->name('admin.donate_histories.index');
-        Route::post('donate-histories/{id}', [\App\Http\Controllers\Admin\DonateHistoryController::class, 'update'])->name('admin.donate_histories.update');
+        Route::group(['prefix' => 'riwayat'], function () {
+            Route::get('donasi-jpzisnu', [\App\Http\Controllers\Admin\DonateHistoryController::class, 'jpzisnu'])->name('admin.donate_histories_jpzisnu.index');
+            Route::post('donasi-jpzisnu/{id}', [\App\Http\Controllers\Admin\DonateHistoryController::class, 'update'])->name('admin.donate_histories_jpzisnu.update');
+
+            Route::get('donasi-midtrans', [\App\Http\Controllers\Admin\DonateHistoryController::class, 'midtrans'])->name('admin.donate_histories_midtrans.index');
+        });
 
         // Category
         Route::group(['prefix' => 'category'], function () {

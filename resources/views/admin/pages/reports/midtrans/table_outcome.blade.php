@@ -26,7 +26,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.report.annual.show', ['date' => Request::segment(4), 'type' => 'outcome']) !!}",
+                    url: "{!!  route('admin.report.midtrans.show', ['date' => Request::segment(4), 'type' => 'outcome']) !!}",
                     data: function(d) {
                         d.kecamatan = $('.select-kecamatan').val(),
                         d.desa = $('.select-desa').val()

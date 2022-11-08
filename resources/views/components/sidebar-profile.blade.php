@@ -30,13 +30,13 @@
         <img class="ic-side" src="{{ asset('img/inbox-ic.svg') }}" alt="">
         Inbox
       </a>
-    </li>
+    </li> --}}
     <li class="mt-4">
       <a class="profile-link d-center {{ Request::is('user/profile/notification') ? 'active' : '' }}" href="{{ route('user.notification') }}">
         <img class="ic-side" src="{{ asset('img/notif-ic.svg') }}" alt="">
         Notifikasi
       </a>
-    </li> --}}
+    </li>
     <li class="mt-4">
       <a class="profile-link d-center" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <img class="ic-side" src="{{ asset('img/logout-ic.svg') }}" alt="">

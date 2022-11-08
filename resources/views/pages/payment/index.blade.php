@@ -322,10 +322,20 @@
 
 @section('scripts')
   <script>
-    $('input[name=agreement]').on('click', function(){
-      var check = $(this).is(":checked");
+    $(document).ready(function() {
+      var check1 = $('input[name=agreement]').is(":checked");
 
-      if(check == true) {
+      if(check1 == true) {
+        $('#button-save').removeAttr('disabled');
+      } else {
+        $('#button-save').attr('disabled', 'disabled');
+      }
+    });
+
+    $('input[name=agreement]').on('click', function(){
+      var check2 = $(this).is(":checked");
+
+      if(check2 == true) {
         $('#button-save').removeAttr('disabled');
       } else {
         $('#button-save').attr('disabled', 'disabled');

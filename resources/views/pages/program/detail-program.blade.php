@@ -201,6 +201,10 @@
                       <button class="btn w-100 btn-green mt-3 py-2" type="submit">Lanjut Pembayaran</button>
                     </div>
                     {!! Form::close() !!}
+                @else
+                    <div class="py-3 px-1 text-center" style="background-color: #e9e9e9;">
+                      <p class="h6">Penggalangan Dana Telah Berakhir</p>
+                    </div>
                 @endif
               </div>
             </div>

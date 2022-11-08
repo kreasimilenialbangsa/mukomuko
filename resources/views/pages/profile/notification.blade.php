@@ -38,29 +38,28 @@
           <div class="box-white h-100 p-4">
             <h5>Notifikasi</h5>
             <div class="list-notifs row custom-scrollbar" style="max-height: 800px">
+              @forelse($notifications as $key => $notification)
               <div class="col-lg-6 mt-3">
-                <div class="item-notif">
+                <div class="item-notif {{ date('Y-m-d', strtotime($notification->created_at)) == date('Y-m-d') ? 'new-notif' : '' }}">
                   <div class="d-flex mb-2">
                     <div class="mr-2">
-                      <h6 class="mb-1">Rp 1.000 Bisa Buat Donasi, Lho!</h6>
-                      <b class="d-block font-medium">Berbuat kebaikan tanpa halangan. Yuk, rutinkan berdonasi lewat apikasi Lazisnu</b>
+                      <h6 class="mb-1">{{ $notification->title }}</h6>
+                      <b class="d-block font-medium">{!! $notification->body !!}</b>
                     </div>
-                    <span class="text-xs w-50 text-right clr-grey">2 menit lalu</span>
+                    <span class="text-xs w-50 text-right clr-grey">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</span>
                   </div>
-                  <img class="thumb-img w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
+                  <img class="thumb-img w-100" src="{{ $notification->image }}" alt="{{ $notification->title }}">
                 </div>
               </div>
-              <div class="col-lg-6 mt-3">
-                <div class="item-notif new-notif">
-                  <div class="d-flex mb-2">
-                    <div class="mr-2">
-                      <h6 class="mb-1">Rp 1.000 Bisa Buat Donasi, Lho!</h6>
-                      <b class="d-block font-medium">Berbuat kebaikan tanpa halangan. Yuk, rutinkan berdonasi lewat apikasi Lazisnu</b>
-                    </div>
-                    <span class="text-xs w-50 text-right clr-grey">2 menit lalu</span>
-                  </div>
-                  <img class="thumb-img w-100" src="{{ asset('img/dummy-1.jpg') }}" alt="">
-                </div>
+              @empty
+              <div class="empty-state">
+                <img class="icon-empty" src="{{ asset('img/emptystate.png') }}" alt="">
+                <h5 class="mt-4 font-semibold">Data Tidak Ditemukan</h5>
+                <p class="font-medium">Maaf, data yang Anda cari tidak ditemukan</p>
+              </div>
+              @endforelse
+              <div class="d-flex mt-3 justify-content-center">
+                {{ $notifications->links('vendor.pagination.bootstrap-4') }}
               </div>
             </div>
           </div>

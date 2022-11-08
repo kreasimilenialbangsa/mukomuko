@@ -1,15 +1,15 @@
 @extends('admin.layouts.app')
 @section('title')
-    Riwayat Donasi
+    Riwayat Donasi JPZISNU
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
             <div>
-                <h1>Riwayat Donasi</h1>
+                <h1>Riwayat Donasi JPZISNU</h1>
                 <div class="section-header-breadcrumb mt-2">
                     <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Riwayat Donasi</div>
+                    <div class="breadcrumb-item">Riwayat Donasi JPZISNU</div>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
             @include('flash::message')
            <div class="card">
                 <div class="card-body">
-                @include('admin.pages.donate_histories.table')
+                @include('admin.pages.donate_histories.jpzisnu.table')
             </div>
        </div>
    </div>

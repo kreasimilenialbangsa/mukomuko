@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Detail Laporan 
+    Detail Laporan JPZISNU
 @endsection
 
 @push('style')
@@ -24,15 +24,44 @@
     <section class="section">
         <div class="section-header">
             <div>
-                <h1>Detail Laporan - {{ \Carbon\Carbon::parse('01-'.Request::segment(4))->isoFormat('MMMM YYYY') }}</h1>
+                <h1>Detail Laporan JPZISNU - {{ \Carbon\Carbon::parse('01-'.Request::segment(4))->isoFormat('MMMM YYYY') }}</h1>
                 <div class="section-header-breadcrumb mt-2">
                     <div class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('admin.report.annual.index') }}">Laporan Tahunan</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('admin.report.annual.index') }}">Laporan JPZISNU</a></div>
                     <div class="breadcrumb-item active">{{ \Carbon\Carbon::parse('01-'.Request::segment(4))->isoFormat('MMMM YYYY') }}</div>
                 </div>
             </div>
             <div class="section-header-breadcrumb">
-                <button class="btn btn-primary form-btn export-button modal-export">Export</button>
+                <a href="{{ route('admin.report.annual.index') }}"  class="btn btn-primary">Kembali</a>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="card border border-top-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select class="form-control form-control-sm select2 select-kecamatan" name="kecamatan">
+                                <option value="">Semua Kecamatan</option>
+                                @foreach($kecamatan as $row)
+                                <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <select class="form-control form-control-sm select2 select-desa" name="desa">
+                                <option value="">Semua Desa</option>
+                                @foreach($desa as $row)
+                                    <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md d-flex justify-content-end">
+                            <button class="btn btn-primary form-btn export-button modal-export">Export</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="section-body">
@@ -97,6 +126,28 @@
                                 <input type="hidden" name="from_date" id="from_date"><input type="hidden" name="to_date" id="to_date">
                             </div>
                         </div> --}}
+                        {{-- <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="from">Dari Bulan</label>
+                                <select class="form-control select2" id="from" name="from">
+                                    @foreach($months as $key => $month)
+                                    <option value="{{ $key+1 }}">{{ \Carbon\Carbon::parse('01-'.$month['month'])->isoFormat('MMMM') }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="to">Ke Bulan</label>
+                                <select class="form-control select2 select-to" id="to" name="to">
+                                    @foreach($months as $key => $month)
+                                    <option id="{{ $key+1 }}" value="{{ $key+1 }}">{{ \Carbon\Carbon::parse('01-'.$month['month'])->isoFormat('MMMM') }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div> --}}
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="kecamatan">Kecamatan</label>

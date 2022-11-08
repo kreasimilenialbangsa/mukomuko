@@ -13,14 +13,22 @@ class InformationController extends Controller
     {
         $informations = Information::latest('id')->first();
 
-        // dd($informations->toArray());
-
         return view('admin.pages.informations.index')
             ->with('informations', $informations);
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'penerima_manfaat' => 'required|:1',
+            'penghimpunan' => 'required|min:5',
+            'penyaluran' => 'required|min:5 ',
+        ],[
+            'penerima_manfaat.min' => 'Penerima Manfaat minimal adalah 1',
+            'penghimpunan.min' => 'Penghimpunan minimal adalah Rp 1.000',
+            'penyaluran.min' => 'Penyaluran minimal adalah Rp 1.000',
+        ]);
+
         $informations = [
             'penerima_manfaat' => str_replace('.', '', $request->penerima_manfaat),
             'penghimpunan' => str_replace('.', '', $request->penghimpunan),

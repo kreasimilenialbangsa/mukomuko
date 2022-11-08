@@ -14,6 +14,7 @@
             </div>
         </div>
     <div class="section-body">
+        @include('stisla-templates::common.errors')
            <div class="card">
                 <div class="card-body">
                     {!! Form::open(['route' => 'admin.informations.store', 'class' => 'form-save']) !!}

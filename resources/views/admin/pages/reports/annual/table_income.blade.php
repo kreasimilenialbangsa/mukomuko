@@ -21,12 +21,16 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            var table = $('#table_income').DataTable({
+            var table1 = $('#table_income').DataTable({
                 dom: "<'row justify-content-between px-3 mb-2'<<'fdate'>>><'row justify-content-between px-3 mb-1'>" + "<'row'<'col-sm-12'tr>>",
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.report.annual.show', ['date' => Request::segment(4), 'type' => 'income']) !!}"
+                    url: "{!!  route('admin.report.annual.show', ['date' => Request::segment(4), 'type' => 'income']) !!}",
+                    data: function(d) {
+                        d.kecamatan = $('.select-kecamatan').val(),
+                        d.desa = $('.select-desa').val()
+                    }
                 },
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center' },
@@ -61,6 +65,14 @@
             });
 
             $("div.bexport").html(`<a href="#" target="_blank" class="btn btn-primary btn-sm btn-block export-button"><i class="fa fa-file-excel"></i> Export</a>`);
+
+            $('.select-kecamatan').on('change', function(){
+                table1.draw();
+            });
+
+            $('.select-desa').on('change', function(){
+                table1.draw();
+            });
         });
 
     </script>

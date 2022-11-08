@@ -1,9 +1,9 @@
 <div>
-    <table class="table table-striped" id="table_outcome" width="100%">
+    <table class="table table-striped" id="table_income" width="100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Pengeluaran Dana</th>
+                <th>Penerimaan Dana</th>
                 <th>Total</th>
             </tr>
         </thead>
@@ -21,12 +21,12 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            var table2 = $('#table_outcome').DataTable({
+            var table1 = $('#table_income').DataTable({
                 dom: "<'row justify-content-between px-3 mb-2'<<'fdate'>>><'row justify-content-between px-3 mb-1'>" + "<'row'<'col-sm-12'tr>>",
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{!!  route('admin.report.annual.show', ['date' => Request::segment(4), 'type' => 'outcome']) !!}",
+                    url: "{!!  route('admin.report.midtrans.show', ['date' => Request::segment(4), 'type' => 'income']) !!}",
                     data: function(d) {
                         d.kecamatan = $('.select-kecamatan').val(),
                         d.desa = $('.select-desa').val()
@@ -67,11 +67,11 @@
             $("div.bexport").html(`<a href="#" target="_blank" class="btn btn-primary btn-sm btn-block export-button"><i class="fa fa-file-excel"></i> Export</a>`);
 
             $('.select-kecamatan').on('change', function(){
-                table2.draw();
+                table1.draw();
             });
 
             $('.select-desa').on('change', function(){
-                table2.draw();
+                table1.draw();
             });
         });
 

@@ -29,15 +29,11 @@
     <table class="table table-striped" id="table" width="100%">
         <thead>
             <tr>
-                <th rowspan="2">No</th>
-                <th rowspan="2">Bulan</th>
-                <th colspan="2">Total</th>
-                <th rowspan="2">Status</th>
-                <th rowspan="2">Aksi</th>
-            </tr>
-            <tr>
-                <th>Penerimaan</th>
-                <th>Pengeluaran</th>
+                <th>No</th>
+                <th>Bulan</th>
+                <th>Total Penerimaan</th>
+                <th>Status</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +42,6 @@
             <tr>
                 <th colspan="2">Jumlah</th>
                 <th>Total Income</th>
-                <th>Total Outcome</th>
                 <th colspan="2"></th>
             </tr>
         </tfoot>
@@ -65,7 +60,7 @@
                 serverSide: true,
                 scrollX: true,
                 ajax: {
-                    url: "{!!  route('admin.report.annual.index') !!}",
+                    url: "{!!  route('admin.report.midtrans.index') !!}",
                     data: function(d) {
                         d.year = $('select[name="year"]').val()
                         d.kecamatan = $('.fselect-kecamatan').val()
@@ -76,7 +71,6 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center' },
                     { data: 'month_text', name: 'month_text', className: 'text-center' },
                     { data: 'income', name: 'income', className: 'text-center' },
-                    { data: 'outcome', name: 'outcome', className: 'text-center' },
                     { data: 'status', name: 'status', className: 'text-center' },
                     { data: 'action', name: 'action', className: 'text-center', orderable: false }
                 ],
@@ -101,15 +95,13 @@
         
                     // Total over all pages
                     totalIncome = api.column( 2 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-                    totalOutcome = api.column( 3 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
         
                     // Update footer
                     $( api.column( 2 ).footer() ).html(rupiah(totalIncome));
-                    $( api.column( 3 ).footer() ).html(rupiah(totalOutcome));
                 }
             });
 
-            $("div.bexport").html(`<button class="btn btn-primary btn-block modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
+            // $("div.bexport").html(`<button class="btn btn-primary btn-block modal-export"><i class="fa fa-file-excel"></i> Export</button>`);
 
             $("div.fdate").html(`
                 <label class="d-flex align-items-center">
@@ -126,35 +118,35 @@
                 table.draw();
             });
 
-            $("div.fkecamatan").html(`
-                <div style="width: 170px;">
-                    <select class="form-control form-control-sm fselect2 fselect-kecamatan" name="kecamatan">
-                        <option value="">Semua Kecamatan</option>
-                        @foreach($kecamatan as $row)
-                            <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            `);
+            // $("div.fkecamatan").html(`
+            //     <div style="width: 170px;">
+            //         <select class="form-control form-control-sm fselect2 fselect-kecamatan" name="kecamatan">
+            //             <option value="">Semua Kecamatan</option>
+            //             @foreach($kecamatan as $row)
+            //                 <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+            //             @endforeach
+            //         </select>
+            //     </div>
+            // `);
 
-            $('.fselect-kecamatan').on('change', function(){
-                table.draw();
-            });
+            // $('.fselect-kecamatan').on('change', function(){
+            //     table.draw();
+            // });
 
-            $("div.fdesa").html(`
-                <div style="width: 150px;">
-                    <select class="form-control form-control-sm fselect2 fselect-desa" name="desa">
-                        <option value="">Semua Desa</option>
-                        @foreach($desa as $row)
-                            <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            `);
+            // $("div.fdesa").html(`
+            //     <div style="width: 150px;">
+            //         <select class="form-control form-control-sm fselect2 fselect-desa" name="desa">
+            //             <option value="">Semua Desa</option>
+            //             @foreach($desa as $row)
+            //                 <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+            //             @endforeach
+            //         </select>
+            //     </div>
+            // `);
 
-            $('.fselect-desa').on('change', function(){
-                table.draw();
-            });
+            // $('.fselect-desa').on('change', function(){
+            //     table.draw();
+            // });
 
             $('.fselect2').select2({
                 theme: 'bootstrap4',

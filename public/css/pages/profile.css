@@ -133,6 +133,13 @@
   border-radius: 50%;
 }
 
+.historytrans-page .list-history a {
+  color: #45BF7C;
+}
+.historytrans-page .list-history a:hover {
+  color: #65696F;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 767px){

@@ -6,7 +6,7 @@ use App\Models\Admin\Donate;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class DonateHistoryDataTable extends DataTable
+class DonateHistoryJpzisnuDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class DonateHistoryDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.pages.donate_histories.datatables_actions')
+        return $dataTable->addColumn('action', 'admin.pages.donate_histories.jpzisnu.datatables_actions')
             ->editColumn('date_donate', '{{ date("d/m/Y H:i", strtotime($date_donate)) }}')
             ->editColumn('type', function($q) {
                 $program = $q->type == "\App\Models\Admin\Program" ? 'Program' : 'Ziswaf';
@@ -88,7 +88,7 @@ class DonateHistoryDataTable extends DataTable
             'type' => ['title' => 'Jenis Donasi', 'className' => 'text-center', 'defaultContent' => '-'],
             'type_id' => ['title' => 'Nama Donasi', 'className' => 'text-center', 'defaultContent' => '-'],
             'name' => ['title' => 'Nama Donatur', 'className' => 'text-center'],
-            'total_donate' => ['title' => 'Jumlah Donasi']
+            'total_donate' => ['title' => 'Jumlah Donasi', 'className' => 'text-center']
         ];
     }
 

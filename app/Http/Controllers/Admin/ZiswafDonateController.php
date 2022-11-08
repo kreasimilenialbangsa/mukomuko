@@ -93,12 +93,12 @@ class ZiswafDonateController extends AppBaseController
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required|min:10',
-            'total_donate' => 'min:4',
+            'total_donate' => 'min:5',
             'date_donate' => 'required'
         ],[
             'name.required' => 'Bagian isian nama wajib diisi.',
             'phone.required' => 'Bagian isian telepon wajib diisi.',
-            'total_donate.min' => 'Minimal donasi adalah Rp 10.000',
+            'total_donate.min' => 'Minimal donasi adalah Rp 1.000',
             'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
         ]);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Donate;
+use App\Models\Admin\Notification;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
@@ -88,7 +89,13 @@ class ProfileController extends Controller
 
     public function notification(Request $request)
     {
-        return view('pages.profile.notification');
+        $notifications = Notification::select('id', 'user_id', 'title', 'body', 'image', 'created_at')
+            ->where('user_id', null)
+            ->orderBy('created_at', 'desc')
+            ->paginate(isset($request->limit) ? $request->limit : 10);
+
+        return view('pages.profile.notification')
+            ->with('notifications', $notifications);
     }
 
     public function show($id, Request $request)
