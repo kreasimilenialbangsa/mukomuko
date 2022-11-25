@@ -29,7 +29,7 @@
                         </div>
                     </div>
                   <div class="profile-widget-items">
-                    <div class="profile-widget-item">
+                    {{-- <div class="profile-widget-item">
                       <div class="profile-widget-item-label">Posts</div>
                       <div class="profile-widget-item-value">187</div>
                     </div>
@@ -40,7 +40,7 @@
                     <div class="profile-widget-item">
                       <div class="profile-widget-item-label">Following</div>
                       <div class="profile-widget-item-value">2,1K</div>
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
                 <div class="profile-widget-description">
@@ -51,7 +51,7 @@
             </div>
             <div class="col-12 col-md-12 col-lg-7">
               <div class="card">
-                <form method="post" class="needs-validation" novalidate="">
+                <form method="post" class="needs-validation" novalidate="" autocomplete="off">
                   <div class="card-header">
                     <h4>Edit Profile</h4>
                   </div>
@@ -75,15 +75,15 @@
                       <div class="row">
                         <div class="form-group col-md-4 col-12">
                             <label>NIK</label>
-                            {!! Form::number('nik', @$user->profile->nik, ['class' => 'form-control']) !!}
+                            {!! Form::text('nik', @$user->profile->nik, ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group col-md-4 col-12">
                             <label>No. KK</label>
-                            {!! Form::number('kk', @$user->profile->nik, ['class' => 'form-control']) !!}
+                            {!! Form::text('kk', @$user->profile->nik, ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group col-md-4 col-12">
                             <label>No. HP</label>
-                            {!! Form::number('telp', @$user->profile->telp, ['class' => 'form-control']) !!}
+                            {!! Form::text('telp', @$user->profile->telp, ['class' => 'form-control']) !!}
                         </div>
                       </div>
                       <div class="row">
@@ -104,6 +104,23 @@
                         <div class="form-group col-6">
                             <label>Bio</label>
                             {!! Form::textarea('bio', @$user->profile->bio, ['class' => 'form-control', 'style' => 'height: 100px;']) !!}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 mb-3">
+                          <div class="card-header pl-0 pb-2">
+                            <h4>Ganti Password</h4>
+                          </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Password</label>
+                            {!! Form::password('password', ['class' => 'form-control', 'autocomplete' => 'new-password']) !!}
+                            <span class="text-muted">Minimal 6 karakter</span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Konfirmasi Password</label>
+                            {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+                            <span class="text-danger">{{ $errors->first('password') ? $errors->first('password') : ''  }}</span>
                         </div>
                       </div>
                   </div>

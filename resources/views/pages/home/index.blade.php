@@ -442,7 +442,7 @@
       autoplaySpeed: 5000
     });
     $('.slider-gallery').slick({
-      infinite: true,
+      infinite: false,
       dots: true,
       arrows: true,
       autoplay: true,

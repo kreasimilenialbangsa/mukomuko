@@ -57,14 +57,21 @@
             <ion-icon class="ic-ion ic-sosmed" name="logo-youtube"></ion-icon>
           </a>
         </div>
+        <div class="col-lg-1 px-0 pt-3">
+          <a href="https://play.google.com/store/apps/details?id=id.lazisnumukomuko.nukoin" target="_blank">
+            <img class="mr-2" height="35" src="{{ asset('img/app-store.jpg') }}" alt="">
+          </a>
+        </div>
       </div>
     </div>
     <div class="text-center d-lg-none d-block">
       <h6 class="text-sm mb-3">Download Aplikasi NU CARE-LAZISNU</h6>
       <p class="text-xs font-medium">Lebih mudah, bisa berdonasi mulai dari Rp 10.000</p>
       <div class="d-flex justify-content-center">
-        <img class="mr-2" width="175" height="51" src="{{ asset('img/app-store.jpg') }}" alt="">
-        <img width="175" height="51" src="{{ asset('img/google-play.jpg') }}" alt="">
+        <a href="https://play.google.com/store/apps/details?id=id.lazisnumukomuko.nukoin" target="_blank">
+            <img class="mr-2" width="175" height="51" src="{{ asset('img/app-store.jpg') }}" alt="">
+          </a>
+        {{-- <img width="175" height="51" src="{{ asset('img/google-play.jpg') }}" alt=""> --}}
       </div>
       <div class="row nav-wrap m-0">
         <div class="col-4 px-0">

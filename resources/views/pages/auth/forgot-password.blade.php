@@ -33,7 +33,7 @@
         <span>Beranda</span> / <span class="current">Lupa Password</span>
       </div>
       <div class="row justify-content-center align-items-center" style="height: 55vh">
-        <section class="col-6">
+        <section class="col-md-6">
           <div class="wrapper-boxtext">
             <h4 class="mb-3">Lupa Password</h4>
 

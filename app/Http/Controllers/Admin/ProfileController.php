@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Illuminate\Support\Facades\Hash;
 use Str;
 
 class ProfileController extends Controller
@@ -28,11 +29,22 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'password' => 'confirmed|min:6'
+        ]);
+
         $userId = Auth::user()->id;
 
         $user = [
             'name' => $request->name
         ];
+
+        if(isset($request->password)) {
+            $user['password'] = Hash::make($request->password);
+        }
+
+        User::whereId($userId)->update($user);
+
 
         $profile = [
             'telp' => $request->telp,
@@ -43,8 +55,6 @@ class ProfileController extends Controller
             'bio' => $request->bio,
             'address' => $request->address
         ];
-
-        User::whereId($userId)->update($user);
 
         if(isset($request->image)) {
             if($request->hasFile('image')) {

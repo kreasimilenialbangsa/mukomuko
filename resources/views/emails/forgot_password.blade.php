@@ -106,7 +106,7 @@
                 "
               >
                 <a
-                  href="dev.inframes.id"
+                  href="{{ env('APP_URL') }}"
                   style="
                     box-sizing: border-box;
                     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
