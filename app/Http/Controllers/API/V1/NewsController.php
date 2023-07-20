@@ -34,6 +34,10 @@ class NewsController extends Controller
             ], 404); 
         }
 
+        foreach($news as $item) {
+            $item->url = env('APP_URL').'/berita/'.$item->slug;
+        }
+
         return response()->json([
             'status' => true,
             'success' => 'success',
@@ -58,6 +62,7 @@ class NewsController extends Controller
         }
 
         $news->content = str_replace('/storage/', env('APP_URL').'/storage/', $news->content);
+        $news->url = env('APP_URL').'/berita/'.$news->slug;
 
         $latestNews = News::select('id', 'category_id', 'user_id', 'title', 'slug', 'date_news', 'created_at')
             ->with(['user', 'category', 'images'])

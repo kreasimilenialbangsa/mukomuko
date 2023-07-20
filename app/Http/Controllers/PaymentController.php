@@ -147,15 +147,18 @@ class PaymentController extends Controller
                 'phone' => $input['userPhone'],
             ),
             'enabled_payments' => array($input['paymentChannel']),
+            'callbacks' => array(
+                'finish' => route('payment.detail', $orderID)
+            ),
             'vtweb' => array()
         );
 
-        // if($input['paymentChannel'] == 'gopay') {
-        //     $midtrans += array("gopay" => array(
-        //         "enable_callback" => true,
-        //         "callback_url" => route('payment.detail', $orderID)
-        //     ));
-        // }
+        if($input['paymentChannel'] == 'gopay') {
+            $midtrans += array("gopay" => array(
+                "enable_callback" => true,
+                "callback_url" => route('payment.detail', $orderID)
+            ));
+        }
 
         $transaction = Snap::createTransaction($midtrans);
 

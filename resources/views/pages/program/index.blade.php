@@ -117,7 +117,7 @@
             @endforelse
           </div>
           <div class="d-flex mt-3 justify-content-center">
-            {{ $programs->links('vendor.pagination.bootstrap-4') }}
+            {{ $programs->withQueryString()->onEachSide(0)->links('vendor.pagination.bootstrap-4') }}
           </div>
         </section>
       </div>
