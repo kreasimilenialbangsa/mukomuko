@@ -11,6 +11,12 @@
         {!! Form::select('desa_id', $desa, null, ['class' => 'form-control select2']) !!}
     </div>
 
+    <!-- Income Id Field -->
+    <div class="form-group form_desa {{ @$outcome->category_id == 6 ? 'd-none' : '' }}">
+        {!! Form::label('perolehan_id', 'Bagan:') !!}
+        {!! Form::select('perolehan_id', $income, null, ['class' => 'form-control select2']) !!}
+    </div>
+
     <!-- Date Field -->
     <div class="form-group">
         {!! Form::label('date_outcome', 'Tanggal:') !!}

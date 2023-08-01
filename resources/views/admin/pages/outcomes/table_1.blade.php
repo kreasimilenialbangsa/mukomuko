@@ -4,6 +4,7 @@
         <tr>
             <th>Tanggal</th>
             <th>Desa</th>
+            <th>Bagan</th>
             <th>Kategori</th>
             <th>Deskripsi</th>
             <th>Nominal</th>
@@ -14,7 +15,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="4">Jumlah</th>            
+            <th colspan="5">Jumlah</th>            
             <th>0</th>
             <th></th>
         </tr>
@@ -46,6 +47,7 @@
                 columns: [
                     { data: 'date_outcome', name: 'date_outcome', defaultContent: '-', className: 'text-center' },
                     { data: 'desa.name', name: 'desa.name', defaultContent: '-', className: 'text-center' },
+                    { data: 'income.name', name: 'income.name', defaultContent: '-', className: 'text-center' },
                     { data: 'category.name', name: 'category.name', defaultContent: '-', className: 'text-center' },
                     { data: 'description', name: 'description', defaultContent: '-', className: 'text-center' },
                     { data: 'nominal', name: 'nominal', defaultContent: '-', className: 'text-center' },
@@ -71,10 +73,10 @@
                     };
         
                     // Total over all pages
-                    total = api.column( 4 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+                    total = api.column( 5 ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
         
                     // Update footer
-                    $( api.column( 4 ).footer() ).html(rupiah(total));
+                    $( api.column( 5 ).footer() ).html(rupiah(total));
                 }
             });
 

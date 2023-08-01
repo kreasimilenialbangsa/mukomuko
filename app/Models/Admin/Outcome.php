@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $user_id
  * @property integer $desa_id
+ * @property integer $perolehan_id
  * @property integer $category_id
  * @property string $description
  * @property integer $nominal
@@ -33,6 +34,7 @@ class Outcome extends Model
     public $fillable = [
         'user_id',
         'desa_id',
+        'perolehan_id',
         'category_id',
         'description',
         'nominal',
@@ -47,6 +49,7 @@ class Outcome extends Model
     protected $casts = [
         'user_id' => 'integer',
         'desa_id' => 'integer',
+        'perolehan_id' => 'integer',
         'category_id' => 'integer',
         'description' => 'string',
         'nominal' => 'integer',
@@ -69,6 +72,11 @@ class Outcome extends Model
     public function desa()
     {
         return $this->belongsTo(\App\Models\Admin\Desa::class, 'desa_id');
+    }
+
+    public function income()
+    {
+        return $this->belongsTo(\App\Models\Admin\Income::class, 'perolehan_id');
     }
 
     

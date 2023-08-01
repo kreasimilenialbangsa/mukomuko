@@ -11,6 +11,7 @@ use App\Repositories\Admin\OutcomeRepository;
 use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Admin\Desa;
+use App\Models\Admin\Income;
 use App\Models\Admin\Kecamatan;
 use App\Models\Admin\Outcome;
 use App\Models\Admin\OutcomeCategory;
@@ -56,9 +57,9 @@ class OutcomeController extends AppBaseController
 
         if($request->ajax()) {
             if($request->type == 1) {
-                $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+                $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.perolehan_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
                     ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
-                    ->with(['category', 'desa'])
+                    ->with(['category', 'desa', 'income'])
                     ->where('outcomes.category_id', '<>', 6)
                     ->when(!empty($request->kecamatan), function($q) use($request) {
                         $q->where('locations.parent_id', $request->kecamatan);
@@ -110,9 +111,11 @@ class OutcomeController extends AppBaseController
     {
         $desa = Desa::where('parent_id', '>', 0)->orderBy('name', 'asc')->pluck('name', 'id');
         $categories = OutcomeCategory::pluck('name', 'id');
+        $income = Income::pluck('name', 'id');
 
         return view('admin.pages.outcomes.create')
             ->with('desa', $desa)
+            ->with('income', $income)
             ->with('categories', $categories);
     }
 
@@ -134,6 +137,7 @@ class OutcomeController extends AppBaseController
         $input = [
             'user_id' => Auth::user()->id,
             'desa_id' => $request->category_id == 6 ? 0 : $request->desa_id,
+            'perolehan_id' => $request->category_id == 6 ? 0 : $request->perolehan_id,
             'category_id' => $request->category_id,
             'description' => $request->description,
             'nominal' => str_replace('.', '', $request->nominal),
@@ -214,6 +218,7 @@ class OutcomeController extends AppBaseController
         $input = [
             'user_id' => Auth::user()->id,
             'desa_id' => $request->category_id == 6 ? 0 : $request->desa_id,
+            'perolehan_id' => $request->category_id == 6 ? 0 : $request->perolehan_id,
             'category_id' => $request->category_id,
             'description' => $request->description,
             'nominal' => str_replace('.', '', $request->nominal),
@@ -254,9 +259,9 @@ class OutcomeController extends AppBaseController
     public function export(Request $request)
     {   
         if($request->type == 1) {
-            $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
+            $outcomes = Outcome::select('outcomes.id', 'outcomes.user_id', 'outcomes.desa_id', 'outcomes.perolehan_id', 'outcomes.category_id', 'outcomes.description', 'outcomes.nominal', 'outcomes.date_outcome')
                 ->join('locations', 'locations.id', 'outcomes.desa_id')
-                ->with(['category', 'desa'])
+                ->with(['category', 'desa', 'income'])
                 ->when(!empty($request->kecamatan), function($q) use($request) {
                     $q->where('locations.parent_id', $request->kecamatan);
                 })
