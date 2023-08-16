@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Home1
+  Beranda
 @endsection
 
 @section('meta')
