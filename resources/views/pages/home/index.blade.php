@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Home
+  Home1
 @endsection
 
 @section('meta')
