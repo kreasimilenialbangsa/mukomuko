@@ -190,10 +190,12 @@ class OutcomeController extends AppBaseController
 
         $desa = Desa::where('parent_id', '>', 0)->pluck('name', 'id');
         $categories = OutcomeCategory::pluck('name', 'id');
+        $income = Income::pluck('name', 'id');
 
         return view('admin.pages.outcomes.edit')
             ->with('desa', $desa)
             ->with('categories', $categories)
+            ->with('income', $income)
             ->with('outcome', $outcome);
     }
 
