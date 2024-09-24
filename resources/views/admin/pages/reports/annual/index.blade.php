@@ -69,7 +69,7 @@
                                 <label for="to">Ke Bulan</label>
                                 <select class="form-control select2 select-to" id="to" name="to">
                                     @foreach($months as $key => $month)
-                                    <option id="{{ $key+1 }}" value="{{ $key+1 }}">{{ \Carbon\Carbon::parse('01-'.$month['month'])->isoFormat('MMMM') }}</option>
+                                    <option id="{{ $key+1 }}" value="{{ $key+1 }}" {{ $key+1 == date('m') ? 'selected' : '' }}>{{ \Carbon\Carbon::parse('01-'.$month['month'])->isoFormat('MMMM') }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -80,7 +80,7 @@
                                 <label for="year">Tahun</label>
                                 <select class="form-control select2" id="year" name="year">
                                     @foreach($year as $row)
-                                        <option value="{{ $row->year }}" {{ $row->year == date('Y') ? 'selected' : '' }}>{{ $row->year }}</option>
+                                        <option value="{{ $row }}" {{ $row == date('Y') ? 'selected' : '' }}>{{ $row }}</option>
                                     @endforeach
                                 </select>
                             </div>

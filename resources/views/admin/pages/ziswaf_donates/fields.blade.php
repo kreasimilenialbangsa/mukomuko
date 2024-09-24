@@ -1,4 +1,18 @@
 <div class="col-md-6">
+    @role('SuperAdmin')
+    <!-- Desa Id Field -->
+    <div class="form-group">
+      {!! Form::label('desa', 'Desa:') !!}
+      {!! Form::select('desa', $desa, @$donate->location_id, ['class' => 'form-control select2 desa']) !!}
+    </div>
+
+    <!-- Desa Id Field -->
+    <div class="form-group">
+      {!! Form::label('akun', 'Perwakilan JPZISNU:') !!}
+      {!! Form::select('akun', [], null, ['class' => 'form-control select2-user']) !!}
+    </div>
+    @endrole
+
     <!-- Name Field -->
     <div class="form-group">
         {!! Form::label('name', 'Nama:') !!}
@@ -14,30 +28,34 @@
         </label>
     </div>
 
-    <!-- Donate Date Field -->
-    <div class="form-group">
-      {!! Form::label('date_donate', 'Tanggal Donasi:') !!}
-      {!! Form::date('date_donate', @$donate->date_donate ? date('Y-m-d', strtotime($donate->date_donate)) : date('Y-m-d'), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}
-    </div>
+</div>
 
-    <!-- Email Field -->
-    <div class="form-group">
-        {!! Form::label('email', 'Email:') !!}
-        {!! Form::text('email', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="col-md-6">
+  <!-- Donate Date Field -->
+  <div class="form-group">
+    {!! Form::label('date_donate', 'Tanggal Donasi:') !!}
+    {!! Form::date('date_donate', @$donate->date_donate ? date('Y-m-d', strtotime($donate->date_donate)) : date('Y-m-d'), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}
+  </div>
 
-    <!-- Phone Field -->
-    <div class="form-group">
-        {!! Form::label('phone', 'Telepon:') !!}
-        {!! Form::number('phone', null, ['class' => 'form-control']) !!}
-    </div>
+  <!-- Email Field -->
+  <div class="form-group">
+      {!! Form::label('email', 'Email:') !!}
+      {!! Form::text('email', null, ['class' => 'form-control']) !!}
+  </div>
 
-    <!-- Message Field -->
-    <div class="form-group">
-        {!! Form::label('message', 'Doa:') !!}
-        {!! Form::textarea('message', null, ['class' => 'form-control', 'style' => 'height: 100px;']) !!}
-    </div>
+  <!-- Phone Field -->
+  <div class="form-group">
+      {!! Form::label('phone', 'Telepon:') !!}
+      {!! Form::number('phone', null, ['class' => 'form-control']) !!}
+  </div>
 
+  <!-- Message Field -->
+  <div class="form-group">
+      {!! Form::label('message', 'Doa:') !!}
+      {!! Form::textarea('message', null, ['class' => 'form-control', 'style' => 'height: 100px;']) !!}
+  </div>
+
+  <div class="form-group">
     <!-- Total Donate Field -->
     {!! Form::label('total_donate', 'Total Donasi:') !!}
     <div class="input-group mb-3">
@@ -46,9 +64,7 @@
         </div>
         {!! Form::text('total_donate', null, ['class' => 'form-control currency', 'aria-describedby' => 'basic-addon1']) !!}
     </div>
-</div>
-
-<div class="col-md-6">
+  </div>
     {{-- <div class="card-thumbnail mb-4">
         <div class="thumb-pict">
           <img class="w-100" src="{{ asset('storage/' . $ziswaf->image) }}" alt="{{ $ziswaf->title }}">
@@ -82,6 +98,50 @@
 
 @push('script')
   <script>
+    $(document).ready(function() {      
+
+      let val = $('.desa').val();
+
+      $('.desa').on('change', function() {
+          val = $(this).val();
+
+          $('.select2-user').val('').trigger('change');
+      });
+
+      $('.select2-user').select2({
+          theme: 'bootstrap4',
+          placeholder: 'Pilih',
+          ajax: {
+              url: "{{ Request::url() }}",
+              dataType: 'json',
+              data: function (params) {
+                  var queryParameters = {
+                      term: params.term,
+                      type: val
+                  }
+                  return queryParameters;
+              },
+              processResults: function (data) {
+                  return {
+                      results: $.map(data, function (item) {
+                          return {
+                              text: item.name,
+                              id: item.id
+                          }
+                      })
+                  };
+              }
+          }
+      });
+
+      @role('SuperAdmin')
+        @if(@$donate)
+          var newOption1 = new Option('{{ @$donate->user->name }}', {{@$donate->user_id }}, true, true);
+          $('.select2-user').append(newOption1).trigger('change');
+        @endif
+      @endrole
+    });
+
     $(document).on('click','.save',function(e){
         e.preventDefault();
         Swal.fire({

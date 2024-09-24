@@ -1,5 +1,5 @@
 <div class='text-center d-flex justify-content-center'>
-    @if(date('m-Y') >= $month)
+    @if(strtotime(date('Y-m-d')) >= strtotime(date('01-'.$month)) && strlen($month) > 4)
         <a href="{{ route('admin.report.annual.show', $month) }}" class='btn btn-primary btn-xs'>
             <i class="fa fa-eye"></i>
         </a>

@@ -70,6 +70,7 @@ class OutcomeDataTable extends DataTable
         return [
             'date_outcome' => ['title' => 'Tanggal', 'className' => 'text-center',],
             'desa.name' => ['title' => 'Desa', 'data' => 'desa.name', 'name' => 'desa.name', 'className' => 'text-center',],
+            'income.name' => ['title' => 'Bagan', 'data' => 'income.name', 'name' => 'income.name', 'className' => 'text-center',],
             'category.name' => ['title' => 'Kategori', 'data' => 'category.name', 'name' => 'category.name', 'className' => 'text-center',],
             'description' => ['title' => 'Deskripsi'],
             'nominal' => ['className' => 'text-center']

@@ -56,7 +56,7 @@ class ReportController extends AppBaseController
             ];
         }
 
-        $years = range(date("Y"), 2022);
+        $years = range(date("Y"), 2021);
 
         if($request->ajax()) {
             $donatur = User::select('users.id', 'users.location_id', 'users.name', 'users.created_at')
@@ -87,7 +87,7 @@ class ReportController extends AppBaseController
                 }], 'total_donate')
                 ->whereRelation('role_user', 'role_id', 4)
                 ->orderBy('locations.parent_id', 'asc')
-                ->get();
+                ->withTrashed()->get();
 
             foreach($donatur as $key => $row) {
                 foreach($incomes as $no => $income) {
@@ -232,6 +232,8 @@ class ReportController extends AppBaseController
         }
 
         if($request->ajax()) {
+            $yearBefore = intval($request->year)-1;
+            
             foreach($months as $key => $row) {
                 $income = DB::table('donates')
                     ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%m-%Y') as month"), DB::raw("SUM(donates.total_donate) as total"))
@@ -300,11 +302,12 @@ class ReportController extends AppBaseController
                 }
 
                 $months[$key]['month_text'] = Carbon::parse('01-'.$row['month'])->isoFormat('MMMM');
-                $months[$key]['status'] = date('m-Y') == $row['month'] ? 'Sedang Berjalan' : (date('m-Y') < $row['month'] ? 'Belum' : 'Selesai');
+                $months[$key]['status'] = date('m-Y', strtotime(date('Y-m-d'))) == $row['month'] ? 'Sedang Berjalan' : (strtotime(date('Y-m-d')) < strtotime(date('01-'.$row['month'])) ? 'Belum' : 'Selesai');
             }
 
             $lastYearIncome = DB::table('donates')
-                ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%Y') as year"), DB::raw("SUM(donates.total_donate) as total"))
+                // ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%Y') as year"), DB::raw("SUM(donates.total_donate) as total"))
+                ->select(DB::raw("SUM(donates.total_donate) as total"))
                 ->leftJoin('locations', 'locations.id', 'donates.location_id')
                 ->when(!empty($request->desa) || !empty($request->kecamatan), function($q) use($request) {
                     if(isset($request->kecamatan) && isset($request->desa)) {
@@ -315,16 +318,17 @@ class ReportController extends AppBaseController
                         $q->where('locations.id', $request->desa);
                     }
                 })
-                ->whereBetween(DB::raw("DATE_FORMAT(donates.date_donate, '%Y')"), [intval('2021'), intval(date('Y')-1)])
+                ->whereBetween(DB::raw("DATE_FORMAT(donates.date_donate, '%Y')"), [2021, $yearBefore])
                 ->whereNull('donates.deleted_at')
                 ->where('donates.type', '\App\Models\Admin\Ziswaf')
                 ->whereIsConfirm(1)
                 ->whereIsPayment(0)
-                ->groupBy('year')
+                // ->groupBy('type')
                 ->first();
 
             $lastYearOutcome = DB::table('outcomes')
-                ->select(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y') as year"), DB::raw("SUM(outcomes.nominal) as total"))
+                // ->select(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y') as year"), DB::raw("SUM(outcomes.nominal) as total"))
+                ->select(DB::raw("SUM(outcomes.nominal) as total"))
                 ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
                 ->when(!empty($request->desa) || !empty($request->kecamatan), function($q) use($request) {
                     if(isset($request->kecamatan) && isset($request->desa)) {
@@ -335,14 +339,14 @@ class ReportController extends AppBaseController
                         $q->where('locations.id', $request->desa);
                     }
                 })
-                ->whereBetween(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y')"), [intval('2021'), intval(date('Y')-1)])
+                ->whereBetween(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y')"), [2021, $yearBefore])
                 ->whereNull('outcomes.deleted_at')
-                ->groupBy('year')
+                // ->groupBy('year')
                 ->first();
 
             array_unshift($months, [
-                'month' => intval(date('Y')-1),
-                'month_text' => 'Saldo Akhir Tahun '.intval(date('Y')-1),
+                'month' => $yearBefore,
+                'month_text' => 'Saldo Per Desember '.$yearBefore,
                 'income' => isset($lastYearIncome) ? $lastYearIncome->total : 0,
                 'outcome' => isset($lastYearOutcome) ? $lastYearOutcome->total : 0,
                 'status' => 'Selesai'
@@ -356,10 +360,7 @@ class ReportController extends AppBaseController
                 ->make(true);
         }
 
-        $year = DB::table('donates')
-            ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"))
-            ->groupBy('year')
-            ->get();
+        $year = range(2021, date('Y'));
         
         // dd($months);
 
@@ -379,7 +380,7 @@ class ReportController extends AppBaseController
      */
     public function jpzisnuReportShow(Request $request, $date)
     {
-        if(date('m-Y') < $date) {
+        if(strtotime(date('Y-m-d')) < strtotime(date('01-'.$date))) {
             Session::flash('error', 'Belum memasuki bulan tersebut');
             return redirect()->route('admin.report.annual.index');
         }
@@ -540,6 +541,8 @@ class ReportController extends AppBaseController
             ];
         }
 
+        $yearBefore = intval($request->year)-1;
+
         foreach($months as $key => $row) {
             // Income
             $income = DB::table('donates')
@@ -635,31 +638,33 @@ class ReportController extends AppBaseController
 
             // Other
             $months[$key]['month_text'] = Carbon::parse('01-'.$row['month'])->isoFormat('MMMM');
-            $months[$key]['status'] = date('m-Y') == $row['month'] ? 'Sedang Berjalan' : (date('m-Y') < $row['month'] ? 'Belum' : 'Selesai');
+            $months[$key]['status'] = date('m-Y', strtotime(date('Y-m-d'))) == $row['month'] ? 'Sedang Berjalan' : (strtotime(date('Y-m-d')) < strtotime(date('01-'.$row['month'])) ? 'Belum' : 'Selesai');
         }
 
         // Last Year Income
         $lastYearIncome = DB::table('donates')
-            ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"), DB::raw("SUM(total_donate) as total"))
-            ->whereBetween(DB::raw("DATE_FORMAT(date_donate, '%Y')"), [intval('2021'), intval(date('Y')-1)])
+            // ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"), DB::raw("SUM(total_donate) as total"))
+            ->select(DB::raw("SUM(total_donate) as total"))
+            ->whereBetween(DB::raw("DATE_FORMAT(date_donate, '%Y')"), [2021, $yearBefore])
             ->whereNull('deleted_at')
             ->whereType('\App\Models\Admin\Ziswaf')
             ->whereIsConfirm(1)
             ->whereIsPayment(0)
-            ->groupBy('year')
+            // ->groupBy('year')
             ->first();
 
         // Last Year Outcome
         $lastYearOutcome = DB::table('outcomes')
-            ->select(DB::raw("DATE_FORMAT(date_outcome, '%Y') as year"), DB::raw("SUM(nominal) as total"))
-            ->whereBetween(DB::raw("DATE_FORMAT(date_outcome, '%Y')"), [intval('2021'), intval(date('Y')-1)])
+            // ->select(DB::raw("DATE_FORMAT(date_outcome, '%Y') as year"), DB::raw("SUM(nominal) as total"))
+            ->select(DB::raw("SUM(nominal) as total"))
+            ->whereBetween(DB::raw("DATE_FORMAT(date_outcome, '%Y')"), [2021, $yearBefore])
             ->whereNull('deleted_at')
-            ->groupBy('year')
+            // ->groupBy('year')
             ->first();
 
         array_unshift($months, [
-            'month' => intval(date('Y')-1),
-            'month_text' => 'Saldo Akhir Tahun '.intval(date('Y')-1),
+            'month' => $yearBefore,
+            'month_text' => 'Saldo Akhir Tahun '.$yearBefore,
             'income' => isset($lastYearIncome) ? $lastYearIncome->total : 0,
             'outcome' => isset($lastYearOutcome) ? $lastYearOutcome->total : 0,
             'status' => 'Selesai'
@@ -898,6 +903,8 @@ class ReportController extends AppBaseController
         }
 
         if($request->ajax()) {
+            $yearBefore = intval($request->year)-1;
+
             foreach($months as $key => $row) {
                 $income = DB::table('donates')
                     ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%m-%Y') as month"), DB::raw("SUM(donates.total_donate) as total"))
@@ -966,7 +973,7 @@ class ReportController extends AppBaseController
                 }
 
                 $months[$key]['month_text'] = Carbon::parse('01-'.$row['month'])->isoFormat('MMMM');
-                $months[$key]['status'] = date('m-Y') == $row['month'] ? 'Sedang Berjalan' : (date('m-Y') < $row['month'] ? 'Belum' : 'Selesai');
+                $months[$key]['status'] = date('m-Y', strtotime(date('Y-m-d'))) == $row['month'] ? 'Sedang Berjalan' : (strtotime(date('Y-m-d')) < strtotime(date('01-'.$row['month'])) ? 'Belum' : 'Selesai');
             }
 
             $lastYearIncome = DB::table('donates')
@@ -981,7 +988,7 @@ class ReportController extends AppBaseController
                         $q->where('locations.id', $request->desa);
                     }
                 })
-                ->whereBetween(DB::raw("DATE_FORMAT(donates.date_donate, '%Y')"), [intval('2021'), intval(date('Y')-1)])
+                ->whereBetween(DB::raw("DATE_FORMAT(donates.date_donate, '%Y')"), [2021, $yearBefore])
                 ->whereNull('donates.deleted_at')
                 ->where('donates.type', '\App\Models\Admin\Ziswaf')
                 ->whereIsConfirm(1)
@@ -1001,14 +1008,14 @@ class ReportController extends AppBaseController
                         $q->where('locations.id', $request->desa);
                     }
                 })
-                ->whereBetween(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y')"), [intval('2021'), intval(date('Y')-1)])
+                ->whereBetween(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y')"), [2021, $yearBefore])
                 ->whereNull('outcomes.deleted_at')
                 ->groupBy('year')
                 ->first();
 
             array_unshift($months, [
-                'month' => intval(date('Y')-1),
-                'month_text' => 'Saldo Akhir Tahun '.intval(date('Y')-1),
+                'month' => $yearBefore,
+                'month_text' => 'Saldo Akhir Tahun '.$yearBefore,
                 'income' => isset($lastYearIncome) ? $lastYearIncome->total : 0,
                 'outcome' => isset($lastYearOutcome) ? $lastYearOutcome->total : 0,
                 'status' => 'Selesai'
@@ -1022,10 +1029,7 @@ class ReportController extends AppBaseController
                 ->make(true);
         }
 
-        $year = DB::table('donates')
-            ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"))
-            ->groupBy('year')
-            ->get();
+        $year = range(date("Y"), 2021);
 
         return view('admin.pages.reports.midtrans.index')
             ->with('kecamatan', $kecamatan)
@@ -1043,7 +1047,7 @@ class ReportController extends AppBaseController
      */
     public function midtransReportShow(Request $request, $date)
     {
-        if(date('m-Y') < $date) {
+        if(strtotime(date('Y-m-d')) < strtotime(date('01-'.$date))) {
             Session::flash('error', 'Belum memasuki bulan tersebut');
             return redirect()->route('admin.report.annual.index');
         }
@@ -1204,76 +1208,68 @@ class ReportController extends AppBaseController
             ];
         }
 
+        $yearBefore = intval($request->year)-1;
+
         foreach($months as $key => $row) {
-            // Income
             $income = DB::table('donates')
-                ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+                ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%m-%Y') as month"), DB::raw("SUM(donates.total_donate) as total"))
+                ->leftJoin('locations', 'locations.id', 'donates.location_id')
+                ->when(!empty($request->desa) || !empty($request->kecamatan), function($q) use($request) {
+                    if(isset($request->kecamatan) && isset($request->desa)) {
+                        $q->where('locations.id', $request->desa);
+                    } elseif(isset($request->kecamatan)) {
+                        $q->where('locations.parent_id', $request->kecamatan);
+                    } else {
+                        $q->where('locations.id', $request->desa);
+                    }
+                })
                 ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
-                ->whereNull('deleted_at')
-                ->whereType('\App\Models\Admin\Ziswaf')
+                ->whereNull('donates.deleted_at')
+                ->where('donates.type', '\App\Models\Admin\Ziswaf')
                 ->whereIsConfirm(1)
-                ->whereIsPayment(0)
+                ->whereIsPayment(1)
                 ->groupBy('month')
                 ->first();
 
             $program = DB::table('donates')
-                ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
+                ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%m-%Y') as month"), DB::raw("SUM(donates.total_donate) as total"))
+                ->leftJoin('locations', 'locations.id', 'donates.location_id')
+                ->when(!empty($request->desa) || !empty($request->kecamatan), function($q) use($request) {
+                    if(isset($request->kecamatan) && isset($request->desa)) {
+                        $q->where('locations.id', $request->desa);
+                    } elseif(isset($request->kecamatan)) {
+                        $q->where('locations.parent_id', $request->kecamatan);
+                    } else {
+                        $q->where('locations.id', $request->desa);
+                    }
+                })
                 ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
-                ->whereNull('deleted_at')
-                ->whereType('\App\Models\Admin\Program')
+                ->whereNull('donates.deleted_at')
+                ->where('donates.type', '\App\Models\Admin\Program')
                 ->whereIsConfirm(1)
-                ->whereIsPayment(0)
+                ->whereIsPayment(1)
                 ->groupBy('month')
                 ->first();
-            
+
             if($row['month'] == !empty($income->month) ? $income->month : null) {
                 $program_total = !empty($program->total) ? $program->total : 0;
                 $months[$key]['income'] = ($income->total + $program_total);
             }
 
-            // Detail Income
-            $detailIncome = [];
-            foreach($ziswafCat as $item) {
-                $totalIncome = Donate::select('type_id', DB::raw("SUM(total_donate) as total_donate"))
-                    ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
-                    ->whereType('\App\Models\Admin\Ziswaf')
-                    ->whereTypeId($item->id)
-                    ->whereIsConfirm(1)
-                    ->whereIsPayment(0)
-                    ->groupBy('type_id')
-                    ->first();
-
-                $total_income = !empty($totalIncome->total_donate) ? $totalIncome->total_donate : 0;
-
-                if($item->id == 7) {
-                    $program = DB::table('donates')
-                        ->select(DB::raw("DATE_FORMAT(date_donate, '%m-%Y') as month"), DB::raw("SUM(total_donate) as total"))
-                        ->where(DB::raw("DATE_FORMAT(date_donate, '%m-%Y')"), $row['month'])
-                        ->whereNull('deleted_at')
-                        ->whereType('\App\Models\Admin\Program')
-                        ->whereIsConfirm(1)
-                        ->whereIsPayment(0)
-                        ->groupBy('month')
-                        ->first();  
-                        
-                    $program_total = !empty($program->total) ? $program->total : 0;
-                    $total_donate = ($total_income + $program_total);
-                } else {
-                    $total_donate = $total_income;
-                }
-
-                array_push($detailIncome, [
-                    'title' => $item->title,
-                    'total_donate' => $total_donate
-                ]);
-            }
-            $months[$key]['income_detail'] = $detailIncome;
-
-            // Outcome
             $outcome = DB::table('outcomes')
-                ->select(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y') as month"), DB::raw("SUM(nominal) as total"))
-                ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $row['month'])
-                ->whereNull('deleted_at')
+                ->select(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%m-%Y') as month"), DB::raw("SUM(outcomes.nominal) as total"))
+                ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
+                ->when(!empty($request->desa) || !empty($request->kecamatan), function($q) use($request) {
+                    if(isset($request->kecamatan) && isset($request->desa)) {
+                        $q->where('locations.id', $request->desa);
+                    } elseif(isset($request->kecamatan)) {
+                        $q->where('locations.parent_id', $request->kecamatan);
+                    } else {
+                        $q->where('locations.id', $request->desa);
+                    }
+                })
+                ->where(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%m-%Y')"), $row['month'])
+                ->whereNull('outcomes.deleted_at')
                 ->groupBy('month')
                 ->first();
 
@@ -1281,49 +1277,50 @@ class ReportController extends AppBaseController
                 $months[$key]['outcome'] = $outcome->total;
             }
 
-            // Detail Outcome
-            $detailOutcome = [];
-            foreach($outcomeCat as $item) {
-                $totalOutcome = Outcome::select('category_id', DB::raw("SUM(nominal) as total_donate"))
-                    ->where(DB::raw("DATE_FORMAT(date_outcome, '%m-%Y')"), $row['month'])
-                    ->whereCategoryId($item->id)
-                    ->groupBy('category_id')
-                    ->first();
-
-                array_push($detailOutcome, [
-                    'title' => $item->name,
-                    'total_donate' => !empty($totalOutcome->total_donate) ? $totalOutcome->total_donate : 0
-                ]);
-            }
-            $months[$key]['outcome_detail'] = $detailOutcome;
-
-            // Other
             $months[$key]['month_text'] = Carbon::parse('01-'.$row['month'])->isoFormat('MMMM');
-            $months[$key]['status'] = date('m-Y') == $row['month'] ? 'Sedang Berjalan' : (date('m-Y') < $row['month'] ? 'Belum' : 'Selesai');
+            $months[$key]['status'] = date('m-Y', strtotime(date('Y-m-d'))) == $row['month'] ? 'Sedang Berjalan' : (strtotime(date('Y-m-d')) < strtotime(date('01-'.$row['month'])) ? 'Belum' : 'Selesai');
         }
 
-        // Last Year Income
         $lastYearIncome = DB::table('donates')
-            ->select(DB::raw("DATE_FORMAT(date_donate, '%Y') as year"), DB::raw("SUM(total_donate) as total"))
-            ->whereBetween(DB::raw("DATE_FORMAT(date_donate, '%Y')"), [intval('2021'), intval(date('Y')-1)])
-            ->whereNull('deleted_at')
-            ->whereType('\App\Models\Admin\Ziswaf')
+            ->select(DB::raw("DATE_FORMAT(donates.date_donate, '%Y') as year"), DB::raw("SUM(donates.total_donate) as total"))
+            ->leftJoin('locations', 'locations.id', 'donates.location_id')
+            ->when(!empty($request->desa) || !empty($request->kecamatan), function($q) use($request) {
+                if(isset($request->kecamatan) && isset($request->desa)) {
+                    $q->where('locations.id', $request->desa);
+                } elseif(isset($request->kecamatan)) {
+                    $q->where('locations.parent_id', $request->kecamatan);
+                } else {
+                    $q->where('locations.id', $request->desa);
+                }
+            })
+            ->whereBetween(DB::raw("DATE_FORMAT(donates.date_donate, '%Y')"), [2021, $yearBefore])
+            ->whereNull('donates.deleted_at')
+            ->where('donates.type', '\App\Models\Admin\Ziswaf')
             ->whereIsConfirm(1)
-            ->whereIsPayment(0)
+            ->whereIsPayment(1)
             ->groupBy('year')
             ->first();
 
-        // Last Year Outcome
         $lastYearOutcome = DB::table('outcomes')
-            ->select(DB::raw("DATE_FORMAT(date_outcome, '%Y') as year"), DB::raw("SUM(nominal) as total"))
-            ->whereBetween(DB::raw("DATE_FORMAT(date_outcome, '%Y')"), [intval('2021'), intval(date('Y')-1)])
-            ->whereNull('deleted_at')
+            ->select(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y') as year"), DB::raw("SUM(outcomes.nominal) as total"))
+            ->leftJoin('locations', 'locations.id', 'outcomes.desa_id')
+            ->when(!empty($request->desa) || !empty($request->kecamatan), function($q) use($request) {
+                if(isset($request->kecamatan) && isset($request->desa)) {
+                    $q->where('locations.id', $request->desa);
+                } elseif(isset($request->kecamatan)) {
+                    $q->where('locations.parent_id', $request->kecamatan);
+                } else {
+                    $q->where('locations.id', $request->desa);
+                }
+            })
+            ->whereBetween(DB::raw("DATE_FORMAT(outcomes.date_outcome, '%Y')"), [2021, $yearBefore])
+            ->whereNull('outcomes.deleted_at')
             ->groupBy('year')
             ->first();
 
         array_unshift($months, [
-            'month' => intval(date('Y')-1),
-            'month_text' => 'Saldo Akhir Tahun '.intval(date('Y')-1),
+            'month' => $yearBefore,
+            'month_text' => 'Saldo Akhir Tahun '.$yearBefore,
             'income' => isset($lastYearIncome) ? $lastYearIncome->total : 0,
             'outcome' => isset($lastYearOutcome) ? $lastYearOutcome->total : 0,
             'status' => 'Selesai'

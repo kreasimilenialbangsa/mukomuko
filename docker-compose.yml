@@ -1,0 +1,52 @@
+services:
+  mukomuko-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mukomuko-app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+
+  mukomuko-web:
+    image: nginx:alpine
+    container_name: mukomuko-web
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+
+  mysql:
+    image: 'mysql:8.0'
+    container_name: mysql
+    ports:
+      - '${FORWARD_DB_PORT:-3306}:3306'
+    environment:
+      MYSQL_DATABASE: '${DB_DATABASE:-mukomuko}'
+      MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD:-root}' # Keep this for root user
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+      # Remove the following two lines
+      # MYSQL_USER: '${DB_USERNAME:-root}'
+      # MYSQL_PASSWORD: '${DB_PASSWORD:-root}'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

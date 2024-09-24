@@ -99,7 +99,7 @@
             @endforelse
           </div>
           <div class="d-flex mt-4 justify-content-center">
-            {{ $donates->links('vendor.pagination.bootstrap-4') }}
+            {{ $donates->withQueryString()->onEachSide(0)->links('vendor.pagination.bootstrap-4') }}
           </div>
         </section>
       </div>

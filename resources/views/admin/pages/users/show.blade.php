@@ -11,7 +11,15 @@
                    class="btn btn-primary form-btn float-right">Back</a>
             </div>
         </div>
-        @include('stisla-templates::common.errors')
+        @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         <div class="section-body">
             <div class="card">
                 <div class="card-body">

@@ -55,7 +55,7 @@ Route::get('/layanan/{slug}', [\App\Http\Controllers\ServiceContoller::class, 'i
 
 // About
 Route::get('/tentang/{slug}', [\App\Http\Controllers\AboutContoller::class, 'index'])->name('about.index');
-Route::get('/privacy-policy', [\App\Http\Controllers\AboutContoller::class, 'privacyPolicy'])->name('privacy-policy.index');
+Route::get('/privasi-dan-kebijakan', [\App\Http\Controllers\AboutContoller::class, 'privacyPolicy'])->name('privacy-policy.index');
 
 // Member info
 Route::get('/anggota/{id}', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
@@ -95,7 +95,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
     // Profile
     Route::get('profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin.profile');
     Route::post('profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('admin.profile.update');
-    
+
     // Role Kabupaten
     Route::group(['middleware' => ['role:SuperAdmin|Kabupaten']], function() {
         // Service
@@ -108,8 +108,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::get('laporan-jpzisnu/{date}', [App\Http\Controllers\Admin\ReportController::class, 'jpzisnuReportShow'])->name('admin.report.annual.show');
             Route::get('laporan-midtrans', [App\Http\Controllers\Admin\ReportController::class, 'midtransReport'])->name('admin.report.midtrans.index');
             Route::get('laporan-midtrans/{date}', [App\Http\Controllers\Admin\ReportController::class, 'midtransReportShow'])->name('admin.report.midtrans.show');
-            Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);            
-            
+            Route::resource('incomes', App\Http\Controllers\Admin\IncomeController::class, ["as" => 'admin.report']);
+
             Route::group(['prefix' => 'export'], function () {
                 Route::get('kaleng-nu', [App\Http\Controllers\Admin\ReportController::class, 'exportKalengNu'])->name('admin.report.keuangan.export');
                 Route::get('laporan-jpzisnu', [App\Http\Controllers\Admin\ReportController::class, 'exportJpzisnu'])->name('admin.report.annual.export');
@@ -117,11 +117,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
                 Route::get('laporan-midtrans', [App\Http\Controllers\Admin\ReportController::class, 'exportMidtrans'])->name('admin.report.midtrans.export');
             });
         });
-        
+
         // Outcome
         Route::get('outcomes/export', [App\Http\Controllers\Admin\OutcomeController::class, 'export'])->name('admin.outcomes.export');
         Route::resource('outcomes', App\Http\Controllers\Admin\OutcomeController::class, ["as" => 'admin']);
-        
+
         // Content
         Route::resource('banners', App\Http\Controllers\Admin\BannerController::class, ["as" => 'admin']);
         Route::resource('news', App\Http\Controllers\Admin\NewsController::class, ["as" => 'admin']);
@@ -162,7 +162,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::patch('program/{id}/edit', [App\Http\Controllers\Admin\ProgramDonateController::class, 'update'])->name('admin.donatur.program.update');
             Route::delete('program/{type}/list/{id}', [App\Http\Controllers\Admin\ProgramDonateController::class, 'destroy'])->name('admin.donatur.program.destroy');
             Route::get('program/{id}/list', [App\Http\Controllers\Admin\ProgramDonateController::class, 'show'])->name('admin.donatur.program.list');
-            
+
             Route::get('ziswaf', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'index'])->name('admin.donatur.ziswaf.index');
             Route::get('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'create'])->name('admin.donatur.ziswaf.create');
             Route::post('ziswaf/{id}/create', [App\Http\Controllers\Admin\ZiswafDonateController::class, 'store'])->name('admin.donatur.ziswaf.store');
@@ -178,7 +178,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::resource('dana', App\Http\Controllers\Admin\SupportServiceController::class, ["as" => 'admin.service']);
         });
     });
-    
+
     // Role SuperAdmin
     Route::group(['middleware' => ['role:SuperAdmin']], function() {
         // Master Data
@@ -199,7 +199,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_member', 'auth']], funct
             Route::resource('bantuan', App\Http\Controllers\Admin\SupportServiceCategoryController::class, ["as" => 'admin.category']);
             Route::resource('outcome', App\Http\Controllers\Admin\OutcomeCategoryController::class, ["as" => 'admin.category']);
         });
-        
+
         // Location
         Route::group(['prefix' => 'location'], function () {
             Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class, ["as" => 'admin.location']);

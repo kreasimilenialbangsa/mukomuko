@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Kategori Berita 
+    Kategori Berita
 @endsection
 @section('content')
     <section class="section">
@@ -17,14 +17,14 @@
             </div>
         </div>
     <div class="section-body">
-            @include('flash::message')
+
            <div class="card">
                 <div class="card-body">
                 @include('admin.pages.news_categories.table')
             </div>
        </div>
    </div>
-    
+
     </section>
 @endsection
 

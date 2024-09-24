@@ -9,25 +9,28 @@
         <h6>Pelajari Lebih Lanjut</h6>
         <div class="row nav-wrap m-0 mt-3">
           <div class="col-lg-6 px-0">
-            <a class="nav-link" href="#">Tentang Kami</a>
+            <a class="nav-link" href="">Tentang Kami</a>
           </div>
           <div class="col-lg-6 px-0">
             <a class="nav-link" href="#">Sekilas NU</a>
           </div>
           <div class="col-lg-6 px-0">
-            <a class="nav-link" href="#">Visi & Misi</a>
+            <a class="nav-link" href="{{ route('about.index', 'visi-misi') }}">Visi & Misi</a>
           </div>
           <div class="col-lg-6 px-0">
-            <a class="nav-link" href="#">Pengurus</a>
+            <a class="nav-link" href="{{ route('about.index', 'pengurus') }}">Pengurus</a>
           </div>
           <div class="col-lg-6 col-5 px-0">
-            <a class="nav-link" href="#">Daftar Rekening</a>
+            <a class="nav-link" href="{{ route('service.index', 'daftar-rekening') }}">Daftar Rekening</a>
           </div>
           <div class="col-lg-6 px-0">
-            <a class="nav-link" href="#">GO-Ziswaf</a>
+            <a class="nav-link" href="{{ route('service.index', 'go-ziswaf') }}">GO-Ziswaf</a>
           </div>
           <div class="col-lg-6 px-0">
             <a class="nav-link" href="#">Layanan</a>
+          </div>
+          <div class="col-lg-6 px-0">
+            <a class="nav-link" href="{{ route('privacy-policy.index') }}">Privasi dan Kebijakan</a>
           </div>
         </div>
       </div>

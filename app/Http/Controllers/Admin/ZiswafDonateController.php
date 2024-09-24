@@ -8,9 +8,11 @@ use App\Http\Requests\Admin\UpdateDonateRequest;
 use App\Repositories\Admin\DonateRepository;
 use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Admin\Desa;
 use App\Models\Admin\Donate;
 use App\Models\Admin\Ziswaf;
 use App\Models\Admin\ZiswafCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -40,13 +42,25 @@ class ZiswafDonateController extends AppBaseController
             $ziswaf = Ziswaf::select('id', 'title', 'category_id', 'created_at')
                 ->whereCategoryId($request->category)
                 ->withSum(['donate' => function($query) {
-                    $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
+                    if(Auth::user()->hasRole('SuperAdmin')) {
+                        $query->where('user_id', Auth::user()->id)->orWhere('parent_user', Auth::user()->id);
+                    } else {
+                        $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
+                    }
                 }], 'total_donate')
                 ->withCount(['donate' => function($query) {
-                    $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
+                    if(Auth::user()->hasRole('SuperAdmin')) {
+                        $query->where('user_id', Auth::user()->id)->orWhere('parent_user', Auth::user()->id);
+                    } else {
+                        $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
+                    }
                 }])
                 ->withCount(['my_donates' => function($query) {
-                    $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
+                    if(Auth::user()->hasRole('SuperAdmin')) {
+                        $query->where('user_id', Auth::user()->id)->orWhere('parent_user', Auth::user()->id);
+                    } else {
+                        $query->where('location_id', Auth::user()->location_id)->where('user_id', Auth::user()->id);
+                    }
                 }])
                 ->get();
 
@@ -70,14 +84,23 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function create($id)
+    public function create($id, Request $request)
     {
-        $program = Ziswaf::whereId($id)
-            ->with('category')
-            ->withSum('donate', 'total_donate')
-            ->firstOrFail();
+        $desa = Desa::where('parent_id', '>', 0)->orderBy('name', 'asc')->pluck('name', 'id');
 
-        return view('admin.pages.ziswaf_donates.create');
+        if($request->ajax()) {
+            $users = User::select('id', 'name')
+                ->whereLocationId($request->type)
+                ->when(isset($request->term), function($q) use($request) {
+                    $q->where('name', 'LIKE', '%'.$request->term.'%');
+                })
+                ->orderBy('name', 'asc')
+                ->get();
+            return response()->json($users);
+        }
+
+        return view('admin.pages.ziswaf_donates.create')
+            ->with('desa', $desa);
     }
 
     /**
@@ -89,25 +112,44 @@ class ZiswafDonateController extends AppBaseController
      */
     public function store($id, CreateDonateRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required|min:10',
-            'total_donate' => 'min:5',
-            'date_donate' => 'required'
-        ],[
-            'name.required' => 'Bagian isian nama wajib diisi.',
-            'phone.required' => 'Bagian isian telepon wajib diisi.',
-            'total_donate.min' => 'Minimal donasi adalah Rp 1.000',
-            'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
-        ]);
+        if(Auth::user()->hasRole('SuperAdmin')) {
+            $request->validate([
+                'desa' => 'required',
+                'akun' => 'required',
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required|min:10',
+                'total_donate' => 'min:5',
+                'date_donate' => 'required'
+            ],[
+                'desa.required' => 'Bagian isian desa wajib diisi.',
+                'akun.required' => 'Bagian isian JPZISNU wajib diisi.',
+                'name.required' => 'Bagian isian nama wajib diisi.',
+                'phone.required' => 'Bagian isian telepon wajib diisi.',
+                'total_donate.min' => 'Minimal donasi adalah Rp 1.000',
+                'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required|min:10',
+                'total_donate' => 'min:5',
+                'date_donate' => 'required'
+            ],[
+                'name.required' => 'Bagian isian nama wajib diisi.',
+                'phone.required' => 'Bagian isian telepon wajib diisi.',
+                'total_donate.min' => 'Minimal donasi adalah Rp 1.000',
+                'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
+            ]);
+        }
 
         $input = [
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::user()->hasRole('SuperAdmin') ? $request->akun : Auth::user()->id,
             'order_id' => 'ZISWAF-'.time(),
             'type' => '\App\Models\Admin\Ziswaf',
             'type_id' => $id,
-            'location_id' => Auth::user()->location_id,
+            'location_id' => Auth::user()->hasRole('SuperAdmin') ? $request->desa : Auth::user()->location_id,
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -151,6 +193,7 @@ class ZiswafDonateController extends AppBaseController
                 ->whereType('\App\Models\Admin\Ziswaf')
                 ->whereTypeId($id)
                 ->whereUserId(Auth::user()->id)
+                ->orWhere('parent_user', Auth::user()->id)
                 ->get();
 
             return DataTables::of($donatur)
@@ -178,17 +221,30 @@ class ZiswafDonateController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $donate = $this->donateRepository->find($id);
 
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donatur.ziswaf.list', $type_id));
+            return redirect(route('admin.donatur.ziswaf.list', $id));
         }
 
-        return view('admin.pages.ziswaf_donates.edit')->with('donate', $donate);
+        if($request->ajax()) {
+            $users = User::select('id', 'name')
+                ->whereLocationId($request->type)
+                ->when(isset($request->term), function($q) use($request) {
+                    $q->where('name', 'LIKE', '%'.$request->term.'%');
+                })
+                ->orderBy('name', 'asc')
+                ->get();
+            return response()->json($users);
+        }
+
+        $desa = Desa::where('parent_id', '>', 0)->orderBy('name', 'asc')->pluck('name', 'id');
+
+        return view('admin.pages.ziswaf_donates.edit')->with('donate', $donate)->with('desa', $desa);
     }
 
     /**
@@ -206,28 +262,47 @@ class ZiswafDonateController extends AppBaseController
         if (empty($donate)) {
             Flash::error('Donate not found');
 
-            return redirect(route('admin.donatur.ziswaf.list', $donate->type_id));
+            return redirect(route('admin.donatur.ziswaf.list', $id));
         }
 
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required|min:10',
-            'total_donate' => 'min:4',
-            'date_donate' => 'required'
-        ],[
-            'name.required' => 'Bagian isian nama wajib diisi.',
-            'phone.required' => 'Bagian isian telepon wajib diisi.',
-            'total_donate.min' => 'Minimal donasi adalah Rp 10.000',
-            'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
-        ]);
+        if(Auth::user()->hasRole('SuperAdmin')) {
+            $request->validate([
+                'desa' => 'required',
+                'akun' => 'required',
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required|min:10',
+                'total_donate' => 'min:4',
+                'date_donate' => 'required'
+            ],[
+                'desa.required' => 'Bagian isian desa wajib diisi.',
+                'akun.required' => 'Bagian isian JPZISNU wajib diisi.',
+                'name.required' => 'Bagian isian nama wajib diisi.',
+                'phone.required' => 'Bagian isian telepon wajib diisi.',
+                'total_donate.min' => 'Minimal donasi adalah Rp 10.000',
+                'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required|min:10',
+                'total_donate' => 'min:4',
+                'date_donate' => 'required'
+            ],[
+                'name.required' => 'Bagian isian nama wajib diisi.',
+                'phone.required' => 'Bagian isian telepon wajib diisi.',
+                'total_donate.min' => 'Minimal donasi adalah Rp 10.000',
+                'date_donate.required' => 'Bagian isian tangal donasi wajib diisi.'
+            ]);
+        }
 
         $input = [
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::user()->hasRole('SuperAdmin') ? $request->akun : Auth::user()->id,
             // 'order_id' => 'ZISWAF-'.time(),
             'type' => '\App\Models\Admin\Ziswaf',
             'type_id' => $donate->type_id,
-            'location_id' => Auth::user()->location_id,
+            'location_id' => Auth::user()->hasRole('SuperAdmin') ? $request->desa : Auth::user()->location_id ,
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,

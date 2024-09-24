@@ -116,7 +116,7 @@
                         <span class="mr-2">Tahun:</span>
                         <select class="form-control form-control-sm fselect2" name="year">
                             @foreach($year as $row)
-                                <option value="{{ $row->year }}" {{ $row->year == date('Y') ? 'selected' : '' }}>{{ $row->year }}</option>
+                                <option value="{{ $row }}" {{ $row == date('Y') ? 'selected' : '' }}>{{ $row }}</option>
                             @endforeach
                         </select>
                 </label>

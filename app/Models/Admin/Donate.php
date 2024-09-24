@@ -39,6 +39,7 @@ class Donate extends Model
 
     public $fillable = [
         'user_id',
+        'parent_user',
         'order_id',
         'order_token',
         'order_url',
@@ -63,6 +64,7 @@ class Donate extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
+        'parent_user' => 'integer',
         'order_id' => 'string',
         'order_token' => 'string',
         'order_url' => 'string',
