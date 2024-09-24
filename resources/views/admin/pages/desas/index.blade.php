@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Desa 
+    Desa
 @endsection
 @section('content')
     <section class="section">
@@ -18,13 +18,13 @@
         </div>
     <div class="section-body">
        <div class="card">
-            @include('flash::message')
+
             <div class="card-body">
                 @include('admin.pages.desas.table')
             </div>
        </div>
    </div>
-    
+
     </section>
 @endsection
 

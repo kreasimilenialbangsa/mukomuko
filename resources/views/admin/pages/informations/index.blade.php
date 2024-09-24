@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Informasi Dana 
+    Informasi Dana
 @endsection
 @section('content')
     <section class="section">
@@ -14,7 +14,15 @@
             </div>
         </div>
     <div class="section-body">
-        @include('stisla-templates::common.errors')
+        @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
            <div class="card">
                 <div class="card-body">
                     {!! Form::open(['route' => 'admin.informations.store', 'class' => 'form-save']) !!}

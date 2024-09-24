@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    {{ request()->segment(3) == 'members' ? 'Akun Anggota' : 'Akun User' }} 
+    {{ request()->segment(3) == 'members' ? 'Akun Anggota' : 'Akun User' }}
 @endsection
 @section('content')
     <section class="section">
@@ -17,14 +17,14 @@
             </div>
         </div>
     <div class="section-body">
-            @include('flash::message')
+
            <div class="card">
                 <div class="card-body">
                 @include('admin.pages.users.table')
             </div>
        </div>
    </div>
-    
+
     </section>
 
 <!-- Modal -->

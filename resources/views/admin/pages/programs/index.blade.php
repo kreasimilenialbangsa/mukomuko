@@ -17,14 +17,14 @@
             </div>
         </div>
     <div class="section-body">
-            @include('flash::message')
+
            <div class="card">
                 <div class="card-body">
                 @include('admin.pages.programs.table')
             </div>
        </div>
    </div>
-    
+
     </section>
 @endsection
 

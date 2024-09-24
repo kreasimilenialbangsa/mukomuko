@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Kategori Ziswaf 
+    Kategori Ziswaf
 @endsection
 @section('content')
     <section class="section">
@@ -17,14 +17,14 @@
             </div>
         </div>
     <div class="section-body">
-            @include('flash::message')
+
            <div class="card">
                 <div class="card-body">
                 @include('admin.pages.ziswaf_categories.table')
             </div>
        </div>
    </div>
-    
+
     </section>
 @endsection
 
